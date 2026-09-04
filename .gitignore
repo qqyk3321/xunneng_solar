@@ -1,0 +1,11 @@
+.env
+.env.*
+supabase/functions/.env
+supabase/.branches
+supabase/.temp
+.codex/
+.next/
+.vscode/
+node_modules/
+email/
+supabase/
