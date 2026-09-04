@@ -2,8 +2,12 @@
 
 import Script from "next/script";
 import { useRouter } from "next/navigation";
-import { Check, ChevronLeft, FileJson, MapPin, Send, X } from "lucide-react";
+import { Check, ChevronLeft, MapPin, Send, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import {
+  GoogleMapsAddressSelection,
+  type ConfirmedGoogleMapLocation,
+} from "@/components/google-maps-address-selection";
 
 type Step = "location" | "form" | "thanks";
 
@@ -14,15 +18,9 @@ type SelectedPlace = {
   locationJson: string;
 };
 
-type DraftLocation = {
-  address: string;
-  lat: number;
-  lng: number;
-};
-
 const TALLY_FORM_ID = "QKQpNX";
 
-export function ConsultationFlow() {
+export function ConsultationFlow({ apiKey }: { apiKey: string }) {
   const [step, setStep] = useState<Step>("location");
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(null);
 
@@ -39,6 +37,7 @@ export function ConsultationFlow() {
 
         {step === "location" && (
           <LocationStep
+            apiKey={apiKey}
             onConfirm={(place) => {
               setSelectedPlace(place);
               setStep("form");
@@ -88,110 +87,34 @@ function StepMeter({ step }: { step: Step }) {
   );
 }
 
-function LocationStep({ onConfirm }: { onConfirm: (place: SelectedPlace) => void }) {
-  const [address, setAddress] = useState("上海市黄浦区人民广场");
-  const [lat, setLat] = useState("31.230416");
-  const [lng, setLng] = useState("121.473701");
-
-  const draftLocation = useMemo<DraftLocation | null>(() => {
-    const parsedLat = Number(lat);
-    const parsedLng = Number(lng);
-
-    if (!address.trim() || !Number.isFinite(parsedLat) || !Number.isFinite(parsedLng)) {
-      return null;
-    }
-
-    return {
-      address: address.trim(),
-      lat: parsedLat,
-      lng: parsedLng,
+function LocationStep({
+  apiKey,
+  onConfirm,
+}: {
+  apiKey: string;
+  onConfirm: (place: SelectedPlace) => void;
+}) {
+  const handleConfirmedLocation = (location: ConfirmedGoogleMapLocation) => {
+    const locationPayload = {
+      ...location,
+      capturedAt: new Date().toISOString(),
     };
-  }, [address, lat, lng]);
 
-  const previewJson = draftLocation
-    ? JSON.stringify({
-        address: draftLocation.address,
-        lat: draftLocation.lat,
-        lng: draftLocation.lng,
-        source: "manual_test",
-        capturedAt: "<set-on-confirm>",
-      })
-    : null;
+    onConfirm({
+      address: location.address,
+      lat: location.lat,
+      lng: location.lng,
+      locationJson: JSON.stringify(locationPayload),
+    });
+  };
 
   return (
-    <div className="location-grid">
-      <div className="panel">
-        <div className="panel-title">
-          <MapPin aria-hidden="true" />
-          <h2>确认安装位置</h2>
-        </div>
-
-        <label className="field-stack">
-          <span>地址</span>
-          <input
-            onChange={(event) => setAddress(event.target.value)}
-            placeholder="输入用户确认的地址"
-            type="text"
-            value={address}
-          />
-        </label>
-
-        <div className="coordinate-row">
-          <label className="field-stack">
-            <span>Latitude</span>
-            <input onChange={(event) => setLat(event.target.value)} step="any" type="number" value={lat} />
-          </label>
-          <label className="field-stack">
-            <span>Longitude</span>
-            <input onChange={(event) => setLng(event.target.value)} step="any" type="number" value={lng} />
-          </label>
-        </div>
-
-        <p className="status">当前页面先固定测试 hidden field 提交流程，地址和坐标会一起打包。</p>
-
-        {draftLocation && previewJson && (
-          <div className="selection">
-            <strong>location_json</strong>
-            <code>{previewJson}</code>
-            <span>
-              {draftLocation.lat.toFixed(6)}, {draftLocation.lng.toFixed(6)}
-            </span>
-          </div>
-        )}
-
-        <button
-          className="primary"
-          disabled={!draftLocation}
-          onClick={() => {
-            if (!draftLocation) return;
-
-            const locationPayload = {
-              address: draftLocation.address,
-              lat: draftLocation.lat,
-              lng: draftLocation.lng,
-              source: "manual_test",
-              capturedAt: new Date().toISOString(),
-            };
-
-            onConfirm({
-              ...draftLocation,
-              locationJson: JSON.stringify(locationPayload),
-            });
-          }}
-          type="button"
-        >
-          <Check aria-hidden="true" />
-          确认并进入表单
-        </button>
-      </div>
-
-      <div className="map-wrap">
-        <div className="json-preview">
-          <FileJson aria-hidden="true" />
-          <pre>{previewJson ?? "请输入有效地址和经纬度"}</pre>
-        </div>
-      </div>
-    </div>
+    <GoogleMapsAddressSelection
+      apiKey={apiKey}
+      embedded
+      enableMapPointSelection
+      onConfirmed={handleConfirmedLocation}
+    />
   );
 }
 

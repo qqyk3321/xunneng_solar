@@ -8,7 +8,7 @@ The current site flow is:
 
 1. Home page introduces household solar / PV consultation.
 2. User enters the consultation flow from `/consultation`.
-3. User enters an address and GPS coordinates manually.
+3. User searches an address or clicks the map to choose an installation location.
 4. User fills the embedded Tally form.
 5. User sees a thank-you modal and returns to the home page.
 
@@ -16,9 +16,10 @@ No login system is required.
 
 ## Integration Notes
 
-This test version does not call Google Maps, Places, Geocoding, OpenStreetMap,
-or any other map provider. It only packages manually entered address/GPS values
-into a JSON string so the Tally hidden field flow can be tested deterministically.
+The first step uses Google Maps Platform Extended Component Library. Address
+search uses Place Picker data. A map click stores only coordinates; reverse
+geocoding is deferred until the user explicitly confirms the location, to avoid
+an address lookup for every map click.
 
 Tally is embedded with the form id `QKQpNX`. The consultation page listens for
 `Tally.FormSubmitted` `postMessage` events from the embed, shows a thank-you
@@ -34,13 +35,12 @@ Tally saves this value because form `QKQpNX` has a matching hidden field named
 ## Current Pages
 
 - `/`: simple placeholder landing page for solar consultation
-- `/consultation`: hidden-field test flow and embedded Tally form
+- `/consultation`: Google Maps location selection and embedded Tally form
 
 ## Non-Goals
 
 - User authentication
-- Automatic geolocation
-- Map provider integration
+- Automatic browser geolocation
 - Writing location data directly to Supabase outside the existing Tally webhook
 - Editing Tally submissions after they are submitted
 

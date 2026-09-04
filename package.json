@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@googlemaps/extended-component-library": "^0.7.0",
     "lucide-react": "^0.542.0",
     "next": "^15.5.2",
     "react": "^19.1.1",
