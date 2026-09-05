@@ -28,7 +28,10 @@ export async function POST(request: NextRequest) {
     }
     if (payload.status !== "OK" || !result?.formatted_address) {
       console.error("Google reverse geocoding rejected the request", { status: payload.status ?? "UNKNOWN" });
-      return NextResponse.json({ error: "Google reverse geocoding request was rejected." }, { status: 502 });
+      return NextResponse.json({
+        error: "Google reverse geocoding request was rejected.",
+        providerStatus: payload.status ?? "UNKNOWN",
+      }, { status: 502 });
     }
     return NextResponse.json({ address: result.formatted_address, placeId: result.place_id ?? "" });
   } catch {

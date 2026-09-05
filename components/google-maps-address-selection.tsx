@@ -215,8 +215,15 @@ export function GoogleMapsAddressSelection({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ lat: selection.latitude, lng: selection.longitude }),
       });
-      const payload = await response.json() as { address?: string; placeId?: string; error?: string };
-      if (!response.ok || !payload.address) throw new Error(payload.error ?? "Reverse geocoding failed");
+      const payload = await response.json() as {
+        address?: string;
+        placeId?: string;
+        error?: string;
+        providerStatus?: string;
+      };
+      if (!response.ok || !payload.address) {
+        throw new Error(payload.providerStatus ?? payload.error ?? "Reverse geocoding failed");
+      }
 
       const confirmedPlace = {
         ...selection,
@@ -225,8 +232,9 @@ export function GoogleMapsAddressSelection({
       };
       setSelection(confirmedPlace);
       finishCheckout(confirmedPlace);
-    } catch {
-      setError("地址反向解析失败，请稍后重试确认。");
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "UNKNOWN";
+      setError(`地址反向解析失败（Google: ${detail}），请检查服务端 Key 配置。`);
     } finally {
       setIsConfirming(false);
     }
