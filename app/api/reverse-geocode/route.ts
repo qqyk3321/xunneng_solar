@@ -23,8 +23,12 @@ export async function POST(request: NextRequest) {
     if (!response.ok) return NextResponse.json({ error: "Google Geocoding request failed." }, { status: 502 });
     const payload = await response.json() as { status?: string; results?: Array<{ formatted_address?: string; place_id?: string }> };
     const result = payload.results?.[0];
-    if (payload.status !== "OK" || !result?.formatted_address) {
+    if (payload.status === "ZERO_RESULTS") {
       return NextResponse.json({ error: "No address found for this location." }, { status: 404 });
+    }
+    if (payload.status !== "OK" || !result?.formatted_address) {
+      console.error("Google reverse geocoding rejected the request", { status: payload.status ?? "UNKNOWN" });
+      return NextResponse.json({ error: "Google reverse geocoding request was rejected." }, { status: 502 });
     }
     return NextResponse.json({ address: result.formatted_address, placeId: result.place_id ?? "" });
   } catch {
