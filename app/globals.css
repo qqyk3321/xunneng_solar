@@ -314,6 +314,16 @@ button:disabled {
   overflow-wrap: anywhere;
 }
 
+.maps-demo-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.maps-demo-modal-actions .primary {
+  margin-top: 0;
+}
+
 .landing-button {
   width: fit-content;
 }

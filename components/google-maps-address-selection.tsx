@@ -182,19 +182,7 @@ export function GoogleMapsAddressSelection({
 
     const finishCheckout = (place: Selection) => {
       if (place.latitude == null || place.longitude == null) return;
-
-      const location = {
-        address: place.address,
-        lat: place.latitude,
-        lng: place.longitude,
-        source: place.source === "地址搜索" ? "address_search" : "map_click",
-      } as const;
-
-      if (onConfirmed) {
-        onConfirmed(location);
-      } else {
-        setIsCheckoutOpen(true);
-      }
+      setIsCheckoutOpen(true);
     };
 
     if (selection.source !== "地图选点") {
@@ -238,6 +226,22 @@ export function GoogleMapsAddressSelection({
     } finally {
       setIsConfirming(false);
     }
+  };
+
+  const handleFinalConfirmation = () => {
+    if (!selection || selection.latitude == null || selection.longitude == null) return;
+
+    if (onConfirmed) {
+      onConfirmed({
+        address: selection.address,
+        lat: selection.latitude,
+        lng: selection.longitude,
+        source: selection.source === "地址搜索" ? "address_search" : "map_click",
+      });
+      return;
+    }
+
+    setIsCheckoutOpen(false);
   };
 
   if (!apiKey) {
@@ -355,10 +359,18 @@ export function GoogleMapsAddressSelection({
             <h2 id="maps-demo-checkout-title">地址选择结果</h2>
             <dl>
               <div><dt>完整地址</dt><dd>{selection.address}</dd></div>
+              <div><dt>选择方式</dt><dd>{selection.source}</dd></div>
               <div><dt>纬度（lat）</dt><dd>{selection.latitude?.toFixed(6) ?? "—"}</dd></div>
               <div><dt>经度（lon）</dt><dd>{selection.longitude?.toFixed(6) ?? "—"}</dd></div>
             </dl>
-            <button className="primary" onClick={() => setIsCheckoutOpen(false)} type="button">关闭</button>
+            {onConfirmed ? (
+              <div className="maps-demo-modal-actions">
+                <button className="ghost" onClick={() => setIsCheckoutOpen(false)} type="button">重新选择</button>
+                <button className="primary" onClick={handleFinalConfirmation} type="button">确认并进入表单</button>
+              </div>
+            ) : (
+              <button className="primary" onClick={() => setIsCheckoutOpen(false)} type="button">关闭</button>
+            )}
           </section>
         </div>
       )}
