@@ -57,18 +57,6 @@ type MapElement = HTMLElement & {
   };
 };
 
-type GoogleMapsWindow = Window & {
-  google?: {
-    maps: {
-      Geocoder: new () => {
-        geocode: (request: { location: { lat: number; lng: number } }) => Promise<{
-          results: Array<{ formatted_address?: string; place_id?: string }>;
-        }>;
-      };
-    };
-  };
-};
-
 export function GoogleMapsAddressSelection({
   apiKey,
   enableMapPointSelection = false,
@@ -218,24 +206,27 @@ export function GoogleMapsAddressSelection({
     setError("");
 
     try {
-      const maps = (window as GoogleMapsWindow).google?.maps;
-      if (!maps || selection.latitude == null || selection.longitude == null) {
-        throw new Error("Google Maps API is not ready");
+      if (selection.latitude == null || selection.longitude == null) {
+        throw new Error("Selected coordinates are missing");
       }
 
-      const response = await new maps.Geocoder().geocode({
-        location: { lat: selection.latitude, lng: selection.longitude },
+      const response = await fetch("/api/reverse-geocode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ lat: selection.latitude, lng: selection.longitude }),
       });
+      const payload = await response.json() as { address?: string; placeId?: string; error?: string };
+      if (!response.ok || !payload.address) throw new Error(payload.error ?? "Reverse geocoding failed");
+
       const confirmedPlace = {
         ...selection,
-        address: response.results[0]?.formatted_address ?? "未找到对应的格式化地址",
-        placeId: response.results[0]?.place_id ?? "",
+        address: payload.address,
+        placeId: payload.placeId ?? "",
       };
       setSelection(confirmedPlace);
       finishCheckout(confirmedPlace);
     } catch {
-      setError("地址反向解析失败。你仍可通过经纬度确认该位置。");
-      finishCheckout(selection);
+      setError("地址反向解析失败，请稍后重试确认。");
     } finally {
       setIsConfirming(false);
     }
@@ -247,7 +238,7 @@ export function GoogleMapsAddressSelection({
         <section className={`maps-demo-card maps-demo-error${embedded ? " maps-demo-card-embedded" : ""}`}>
           <p className="kicker">Google Maps Platform</p>
           <h1>未找到 API Key</h1>
-          <p>请确认 `.env` 中设置了 `GOOGLE_MAP_API`，然后重启开发服务器。</p>
+          <p>请确认 `.env` 中设置了 `NEXT_PUBLIC_GOOGLE_MAPS_BROWSER_KEY`，然后重启开发服务器。</p>
           <Link href="/" className="ghost">返回首页</Link>
         </section>
       </main>

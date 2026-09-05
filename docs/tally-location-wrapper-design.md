@@ -21,6 +21,11 @@ search uses Place Picker data. A map click stores only coordinates; reverse
 geocoding is deferred until the user explicitly confirms the location, to avoid
 an address lookup for every map click.
 
+The browser-only `NEXT_PUBLIC_GOOGLE_MAPS_BROWSER_KEY` is used for Maps
+JavaScript API and Places. The confirmed map location is reverse-geocoded by
+the server endpoint using `GOOGLE_MAPS_SERVER_KEY`, which is never sent to the
+browser.
+
 Tally is embedded with the form id `QKQpNX`. The consultation page listens for
 `Tally.FormSubmitted` `postMessage` events from the embed, shows a thank-you
 message, and then sends the user back to the home page.
