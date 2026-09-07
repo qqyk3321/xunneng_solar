@@ -68,13 +68,7 @@ export function ConsultationFlow({ apiKey }: { apiKey: string }) {
           )}
 
           {step === "thanks" && selectedPlace && (
-            <ThanksModal
-              place={selectedPlace}
-              onClose={() => {
-                setSelectedPlace(null);
-                setStep("location");
-              }}
-            />
+            <ThanksModal place={selectedPlace} />
           )}
         </section>
       </main>
@@ -237,10 +231,8 @@ function FormStep({
 
 function ThanksModal({
   place,
-  onClose,
 }: {
   place: SelectedPlace;
-  onClose: () => void;
 }) {
   const router = useRouter();
 
@@ -258,7 +250,7 @@ function ThanksModal({
         <button
           aria-label="Close"
           className="absolute right-space-md top-space-md inline-flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-low text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface"
-          onClick={() => router.push("/")}
+          onClick={() => router.replace("/")}
           type="button"
         >
           <X aria-hidden="true" className="h-[18px] w-[18px]" />
@@ -292,8 +284,7 @@ function ThanksModal({
         <button
           className="inline-flex min-h-11 w-full items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-lg py-space-sm font-label-md text-body-md font-bold text-on-primary shadow-[0_4px_14px_rgba(0,122,135,0.25)] transition-all hover:bg-primary"
           onClick={() => {
-            onClose();
-            router.push("/");
+            router.replace("/");
           }}
           type="button"
         >
