@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --bg: #f6f7f4;
   --surface: #ffffff;
@@ -11,6 +15,62 @@
   --shadow: 0 20px 60px rgba(23, 33, 27, 0.12);
 }
 
+.tailwind-scope {
+  background: #faf8ff;
+  color: #131b2e;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tailwind-scope *,
+.tailwind-scope *::before,
+.tailwind-scope *::after {
+  box-sizing: border-box;
+}
+
+.tailwind-scope a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.tailwind-scope img {
+  display: block;
+  max-width: 100%;
+}
+
+.tailwind-scope main > :first-child {
+  margin-top: 0 !important;
+}
+
+.tailwind-scope main > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.tailwind-scope *,
+.tailwind-scope *::before,
+.tailwind-scope *::after {
+  border-color: #e5e7eb;
+  border-style: solid;
+  border-width: 0;
+}
+
+.tailwind-scope h1,
+.tailwind-scope h2,
+.tailwind-scope h3,
+.tailwind-scope h4,
+.tailwind-scope p {
+  margin: 0;
+}
+
+.tailwind-scope gmpx-place-picker {
+  --gmpx-color-primary: #007a87;
+  --gmpx-font-family-base: "Plus Jakarta Sans", sans-serif;
+  display: block;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -19,11 +79,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family:
-    Arial,
-    "PingFang SC",
-    "Microsoft YaHei",
-    sans-serif;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 button,
@@ -49,7 +105,11 @@ button:disabled {
   min-height: 100vh;
   padding: 32px;
   background:
-    radial-gradient(circle at top left, rgba(255, 224, 138, 0.55), transparent 32%),
+    radial-gradient(
+      circle at top left,
+      rgba(255, 224, 138, 0.55),
+      transparent 32%
+    ),
     linear-gradient(135deg, #f4f1e7 0%, #edf6ef 48%, #fefcf8 100%);
 }
 
@@ -123,7 +183,11 @@ button:disabled {
   min-height: 100vh;
   padding: 32px;
   background:
-    radial-gradient(circle at top left, rgba(255, 224, 138, 0.55), transparent 32%),
+    radial-gradient(
+      circle at top left,
+      rgba(255, 224, 138, 0.55),
+      transparent 32%
+    ),
     linear-gradient(135deg, #f4f1e7 0%, #edf6ef 48%, #fefcf8 100%);
 }
 
