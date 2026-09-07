@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "A valid latitude and longitude are required." }, { status: 400 });
   }
 
-  const query = new URLSearchParams({ latlng: `${lat},${lng}`, key: apiKey, language: "zh-CN" });
+  const query = new URLSearchParams({ latlng: `${lat},${lng}`, key: apiKey, language: "en" });
   try {
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?${query}`, { cache: "no-store" });
     if (!response.ok) return NextResponse.json({ error: "Google Geocoding request failed." }, { status: 502 });
