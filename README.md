@@ -41,10 +41,15 @@ It accepts only `POST`, checks the query-string `secret` against
 stores the original JSON payload, and then forwards a compact payload to the
 independent email service.
 
-需要新增两个 Supabase secrets：
+需要新增三个 Supabase secrets：
 
 - `RESEND_SERVICE_URL`
 - `RESEND_SERVICE_SECRET`
+- `CONSULTATION_PREVIEW_BASE_URL=https://xunneng.qqyk.uk`
+
+`CONSULTATION_PREVIEW_BASE_URL` 只配置在 Edge Function 中。Webhook 会将
+`submission_id + response_id + respondent_id` 组合成本站预览页链接，并将该链接
+发送给用户；不会将 Tally 的原始 preview URL 直接发送到邮件中。
 
 Supabase 只做 webhook 和转发，不负责模板渲染。
 
@@ -67,6 +72,7 @@ supabase db push --linked --yes
 supabase secrets set TALLY_WEBHOOK_SECRET=<long-random-secret>
 supabase secrets set RESEND_SERVICE_URL=https://mail-api.example.com/send/consultation
 supabase secrets set RESEND_SERVICE_SECRET=<same-secret-used-by-email-service>
+supabase secrets set CONSULTATION_PREVIEW_BASE_URL=https://xunneng.qqyk.uk
 supabase functions deploy tally-webhook
 ```
 
