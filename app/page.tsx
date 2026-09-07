@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BatteryCharging, SunMedium } from "lucide-react";
+import packageJson from "@/package.json";
 
 export default function HomePage() {
   return (
@@ -35,6 +36,10 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+      <footer className="landing-footer">
+        <span>Xunneng Solar</span>
+        <span>Version {packageJson.version}</span>
+      </footer>
     </main>
   );
 }

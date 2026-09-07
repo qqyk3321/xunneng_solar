@@ -68,6 +68,18 @@ button:disabled {
   min-height: calc(100vh - 64px);
 }
 
+.landing-footer {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  justify-content: space-between;
+  margin: 18px auto 0;
+  max-width: 1180px;
+  padding: 0 4px;
+}
+
 .hero-copy,
 .hero-panel {
   background: rgba(255, 255, 255, 0.78);

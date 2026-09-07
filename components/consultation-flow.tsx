@@ -18,11 +18,15 @@ type SelectedPlace = {
   locationJson: string;
 };
 
-const TALLY_FORM_ID = "QKQpNX";
+const TALLY_FORM_ID = process.env.NEXT_PUBLIC_TALLY_FORM_ID?.trim();
 
 export function ConsultationFlow({ apiKey }: { apiKey: string }) {
   const [step, setStep] = useState<Step>("location");
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(null);
+
+  if (!TALLY_FORM_ID) {
+    throw new Error("Missing NEXT_PUBLIC_TALLY_FORM_ID");
+  }
 
   return (
     <main className="shell">
