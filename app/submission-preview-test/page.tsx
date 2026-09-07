@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
+import { SubmissionLocationCard } from "@/components/submission-location-card";
 import {
   ArrowLeft,
+  CalendarClock,
   ClipboardCheck,
   MapPin,
   ShieldCheck,
@@ -23,6 +25,14 @@ const COMBINED_ID_LENGTH = TALLY_ID_LENGTH * 3;
 
 type SubmissionRecord = {
   submission_preview_url: string | null;
+  location_json: unknown;
+  received_at: string | null;
+};
+
+type SubmissionLocation = {
+  address: string;
+  lat: number;
+  lng: number;
 };
 
 function splitCombinedId(id: string) {
@@ -37,7 +47,34 @@ function splitCombinedId(id: string) {
   };
 }
 
-async function findSubmissionPreview(id: string) {
+function parseSubmissionLocation(value: unknown): SubmissionLocation | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+
+  const location = value as Record<string, unknown>;
+  const address = typeof location.address === "string" ? location.address.trim() : "";
+  const lat = typeof location.lat === "number" ? location.lat : Number(location.lat);
+  const lng = typeof location.lng === "number" ? location.lng : Number(location.lng);
+
+  if (!address || !Number.isFinite(lat) || !Number.isFinite(lng)) return undefined;
+  return { address, lat, lng };
+}
+
+function formatSubmittedAt(value: string | null): string | undefined {
+  if (!value) return undefined;
+
+  const submittedAt = new Date(value);
+  if (Number.isNaN(submittedAt.getTime())) return undefined;
+
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  }).format(submittedAt);
+
+  return `${formattedDate} UTC`;
+}
+
+async function findSubmission(id: string) {
   const idParts = splitCombinedId(id);
   const supabaseUrl = process.env.SUPABASE_URL?.trim();
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -48,7 +85,7 @@ async function findSubmissionPreview(id: string) {
 
   const requestUrl = new URL("/rest/v1/tally_form_submissions", supabaseUrl);
   requestUrl.search = new URLSearchParams({
-    select: "submission_preview_url",
+    select: "submission_preview_url,location_json,received_at",
     submission_id: `eq.${idParts.submissionId}`,
     response_id: `eq.${idParts.responseId}`,
     respondent_id: `eq.${idParts.respondentId}`,
@@ -67,7 +104,7 @@ async function findSubmissionPreview(id: string) {
     if (!response.ok) return undefined;
 
     const records = (await response.json()) as SubmissionRecord[];
-    return records[0]?.submission_preview_url ?? undefined;
+    return records[0];
   } catch {
     return undefined;
   }
@@ -76,7 +113,11 @@ async function findSubmissionPreview(id: string) {
 export default async function SubmissionPreviewTestPage({ searchParams }: PageProps) {
   const { id } = await searchParams;
   const requestedId = typeof id === "string" ? id : undefined;
-  const previewUrl = requestedId ? await findSubmissionPreview(requestedId) : undefined;
+  const submission = requestedId ? await findSubmission(requestedId) : undefined;
+  const previewUrl = submission?.submission_preview_url;
+  const location = submission ? parseSubmissionLocation(submission.location_json) : undefined;
+  const submittedAt = submission ? formatSubmittedAt(submission.received_at) : undefined;
+  const mapsEmbedKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY?.trim();
 
   if (!previewUrl) {
     redirect("/");
@@ -108,8 +149,8 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
         </span>
       </header>
 
-      <div className="submission-preview-layout">
-        <aside className="submission-preview-sidebar">
+      <section className="submission-preview-intro">
+        <div className="submission-preview-intro-copy">
           <Link className="submission-preview-back" href="/">
             <ArrowLeft aria-hidden="true" /> Back to home
           </Link>
@@ -122,7 +163,10 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
             details you submitted. Our engineering team will use it to prepare
             your initial assessment.
           </p>
+        </div>
 
+        <div className="submission-preview-intro-progress">
+          <p className="submission-preview-intro-label">YOUR PROGRESS</p>
           <div className="submission-preview-steps">
             <span><b>01</b> Installation location confirmed</span>
             <span><b>02</b> Consultation submitted</span>
@@ -137,6 +181,25 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
             <MapPin aria-hidden="true" />
             <span>Need to update your location or details? Please contact us.</span>
           </div>
+        </div>
+      </section>
+
+      <div className="submission-preview-layout">
+        <aside className="submission-preview-details">
+          <div className="submission-preview-details-heading">
+            <p>CONSULTATION DETAILS</p>
+            <h2>Property and submission</h2>
+          </div>
+          {submittedAt ? (
+            <div className="submission-submitted-at">
+              <CalendarClock aria-hidden="true" />
+              <span>
+                <small>SUBMITTED</small>
+                <time dateTime={submission?.received_at ?? undefined}>{submittedAt}</time>
+              </span>
+            </div>
+          ) : null}
+          {location ? <SubmissionLocationCard {...location} embedKey={mapsEmbedKey} /> : null}
         </aside>
 
         <section className="submission-preview-content">

@@ -1,0 +1,62 @@
+import { ExternalLink, MapPinned } from "lucide-react";
+
+type SubmissionLocationCardProps = {
+  address: string;
+  lat: number;
+  lng: number;
+  embedKey?: string;
+};
+
+export function SubmissionLocationCard({
+  address,
+  lat,
+  lng,
+  embedKey,
+}: SubmissionLocationCardProps) {
+  const googleMapsUrl = new URL("https://www.google.com/maps/search/");
+  googleMapsUrl.searchParams.set("api", "1");
+  googleMapsUrl.searchParams.set("query", `${lat},${lng}`);
+
+  const embedUrl = embedKey
+    ? new URL("https://www.google.com/maps/embed/v1/place")
+    : undefined;
+
+  if (embedUrl && embedKey) {
+    embedUrl.searchParams.set("key", embedKey);
+    embedUrl.searchParams.set("q", address);
+  }
+
+  return (
+    <section className="submission-location-card" aria-labelledby="installation-location-title">
+      <div className="submission-location-heading">
+        <MapPinned aria-hidden="true" />
+        <div>
+          <p>INSTALLATION LOCATION</p>
+          <h2 id="installation-location-title">Selected property</h2>
+        </div>
+      </div>
+      <p className="submission-location-address">{address}</p>
+      <p className="submission-location-coordinates">
+        {lat.toFixed(6)}, {lng.toFixed(6)}
+      </p>
+      {embedUrl ? (
+        <iframe
+          allowFullScreen
+          className="submission-location-map"
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          src={embedUrl.toString()}
+          title="Selected installation location on Google Maps"
+        />
+      ) : null}
+      <a
+        className="submission-location-link"
+        href={googleMapsUrl.toString()}
+        rel="noreferrer"
+        target="_blank"
+      >
+        Open in Google Maps <ExternalLink aria-hidden="true" />
+      </a>
+    </section>
+  );
+}

@@ -468,7 +468,8 @@ button:disabled {
   max-width: 1360px;
 }
 
-.submission-preview-sidebar,
+.submission-preview-intro,
+.submission-preview-details,
 .submission-preview-content {
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(19, 27, 46, 0.08);
@@ -476,7 +477,44 @@ button:disabled {
   box-shadow: 0 12px 24px -6px rgba(0, 122, 135, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.03);
 }
 
-.submission-preview-sidebar { padding: 32px; }
+.submission-preview-intro {
+  display: grid;
+  gap: 48px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  margin: 0 auto 32px;
+  max-width: 1360px;
+  padding: 32px;
+}
+
+.submission-preview-intro-copy { max-width: 670px; }
+
+.submission-preview-details {
+  align-self: start;
+  padding: 28px;
+}
+
+.submission-preview-details-heading {
+  border-bottom: 1px solid rgba(19, 27, 46, 0.08);
+  padding-bottom: 20px;
+}
+
+.submission-preview-details-heading p,
+.submission-preview-intro-label {
+  color: #0076a9;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  margin: 0 0 6px;
+}
+
+.submission-preview-details-heading h2 {
+  font-family: "Space Grotesk", "PingFang SC", sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0;
+}
 
 .submission-preview-back {
   align-items: center;
@@ -505,7 +543,7 @@ button:disabled {
 
 .submission-preview-kicker svg { height: 15px; width: 15px; }
 
-.submission-preview-sidebar h1 {
+.submission-preview-intro h1 {
   font-family: "Space Grotesk", "PingFang SC", sans-serif;
   font-size: 30px;
   letter-spacing: -0.02em;
@@ -513,7 +551,7 @@ button:disabled {
   margin-bottom: 16px;
 }
 
-.submission-preview-sidebar > p:not(.kicker) {
+.submission-preview-intro-copy > p:not(.kicker) {
   color: #3e494a;
   font-size: 14px;
   line-height: 1.7;
@@ -522,7 +560,7 @@ button:disabled {
 .submission-preview-steps {
   display: grid;
   gap: 14px;
-  margin: 30px 0;
+  margin: 28px 0 24px;
 }
 
 .submission-preview-steps span { align-items: center; color: #3e494a; display: flex; font-size: 14px; gap: 10px; }
@@ -543,6 +581,65 @@ button:disabled {
 
 .submission-preview-note + .submission-preview-note { border-top: 0; padding-top: 12px; }
 .submission-preview-note svg { color: #007a87; flex: 0 0 auto; height: 17px; margin-top: 1px; width: 17px; }
+
+.submission-submitted-at {
+  align-items: center;
+  background: #f2f3ff;
+  border-radius: 10px;
+  color: #131b2e;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 11px 12px;
+}
+
+.submission-submitted-at > svg { color: #0076a9; flex: 0 0 auto; height: 19px; width: 19px; }
+.submission-submitted-at span { display: grid; gap: 2px; min-width: 0; }
+.submission-submitted-at small { color: #3e494a; font-family: "Space Grotesk", sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; }
+.submission-submitted-at time { font-family: "Space Grotesk", "PingFang SC", sans-serif; font-size: 12px; font-weight: 700; line-height: 1.35; }
+
+.submission-location-card {
+  border-top: 1px solid rgba(19, 27, 46, 0.08);
+  margin-top: 20px;
+  padding-top: 22px;
+}
+
+.submission-location-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 9px;
+}
+
+.submission-location-heading > svg { color: #007a87; height: 20px; margin-top: 2px; width: 20px; }
+.submission-location-heading p { color: #0076a9; font-family: "Space Grotesk", sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; margin: 0 0 3px; }
+.submission-location-heading h2 { font-family: "Space Grotesk", "PingFang SC", sans-serif; font-size: 17px; letter-spacing: -0.01em; line-height: 1.25; margin: 0; }
+
+.submission-location-address { color: #3e494a; font-size: 13px; line-height: 1.55; margin: 14px 0 5px; }
+.submission-location-coordinates { color: #6e797b; font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; margin: 0; }
+
+.submission-location-map {
+  border: 0;
+  border-radius: 10px;
+  display: block;
+  height: 210px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.submission-location-link {
+  align-items: center;
+  color: #005f6a;
+  display: inline-flex;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 5px;
+  margin-top: 13px;
+  text-decoration: none;
+}
+
+.submission-location-link:hover { color: #007a87; text-decoration: underline; }
+.submission-location-link svg { height: 14px; width: 14px; }
 
 .submission-preview-content { overflow: hidden; }
 
@@ -641,13 +738,19 @@ button:disabled {
 @media (max-width: 800px) {
   .submission-preview-shell { padding: 0 16px 16px; }
   .submission-preview-header { margin: 0 -16px 20px; padding: 16px; }
+  .submission-preview-intro { gap: 28px; grid-template-columns: 1fr; margin-bottom: 20px; padding: 24px; }
   .submission-preview-layout { grid-template-columns: 1fr; }
-  .submission-preview-sidebar { padding: 22px; }
+  .submission-preview-details { order: 2; padding: 24px; }
+  .submission-preview-content { order: 1; }
   .submission-preview-back { margin-bottom: 22px; }
   .submission-preview-content-heading { align-items: flex-start; flex-direction: column; gap: 8px; padding: 20px; }
   .submission-preview-frame-wrap { min-height: 700px; }
   .submission-preview-frame { height: 900px; min-height: 700px; }
   .submission-preview-status { font-size: 0; }
+  .submission-preview-status svg { height: 18px; width: 18px; }
+  .submission-preview-intro h1 { font-size: 26px; }
+  .submission-preview-steps { gap: 11px; margin: 24px 0 20px; }
+  .submission-location-map { height: 220px; }
 }
 
 .landing-button {
