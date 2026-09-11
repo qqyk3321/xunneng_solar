@@ -35,7 +35,9 @@
 }
 .reasons li {
   display: flex;
-  gap: 18px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   padding: 22px;
   border: 1px solid #dde8e6;
   border-radius: 14px;
@@ -45,14 +47,23 @@
     border-color 250ms ease,
     box-shadow 250ms ease;
 }
-.icon {
-  flex: 0 0 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #dff1f1, #eff6ee);
-  color: #007a87;
+.badge {
+  display: inline-block;
+  max-width: 100%;
+  padding: 5px 8px;
+  border: 1px solid #d3eaea;
+  border-radius: 4px;
+  background: #edf7f7;
+  color: #006975;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.35px;
+}
+.badgeWarm {
+  border-color: #fbe3bf;
+  background: #fff6e8;
+  color: #a34b00;
 }
 .reasons h3 {
   margin: 0;
@@ -194,16 +205,6 @@
   }
   .reasons li {
     padding: 18px 16px;
-    gap: 12px;
-  }
-  .icon {
-    flex-basis: 34px;
-    height: 34px;
-    border-radius: 9px;
-  }
-  .icon svg {
-    width: 19px;
-    height: 19px;
   }
   .reasons h3 {
     font-size: 16px;

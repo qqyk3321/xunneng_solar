@@ -112,7 +112,7 @@ async function main() {
     await page.goto(origin + "/faq", { waitUntil: "load" });
     const search = page.getByRole("searchbox", { name: "Search the FAQ" });
     const entries = page.locator("[data-faq-id]");
-    assert.equal(await entries.count(), 17);
+    assert.equal(await entries.count(), 19);
     assert.equal(await page.locator("details[open]").count(), 0);
     const first = entries.first();
     await first.locator("summary").focus();
@@ -135,7 +135,7 @@ async function main() {
     await page.getByText(/It uses the June 2026 preset/).waitFor();
     await search.fill("WARRANTY");
     await page.locator('[data-faq-id="warranty-terms"]').waitFor();
-    assert.equal(await entries.count(), 1);
+    assert.equal(await entries.count(), 2);
     await page
       .getByText(/inverters and batteries come with a 10-year warranty/)
       .waitFor();
@@ -156,7 +156,7 @@ async function main() {
       .waitFor();
     await page.getByRole("button", { name: "Reset search & topics" }).click();
     assert.equal(await search.inputValue(), "");
-    assert.equal(await entries.count(), 17);
+    assert.equal(await entries.count(), 19);
     assert.equal(
       await search.evaluate((el) => el === document.activeElement),
       true,
@@ -166,7 +166,7 @@ async function main() {
       .click();
     await page
       .getByRole("status")
-      .filter({ hasText: "7 answers to explore" })
+      .filter({ hasText: "9 answers to explore" })
       .waitFor();
     await search.fill("保修");
     await page
@@ -256,7 +256,7 @@ async function main() {
       JSON.stringify(
         {
           ok: true,
-          answers: 17,
+          answers: 19,
           localSearch: true,
           topics: true,
           keyboardAccordion: true,

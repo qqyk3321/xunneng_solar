@@ -1,27 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Leaf, ShieldCheck, MapPin, Wind } from "lucide-react";
 import styles from "./why-choose-us.module.css";
 
 const reasons = [
   {
-    icon: Leaf,
+    label: "24/7 RESILIENT POWER",
     title: "Lower bills. Smarter backup. One connected system.",
     text: "Solar and battery storage help lower your bills and keep essential loads running during outages. With the right equipment and system design, solar, batteries, grid power and a compatible existing generator can be coordinated as one home energy system.",
   },
   {
-    icon: ShieldCheck,
+    label: "UL CERTIFIED · 10-YEAR EQUIPMENT WARRANTY",
+    warm: true,
     title: "Certified equipment. Connected support.",
     text: "UL-certified equipment, with a 10-year inverter and battery warranty and 25 years for solar panels. Check your system’s status through remote monitoring and reach our support team when you need help.",
   },
   {
-    icon: MapPin,
+    label: "100% ANTIGUA BASED · LOCAL STOCK",
     title: "100% local. Right here in Antigua.",
     text: "A local company with local stock and people you can reach. We help keep your project moving and provide ongoing services, including solar panel cleaning and reinforcement.",
   },
   {
-    icon: Wind,
+    label: "150+ MPH RATED DESIGN",
     title: "Professional design for island conditions.",
     text: "From system planning to installation, we take your roof and site seriously. Our 150+ MPH-rated designs are tailored to your property, giving you a professionally planned system and greater peace of mind.",
   },
@@ -142,10 +142,10 @@ export function WhyChooseUs() {
             <span>Solar you can count on.</span>
           </h2>
           <ul className={styles.reasons} aria-label="Why choose Sol & Tide">
-            {reasons.map(({ icon: Icon, title, text }) => (
+            {reasons.map(({ label, warm, title, text }) => (
               <li key={title}>
-                <span className={styles.icon} aria-hidden="true">
-                  <Icon size={22} strokeWidth={1.7} />
+                <span className={styles.badge + (warm ? " " + styles.badgeWarm : "")}>
+                  {label}
                 </span>
                 <div>
                   <h3>{title}</h3>
@@ -165,6 +165,12 @@ export function WhyChooseUs() {
                     {stat.prefix || "\u00a0"}
                   </span>
                   <span className={styles.number}>
+                    {stat.id === "payback" && (
+                      <>
+                        <span className={styles.srOnly}>Less than </span>
+                        <span aria-hidden="true">{"<"}</span>
+                      </>
+                    )}
                     <AnimatedValue value={stat.value} suffix={stat.suffix} />
                   </span>
                 </dd>

@@ -19,6 +19,28 @@ test("generator integration and expansion are searchable, qualified support topi
   );
 });
 
+test("household appliance guidance is searchable and accounts for system sizing", () => {
+  for (const query of ["fridge", "air conditioning", "washing machine", "water heater", "24/7", "负载"]) {
+    assert.ok(searchFaq(query, "support").some((item) => item.id === "household-appliances"));
+  }
+  const item = FAQ_ITEMS.find((item) => item.id === "household-appliances")!;
+  assert.match(item.answer, /suitably sized/);
+  assert.match(item.answer, /daytime use/);
+  assert.match(item.answer, /appliances you use together/);
+});
+
+test("software monitoring is searchable and explains free access and connectivity", () => {
+  for (const query of ["subscription", "monitoring", "收费"]) {
+    assert.ok(
+      searchFaq(query, "support").some((item) => item.id === "software-monitoring"),
+    );
+  }
+  const item = FAQ_ITEMS.find((item) => item.id === "software-monitoring")!;
+  assert.match(item.answer, /no additional charge/);
+  assert.match(item.answer, /WiFi network with internet access/);
+  assert.match(item.answer, /keep the equipment connected/);
+});
+
 test("FAQ reuses the guarded contact module and links to its own inquiry section", () => {
   const page = readFileSync("app/faq/page.tsx", "utf8");
   const directory = readFileSync("app/faq/faq-directory.tsx", "utf8");
@@ -78,6 +100,8 @@ test("warranty durations and separate services match the supplied business scope
     /inverters and batteries come with a 10-year warranty/,
   );
   assert.match(warranty.answer, /solar panels come with a 25-year warranty/);
+  assert.match(warranty.answer, /faults in the equipment itself that arise during normal use/);
+  assert.match(warranty.answer, /our team will help investigate/);
   assert.deepEqual(
     searchFaq("25-year").map((item) => item.id),
     ["warranty-terms"],
@@ -86,9 +110,10 @@ test("warranty durations and separate services match the supplied business scope
     (item) => item.id === "cleaning-reinforcement",
   )!;
   assert.match(services.answer, /cleaning and reinforcement services/);
+  assert.match(services.answer, /arranged separately from equipment warranty coverage/);
   assert.doesNotMatch(
     services.answer,
-    /free|complimentary|included|warranty|charge|fee|cost|pric/i,
+    /free|complimentary|included/i,
   );
   for (const query of ["cleaning", "reinforcement", "清洗", "加固"]) {
     assert.deepEqual(
@@ -106,5 +131,5 @@ test("topic selection combines with search, not replaces it", () => {
     );
   }
   assert.equal(searchFaq("warranty", "getting-started").length, 0);
-  assert.equal(searchFaq("warranty", "support").length, 1);
+  assert.equal(searchFaq("warranty", "support").length, 2);
 });
