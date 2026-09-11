@@ -129,6 +129,9 @@
   letter-spacing: -2px;
   color: #007a87;
 }
+.stat[data-stat="payback"] .number {
+  color: #c45b00;
+}
 .stat .note {
   order: 3;
   margin-top: 9px;
