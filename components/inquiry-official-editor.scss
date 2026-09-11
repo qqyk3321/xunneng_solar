@@ -1,0 +1,88 @@
+// Layout adapter only. Buttons, dropdowns and tooltips are official Tiptap UI.
+.inquiry-official-editor {
+  color: #202124;
+  font-family: inherit;
+  .tiptap-toolbar[data-variant="fixed"] {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 52px;
+    flex-wrap: wrap;
+    padding: 8px;
+    overflow: visible;
+    border-top: 0;
+    border-bottom: 1px solid var(--tt-toolbar-border-color);
+    background: #fff;
+  }
+  .simple-editor {
+    padding: 28px 24px;
+    min-height: 300px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: #202124;
+    caret-color: #6d28d9;
+  }
+  .simple-editor p {
+    margin: 0 0 14px;
+  }
+  .simple-editor p:last-child {
+    margin-bottom: 0;
+  }
+  .simple-editor blockquote {
+    background: transparent;
+    border-left-color: #d1d5db;
+    color: #52525b;
+  }
+  &.inquiry-readonly .simple-editor {
+    background: #fff;
+    caret-color: transparent;
+  }
+  .simple-editor .inquiry-resizable-photo {
+    margin: 16px 0;
+    outline: none;
+  }
+  .inquiry-resizable-photo [data-resize-wrapper] {
+    max-width: 100%;
+  }
+  .simple-editor .inquiry-resizable-photo img {
+    max-height: none;
+    width: 100%;
+    height: auto;
+  }
+  .inquiry-photo-handle {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-radius: 4px;
+    background: #087c86;
+    box-shadow: 0 0 0 1px #087c86;
+    cursor: nwse-resize;
+    touch-action: none;
+  }
+  .inquiry-resizable-photo [data-resize-wrapper]:hover,
+  .inquiry-resizable-photo [data-resize-wrapper]:focus-within,
+  .inquiry-resizable-photo.ProseMirror-selectednode [data-resize-wrapper] {
+    outline: 1px solid #087c86;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  .simple-editor[contenteditable="false"] .inquiry-photo-handle {
+    display: none;
+  }
+  .inquiry-photo-handle:focus-visible {
+    outline: 3px solid #93d4db;
+    outline-offset: 3px;
+  }
+  @media (max-width: 480px) {
+    .simple-editor {
+      padding: 20px 16px;
+      min-height: 240px;
+    }
+    .tiptap-toolbar-group {
+      flex: 0 0 auto;
+    }
+  }
+}

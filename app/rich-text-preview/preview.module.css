@@ -1,0 +1,45 @@
+.notice {
+  padding: 14px 18px;
+  margin: 0 0 24px;
+  border: 1px solid #e8d5a9;
+  border-radius: 10px;
+  background: #fff9eb;
+  color: #806231;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.metadata {
+  margin: 0 0 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dce7e9;
+}
+.metadata div {
+  margin-bottom: 12px;
+}
+.metadata dt {
+  font-size: 12px;
+  color: #72858b;
+}
+.metadata dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+.actions {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+.actions a {
+  text-decoration: none;
+}
+.json {
+  max-height: 400px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 12px;
+  font-size: 12px;
+  background: #f4f8f8;
+}

@@ -141,7 +141,7 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
           />
           <span>
             <strong>Sol &amp; Tide Energy</strong>
-            <small>Caribbean Solar &amp; Storage Solutions</small>
+            <small>Antigua Solar &amp; Storage Solutions</small>
           </span>
         </Link>
           <span className="submission-preview-status">

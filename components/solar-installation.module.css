@@ -1,0 +1,240 @@
+.section {
+  padding: 88px 0 72px;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8f7 100%);
+  color: #183c43;
+}
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.heading {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.heading h2 {
+  margin: 0 0 14px;
+  font:
+    600 clamp(30px, 3.2vw, 42px)/1.16 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -1.2px;
+}
+.heading p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #64748b;
+}
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+  margin: 56px 0 0;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: calc((100% - 72px) / 8);
+  right: calc((100% - 72px) / 8);
+  top: 27px;
+  height: 2px;
+  background: linear-gradient(90deg, #edbd66, #007a87);
+}
+.step {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.number {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 2px solid #d9a64e;
+  border-radius: 50%;
+  background: white;
+  color: #9f7129;
+  font:
+    600 24px/1 "Space Grotesk",
+    sans-serif;
+  box-shadow: 0 4px 12px #d9a64e1c;
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+.card {
+  flex: 1;
+  width: 100%;
+  margin-top: 24px;
+  padding: 28px 22px;
+  border: 1px solid #e0e9e7;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 6px 20px #183c4307;
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.card h3 {
+  font:
+    600 20px/1.3 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.3px;
+  min-height: 52px;
+  margin: 0;
+}
+.timing {
+  display: inline-block;
+  margin: 16px 0;
+  color: #007a87;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.card p {
+  margin: 0;
+  color: #617779;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.step[data-revealed="true"] .card {
+  animation: arrive 550ms ease-out var(--step-delay) backwards;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .step:hover .number {
+    transform: scale(1.08);
+    color: #fff;
+    background: #007a87;
+    border-color: #007a87;
+  }
+  .step:hover .card {
+    transform: translateY(-5px);
+    border-color: #79b6b4;
+    box-shadow: 0 12px 28px #007a8710;
+  }
+}
+.actions {
+  margin-top: 40px;
+  text-align: center;
+}
+.actions p {
+  margin: 14px 0 0;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #64748b;
+}
+@media (max-width: 900px) {
+  .section {
+    padding: 64px 0 56px;
+  }
+  .container {
+    padding: 0 32px;
+  }
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 600px;
+    margin: 40px auto 0;
+  }
+  .timeline::before {
+    display: none;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+  .step::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    bottom: -52px;
+    left: 27px;
+    width: 2px;
+    background: linear-gradient(180deg, #edbd66, #007a87);
+  }
+  .step:last-child::before {
+    display: none;
+  }
+  .card {
+    margin: 0;
+    text-align: left;
+    padding: 24px;
+  }
+  .card h3 {
+    min-height: 0;
+  }
+  .timing {
+    margin: 10px 0 12px;
+  }
+}
+@media (max-width: 480px) {
+  .container {
+    padding: 0 20px;
+  }
+  .heading h2 {
+    font-size: 30px;
+  }
+  .heading p {
+    font-size: 14px;
+  }
+  .step {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .number {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .step::before {
+    left: 19px;
+    top: 20px;
+    bottom: -44px;
+  }
+  .card {
+    padding: 20px 18px;
+  }
+  .card h3 {
+    font-size: 19px;
+  }
+  .actions .cta {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step[data-revealed="true"] .card {
+    animation: none;
+  }
+  .number,
+  .card {
+    transition: none;
+  }
+  .step:hover .number,
+  .step:hover .card {
+    transform: none;
+  }
+}

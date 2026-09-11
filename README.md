@@ -5,6 +5,16 @@
 - 主项目：现有 Next.js 站点 + `Supabase Edge Function tally-webhook`
 - 独立邮件项目：[`email/`](/home/qqyk/project/xunneng/email/README.md)
 
+## 本地测试页面导航
+
+统一入口：`http://192.168.1.176:3003/test-pages`（仅开发环境）。按功能分类展示测试页、登录要求和注意事项；点击后才打开，不预加载页面数据。导航本身不改变业务流程。
+
+首页 `/` 的计算器、Contact us 和 `/faq` 提问均为正式功能，统一提交到 `/api/contact`。账号、上传实验和留言管理等归档为仅本地开发可用；线上页面及子接口统一返回 404。原有问价和客户结果链接保留。
+
+生产部署配置与验收说明见 [Vercel 发布说明](docs/vercel-release.md)。
+
+以后新增测试页，在 `lib/test-pages/catalog.ts` 登记；详见 [测试页导航维护说明](docs/test-pages.md)。
+
 ## Data Flow
 
 Tally webhook -> Supabase Edge Function `tally-webhook` -> Postgres table

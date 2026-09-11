@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-lowest": "#ffffff", "primary-container": "#007a87", "secondary-container": "#fea619", "on-error": "#ffffff", "surface-bright": "#faf8ff", "secondary": "#855300", "on-tertiary-container": "#eaf4ff", "primary": "#005f6a", "outline-variant": "#bdc8cb", "on-surface-variant": "#3e494a", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#89ceff", "inverse-on-surface": "#eef0ff", "on-tertiary-fixed": "#001e2f", "on-background": "#131b2e", "inverse-primary": "#7ad4e2", "surface-container": "#eaedff", "secondary-fixed": "#ffddb8", "inverse-surface": "#283044", "surface-container-high": "#e2e7ff", "on-tertiary": "#ffffff", "on-primary-container": "#d5f9ff", "tertiary-container": "#0076a9", "surface": "#faf8ff", "on-primary-fixed": "#001f24", "on-surface": "#131b2e", "tertiary-fixed": "#c9e6ff", "on-secondary-container": "#684000", "surface-tint": "#006874", "error-container": "#ffdad6", "on-secondary-fixed": "#2a1700", "on-error-container": "#93000a", "primary-fixed": "#97f0ff", "tertiary": "#005c85", "outline": "#6e797b", "on-primary": "#ffffff", "surface-dim": "#d2d9f4", "surface-container-highest": "#dae2fd", "on-primary-fixed-variant": "#004f57", "primary-fixed-dim": "#7ad4e2", "surface-container-low": "#f2f3ff", "background": "#faf8ff", "surface-variant": "#dae2fd", "on-tertiary-fixed-variant": "#004c6e", "on-secondary-fixed-variant": "#653e00", "secondary-fixed-dim": "#ffb95f", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "space-sm": "0.75rem", "space-2xl": "3rem", "gutter-mobile": "1rem", "gutter-tablet": "1.5rem", "space-2xs": "0.25rem", "margin-tablet": "2rem", "space-xs": "0.5rem", "space-md": "1rem", "margin-mobile": "1rem", "space-3xl": "4.5rem", "space-xl": "2rem", "space-4xl": "6rem", "gutter-desktop": "2rem", "margin-desktop": "3rem" }, "fontFamily": { "headline-lg": [ "Space Grotesk" ], "headline-sm": [ "Space Grotesk" ], "label-md": [ "Space Grotesk" ], "body-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Space Grotesk" ], "headline-lg-mobile": [ "Space Grotesk" ], "display-hero": [ "Space Grotesk" ], "label-sm": [ "Space Grotesk" ], "body-lg": [ "Plus Jakarta Sans" ], "metric-numeral": [ "Space Grotesk" ], "display-hero-mobile": [ "Space Grotesk" ], "body-sm": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "label-sm": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "400" } ], "metric-numeral": [ "32px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface min-h-screen relative overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed"><div class="pointer-events-none fixed inset-0 overflow-hidden z-0"><div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary-fixed-dim/20 blur-3xl"></div><div class="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-secondary-fixed-dim/20 blur-3xl"></div></div><header class="relative z-10 w-full bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-[1360px] mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Clean minimalist logo mark combining a radiant sun and ocean wave / energy battery node, Caribbean clean energy brand, modern vector symbol. Design context: - Primary color: #007a87
+- Font: spaceGrotesk
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WPNtpXd7d1nIKg0LfhBy6ElD25kX1NTa_8TLCS-zXGUpBIi_MVxPJqctT26cexsS2XJWpA9BvPWOjLdNvJfAkqLDumY5LuJChwPVgXIjfX22ANulgWmMHVWjleRaEd9-Ezj2CKXyJ4whI33nm_JUI_xOP0f3Kj0oUGVhY5eOiHUv4l-YVs4TRw2V2hcknbQyLLClFyxHzKV-6p9jVJHegiPkDZ34GY4qO7GxuigYtF5lx824PFr4KR0Hw"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Sol &amp; Tide</span><span class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Caribbean Clean Energy</span></div></div><div class="flex items-center gap-space-sm"><div class="inline-flex items-center gap-space-2xs px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>Dev Preview: Auth Portal</div></div></div></header><main class="relative z-10 w-full min-h-[calc(100vh-4rem)] flex items-center justify-center py-space-xl px-gutter-mobile md:px-gutter-tablet"><div class="flex flex-col w-full max-w-5xl mx-auto items-center">
+<!-- Dev Review State Switcher Bar -->
+<aside aria-label="Developer Preview Controls" class="w-full mb-space-lg flex flex-col md:flex-row items-center justify-between gap-space-sm p-space-sm bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+<span class="font-label-sm uppercase tracking-wider text-outline">Interactive State Switcher</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 justify-center">
+<button class="state-pill active-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-default" onclick="setState('default')" type="button">
+        Standard Form
+      </button>
+<button class="state-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-criteria-fail" onclick="setState('criteria-fail')" type="button">
+        Criteria Error
+      </button>
+<button class="state-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-mismatch" onclick="setState('mismatch')" type="button">
+        Mismatch
+      </button>
+<button class="state-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-submitting" onclick="setState('submitting')" type="button">
+        Submitting
+      </button>
+<button class="state-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-success" onclick="setState('success')" type="button">
+        Success View
+      </button>
+<button class="state-pill px-space-sm py-1 rounded-full font-label-md transition-all duration-200 text-on-surface hover:bg-surface-container-high" id="btn-state-expired" onclick="setState('expired')" type="button">
+        Expired Link
+      </button>
+<button class="px-space-sm py-1 rounded-full font-label-md transition-all duration-200 bg-surface-container-high text-on-surface-variant hover:bg-error-container hover:text-on-error-container flex items-center gap-1" id="btn-state-network" onclick="toggleNetworkError()" type="button">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>Simulate Network Err
+      </button>
+</div>
+</aside>
+<!-- Network Error Alert Banner -->
+<div class="hidden w-full max-w-xl mb-space-md bg-error-container text-on-error-container p-space-md rounded-lg shadow-sm flex items-start justify-between gap-space-sm animate-fadeIn" id="network-error-banner">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[22px]">cloud_off</span>
+<div>
+<p class="font-headline-sm text-[15px] leading-tight font-semibold">Connection interrupted</p>
+<p class="font-body-sm text-body-sm opacity-90">Unable to reach Sol &amp; Tide telemetry service. Please verify your internet connection and retry.</p>
+</div>
+</div>
+<button class="text-on-error-container hover:opacity-75 transition-opacity" onclick="toggleNetworkError(false)" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Primary Layout Card Container -->
+<div class="w-full max-w-xl bg-surface-container-lowest rounded-xl shadow-[0_12px_24px_-6px_rgba(0,122,135,0.08),0_4px_8px_-2px_rgba(15,23,42,0.03)] overflow-hidden transition-all duration-300">
+<!-- Top Decorative Energy Telemetry Accent -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary-container via-tertiary to-secondary-container"></div>
+<div class="p-space-lg md:p-space-xl">
+<!-- VIEW 1: Main Form (Handles Default, Criteria Failure, Mismatch, and Submitting) -->
+<div class="flex flex-col gap-space-md" id="view-form">
+<!-- Header Section -->
+<div class="flex flex-col items-center text-center gap-space-2xs">
+<div class="w-12 h-12 rounded-full bg-primary-fixed/40 flex items-center justify-center text-primary mb-space-xs shadow-inner">
+<span class="material-symbols-outlined text-[24px]">lock_reset</span>
+</div>
+<span class="font-label-sm uppercase tracking-widest text-primary font-bold">Secure Access</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Set New Password</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+            Choose a strong password with at least 8 characters to secure your clean energy node account.
+          </p>
+</div>
+<!-- Inline Global Error (State-driven) -->
+<div class="hidden bg-error-container/70 p-space-sm rounded-lg flex items-center gap-space-xs" id="form-general-error">
+<span class="material-symbols-outlined text-error text-[20px]">error</span>
+<span class="font-body-sm text-error font-medium" id="form-general-error-text">Please correct the highlighted errors below.</span>
+</div>
+<form class="flex flex-col gap-space-md mt-space-xs" id="reset-password-form" novalidate="" onsubmit="handleFormSubmit(event)">
+<!-- Input Group: New Password -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-[13px] font-semibold text-on-surface flex items-center justify-between" for="new-password">
+<span>New Password</span>
+<span class="font-label-sm uppercase tracking-wider text-outline">Min. 8 chars</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">vpn_key</span>
+<input autocomplete="new-password" class="w-full h-11 pl-10 pr-11 bg-surface-container-lowest text-on-surface rounded-lg shadow-sm font-body-md text-body-md placeholder:text-outline transition-all duration-200 outline-none focus:bg-surface-bright" id="new-password" name="new-password" oninput="checkPasswordLive(this.value)" placeholder="Enter new password" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-3 p-1 text-outline hover:text-primary transition-colors flex items-center justify-center" onclick="togglePasswordVisibility('new-password', 'eye-icon-new')" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon-new">visibility</span>
+</button>
+</div>
+<!-- Inline Error for Field 1 -->
+<p class="hidden text-error font-body-sm text-[12px] flex items-center gap-1 mt-0.5" id="new-password-error">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+<span id="new-password-error-text">Password must be at least 8 characters.</span>
+</p>
+</div>
+<!-- Password Requirement Checklist Bar -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex flex-col gap-space-2xs">
+<span class="font-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Password Criteria</span>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs text-on-surface-variant">
+<div class="flex items-center gap-1.5 font-body-sm text-[13px]" id="rule-length">
+<span class="material-symbols-outlined text-[16px] text-outline" id="rule-length-icon">radio_button_unchecked</span>
+<span>At least 8 characters</span>
+</div>
+<div class="flex items-center gap-1.5 font-body-sm text-[13px]" id="rule-number">
+<span class="material-symbols-outlined text-[16px] text-outline" id="rule-number-icon">radio_button_unchecked</span>
+<span>One number or symbol</span>
+</div>
+</div>
+</div>
+<!-- Input Group: Confirm New Password -->
+<div class="flex flex-col gap-1.5">
+<label class="font-headline-sm text-[13px] font-semibold text-on-surface flex items-center justify-between" for="confirm-password">
+<span>Confirm New Password</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px] pointer-events-none">lock</span>
+<input autocomplete="new-password" class="w-full h-11 pl-10 pr-11 bg-surface-container-lowest text-on-surface rounded-lg shadow-sm font-body-md text-body-md placeholder:text-outline transition-all duration-200 outline-none focus:bg-surface-bright" id="confirm-password" name="confirm-password" oninput="checkConfirmLive()" placeholder="Confirm your new password" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-3 p-1 text-outline hover:text-primary transition-colors flex items-center justify-center" onclick="togglePasswordVisibility('confirm-password', 'eye-icon-confirm')" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon-confirm">visibility</span>
+</button>
+</div>
+<!-- Inline Error for Field 2 -->
+<p class="hidden text-error font-body-sm text-[12px] flex items-center gap-1 mt-0.5" id="confirm-password-error">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+<span>Passwords do not match. Please re-enter.</span>
+</p>
+</div>
+<!-- Submit Action Button -->
+<button class="relative w-full h-12 mt-space-xs rounded-lg bg-primary text-on-primary font-headline-sm text-[15px] font-semibold tracking-wide shadow-md hover:bg-primary-container active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed" id="submit-btn" type="submit">
+<span id="btn-text">Update Password</span>
+<span class="hidden animate-spin h-5 w-5 rounded-full border-2 border-surface-bright border-t-transparent" id="btn-spinner"></span>
+</button>
+<!-- Back to Sign In Link -->
+<div class="flex items-center justify-center mt-space-2xs">
+<a class="inline-flex items-center gap-1.5 font-headline-sm text-[13px] font-medium text-primary hover:text-primary-container transition-colors" href="#/sign-in">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Return to Account Sign In</span>
+</a>
+</div>
+</form>
+</div>
+<!-- VIEW 2: Success Confirmation (State E) -->
+<div class="hidden flex flex-col items-center text-center py-space-sm animate-fadeIn" id="view-success">
+<div class="relative mb-space-md">
+<div class="w-16 h-16 rounded-full bg-primary-fixed/30 flex items-center justify-center text-primary shadow-inner">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+</div>
+</div>
+<span class="font-label-sm uppercase tracking-widest text-primary font-bold">Credential Secured</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Password Updated Successfully!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-space-xs">
+          Your credentials have been refreshed. Your Sol &amp; Tide solar telemetry and battery reserve controls are now synchronized with your updated security key.
+        </p>
+<!-- Security Summary Card -->
+<div class="w-full bg-surface-container-low rounded-lg p-space-sm mt-space-md mb-space-lg flex items-center justify-between text-left">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
+<div>
+<div class="font-headline-sm text-[13px] font-semibold text-on-surface">End-to-End Key Updated</div>
+<div class="font-body-sm text-[12px] text-on-surface-variant">Active sessions updated across all devices</div>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm uppercase">
+            Active
+          </span>
+</div>
+<a class="w-full h-12 rounded-lg bg-primary text-on-primary font-headline-sm text-[15px] font-semibold tracking-wide shadow-md hover:bg-primary-container flex items-center justify-center gap-2 transition-all duration-200" href="#/sign-in">
+<span>Proceed to Sign In</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<!-- VIEW 3: Expired or Invalid Token (State F) -->
+<div class="hidden flex flex-col items-center text-center py-space-sm animate-fadeIn" id="view-expired">
+<div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center text-error mb-space-md shadow-sm">
+<span class="material-symbols-outlined text-[36px]">history_toggle_off</span>
+</div>
+<span class="font-label-sm uppercase tracking-widest text-error font-bold">Security Notice</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-1">Reset Link Expired or Invalid</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mt-space-xs">
+          This password reset link has already been utilized or has passed the 15-minute security lifetime window. Please initiate a fresh security token.
+        </p>
+<div class="w-full bg-surface-container p-space-md rounded-lg my-space-md text-left flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px] mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            To safeguard island grid microcontrollers and client accounts, Sol &amp; Tide password links are strictly single-use and expire promptly.
+          </p>
+</div>
+<div class="w-full flex flex-col gap-space-xs">
+<button class="w-full h-12 rounded-lg bg-secondary-container text-on-secondary-container font-headline-sm text-[15px] font-semibold tracking-wide shadow-md hover:bg-secondary-fixed active:scale-[0.99] flex items-center justify-center gap-2 transition-all duration-200" onclick="requestNewLinkNotice()" type="button">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span>Request New Reset Link</span>
+</button>
+<a class="w-full h-11 rounded-lg bg-transparent text-primary hover:bg-surface-container flex items-center justify-center font-headline-sm text-[14px] font-medium transition-colors" href="#/sign-in">
+            Return to Sign In
+          </a>
+</div>
+</div>
+</div>
+<!-- Card Technical Footer -->
+<div class="bg-surface-container-low px-space-lg py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-xs text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-sm uppercase tracking-widest text-[10px] text-outline">AES-256 Cloud Infrastructure</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-[11px] text-outline">
+<span>Sol &amp; Tide Node Auth v2.4</span>
+<span>•</span>
+<a class="hover:text-primary underline decoration-dotted" href="#/support">Grid Support</a>
+</div>
+</div>
+</div>
+<!-- Trust Bar Below Card -->
+<div class="mt-space-md flex items-center gap-space-md text-outline font-label-sm uppercase tracking-wider text-[11px]">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span> Microgrid Protection
+    </span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Real-time Inverter Sync
+    </span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span> Zero-Knowledge Auth
+    </span>
+</div>
+</div>
+<script>
+  let isNetworkErrorSimulated = false;
+
+  function setElementVisibility(id, isVisible) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (isVisible) {
+      el.classList.remove('hidden');
+    } else {
+      el.classList.add('hidden');
+    }
+  }
+
+  function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
+
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.innerText = 'visibility_off';
+    } else {
+      input.type = 'password';
+      icon.innerText = 'visibility';
+    }
+  }
+
+  function checkPasswordLive(val) {
+    const ruleLength = document.getElementById('rule-length');
+    const ruleLengthIcon = document.getElementById('rule-length-icon');
+    const ruleNumber = document.getElementById('rule-number');
+    const ruleNumberIcon = document.getElementById('rule-number-icon');
+
+    const hasLength = val.length >= 8;
+    const hasNumOrSymbol = /[\d!@#$%^&*(),.?":{}|<>]/.test(val);
+
+    if (hasLength) {
+      ruleLength.classList.add('text-primary');
+      ruleLengthIcon.innerText = 'check_circle';
+      ruleLengthIcon.classList.remove('text-outline');
+      ruleLengthIcon.classList.add('text-primary');
+    } else {
+      ruleLength.classList.remove('text-primary');
+      ruleLengthIcon.innerText = 'radio_button_unchecked';
+      ruleLengthIcon.classList.remove('text-primary');
+      ruleLengthIcon.classList.add('text-outline');
+    }
+
+    if (hasNumOrSymbol) {
+      ruleNumber.classList.add('text-primary');
+      ruleNumberIcon.innerText = 'check_circle';
+      ruleNumberIcon.classList.remove('text-outline');
+      ruleNumberIcon.classList.add('text-primary');
+    } else {
+      ruleNumber.classList.remove('text-primary');
+      ruleNumberIcon.innerText = 'radio_button_unchecked';
+      ruleNumberIcon.classList.remove('text-primary');
+      ruleNumberIcon.classList.add('text-outline');
+    }
+
+    // Auto-clear criteria error notice if conditions resolved
+    if (hasLength) {
+      setElementVisibility('new-password-error', false);
+    }
+  }
+
+  function checkConfirmLive() {
+    const p1 = document.getElementById('new-password').value;
+    const p2 = document.getElementById('confirm-password').value;
+    if (p2.length > 0 && p1 === p2) {
+      setElementVisibility('confirm-password-error', false);
+    }
+  }
+
+  function setState(stateName) {
+    const viewForm = document.getElementById('view-form');
+    const viewSuccess = document.getElementById('view-success');
+    const viewExpired = document.getElementById('view-expired');
+
+    const newPassInput = document.getElementById('new-password');
+    const confirmPassInput = document.getElementById('confirm-password');
+    const newPassErr = document.getElementById('new-password-error');
+    const confirmPassErr = document.getElementById('confirm-password-error');
+    const genErr = document.getElementById('form-general-error');
+
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
+
+    // Highlight active preview pill
+    document.querySelectorAll('.state-pill').forEach(btn => {
+      btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-bold', 'active-pill');
+      btn.classList.add('text-on-surface');
+    });
+    const targetBtn = document.getElementById(`btn-state-${stateName}`);
+    if (targetBtn) {
+      targetBtn.classList.add('bg-primary-container', 'text-on-primary-container', 'font-bold', 'active-pill');
+      targetBtn.classList.remove('text-on-surface');
+    }
+
+    // Reset default form interactive widgets
+    submitBtn.disabled = false;
+    btnText.innerText = 'Update Password';
+    setElementVisibility('btn-spinner', false);
+    setElementVisibility('new-password-error', false);
+    setElementVisibility('confirm-password-error', false);
+    setElementVisibility('form-general-error', false);
+
+    if (stateName === 'success') {
+      viewForm.classList.add('hidden');
+      viewSuccess.classList.remove('hidden');
+      viewExpired.classList.add('hidden');
+      return;
+    }
+
+    if (stateName === 'expired') {
+      viewForm.classList.add('hidden');
+      viewSuccess.classList.add('hidden');
+      viewExpired.classList.remove('hidden');
+      return;
+    }
+
+    // Otherwise show standard form with specific validation simulation
+    viewForm.classList.remove('hidden');
+    viewSuccess.classList.add('hidden');
+    viewExpired.classList.add('hidden');
+
+    if (stateName === 'default') {
+      newPassInput.value = '';
+      confirmPassInput.value = '';
+      checkPasswordLive('');
+    } else if (stateName === 'criteria-fail') {
+      newPassInput.value = 'sol1';
+      confirmPassInput.value = 'sol1';
+      checkPasswordLive('sol1');
+      setElementVisibility('new-password-error', true);
+      document.getElementById('new-password-error-text').innerText = 'Password must be at least 8 characters.';
+      setElementVisibility('form-general-error', true);
+      document.getElementById('form-general-error-text').innerText = 'Criteria requirement unmet: Password too short.';
+    } else if (stateName === 'mismatch') {
+      newPassInput.value = 'Caribbean2025!';
+      confirmPassInput.value = 'Caribbean2024!';
+      checkPasswordLive('Caribbean2025!');
+      setElementVisibility('confirm-password-error', true);
+      setElementVisibility('form-general-error', true);
+      document.getElementById('form-general-error-text').innerText = 'Passwords do not match. Please re-enter.';
+    } else if (stateName === 'submitting') {
+      newPassInput.value = 'Caribbean2025!';
+      confirmPassInput.value = 'Caribbean2025!';
+      checkPasswordLive('Caribbean2025!');
+      submitBtn.disabled = true;
+      btnText.innerText = 'Updating password...';
+      setElementVisibility('btn-spinner', true);
+    }
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const p1 = document.getElementById('new-password').value;
+    const p2 = document.getElementById('confirm-password').value;
+
+    if (p1.length < 8) {
+      setState('criteria-fail');
+      return;
+    }
+
+    if (p1 !== p2) {
+      setState('mismatch');
+      return;
+    }
+
+    // Trigger visual submitting simulation
+    setState('submitting');
+    setTimeout(() => {
+      setState('success');
+    }, 1200);
+  }
+
+  function toggleNetworkError(forced) {
+    if (typeof forced === 'boolean') {
+      isNetworkErrorSimulated = forced;
+    } else {
+      isNetworkErrorSimulated = !isNetworkErrorSimulated;
+    }
+    const banner = document.getElementById('network-error-banner');
+    const btn = document.getElementById('btn-state-network');
+    if (isNetworkErrorSimulated) {
+      banner.classList.remove('hidden');
+      btn.classList.add('bg-error', 'text-on-error');
+    } else {
+      banner.classList.add('hidden');
+      btn.classList.remove('bg-error', 'text-on-error');
+    }
+  }
+
+  function requestNewLinkNotice() {
+    alert('A new secure reset link was dispatched to the primary administrative email registered with this node.');
+  }
+
+  // Set default active tab style on load
+  document.addEventListener('DOMContentLoaded', () => {
+    setState('default');
+  });
+</script></main></body></html>

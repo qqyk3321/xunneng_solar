@@ -1,0 +1,189 @@
+.preview {
+  min-height: 100vh;
+}
+.account {
+  position: relative;
+  flex: 0 0 auto;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #131b2e;
+}
+.signIn,
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  border: 1px solid #bdc8cb;
+  border-radius: 10px;
+  color: #005f6a;
+  background: #ffffffcc;
+  cursor: pointer;
+  text-decoration: none;
+  font:
+    600 13px/1.4 "Space Grotesk",
+    sans-serif;
+}
+.signIn {
+  padding: 10px 14px;
+  white-space: nowrap;
+}
+.trigger {
+  padding: 5px 10px 5px 5px;
+}
+.signIn:hover,
+.trigger:hover {
+  background: #eaedff;
+}
+.account a:focus-visible,
+.account button:focus-visible {
+  outline: 3px solid #007a87;
+  outline-offset: 3px;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #005f6a;
+  background: #97f0ff80;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.identity {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 1px;
+}
+.identity > span {
+  font-size: 10px;
+  font-weight: 500;
+  color: #3e494a;
+}
+.identity strong {
+  display: block;
+  max-width: 145px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 600;
+}
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 12px);
+  width: min(280px, calc(100vw - 32px));
+  padding: 8px;
+  border: 1px solid #e5eaec;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 12px 36px #131b2e26;
+  z-index: 60;
+}
+.menuIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 10px 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #eaedff;
+}
+.menuIdentity span {
+  color: #6e797b;
+  font-size: 11px;
+}
+.menuIdentity strong {
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.item,
+.signOut {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  font:
+    500 13px/1.5 "Plus Jakarta Sans",
+    sans-serif;
+}
+.item {
+  color: #131b2e;
+}
+.item:hover {
+  background: #f2f3ff;
+}
+.signOut {
+  color: #ba1a1a;
+}
+.signOut:hover {
+  background: #fff0ee;
+}
+.signOut:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.error {
+  margin: 8px 0 0;
+  padding: 10px;
+  border-radius: 6px;
+  color: #93000a;
+  background: #ffdad6;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.connectionHint {
+  display: inline-grid;
+  place-items: center;
+  margin-left: 4px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  background: #ffddb8;
+  font-size: 11px;
+}
+.spinner {
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 1100px) {
+  .identity {
+    display: none;
+  }
+}
+/* These overrides apply ONLY inside the independent preview page wrapper. */
+@media (max-width: 760px) {
+  .preview :global(.tailwind-scope header a[data-path="free-assessment"]) {
+    display: none;
+  }
+}
+@media (max-width: 380px) {
+  .preview :global(.tailwind-scope header > div > div:first-child > span) {
+    font-size: 16px;
+  }
+  .signIn {
+    padding: 9px;
+    gap: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}

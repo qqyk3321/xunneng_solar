@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Sol & Tide Energy | Caribbean Solar & Storage",
-  description: "Reliable solar and storage solutions for the Caribbean.",
+  title: "Sol & Tide Energy | Antigua Solar & Storage",
+  description: "Reliable solar and storage solutions for Antigua.",
 };
 
 export default function RootLayout({

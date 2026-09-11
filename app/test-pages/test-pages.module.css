@@ -1,0 +1,345 @@
+.page {
+  min-height: 100vh;
+  background: #f3f7f7;
+  color: #203b43;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 76px;
+  padding: 20px max(24px, calc((100vw - 1200px) / 2));
+  background: white;
+  border-bottom: 1px solid #dce6e7;
+}
+.brand {
+  font-size: 18px;
+  font-weight: 700;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #eaf5f5;
+  color: #087c86;
+  font-size: 12px;
+}
+.main {
+  max-width: 1248px;
+  padding: 42px 24px 54px;
+  margin: auto;
+}
+.eyebrow {
+  font-size: 11px;
+  color: #087c86;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  margin-bottom: 12px;
+}
+.intro h1 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(30px, 4.5vw, 46px);
+  line-height: 1.15;
+  letter-spacing: -0.045em;
+  margin-bottom: 16px;
+}
+.intro > p:last-child {
+  max-width: 740px;
+  color: #657d83;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #edf5f5;
+  border: 1px solid #cbdfe1;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 28px 0 20px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.notice > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #087c86;
+}
+.notice p {
+  margin-top: 4px;
+  color: #657d83;
+}
+.mainLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 18px 20px;
+  border: 1px dashed #cbdcde;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  font-size: 13px;
+}
+.mainLinks strong {
+  display: block;
+  margin-bottom: 5px;
+}
+.mainLinks span {
+  color: #71858a;
+  font-size: 12px;
+}
+.mainLinks > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.page a {
+  color: #087c86;
+  text-decoration: none;
+}
+.mainLinks a,
+.shortcuts a {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+.page a:hover {
+  text-decoration: underline;
+}
+.controls {
+  display: grid;
+  gap: 18px;
+}
+.search {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #cbdcde;
+  border-radius: 10px;
+  padding: 12px 16px;
+  max-width: 650px;
+  color: #71858a;
+}
+.search input {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  min-width: 0;
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  color: #203b43;
+}
+.search:focus-within {
+  outline: 3px solid #8ccdd3;
+  outline-offset: 2px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filters button,
+.empty button {
+  border: 1px solid #d2e1e3;
+  border-radius: 8px;
+  padding: 9px 13px;
+  background: #fff;
+  font-size: 12px;
+  color: #526d74;
+  cursor: pointer;
+}
+.filters button[aria-pressed="true"] {
+  background: #087c86;
+  border-color: #087c86;
+  color: #fff;
+}
+.page a:focus-visible,
+.page button:focus-visible {
+  outline: 3px solid #8ccdd3;
+  outline-offset: 3px;
+}
+.count {
+  font-size: 12px;
+  color: #71858a;
+  margin-top: 20px;
+}
+.group {
+  margin-top: 34px;
+}
+.groupHeading {
+  margin-bottom: 18px;
+}
+.groupHeading h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.groupHeading h2 span {
+  font-size: 11px;
+  background: #e2eeee;
+  color: #627d83;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: normal;
+}
+.groupHeading p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #71858a;
+  margin-top: 6px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.card {
+  background: #fff;
+  border: 1px solid #dce6e7;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  min-width: 0;
+  box-shadow: 0 6px 24px #203b4303;
+}
+.access {
+  display: inline-block;
+  background: #f0f6f6;
+  color: #5a747b;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 10px;
+  margin-bottom: 14px;
+}
+.card h3 {
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 600;
+  margin-bottom: 9px;
+}
+.route {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #71858a;
+  overflow-wrap: anywhere;
+}
+.description {
+  margin: 14px 0 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #526d74;
+}
+.cardNotice {
+  padding-left: 10px;
+  border-left: 2px solid #dec995;
+  color: #867049;
+  font-size: 11px;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+.actions {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 10px;
+}
+.openButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #cbdcde;
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.openButton:hover {
+  background: #eaf5f5;
+}
+.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 14px;
+  font-size: 11px;
+}
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed #cbdcde;
+  border-radius: 12px;
+  margin-top: 28px;
+}
+.empty h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.empty p {
+  margin: 14px 0 20px;
+  color: #71858a;
+  line-height: 1.7;
+  font-size: 13px;
+}
+.footer {
+  border-top: 1px solid #dce6e7;
+  margin-top: 40px;
+  padding-top: 22px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #71858a;
+  overflow-wrap: anywhere;
+}
+.footer p + p {
+  margin-top: 6px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 1050px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .header {
+    padding: 18px;
+  }
+  .main {
+    padding: 30px 16px 40px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .notice,
+  .mainLinks {
+    padding: 16px;
+  }
+  .card {
+    padding: 20px;
+  }
+  .groupHeading h2 {
+    font-size: 20px;
+  }
+}

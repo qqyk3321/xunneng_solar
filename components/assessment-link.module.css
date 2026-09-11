@@ -1,0 +1,33 @@
+.assessment.assessment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid #fea619;
+  border-radius: 8px;
+  background: #fea619;
+  color: #422600;
+  font:
+    600 14px/1.5 "Space Grotesk",
+    sans-serif;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+.assessment.assessment:hover {
+  background: #ffb95f;
+  border-color: #ffb95f;
+}
+.assessment:focus-visible {
+  outline: 3px solid #0ea5e9;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .assessment.assessment {
+    transition: none;
+  }
+}

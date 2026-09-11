@@ -1,0 +1,282 @@
+.page {
+  min-height: 100vh;
+  padding-top: 80px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.main h1,
+.main h2,
+.main p {
+  margin: 0;
+}
+.main a {
+  color: #007a87;
+  text-decoration: none;
+}
+.page :focus-visible {
+  outline: 3px solid #0ea5e9;
+  outline-offset: 4px;
+}
+.main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 64px 40px 48px;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+  color: #007a87;
+}
+.intro h1 {
+  margin: 18px 0;
+  font:
+    500 48px/1.15 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -1.8px;
+}
+.intro > p:last-child {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.8;
+  max-width: 590px;
+}
+.searchArea {
+  margin: 36px 0 40px;
+}
+.searchArea > label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.searchField {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0 18px;
+  min-height: 60px;
+}
+.searchField:focus-within {
+  border-color: #007a87;
+  box-shadow: 0 0 0 3px #007a871a;
+}
+.searchField input {
+  width: 100%;
+  min-width: 0;
+  padding: 18px 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-size: 15px;
+  color: #0f172a;
+}
+.searchField input:focus-visible {
+  outline: none;
+}
+.searchField button {
+  flex-shrink: 0;
+  background: transparent;
+  color: #007a87;
+  border: 0;
+  padding: 10px 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+.topics h2 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 6px 0 16px;
+}
+.topics > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.topics button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  padding: 14px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #475569;
+  font-size: 12px;
+}
+.topics button[aria-pressed="true"] {
+  color: #007a87;
+  background: #eaf5f5;
+  font-weight: 600;
+}
+.topics button:hover {
+  background: #f1f5f9;
+}
+.topics button span {
+  font-size: 11px;
+  color: #64748b;
+}
+.count {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 16px !important;
+  line-height: 1.6;
+}
+.question {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+.question summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px;
+  cursor: pointer;
+  list-style: none;
+  font:
+    500 17px/1.5 "Space Grotesk",
+    sans-serif;
+}
+.question summary::-webkit-details-marker {
+  display: none;
+}
+.question[open] {
+  border-color: #b5d9dd;
+}
+.question[open] summary {
+  color: #007a87;
+}
+.expand {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+.expand::before,
+.expand::after {
+  content: "";
+  position: absolute;
+  background: #007a87;
+  left: 1px;
+  top: 7px;
+  width: 14px;
+  height: 1.5px;
+}
+.expand::after {
+  transform: rotate(90deg);
+}
+.question[open] .expand::after {
+  display: none;
+}
+.answer {
+  padding: 0 24px 24px;
+}
+.answer p {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.answer a {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+.empty {
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 48px 24px;
+  text-align: center;
+}
+.empty h2 {
+  font:
+    500 24px "Space Grotesk",
+    sans-serif;
+}
+.empty p {
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.empty button {
+  margin-top: 20px;
+  border: 1px solid #007a87;
+  background: white;
+  color: #007a87;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 13px;
+}
+@media (max-width: 850px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .topics > div {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .topics button {
+    padding: 12px;
+  }
+  .intro h1 {
+    font-size: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .page {
+    padding-top: 72px;
+  }
+  .main {
+    padding: 40px 16px 32px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.2px;
+  }
+  .intro h1 {
+    font-size: 36px;
+    letter-spacing: -1px;
+  }
+  .intro > p:last-child {
+    font-size: 14px;
+  }
+  .searchArea {
+    margin: 28px 0;
+  }
+  .searchField {
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .searchField input {
+    font-size: 13px;
+  }
+  .question summary {
+    font-size: 16px;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+  .answer {
+    padding: 0 16px 20px;
+  }
+}
