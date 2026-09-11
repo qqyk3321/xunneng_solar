@@ -28,6 +28,12 @@ Public navigation does not link to this archive. Register future experiments in 
 
 ## Inquiry safeguards
 
+### Diagnosing a 503
+
+Failed server dependencies emit a structured `contact_submission_failed` log. Search Vercel Runtime Logs for this event. `stage` identifies `upstash.config`, `upstash.limit`, `supabase.config`, `supabase.lookup`, `supabase.upload`, `supabase.insert` or the fallback `supabase.request`. `reason` classifies missing configuration, credentials/permissions, timeout, network, or a generic dependency error. `configured` contains presence booleans only, never credentials. Safe provider status/error codes are included when available. The random `requestId` matches the `X-Contact-Request-Id` response header; it is not a saved inquiry ID. No email, message, image URL, IP, raw SDK error, or token is logged.
+
+Ordinary `npm run dev` bypasses distributed Contact us rate limiting; production runs it. Successful local form submission therefore does not prove Vercel's Upstash configuration works. Missing variables, wrong deployment scope, stale deployment, rejected credentials, network errors and Supabase errors can all differ despite using the same intended credentials. Do not disable protection or assume every 503 is Upstash.
+
 Configured-origin check (not a client-supplied Host allowlist), honeypot, bounded streaming body (768 KiB), strict field/document validation, 5–5,000 characters, up to 3 JPEG/PNG/WebP images of at most 150 KiB each, private storage, request-ID/digest idempotency. Browser targets approximately 100 KiB WebP; readable output takes priority within the server ceiling.
 
 Upstash production limits: 5 attempts / 10 minutes per hashed client IP and 100 / hour across the environment. Vercel-provided forwarding is used only on Vercel; non-Vercel production uses a shared conservative source bucket. SDK timeouts fail closed. Existing in-process concurrency guards supplement, not replace, distributed limits. Preview and Production counters use separate namespaces.

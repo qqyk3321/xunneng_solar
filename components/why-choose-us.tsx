@@ -7,8 +7,8 @@ import styles from "./why-choose-us.module.css";
 const reasons = [
   {
     icon: Leaf,
-    title: "Lower bills. Steadier power. No fuel.",
-    text: "Make your energy investment work for you. Solar and battery storage help lower your bills and keep essential loads running through outages — generating power without burning a drop of fuel.",
+    title: "Lower bills. Smarter backup. One connected system.",
+    text: "Solar and battery storage help lower your bills and keep essential loads running during outages. With the right equipment and system design, solar, batteries, grid power and a compatible existing generator can be coordinated as one home energy system.",
   },
   {
     icon: ShieldCheck,

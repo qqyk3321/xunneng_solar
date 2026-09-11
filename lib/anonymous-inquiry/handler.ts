@@ -38,6 +38,7 @@ type Dependencies = {
   enabled: boolean;
   origin: string | ((request: Request) => boolean);
   beforeRead?: (request: Request) => Promise<void>;
+  onError?: (error: unknown, request: Request) => void;
   save: (payload: InquiryPayload) => Promise<InquiryReceipt>;
 };
 function json(body: unknown, status = 200, retryAfter = 60) {
@@ -240,6 +241,14 @@ export function createInquiryHandler(deps: Dependencies) {
       });
       return json(receipt, 201);
     } catch (error) {
+      if (!(error instanceof InquiryError) || error.status >= 500) {
+        // Diagnostic failures must never replace the original safe response.
+        try {
+          deps.onError?.(error, request);
+        } catch {
+          /* best-effort logging */
+        }
+      }
       return error instanceof InquiryError
         ? json({ error: error.message }, error.status, error.retryAfter)
         : json(

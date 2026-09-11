@@ -3,13 +3,15 @@ import { randomUUID } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { INQUIRY_BUCKET, INQUIRY_TABLE, type InquiryReceipt } from "./config";
 import { InquiryError, type InquiryPayload } from "./handler";
+import { ContactFailure, dependencyFailure } from "./diagnostics";
 
 export async function saveInquiry(
   payload: InquiryPayload,
 ): Promise<InquiryReceipt> {
   const url = process.env.SUPABASE_URL?.trim(),
     key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  if (!url || !key) throw new Error("Inquiry storage unavailable");
+  if (!url || !key)
+    throw new ContactFailure("supabase.config", "missing_configuration");
   const client = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
     global: {
@@ -23,7 +25,7 @@ export async function saveInquiry(
       .select("id,created_at,payload_hash,content")
       .eq("id", payload.id)
       .maybeSingle();
-    if (error) throw new Error("Inquiry lookup failed");
+    if (error) throw dependencyFailure("supabase.lookup", error);
     if (!data) return null;
     if (data.payload_hash !== payload.digest)
       throw new InquiryError(
@@ -52,7 +54,8 @@ export async function saveInquiry(
         upsert: false,
         contentType: image.mime,
       });
-      if (result.error) throw new Error("Inquiry image upload failed");
+      if (result.error)
+        throw dependencyFailure("supabase.upload", result.error);
       uploaded.push({
         id: image.id,
         path,
@@ -96,5 +99,5 @@ export async function saveInquiry(
     if (committed) return committed;
   }
   // Uncertain writes retain private files for manual reconciliation; no public links are issued.
-  throw new Error("Inquiry persistence not confirmed");
+  throw dependencyFailure("supabase.insert", result.error);
 }

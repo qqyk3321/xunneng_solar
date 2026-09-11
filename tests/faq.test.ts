@@ -3,6 +3,22 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import { FAQ_CATEGORIES, FAQ_ITEMS, searchFaq } from "../lib/faq/content";
 
+test("generator integration and expansion are searchable, qualified support topics", () => {
+  const generator = searchFaq("existing generator", "support").find(
+    (item) => item.id === "existing-generator",
+  );
+  const expansion = searchFaq("扩容", "support").find(
+    (item) => item.id === "future-expansion",
+  );
+  assert.ok(generator && expansion);
+  assert.match(generator.answer, /^In many cases, yes\./);
+  assert.match(generator.answer, /site assessment/);
+  assert.match(
+    expansion.answer,
+    /equipment compatibility and electrical capacity/,
+  );
+});
+
 test("FAQ reuses the guarded contact module and links to its own inquiry section", () => {
   const page = readFileSync("app/faq/page.tsx", "utf8");
   const directory = readFileSync("app/faq/faq-directory.tsx", "utf8");

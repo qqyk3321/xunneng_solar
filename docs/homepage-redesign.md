@@ -1,5 +1,7 @@
 # Homepage redesign — local verification
 
+Copy update: the first Why solar advantage now reads “Lower bills. Smarter backup. One connected system.” Its body qualifies solar/battery/grid/existing-generator coordination by compatible equipment and system design. The previous “No fuel” system-wide wording is removed; engineering details are in the FAQ.
+
 > Release update: Contact us and FAQ questions are now public features using `POST /api/contact`. The old development-only/fallback descriptions below document the original prototype and are superseded by [the release guide](./vercel-release.md). Account and other experiments remain local-only.
 
 The redesigned page is **`/`**, accessible at `http://192.168.1.176:3003/`. This change was explicitly approved for the main homepage; it is not restricted to `/home-preview`. No commit, push, deployment or server restart is part of this work.

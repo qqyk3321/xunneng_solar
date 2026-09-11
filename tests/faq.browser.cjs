@@ -112,7 +112,7 @@ async function main() {
     await page.goto(origin + "/faq", { waitUntil: "load" });
     const search = page.getByRole("searchbox", { name: "Search the FAQ" });
     const entries = page.locator("[data-faq-id]");
-    assert.equal(await entries.count(), 15);
+    assert.equal(await entries.count(), 17);
     assert.equal(await page.locator("details[open]").count(), 0);
     const first = entries.first();
     await first.locator("summary").focus();
@@ -156,7 +156,7 @@ async function main() {
       .waitFor();
     await page.getByRole("button", { name: "Reset search & topics" }).click();
     assert.equal(await search.inputValue(), "");
-    assert.equal(await entries.count(), 15);
+    assert.equal(await entries.count(), 17);
     assert.equal(
       await search.evaluate((el) => el === document.activeElement),
       true,
@@ -166,7 +166,7 @@ async function main() {
       .click();
     await page
       .getByRole("status")
-      .filter({ hasText: "5 answers to explore" })
+      .filter({ hasText: "7 answers to explore" })
       .waitFor();
     await search.fill("保修");
     await page
@@ -178,7 +178,7 @@ async function main() {
       .click();
     assert.equal(
       await entries.count(),
-      5,
+      7,
       "Clear search preserves the chosen topic",
     );
     await search.fill("加固");
@@ -256,7 +256,7 @@ async function main() {
       JSON.stringify(
         {
           ok: true,
-          answers: 15,
+          answers: 17,
           localSearch: true,
           topics: true,
           keyboardAccordion: true,

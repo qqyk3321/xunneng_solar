@@ -1,5 +1,7 @@
 # Standalone FAQ
 
+Current content: 17 questions, including qualified generator integration and future expansion under Equipment & support. These additions do not promise universal compatibility, grid export, or guaranteed returns.
+
 URL: `http://192.168.1.176:3003/faq`.
 
 English site page, separate from the homepage. Accessible without login in all environments; no deployment is performed by adding it. Links are present in the desktop homepage navigation, mobile header and footer. The test-page directory lists it under main business pages, not as an experiment.
@@ -7,7 +9,7 @@ English site page, separate from the homepage. Accessible without login in all e
 ## Content and behavior
 
 - Edit questions, answers, categories, keywords and related links in `lib/faq/content.ts`.
-- Editorial content: 15 questions across Getting started, Savings & sizing, and Equipment & support. Site-specific calculator facts reuse its configuration. User-confirmed warranties are 10 years for inverters and batteries and 25 years for solar panels; no product/performance warranty subtype is inferred. Cleaning and reinforcement services have a separate answer, with no pricing or free-service promise. Detailed warranty terms, stock availability, wind-rating documents and installation timing are referred to the team instead of inventing terms.
+- Editorial content: 17 questions across Getting started, Savings & sizing, and Equipment & support. Site-specific calculator facts reuse its configuration. User-confirmed warranties are 10 years for inverters and batteries and 25 years for solar panels; no product/performance warranty subtype is inferred. Cleaning and reinforcement services have a separate answer, with no pricing or free-service promise. Detailed warranty terms, stock availability, wind-rating documents and installation timing are referred to the team instead of inventing terms.
 - Search is local, immediate and covers questions, answers, category names and keywords. It is case-insensitive, normalizes punctuation/accents, and requires all entered words to match. Chinese feature keywords are supported without changing the English interface.
 - Category filters combine with the query. Clear search preserves the topic; reset clears both and returns keyboard focus to the search field.
 - Native question accordions support keyboard operation. Matching answers open automatically when searching. Empty results have a clear reset action and a contact route remains available below the list.

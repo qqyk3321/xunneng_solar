@@ -127,6 +127,29 @@ export const FAQ_ITEMS: FaqItem[] = [
     link: { href: "/#contact-us", label: "Ask about warranty coverage" },
   },
   {
+    id: "existing-generator",
+    category: "support",
+    question: "Can you integrate my existing generator?",
+    answer:
+      "In many cases, yes. If your home already uses a generator and grid electricity, our engineers can assess whether your existing equipment can be integrated into a proposed solar and battery system. The final design depends on your generator model, electrical setup, property needs and site assessment.",
+    keywords: [
+      "generator",
+      "integration",
+      "compatibility",
+      "grid",
+      "发电机",
+      "整合",
+    ],
+  },
+  {
+    id: "future-expansion",
+    category: "support",
+    question: "Can I expand my system in the future?",
+    answer:
+      "In many cases, a solar and battery system can be expanded as your energy needs change. Contact our engineers to discuss your future plans and receive a tailored expansion proposal. Available options depend on your existing system design, roof space, equipment compatibility and electrical capacity.",
+    keywords: ["expand", "expansion", "upgrade", "future", "扩容", "升级"],
+  },
+  {
     id: "cleaning-reinforcement",
     category: "support",
     question: "Do you offer cleaning and reinforcement services?",

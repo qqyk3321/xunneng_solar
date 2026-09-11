@@ -4,6 +4,7 @@ import { isIP } from "node:net";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { InquiryError } from "./handler";
+import { ContactFailure } from "./diagnostics";
 
 type LimitResult = {
   success: boolean;
@@ -17,7 +18,7 @@ export async function requireContactLimit(result: LimitResult) {
     void result.pending.catch(() => undefined);
     throw new InquiryError(
       503,
-      "Contact protection is temporarily unavailable.",
+      "Contact protection timed out.",
     );
   }
   await result.pending;
@@ -42,7 +43,7 @@ export async function checkContactLimit(request: Request) {
     const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
     const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
     if (!url || !token)
-      throw new InquiryError(503, "Contact protection is not configured.");
+      throw new ContactFailure("upstash.config", "missing_configuration");
     const redis = new Redis({
       url,
       token,

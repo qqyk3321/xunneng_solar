@@ -17,7 +17,7 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
     "remote monitoring",
     "cleaning and reinforcement",
     "150+ MPH",
-    "without burning a drop of fuel",
+    "compatible existing generator",
     "Illustrative count",
     "Up to",
     "Target: within",
