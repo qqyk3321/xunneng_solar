@@ -1,6 +1,9 @@
 "use client";
 
 import Script from "next/script";
+import Link from "next/link";
+import { BrandMark } from "./brand-mark";
+import styles from "./consultation-flow.module.css";
 import { useRouter } from "next/navigation";
 import { Check, ChevronLeft, MapPin, Send, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -37,10 +40,20 @@ export function ConsultationFlow({ apiKey }: { apiKey: string }) {
           className="mx-auto max-w-[1360px]"
           aria-label="Consultation details"
         >
+          <Link
+            href="/"
+            prefetch={false}
+            className={styles.brand}
+            aria-label="Sol & Tide Energy home"
+          >
+            <BrandMark />
+            <span>Sol<span className={styles.ampersand}>&</span>Tide</span>
+            <small>Energy</small>
+          </Link>
           <header className="mb-space-xl flex flex-col gap-space-lg md:mb-space-2xl md:flex-row md:items-end md:justify-between">
             <div>
               <p className="mb-space-2xs font-label-md text-label-md font-bold uppercase tracking-wider text-primary">
-                Xunneng Solar · Consultation
+                Consultation
               </p>
               <h1 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface">
                 Start your assessment

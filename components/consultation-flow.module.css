@@ -1,0 +1,21 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 28px;
+  color: #0f172a;
+  font: 600 26px/1.2 "Space Grotesk", sans-serif;
+  text-decoration: none;
+}
+.ampersand {
+  color: #007c8a;
+}
+.brand small {
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.brand:focus-visible {
+  outline: 3px solid #007c8a;
+  outline-offset: 6px;
+  border-radius: 4px;
+}
