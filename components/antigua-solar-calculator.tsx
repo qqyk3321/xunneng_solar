@@ -174,7 +174,7 @@ export function AntiguaSolarCalculator() {
                 </div>
                 <div className={styles.row + " " + styles.highlight}>
                   <dt>Simple payback</dt>
-                  <dd data-testid="payback">
+                  <dd className={styles.payback} data-testid="payback">
                     <span className={styles.approx} aria-label="Approximately">
                       ~
                     </span>
