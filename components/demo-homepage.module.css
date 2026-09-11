@@ -181,11 +181,11 @@
   background: #005f6a;
 }
 .homepage .solarButton {
-  background: #f59e0b;
-  color: #0f172a;
+  background: #007c8a;
+  color: #ffffff;
 }
 .homepage .solarButton:hover {
-  background: #fbbf24;
+  background: #005f6a;
 }
 .heroNotes {
   display: flex;
