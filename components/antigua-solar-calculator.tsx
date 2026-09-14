@@ -1,8 +1,12 @@
 "use client";
 
 import { useId, useState } from "react";
+import { useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
-import { ANTIGUA_CONFIG as config } from "@/lib/antigua-calculator/config";
+import {
+  ANTIGUA_CONFIG,
+  DOMINICA_CONFIG,
+} from "@/lib/antigua-calculator/config";
 import { billBounds, calculate } from "@/lib/antigua-calculator/calculate";
 import styles from "./antigua-solar-calculator.module.css";
 
@@ -11,8 +15,7 @@ const hours = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
-const money = (value: number) => config.currency + " " + number.format(value);
-const bounds = billBounds();
+const money = (value: number) => "EC$ " + number.format(value);
 
 export function AntiguaSolarCalculator() {
   const id = useId();
@@ -24,10 +27,18 @@ export function AntiguaSolarCalculator() {
     range: id + "-range",
     tooltip: id + "-tooltip",
   };
-  const [bill, setBill] = useState(config.defaultBill);
+  const { country } = useSiteRegion();
+  const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
+  const bounds = billBounds(config);
+  const [requestedBill, setBill] = useState(ANTIGUA_CONFIG.defaultBill);
+  const bill = Math.min(
+    Math.floor(bounds.max),
+    Math.max(Math.ceil(bounds.min), requestedBill),
+  );
   const [tariffOpen, setTariffOpen] = useState(false);
-  const result = calculate(bill, "bill");
-  const { min, max } = bounds;
+  const result = calculate(bill, "bill", config);
+  const min = Math.ceil(bounds.min);
+  const max = Math.floor(bounds.max);
   const selectedValue = money(bill);
 
   return (
@@ -42,16 +53,23 @@ export function AntiguaSolarCalculator() {
           aria-labelledby={ids.inputTitle}
           data-testid="calculator-input"
         >
-          <h2 id={ids.inputTitle}>Your monthly bill</h2>
-          <div className={styles.labelRow}>
-            <label htmlFor={ids.slider}>Monthly electricity bill (EC$)</label>
+          <div className={styles.titleRow}>
+            <h2 id={ids.inputTitle}>Your monthly bill</h2>
             <span
               className={styles.tariffHelp}
               onPointerEnter={(event) => {
                 if (event.pointerType === "mouse") setTariffOpen(true);
               }}
               onPointerLeave={(event) => {
-                if (event.pointerType === "mouse") setTariffOpen(false);
+                if (
+                  event.pointerType === "mouse" &&
+                  !event.currentTarget.contains(document.activeElement)
+                )
+                  setTariffOpen(false);
+              }}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget))
+                  setTariffOpen(false);
               }}
             >
               <button
@@ -59,9 +77,8 @@ export function AntiguaSolarCalculator() {
                 className={styles.helpButton}
                 aria-label="About the electricity tariff"
                 aria-expanded={tariffOpen}
-                aria-describedby={tariffOpen ? ids.tooltip : undefined}
+                aria-controls={tariffOpen ? ids.tooltip : undefined}
                 onFocus={() => setTariffOpen(true)}
-                onBlur={() => setTariffOpen(false)}
                 onClick={() => setTariffOpen(true)}
                 onKeyDown={(event) => {
                   if (event.key === "Escape") setTariffOpen(false);
@@ -72,14 +89,71 @@ export function AntiguaSolarCalculator() {
               {tariffOpen && (
                 <span
                   id={ids.tooltip}
-                  role="tooltip"
+                  role="region"
+                  aria-label="Tariff sources and assumptions"
                   className={styles.tooltip}
                 >
-                  <strong>APUA · {config.tariff.sourceDate}</strong>Uses the
-                  June fuel surcharge of {config.currency}{" "}
-                  {config.tariff.fuelAdjustment.toFixed(2)}/kWh, plus the base
-                  electricity tariff. This is a fixed {config.tariff.sourceDate}{" "}
-                  preset, not a live rate.
+                  {country === "AG" ? (
+                    <>
+                      <strong>APUA · June 2026</strong>
+                      EC$0.40/kWh for the first 300 kWh, EC$0.38 thereafter,
+                      plus the June fuel surcharge of EC$0.80/kWh. Fixed June
+                      2026 preset, not a live rate.
+                      <a
+                        href="https://www.apua.ag/customer-service/rates/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Source: APUA Rates · Electricity (Domestic)
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <strong>DOMLEC · historical reference</strong>
+                      Base: EC$0.58/kWh for the first 50 kWh, EC$0.67 thereafter
+                      (WTO Trade Policy Review 2023, Dominica, footnote 150).
+                      Fuel: EC$0.33/kWh (July 2026 DOMLEC announcement). VAT:
+                      15% on electricity and fuel charges above the first 100
+                      kWh; the first 100 kWh are VAT-free.
+                      <a
+                        href="https://sice.oas.org/ctyindex/OECS/WTO/TPR_2023/s437-02_e.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        WTO 2023 · base rates, footnote 150
+                      </a>
+                      <a
+                        href="https://dominicanewsonline.com/news/homepage/homepage-carousel/domlec-geothermal-energy-helps-cut-july-fuel-surcharge-to-33-cents/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        DOMLEC July 2026 announcement · reported by DNO
+                      </a>
+                      <a
+                        href="https://www.domlec.dm/faqs/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        DOMLEC FAQs · VAT / Billing Queries
+                      </a>
+                      This combines historical sources, assumes the old base
+                      rates still apply, and is not a verified current tariff.
+                      The new structure announced for October 1, 2026 is not
+                      included.
+                      <a
+                        href="https://www.ircdominica.org/news/new-electricity-tariff-takes-effect-october-1-what-customers-should-know/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        IRC · October 2026 tariff change
+                      </a>
+                    </>
+                  )}
+                  <span className={styles.assumptions}>
+                    Savings assume an 80% bill reduction. System sizes,
+                    investment and payback use our planning assumptions, not
+                    utility forecasts or a quotation.
+                  </span>
                 </span>
               )}
             </span>

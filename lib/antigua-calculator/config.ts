@@ -8,6 +8,8 @@ export const ANTIGUA_CONFIG = {
     firstTierRate: 0.4,
     additionalRate: 0.38,
     minimumCharge: 25, // Documented only; outside this model's supported range.
+    vatRate: 0,
+    vatFreeKwh: 0,
   },
   consumption: { min: 300, max: 2000 },
   savingsFraction: 0.8,
@@ -38,3 +40,18 @@ export const ANTIGUA_CONFIG = {
 };
 
 export type CalculatorConfig = typeof ANTIGUA_CONFIG;
+
+/** Historical reference scenario, NOT a verified current DOMLEC tariff. */
+export const DOMINICA_CONFIG: CalculatorConfig = {
+  ...ANTIGUA_CONFIG,
+  tariff: {
+    sourceDate: "2023 base rates + July 2026 surcharge",
+    firstTierLimit: 50,
+    firstTierRate: 0.58,
+    additionalRate: 0.67,
+    fuelAdjustment: 0.33,
+    minimumCharge: 2.5,
+    vatRate: 0.15,
+    vatFreeKwh: 100,
+  },
+};

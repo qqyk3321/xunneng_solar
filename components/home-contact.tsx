@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- Local compressed photo thumbnails. */
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import {
   Check,
   ArrowUpRight,
@@ -503,7 +504,7 @@ export function HomeContact({
               <p className={styles.privacy}>
                 Your message is not posted publicly. We’ll only use these
                 details to respond to your request. Please don’t include
-                sensitive information.
+                sensitive information. <Link href="/privacy" target="_blank" rel="noopener noreferrer">Privacy policy (opens in a new tab)</Link>.
               </p>
             </form>
           )}
@@ -696,7 +697,7 @@ export function HomeContact({
             <p className={styles.privacy}>
               Your message stays private. Closing this window keeps your draft
               on this page. Refreshing or leaving the page clears unsent
-              content.
+              content. <Link href="/privacy" target="_blank" rel="noopener noreferrer">Privacy policy (opens in a new tab)</Link>.
             </p>
           </form>
         )}

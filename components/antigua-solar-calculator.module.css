@@ -95,6 +95,40 @@
   min-width: 0;
   padding: 8px 0;
 }
+.countryPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.countryPicker button {
+  padding: 8px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  color: #475569;
+  font:
+    600 12px/1.5 "Plus Jakarta Sans",
+    sans-serif;
+  cursor: pointer;
+}
+.countryPicker button[aria-pressed="true"] {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.module .tooltip a {
+  display: block;
+  color: #8ee3e8;
+  text-decoration: underline;
+  margin: 8px 0;
+}
+.assumptions {
+  display: block;
+  border-top: 1px solid #ffffff30;
+  margin-top: 12px;
+  padding-top: 10px;
+}
 .resultCard {
   min-width: 0;
   background: #f8fafc;
@@ -116,6 +150,17 @@
   gap: 8px;
   margin: 28px 0 12px;
   min-height: 28px;
+}
+.titleRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.titleRow .tooltip {
+  left: 0;
+  right: auto;
 }
 .labelRow label {
   font-size: 12px;
@@ -143,6 +188,8 @@
   background: #f0f8f8;
 }
 .tooltip {
+  max-height: 55dvh;
+  overflow-y: auto;
   position: absolute;
   z-index: 5;
   right: 0;

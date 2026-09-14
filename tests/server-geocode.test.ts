@@ -1,0 +1,111 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { createGeocodeHandler } from "../lib/server-geocode";
+const env = {
+  NODE_ENV: "production",
+  SITE_URL: "https://example.test",
+  GOOGLE_MAPS_SERVER_KEY: "test-server-secret",
+};
+const request = (body: unknown, origin = "https://example.test") =>
+  new Request("https://example.test/api/geocode", {
+    method: "POST",
+    headers: { Origin: origin },
+    body: JSON.stringify(body),
+  });
+test("geocoding uses only the server key and normalizes provider response", async () => {
+  let url = "";
+  const handler = createGeocodeHandler(env, async (input) => {
+    url = String(input);
+    return Response.json({
+      status: "OK",
+      results: [
+        {
+          place_id: "1",
+          formatted_address: "Roseau",
+          geometry: {
+            location: { lat: 15.3, lng: -61.38 },
+            viewport: {
+              northeast: { lat: 15.4, lng: -61.3 },
+              southwest: { lat: 15.2, lng: -61.4 },
+            },
+          },
+        },
+      ],
+    });
+  });
+  const response = await handler(request({ address: "Roseau", country: "DM" }));
+  assert.equal(response.status, 200);
+  const query = new URL(url).searchParams;
+  assert.equal(query.get("key"), env.GOOGLE_MAPS_SERVER_KEY);
+  assert.equal(query.get("components"), "country:DM");
+  const body = await response.text();
+  assert.doesNotMatch(body, /secret|maps.googleapis/);
+  const result = JSON.parse(body).results[0];
+  assert.equal(result.lat, 15.3);
+  assert.equal(result.viewport.north, 15.4);
+});
+test("invalid requests never call Google", async () => {
+  let calls = 0;
+  const handler = createGeocodeHandler(env, async () => {
+    calls++;
+    return Response.json({});
+  });
+  assert.equal(
+    (
+      await handler(
+        request({ address: "Roseau", country: "DM" }, "https://evil.test"),
+      )
+    ).status,
+    403,
+  );
+  assert.equal(
+    (await handler(request({ address: "Roseau", country: "DO" }))).status,
+    400,
+  );
+  assert.equal((await handler(request(null))).status, 400);
+  assert.equal(
+    (await handler(request({ address: "x".repeat(3000), country: "AG" })))
+      .status,
+    413,
+  );
+  assert.equal(calls, 0);
+});
+test("missing config, provider rejection and zero results are safe", async () => {
+  assert.equal(
+    (
+      await createGeocodeHandler({ ...env, GOOGLE_MAPS_SERVER_KEY: "" })(
+        request({}),
+      )
+    ).status,
+    503,
+  );
+  const denied = createGeocodeHandler(env, async () =>
+    Response.json({
+      status: "REQUEST_DENIED",
+      error_message: env.GOOGLE_MAPS_SERVER_KEY,
+    }),
+  );
+  const response = await denied(request({ address: "Roseau", country: "DM" }));
+  assert.equal(response.status, 502);
+  assert.doesNotMatch(await response.text(), /test-server-secret/);
+  const empty = createGeocodeHandler(env, async () =>
+    Response.json({ status: "ZERO_RESULTS" }),
+  );
+  assert.deepEqual(
+    await (await empty(request({ address: "Roseau", country: "DM" }))).json(),
+    { results: [] },
+  );
+});
+test("per-process quota bounds provider calls", async () => {
+  let calls = 0;
+  const handler = createGeocodeHandler(env, async () => {
+    calls++;
+    return Response.json({ status: "ZERO_RESULTS" });
+  });
+  for (let i = 0; i < 30; i++)
+    await handler(request({ address: "Roseau", country: "DM" }));
+  const response = await handler(request({ address: "Roseau", country: "DM" }));
+  assert.equal(response.status, 429);
+  assert.equal(calls, 30);
+  assert.equal(response.headers.get("Retry-After"), "60");
+});

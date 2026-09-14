@@ -1,0 +1,25 @@
+import type { AddressComponent } from "./address-details";
+
+export type MapAddressCandidate = {
+  id: string;
+  address: string;
+  lat: number;
+  lng: number;
+  components: AddressComponent[];
+  viewport?: { north: number; south: number; east: number; west: number };
+};
+/** Browser calls our server; only the server has the Geocoding credential. */
+export async function findMapAddresses(
+  address: string,
+  country: string,
+): Promise<MapAddressCandidate[]> {
+  const response = await fetch("/api/geocode", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ address, country }),
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!response.ok) throw new Error("Address lookup unavailable");
+  const payload = (await response.json()) as { results: MapAddressCandidate[] };
+  return payload.results;
+}

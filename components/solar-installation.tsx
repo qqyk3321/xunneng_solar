@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type CSSProperties } from "react";
 import { AssessmentLink } from "./assessment-link";
+import { useSiteRegion } from "./site-region";
 import styles from "./solar-installation.module.css";
 
 const steps = [
@@ -29,6 +30,8 @@ const steps = [
 
 /** Standalone installation journey, separate from the future system-explainer page. */
 export function SolarInstallation() {
+  const { country } = useSiteRegion();
+  const location = country === "DM" ? "Dominica" : country === "AG" ? "Antigua" : "the Caribbean";
   const section = useRef<HTMLElement>(null);
   useEffect(() => {
     if (
@@ -63,7 +66,7 @@ export function SolarInstallation() {
     >
       <div className={styles.container}>
         <div className={styles.heading}>
-          <h2 id="installation-heading">Your Solar Installation in Antigua</h2>
+          <h2 id="installation-heading">Your Solar Installation in {location}</h2>
           <p>
             A clear path from your first request to solar-powered everyday
             living.
@@ -83,7 +86,7 @@ export function SolarInstallation() {
               <div className={styles.card}>
                 <h3>{step.title}</h3>
                 <span className={styles.timing}>{step.timing}</span>
-                <p>{step.text}</p>
+                <p>{step.text.replace("Antigua’s", country === "DM" ? "Dominica’s" : country === "AG" ? "Antigua’s" : "the Caribbean’s")}</p>
               </div>
             </li>
           ))}

@@ -184,6 +184,11 @@
   color: #7b8e89;
   margin: 19px 0 0;
 }
+.privacy a {
+  color: #006975;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .error {
   color: #963e2c;
   background: #fff3ee;

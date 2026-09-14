@@ -137,9 +137,9 @@ async function main() {
     await page.locator('[data-faq-id="warranty-terms"]').waitFor();
     assert.equal(await entries.count(), 2);
     await page
-      .getByText(/inverters and batteries come with a 10-year warranty/)
+      .getByText(/inverters come with an 8-year warranty/)
       .waitFor();
-    await page.getByRole("link", { name: /Ask a question/ }).click();
+    await page.getByRole("link", { name: /Ask a question/ }).first().click();
     assert.equal(new URL(page.url()).pathname, "/faq");
     assert.equal(
       await page
@@ -147,7 +147,7 @@ async function main() {
         .evaluate((el) => el === document.activeElement),
       true,
     );
-    await page.getByText(/solar panels come with a 25-year warranty/).waitFor();
+    await page.getByText(/solar panels come with a 15-year warranty/).waitFor();
     await page
       .getByRole("button", { name: "Getting started", exact: true })
       .click();
@@ -178,7 +178,7 @@ async function main() {
       .click();
     assert.equal(
       await entries.count(),
-      7,
+      9,
       "Clear search preserves the chosen topic",
     );
     await search.fill("加固");
@@ -188,7 +188,7 @@ async function main() {
     assert.equal(await entries.count(), 1);
     await page
       .getByText(
-        /We also provide solar panel cleaning and reinforcement services/,
+        /We provide solar panel cleaning and reinforcement services/,
       )
       .waitFor();
     await page

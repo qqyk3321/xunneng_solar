@@ -11,9 +11,9 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
   );
   for (const phrase of [
     "100% local",
-    "UL-certified",
-    "10-year",
-    "25 years",
+    "UL/CE-certified",
+    "8-year",
+    "15-year",
     "remote monitoring",
     "cleaning and reinforcement",
     "150+ MPH",

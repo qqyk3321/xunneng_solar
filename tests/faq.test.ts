@@ -1,5 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+
+test("shared FAQ includes both regional equipment certification lists", () => {
+  const antigua = FAQ_ITEMS.find(item => item.id === "antigua-equipment-certifications")!;
+  const dominica = FAQ_ITEMS.find(item => item.id === "dominica-equipment-certifications")!;
+  for (const standard of ["IEEE 1547-2018", "IEEE 1547.1-2020", "SRD2.0", "UL 1741", "CSA C22.2 No.107.1", "UL 1741 CRD", "UL 1741 SB", "FCC Part 15 Class B", "UL 1699B", "UL 1998", "UN 38.3", "CEC", "UL 1973", "UL 9540A", "UL 9540"]) assert.ok(antigua.answer.includes(standard), standard);
+  for (const standard of ["EN 50549", "NRS 097-2-1", "IEC 62109-1/-2", "IEC/EN 61000-6-1/-2/-3/-4", "IEC 62619", "UN 38.3", "CE-EMC"]) assert.ok(dominica.answer.includes(standard), standard);
+  for (const item of [antigua, dominica]) {
+    assert.equal(item.category, "support");
+    assert.match(item.answer, /selected model/);
+  }
+});
 import { readFileSync } from "node:fs";
 import { FAQ_CATEGORIES, FAQ_ITEMS, searchFaq } from "../lib/faq/content";
 
@@ -74,7 +85,7 @@ test("search covers questions, answers and keywords with case and punctuation no
   assert.deepEqual(searchFaq(""), FAQ_ITEMS);
   assert.deepEqual(searchFaq("  "), FAQ_ITEMS);
   assert.deepEqual(searchFaq("WARRANTY"), searchFaq("warranty"));
-  assert.deepEqual(searchFaq("10-year"), searchFaq("10 year"));
+  assert.deepEqual(searchFaq("8-year"), searchFaq("8 year"));
   assert.deepEqual(
     searchFaq(" FUEL  surcharge 0.80 ").map((item) => item.id),
     ["calculator-tariff"],
@@ -97,13 +108,15 @@ test("warranty durations and separate services match the supplied business scope
   const warranty = FAQ_ITEMS.find((item) => item.id === "warranty-terms")!;
   assert.match(
     warranty.answer,
-    /inverters and batteries come with a 10-year warranty/,
+    /inverters come with an 8-year warranty/,
   );
-  assert.match(warranty.answer, /solar panels come with a 25-year warranty/);
+  assert.match(warranty.answer, /solar panels come with a 15-year warranty/);
+  assert.match(warranty.answer, /battery specification is 4,000 cycles/);
+  assert.doesNotMatch(warranty.answer, /10.year|25.year/);
   assert.match(warranty.answer, /faults in the equipment itself that arise during normal use/);
   assert.match(warranty.answer, /our team will help investigate/);
   assert.deepEqual(
-    searchFaq("25-year").map((item) => item.id),
+    searchFaq("15-year").map((item) => item.id),
     ["warranty-terms"],
   );
   const services = FAQ_ITEMS.find(

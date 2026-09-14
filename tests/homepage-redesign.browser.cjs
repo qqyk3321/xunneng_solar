@@ -65,8 +65,8 @@ async function main() {
       "150+ MPH Rated",
       "UL Certified Equipment",
       "Local Parts Stock",
-      "10-Year Inverter + Battery Warranty",
-      "25-Year Solar Panel Warranty",
+      "8-Year Inverter Warranty",
+      "15-Year Solar Panel Warranty",
     ]) {
       await hero.getByText(label, { exact: true }).waitFor();
     }

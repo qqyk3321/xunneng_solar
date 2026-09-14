@@ -6,7 +6,7 @@ import styles from "@/components/antigua-solar-calculator.module.css";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Antigua solar calculator | Sol & Tide Energy",
+  title: "Solar calculator preview | Sol & Tide Energy",
   robots: { index: false, follow: false },
 };
 
@@ -24,7 +24,7 @@ export default function AntiguaCalculatorPreview() {
       </header>
       <main className={styles.main}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>ANTIGUA · CALCULATOR PREVIEW</p>
+          <p className={styles.eyebrow}>ANTIGUA / DOMINICA · CALCULATOR PREVIEW</p>
           <h1>Home solar & battery calculator</h1>
           <p>Slide to set your monthly electricity bill.</p>
         </div>

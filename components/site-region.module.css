@@ -1,0 +1,171 @@
+.dialog {
+  width: min(580px, calc(100% - 32px));
+  max-height: 90dvh;
+  overflow-y: auto;
+  margin: auto;
+  padding: 36px;
+  border: 1px solid #d4e4e3;
+  border-top: 4px solid #ffa500;
+  border-radius: 20px;
+  background: #fff;
+  color: #153e46;
+  box-shadow: 0 24px 80px #061f3859;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.dialog::backdrop {
+  background: #092f3bb3;
+  backdrop-filter: blur(5px);
+}
+.dialog .eyebrow {
+  margin: 0 0 14px;
+  color: #007a87;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.dialog h2 {
+  margin: 0 18px 16px 0;
+  font:
+    600 30px/1.2 "Space Grotesk",
+    sans-serif;
+}
+.description,
+.coming {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #526b70;
+}
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 26px 0;
+}
+.options button {
+  padding: 20px 16px;
+  border: 1px solid #bfcfd1;
+  border-radius: 12px;
+  text-align: left;
+  background: #fff;
+  color: #153e46;
+  cursor: pointer;
+}
+.options button[aria-pressed="true"] {
+  background: #eaf6f5;
+  border: 2px solid #007a87;
+  padding: 19px 15px;
+}
+.options strong {
+  display: flex;
+  justify-content: space-between;
+  font:
+    600 20px "Space Grotesk",
+    sans-serif;
+}
+.options small {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #526b70;
+}
+.coming {
+  background: #f3f7f7;
+  border-radius: 10px;
+  padding: 14px;
+}
+.save {
+  width: 100%;
+  padding: 15px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #ffa500;
+  color: #102f36;
+  font:
+    700 14px "Plus Jakarta Sans",
+    sans-serif;
+  cursor: pointer;
+}
+.save:disabled {
+  background: #e8eeee;
+  color: #6a7c80;
+  cursor: not-allowed;
+}
+.hint {
+  color: #657b80;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: center;
+  margin: 16px 0 0;
+}
+.warning {
+  padding: 12px;
+  background: #fff2df;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  border: 0;
+  background: none;
+  padding: 8px;
+  color: #526b70;
+  font-size: 24px;
+  cursor: pointer;
+}
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: transparent;
+  color: inherit;
+  font:
+    600 12px/1.4 "Plus Jakarta Sans",
+    sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  width: fit-content;
+}
+.flag, .flagLarge {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px #102f3626;
+}
+.flag { width: 24px; height: 18px; }
+.flagLarge { width: 48px; height: 36px; margin-bottom: 14px; }
+.dialog :focus-visible,
+.switcher:focus-visible {
+  outline: 3px solid #007a87;
+  outline-offset: 4px;
+}
+@media (max-width: 480px) {
+  .dialog {
+    padding: 26px 20px;
+  }
+  .dialog h2 {
+    font-size: 25px;
+  }
+  .options {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .options button {
+    padding: 16px;
+  }
+  .options button[aria-pressed="true"] {
+    padding: 15px;
+  }
+  .switcher {
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+}

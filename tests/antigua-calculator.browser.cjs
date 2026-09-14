@@ -121,11 +121,11 @@ async function main() {
     const tariffHelp = page.getByRole("button", {
       name: "About the electricity tariff",
     });
-    const tooltip = page.getByRole("tooltip");
+    const tooltip = page.getByRole("region", { name: "Tariff sources and assumptions" });
     assert.equal(await tooltip.count(), 0);
     await tariffHelp.hover();
     await tooltip.waitFor();
-    assert.ok((await tooltip.textContent()).includes("EC$ 0.80/kWh"));
+    assert.ok((await tooltip.textContent()).includes("EC$0.80/kWh"));
     assert.ok((await tooltip.textContent()).includes("June 2026"));
     await tooltip.hover();
     assert.equal(await tooltip.isVisible(), true);

@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { RegionCertification, useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
 import { AntiguaSolarCalculator } from "./antigua-solar-calculator";
 import { SectionAnchor } from "./section-anchor";
@@ -12,6 +15,31 @@ export function DemoHomepage({
   accountSlot,
   contactSlot,
 }: { accountSlot?: ReactNode; contactSlot?: ReactNode } = {}) {
+  const { country } = useSiteRegion();
+  const hero =
+    country === "AG"
+      ? {
+          eyebrow: "SOLAR + STORAGE · ANTIGUA HOMES",
+          title: "The Renewable Energy Solution for Antigua",
+          description:
+            "Solar and battery solutions for your home in Antigua. Lower your electricity bills and plan for outages with an Antigua-based team, local parts stock and ongoing support.",
+          support: "Local Parts Stock",
+        }
+      : country === "DM"
+        ? {
+            eyebrow: "SOLAR + STORAGE · DOMINICA HOMES",
+            title: "The Renewable Energy Solution for Dominica",
+            description:
+          "Solar and battery solutions for your home in Dominica. Explore lower electricity bills and smarter backup, with equipment supply, installation and ongoing support coordinated by our local team.",
+            support: "Serving Dominica",
+          }
+        : {
+            eyebrow: "SOLAR + STORAGE · CARIBBEAN HOMES",
+            title: "The Renewable Energy Solution for the Caribbean Region",
+            description:
+              "Solar and battery solutions for homes across the Caribbean. Currently serving Antigua and Dominica, with more locations to follow.",
+            support: "Antigua + Dominica",
+          };
   return (
     <div className={"demo-home tailwind-scope " + styles.homepage}>
       <SiteHeader homeSectionsLocal accountSlot={accountSlot} />
@@ -24,24 +52,15 @@ export function DemoHomepage({
           <div className={styles.heroMedia}>
             {/* eslint-disable-next-line @next/next/no-img-element -- Keep the existing homepage hero asset. */}
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
-              alt="Solar-equipped coastal homes in Antigua"
+              src={country === "DM" ? "/images/dominica-solar-hero.png" : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"}
+              alt={country === "DM" ? "Illustrative solar-powered coastal homes inspired by Dominica" : "Solar-equipped coastal homes"}
               fetchPriority="high"
             />
           </div>
           <div className={styles.heroContent}>
-            <p className={styles.heroEyebrow}>
-              SOLAR + STORAGE · ANTIGUA HOMES
-            </p>
-            <h1 id="hero-title">
-              Reliable Solar + Storage
-              <br />
-              for Antigua
-            </h1>
-            <p className={styles.heroCopy}>
-              Put island sunshine to work. Explore lower electricity bills,
-              battery backup and a system built around your home.
-            </p>
+            <p className={styles.heroEyebrow}>{hero.eyebrow}</p>
+            <h1 id="hero-title">{hero.title}</h1>
+            <p className={styles.heroCopy}>{hero.description}</p>
             <div className={styles.heroActions}>
               <AssessmentLink className={styles.primary} />
               <SectionAnchor href="#calculator" className={styles.solarButton}>
@@ -50,10 +69,13 @@ export function DemoHomepage({
             </div>
             <div className={styles.heroNotes}>
               <span>150+ MPH Rated</span>
-              <span>UL Certified Equipment</span>
-              <span>Local Parts Stock</span>
-              <span>10-Year Inverter + Battery Warranty</span>
-              <span>25-Year Solar Panel Warranty</span>
+              <span>
+                <RegionCertification /> Certified Equipment
+              </span>
+              <span>{hero.support}</span>
+              <span>8-Year Inverter Warranty</span>
+              <span>LiFePO4 Battery · 4,000 Cycles</span>
+              <span>15-Year Solar Panel Warranty</span>
             </div>
           </div>
         </section>
@@ -69,10 +91,6 @@ export function DemoHomepage({
               <div>
                 <h2 id="calculator-heading">What could solar save you?</h2>
               </div>
-              <p className={styles.context}>
-                For homes in <strong>Antigua</strong>, using the APUA June 2026
-                tariff. Slide your monthly bill to explore your options.
-              </p>
             </div>
             <AntiguaSolarCalculator />
           </div>

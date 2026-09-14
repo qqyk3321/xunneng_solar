@@ -6,15 +6,22 @@ const EPSILON = 1e-8;
 
 export function billFromConsumption(kwh: number, config = ANTIGUA_CONFIG) {
   const t = config.tariff;
-  return (
-    Math.min(kwh, t.firstTierLimit) * t.firstTierRate +
-    Math.max(0, kwh - t.firstTierLimit) * t.additionalRate +
-    kwh * t.fuelAdjustment
-  );
+  const beforeVat = (units: number) =>
+    Math.min(units, t.firstTierLimit) * t.firstTierRate +
+    Math.max(0, units - t.firstTierLimit) * t.additionalRate +
+    units * t.fuelAdjustment;
+  const subtotal = beforeVat(kwh);
+  return subtotal + Math.max(0, subtotal - beforeVat(t.vatFreeKwh)) * t.vatRate;
 }
 
 export function consumptionFromBill(bill: number, config = ANTIGUA_CONFIG) {
   const t = config.tariff;
+  if (t.vatRate > 0) {
+    // Undo VAT above the exempt consumption before reversing the base tiers.
+    const exemptBill = billFromConsumption(t.vatFreeKwh, config);
+    if (bill > exemptBill)
+      bill = exemptBill + (bill - exemptBill) / (1 + t.vatRate);
+  }
   const threshold = t.firstTierLimit * (t.firstTierRate + t.fuelAdjustment);
   return bill <= threshold
     ? bill / (t.firstTierRate + t.fuelAdjustment)

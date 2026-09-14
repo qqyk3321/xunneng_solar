@@ -1,0 +1,43 @@
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const assert = require("node:assert/strict");
+(async () => {
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 375, height: 900 }, reducedMotion: "reduce" });
+    const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
+    await page.goto(origin, { waitUntil: "networkidle" });
+    const notice = page.getByRole("complementary", { name: "Cookie Preferences" });
+    await page.waitForTimeout(5500);
+    assert.equal(await notice.count(), 0, "Time alone must not show the notice at the top");
+    await page.evaluate(() => scrollTo(0, 200));
+    await notice.waitFor();
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    await page.screenshot({ path: "/tmp/home-privacy-notice-375.png" });
+    await notice.getByRole("button", { name: "Manage preferences" }).click();
+    const dialog = page.getByRole("dialog", { name: "Cookie Preferences" });
+    await dialog.waitFor();
+    await dialog.getByRole("switch", { name: "Analytics preview" }).check();
+    await dialog.getByRole("button", { name: "Confirm selection" }).click();
+    assert.equal(await notice.count(), 0);
+    await page.reload({ waitUntil: "networkidle" });
+    await page.evaluate(() => scrollTo(0, 300));
+    await page.waitForTimeout(5500);
+    assert.equal(await notice.count(), 0, "Dismissal survives reload within the tab");
+    await page.getByRole("button", { name: "Cookie preferences", exact: true }).click();
+    await notice.waitFor();
+    await notice.getByRole("button", { name: "Reject optional" }).click();
+    assert.equal(await notice.count(), 0);
+    const fresh = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+    await fresh.clock.install();
+    await fresh.goto(origin, { waitUntil: "networkidle" });
+    const second = fresh.getByRole("complementary", { name: "Cookie Preferences" });
+    await fresh.evaluate(() => scrollTo(0, 250));
+    assert.equal(await second.count(), 0, "Scrolling early must not bypass the delay");
+    await fresh.clock.runFor(5500);
+    await second.waitFor();
+    await fresh.screenshot({ path: "/tmp/home-privacy-notice-1440.png" });
+    await second.getByRole("button", { name: "Accept all" }).click();
+    assert.equal(await second.count(), 0);
+    console.log("Privacy notice: delay AND scroll, session dismissal, footer reopen, mobile/desktop passed.");
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

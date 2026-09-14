@@ -1,29 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSiteRegion } from "./site-region";
 import styles from "./why-choose-us.module.css";
 
 const reasons = [
   {
     label: "24/7 RESILIENT POWER",
     title: "Lower bills. Smarter backup. One connected system.",
-    text: "Solar and battery storage help lower your bills and keep essential loads running during outages. With the right equipment and system design, solar, batteries, grid power and a compatible existing generator can be coordinated as one home energy system.",
+    text: "Lower bills and backup for essential loads. Solar, batteries, grid power and a compatible existing generator can work together with the right design.",
   },
   {
-    label: "UL CERTIFIED · 10-YEAR EQUIPMENT WARRANTY",
+    label: "UL/CE CERTIFIED · 8-YEAR INVERTER WARRANTY",
     warm: true,
     title: "Certified equipment. Connected support.",
-    text: "UL-certified equipment, with a 10-year inverter and battery warranty and 25 years for solar panels. Check your system’s status through remote monitoring and reach our support team when you need help.",
+    text: "UL/CE-certified equipment. 8-year inverter warranty, LiFePO4 battery with 4,000 cycles and 15-year panel warranty — with remote monitoring and customer support.",
   },
   {
     label: "100% ANTIGUA BASED · LOCAL STOCK",
     title: "100% local. Right here in Antigua.",
-    text: "A local company with local stock and people you can reach. We help keep your project moving and provide ongoing services, including solar panel cleaning and reinforcement.",
+    text: "Local stock. A team you can reach. Ongoing support, including solar panel cleaning and reinforcement.",
   },
   {
     label: "150+ MPH RATED DESIGN",
     title: "Professional design for island conditions.",
-    text: "From system planning to installation, we take your roof and site seriously. Our 150+ MPH-rated designs are tailored to your property, giving you a professionally planned system and greater peace of mind.",
+    text: "Professional installation tailored to your roof. 150+ MPH-rated designs, subject to mounting specifications and site assessment.",
   },
 ];
 
@@ -47,11 +48,11 @@ const statistics = [
   },
   {
     id: "warranty",
-    value: 10,
+    value: 8,
     suffix: "",
     prefix: "",
-    label: "Years of warranty",
-    note: "Inverter + battery · 25 years for panels",
+    label: "Years of inverter warranty",
+    note: "Battery: 4,000 cycles · Panels: 15 years",
   },
   {
     id: "payback",
@@ -127,6 +128,33 @@ function AnimatedValue({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function WhyChooseUs() {
+  const { country } = useSiteRegion();
+  const certificate =
+    country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE";
+  const location =
+    country === "AG"
+      ? "Antigua"
+      : country === "DM"
+        ? "Dominica"
+        : "the Caribbean";
+  const regionalReasons = reasons.map((reason, index) => {
+    const item = {
+      ...reason,
+      label: reason.label.replace("UL/CE", certificate),
+      text: reason.text.replace("UL/CE", certificate),
+    };
+    if (index === 1) item.title = `Certified equipment for ${location}.`;
+    if (index === 2 && country === "DM") {
+      item.label = "SERVING DOMINICA · ONGOING SUPPORT";
+      item.title = "Support for your Dominica home.";
+      item.text =
+        "Our local team coordinates supply, installation and support in Dominica. Maintenance services and schedules are confirmed for your location.";
+    }
+    if (index === 3) {
+      item.title = `Designed for your home in ${location}.`;
+    }
+    return item;
+  });
   return (
     <section
       id="benefits"
@@ -137,14 +165,22 @@ export function WhyChooseUs() {
       <div className={styles.layout}>
         <div className={styles.copy}>
           <h2 id="benefits-heading">
-            Your home. Our island.
+            {country === "AG"
+              ? "Your Antigua home."
+              : country === "DM"
+                ? "Your Dominica home."
+                : "Your home. Our Caribbean."}
             <br />
             <span>Solar you can count on.</span>
           </h2>
           <ul className={styles.reasons} aria-label="Why choose Sol & Tide">
-            {reasons.map(({ label, warm, title, text }) => (
+            {regionalReasons.map(({ label, warm, title, text }) => (
               <li key={title}>
-                <span className={styles.badge + (warm ? " " + styles.badgeWarm : "")}>
+                <span
+                  className={
+                    styles.badge + (warm ? " " + styles.badgeWarm : "")
+                  }
+                >
                   {label}
                 </span>
                 <div>

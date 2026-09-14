@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { SectionAnchor } from "./section-anchor";
+import { RegionSwitcher } from "./site-region";
 import { BrandMark } from "./brand-mark";
 import styles from "./demo-homepage.module.css";
 
@@ -55,6 +56,7 @@ export function SiteHeader({
           >
             Get Your Free Assessment
           </Link>
+          <RegionSwitcher />
           {accountSlot}
         </div>
       </div>

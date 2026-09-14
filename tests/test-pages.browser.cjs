@@ -33,7 +33,7 @@ async function main() {
       .getByRole("heading", { name: "Test pages, all in one place." })
       .waitFor();
     const cards = page.locator("[data-test-route]");
-    assert.equal(await cards.count(), 11);
+    assert.equal(await cards.count(), 12);
     assert.match(
       await page.locator('meta[name="robots"]').getAttribute("content"),
       /noindex/,
@@ -66,7 +66,7 @@ async function main() {
     await search.fill("富文本");
     await page
       .getByRole("status")
-      .filter({ hasText: "Showing 2 of 11" })
+      .filter({ hasText: "Showing 2 of 12" })
       .waitFor();
     assert.equal(await cards.count(), 2);
     await search.fill("");
@@ -78,7 +78,7 @@ async function main() {
       .click();
     await page
       .getByRole("status")
-      .filter({ hasText: "Showing 2 of 11" })
+      .filter({ hasText: "Showing 2 of 12" })
       .waitFor();
     assert.equal(await cards.count(), 2);
     await search.fill("not-a-test-page");
@@ -88,7 +88,7 @@ async function main() {
     await page
       .getByRole("button", { name: "Clear filters", exact: true })
       .click();
-    assert.equal(await cards.count(), 11);
+    assert.equal(await cards.count(), 12);
     for (const width of [320, 375, 768, 1280]) {
       await page.setViewportSize({ width, height: 1000 });
       assert.ok(
@@ -134,7 +134,7 @@ async function main() {
       JSON.stringify(
         {
           ok: true,
-          registeredPages: 11,
+          registeredPages: 12,
           searchAndFilters: true,
           noPreloading: true,
           newTabNavigation: true,

@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { ANTIGUA_CONFIG } from "../lib/antigua-calculator/config";
+import {
+  ANTIGUA_CONFIG,
+  DOMINICA_CONFIG,
+} from "../lib/antigua-calculator/config";
 import {
   billBounds,
   billFromConsumption,
@@ -12,6 +15,37 @@ import {
 function near(actual: number, expected: number, tolerance = 1e-7) {
   assert.ok(Math.abs(actual - expected) < tolerance, `${actual} ≈ ${expected}`);
 }
+
+test("Dominica reference tariff taxes only charges above 100 kWh", () => {
+  near(billFromConsumption(50, DOMINICA_CONFIG), 45.5);
+  near(billFromConsumption(100, DOMINICA_CONFIG), 95.5);
+  near(billFromConsumption(101, DOMINICA_CONFIG), 96.65);
+  near(billFromConsumption(500, DOMINICA_CONFIG), 555.5);
+  near(billFromConsumption(500), 596);
+});
+
+test("Dominica VAT and tier boundaries round-trip and support all package boundaries", () => {
+  for (const units of [
+    0, 49.99, 50, 50.01, 99.99, 100, 100.01, 300, 600, 850, 1100, 1400, 1700,
+    2000,
+  ]) {
+    near(
+      consumptionFromBill(
+        billFromConsumption(units, DOMINICA_CONFIG),
+        DOMINICA_CONFIG,
+      ),
+      units,
+    );
+  }
+  for (const units of [300, 600, 850, 1100, 1400, 1700, 2000]) {
+    const result = calculate(
+      billFromConsumption(units, DOMINICA_CONFIG),
+      "bill",
+      DOMINICA_CONFIG,
+    );
+    assert.equal(result.status, "ready");
+  }
+});
 function ready(
   value: number,
   mode: "bill" | "consumption" = "consumption",

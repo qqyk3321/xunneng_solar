@@ -104,7 +104,7 @@ export function FaqDirectory() {
                     <span aria-hidden="true" className={styles.expand} />
                   </summary>
                   <div className={styles.answer}>
-                    <p>{item.answer}</p>
+                    <p style={{ whiteSpace: "pre-line" }}>{item.answer}</p>
                     {item.link &&
                       (item.link.href === "/#contact-us" ? (
                         <SectionAnchor href="#ask-question">

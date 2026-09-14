@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import packageJson from "@/package.json";
 import { SITE_CONTACT } from "@/lib/site-contact";
+import { RegionSwitcher, useSiteRegion } from "./site-region";
 import { BrandMark } from "./brand-mark";
+import { HomePrivacyNotice } from "./home-privacy-notice";
 import styles from "./site-footer.module.css";
 
 export function SiteFooter() {
+  const { country } = useSiteRegion();
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -20,9 +25,9 @@ export function SiteFooter() {
               Sol<span>&</span>Tide <small>Energy</small>
             </Link>
             <p className={styles.description}>
-              Solar and battery storage for Antigua homes.
+              Solar and battery storage for Caribbean homes.
               <br />
-              Start with your needs. Build toward your next step.
+              {country === "DM" ? "Serving homes in Dominica." : country === "AG" ? "Serving homes in Antigua." : "Currently serving Antigua and Dominica."}
             </p>
           </div>
           <div>
@@ -30,7 +35,7 @@ export function SiteFooter() {
             <address className={styles.contacts}>
               <a href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
               <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>
-              <span>{SITE_CONTACT.address}</span>
+              {country !== "DM" && <span>{SITE_CONTACT.address}</span>}
             </address>
           </div>
           <nav className={styles.links} aria-label="Footer navigation">
@@ -44,6 +49,11 @@ export function SiteFooter() {
             <Link href="/#contact-us" prefetch={false}>
               Contact us
             </Link>
+            <Link href="/privacy" prefetch={false}>
+              Privacy policy
+            </Link>
+            <RegionSwitcher />
+            <HomePrivacyNotice />
           </nav>
         </div>
         <div className={styles.bottom}>

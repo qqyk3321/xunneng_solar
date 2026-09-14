@@ -56,13 +56,13 @@ async function main() {
       () =>
         [...document.querySelectorAll("[data-animated-value]")]
           .map((el) => el.textContent)
-          .join(",") === "100+,95%,10,5",
+          .join(",") === "100+,95%,8,5",
     );
     const samples = await page.evaluate(() => window.__statSamples);
     for (const [id, target] of [
       ["installations", 100],
       ["savings", 95],
-      ["warranty", 10],
+      ["warranty", 8],
       ["payback", 5],
     ]) {
       assert.ok(
@@ -113,13 +113,13 @@ async function main() {
     await page.reload({ waitUntil: "load" });
     assert.deepEqual(
       await section.locator("[data-animated-value]").allTextContents(),
-      ["100+", "95%", "10", "5"],
+      ["100+", "95%", "8", "5"],
     );
     const noJs = await browser.newPage({ javaScriptEnabled: false });
     await noJs.goto(origin, { waitUntil: "load" });
     assert.deepEqual(
       await noJs.locator("#benefits [data-animated-value]").allTextContents(),
-      ["100+", "95%", "10", "5"],
+      ["100+", "95%", "8", "5"],
     );
     await noJs.close();
     assert.deepEqual(errors, []);

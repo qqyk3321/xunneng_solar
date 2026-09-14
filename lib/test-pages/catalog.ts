@@ -4,6 +4,7 @@ export const MAIN_PAGE_ROUTES = [
   "/",
   "/consultation",
   "/faq",
+  "/privacy",
   "/submission-preview-test",
 ] as const;
 export const TEST_GROUPS = [
@@ -52,6 +53,16 @@ export type TestPageEntry = {
   shortcuts?: { title: string; href: string }[];
 };
 export const TEST_PAGES: TestPageEntry[] = [
+  {
+    route: "/test-pages/cookie-preview",
+    title: "Cookie preferences — UI prototype",
+    description: "Preview the banner and settings dialog. Buttons only change this demo's appearance; no cookie controls are connected.",
+    group: "account",
+    access: "Local-only visual prototype",
+    href: "/test-pages/cookie-preview",
+    notice: "Not a working consent manager. Preferences are not persisted and do not affect any services.",
+    keywords: ["cookie", "privacy", "隐私", "样式", "弹窗"],
+  },
   {
     route: "/antigua-calculator-preview",
     title: "Antigua solar & battery calculator",

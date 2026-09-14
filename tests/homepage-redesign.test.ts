@@ -20,20 +20,18 @@ test("homepage sections omit the four removed eyebrow labels", () => {
   );
 });
 
-test("site branding consistently refers to Antigua", () => {
+test("brand covers the Caribbean while the calculator stays Antigua-specific", () => {
   for (const path of [
     "components/demo-homepage.tsx",
     "app/layout.tsx",
     "components/site-footer.tsx",
-    "app/auth-preview/layout.tsx",
-    "app/submission-preview-test/page.tsx",
-    "lib/faq/content.ts",
   ]) {
     const source = read(path);
-    assert.doesNotMatch(source, /caribbean|加勒比/i, path);
+    assert.match(source, /Caribbean/i, path);
     assert.match(source, /Antigua/i, path);
+    assert.match(source, /Dominica/i, path);
   }
-  assert.match(read("components/demo-homepage.tsx"), /for Antigua/);
+  assert.doesNotMatch(read("components/demo-homepage.tsx"), /For homes in <strong>Antigua/);
 });
 
 test("root homepage composes the calculator and contact without adding authentication", () => {
@@ -52,13 +50,13 @@ test("root homepage composes the calculator and contact without adding authentic
     home,
     /Service Areas Across the Caribbean|Zero Friction Deployment|99\.9%|Cat-5 Rated|No outages/,
   );
-  assert.match(home, /APUA June 2026/);
+  assert.match(home, /Antigua and Dominica/);
   for (const label of [
     "150+ MPH Rated",
-    "UL Certified Equipment",
+    "<RegionCertification /> Certified Equipment",
     "Local Parts Stock",
-    "10-Year Inverter + Battery Warranty",
-    "25-Year Solar Panel Warranty",
+    "8-Year Inverter Warranty",
+    "15-Year Solar Panel Warranty",
   ]) {
     assert.ok(home.includes(label));
   }

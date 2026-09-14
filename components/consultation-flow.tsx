@@ -2,17 +2,23 @@
 
 import Script from "next/script";
 import Link from "next/link";
+import { useSiteRegion, RegionFlag } from "./site-region";
 import { BrandMark } from "./brand-mark";
 import styles from "./consultation-flow.module.css";
 import { useRouter } from "next/navigation";
 import { Check, ChevronLeft, MapPin, Send, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
+  acknowledgeIntake,
+  SERVICE_COUNTRIES,
+  type IntakeAcknowledgement,
+} from "@/lib/consultation-intake";
+import {
   GoogleMapsAddressSelection,
   type ConfirmedGoogleMapLocation,
 } from "@/components/google-maps-address-selection";
 
-type Step = "location" | "form" | "thanks";
+type Step = "intake" | "location" | "form" | "thanks";
 
 type SelectedPlace = {
   address: string;
@@ -24,7 +30,26 @@ type SelectedPlace = {
 const TALLY_FORM_ID = process.env.NEXT_PUBLIC_TALLY_FORM_ID?.trim();
 
 export function ConsultationFlow({ apiKey }: { apiKey: string }) {
-  const [step, setStep] = useState<Step>("location");
+  const { country } = useSiteRegion();
+  return (
+    <ConsultationForRegion
+      key={country ?? "unset"}
+      apiKey={apiKey}
+      country={country ?? ""}
+    />
+  );
+}
+
+function ConsultationForRegion({
+  apiKey,
+  country,
+}: {
+  apiKey: string;
+  country: string;
+}) {
+  const [step, setStep] = useState<Step>("intake");
+  const [accepted, setAccepted] = useState(false);
+  const [intake, setIntake] = useState<IntakeAcknowledgement | null>(null);
   const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(
     null,
   );
@@ -47,7 +72,9 @@ export function ConsultationFlow({ apiKey }: { apiKey: string }) {
             aria-label="Sol & Tide Energy home"
           >
             <BrandMark />
-            <span>Sol<span className={styles.ampersand}>&</span>Tide</span>
+            <span>
+              Sol<span className={styles.ampersand}>&</span>Tide
+            </span>
             <small>Energy</small>
           </Link>
           <header className="mb-space-xl flex flex-col gap-space-lg md:mb-space-2xl md:flex-row md:items-end md:justify-between">
@@ -57,19 +84,105 @@ export function ConsultationFlow({ apiKey }: { apiKey: string }) {
               </p>
               <h1 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface">
                 Start your assessment
+                {(country === "AG" || country === "DM") && (
+                  <span className={styles.regionBadge}>
+                    <RegionFlag country={country} />
+                    {SERVICE_COUNTRIES[country].label}
+                  </span>
+                )}
               </h1>
             </div>
             <StepMeter step={step} />
           </header>
 
-          {step === "location" && (
-            <LocationStep
-              apiKey={apiKey}
-              onConfirm={(place) => {
-                setSelectedPlace(place);
-                setStep("form");
+          {step === "intake" && (
+            <form
+              className={styles.intake}
+              onSubmit={(event) => {
+                event.preventDefault();
+                const acknowledgement = acknowledgeIntake(country, accepted);
+                if (!acknowledgement) return;
+                setIntake(acknowledgement);
+                setStep("location");
               }}
-            />
+            >
+              <p className={styles.eyebrow}>LET’S START WITH YOUR LOCATION</p>
+              <h2>Solar for your corner of the Caribbean.</h2>
+              <p>
+                We currently serve Antigua and Dominica. More Caribbean
+                locations will follow.
+              </p>
+              <>
+                <div className={styles.notice}>
+                  <h3>Before we begin</h3>
+                  <p>
+                    We’ll use your contact details, property location and the
+                    information you share to assess your needs and respond to
+                    your enquiry. Continuing opens Google Maps; the details step
+                    uses Tally.
+                  </p>
+                  <label className={styles.checkbox}>
+                    <input
+                      type="checkbox"
+                      checked={accepted}
+                      required
+                      onChange={(event) => setAccepted(event.target.checked)}
+                    />
+                    <span>
+                      I have read the{" "}
+                      <Link
+                        href="/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Privacy Policy (opens in a new tab)
+                      </Link>{" "}
+                      and understand how my information will be used to handle
+                      this enquiry.
+                    </span>
+                  </label>
+                </div>
+                <button
+                  className={styles.continueButton}
+                  type="submit"
+                  disabled={!country || !accepted}
+                >
+                  Continue to assessment
+                </button>
+                <p className={styles.small}>
+                  An assessment is a starting point, not a final quote. System
+                  design, pricing and installation arrangements are confirmed
+                  after review. Refreshing this page restarts the assessment.
+                </p>
+              </>
+            </form>
+          )}
+
+          {step === "location" && intake && (
+            <div>
+              <button
+                className={styles.back}
+                type="button"
+                onClick={() => {
+                  setStep("intake");
+                  setIntake(null);
+                  setSelectedPlace(null);
+                }}
+              >
+                Review privacy notice
+              </button>
+              <p className={styles.countryLabel}>
+                Property location: {SERVICE_COUNTRIES[intake.country].label}
+              </p>
+              <LocationStep
+                apiKey={apiKey}
+                intake={intake}
+                onConfirm={(place) => {
+                  setSelectedPlace(place);
+                  setStep("form");
+                }}
+              />
+            </div>
           )}
 
           {step === "form" && selectedPlace && (
@@ -91,6 +204,7 @@ export function ConsultationFlow({ apiKey }: { apiKey: string }) {
 
 function StepMeter({ step }: { step: Step }) {
   const steps = [
+    { id: "intake", label: "Start" },
     { id: "location", label: "Location" },
     { id: "form", label: "Details" },
     { id: "thanks", label: "Complete" },
@@ -98,10 +212,7 @@ function StepMeter({ step }: { step: Step }) {
   const activeIndex = steps.findIndex((item) => item.id === step);
 
   return (
-    <ol
-      className="m-0 flex list-none gap-space-xs overflow-x-auto p-0 pb-1"
-      aria-label="Progress"
-    >
+    <ol className={styles.steps} aria-label="Progress">
       {steps.map((item, index) => (
         <li
           className={`flex min-h-9 flex-none items-center gap-space-xs rounded-full border px-space-sm py-space-2xs font-body-sm text-body-sm transition-colors ${
@@ -129,15 +240,23 @@ function StepMeter({ step }: { step: Step }) {
 
 function LocationStep({
   apiKey,
+  intake,
   onConfirm,
 }: {
   apiKey: string;
+  intake: IntakeAcknowledgement;
   onConfirm: (place: SelectedPlace) => void;
 }) {
   const handleConfirmedLocation = (location: ConfirmedGoogleMapLocation) => {
     const locationPayload = {
       ...location,
       capturedAt: new Date().toISOString(),
+      serviceCountry: intake.country,
+      serviceCountryName: SERVICE_COUNTRIES[intake.country].label,
+      privacyAcknowledgement: {
+        version: intake.privacyVersion,
+        acknowledgedAt: intake.acknowledgedAt,
+      },
     };
 
     onConfirm({
@@ -152,6 +271,10 @@ function LocationStep({
     <GoogleMapsAddressSelection
       apiKey={apiKey}
       embedded
+      initialCenter={SERVICE_COUNTRIES[intake.country].center}
+      countryName={SERVICE_COUNTRIES[intake.country].label}
+      region={intake.country}
+      addressPlaceholder={`Search for your property in ${SERVICE_COUNTRIES[intake.country].label}`}
       enableMapPointSelection
       onConfirmed={handleConfirmedLocation}
     />
@@ -242,11 +365,7 @@ function FormStep({
   );
 }
 
-function ThanksModal({
-  place,
-}: {
-  place: SelectedPlace;
-}) {
+function ThanksModal({ place }: { place: SelectedPlace }) {
   const router = useRouter();
 
   return (

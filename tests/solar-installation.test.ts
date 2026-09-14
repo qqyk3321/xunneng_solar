@@ -13,7 +13,7 @@ test("installation journey is independent of the reserved system guide", () => {
   assert.doesNotMatch(header, /How it works|navReserved/);
   assert.ok(header.indexOf('homeLink("contact-us"') < header.indexOf('href="/faq"'));
   for (const phrase of [
-    "Your Solar Installation in Antigua",
+    "Your Solar Installation in {location}",
     "Within 48 hours",
     "Around 2–4 days",
     "Typically 1–2 days",
