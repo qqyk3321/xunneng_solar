@@ -152,6 +152,7 @@ async function sendConfirmationEmail(args: {
         template: {
           id: templateId,
           variables: {
+            RECIPIENT_NAME: args.row.name,
             RECIPIENT_EMAIL: args.row.email,
             PREVIEW_URL: args.previewUrl,
             SUPPORT_EMAIL: supportEmail,
