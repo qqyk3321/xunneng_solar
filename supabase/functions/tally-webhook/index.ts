@@ -62,10 +62,15 @@ async function createPreviewUrl(args: {
   return `${args.siteUrl.replace(/\/$/, "")}/${region}/submission/${token}`;
 }
 
-function formatUtcTimestamp(date: Date, timezoneLabel: string): string {
+function formatRegionalTimestamp(
+  date: Date,
+  countryCode: SubmissionRow["country_code"],
+): string {
+  const timezone =
+    countryCode === "AG" ? "America/Antigua" : "America/Dominica";
   return (
     new Intl.DateTimeFormat("en-US", {
-      timeZone: "UTC",
+      timeZone: timezone,
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -73,7 +78,7 @@ function formatUtcTimestamp(date: Date, timezoneLabel: string): string {
       minute: "2-digit",
       second: "2-digit",
       hour12: false,
-    }).format(date) + ` ${timezoneLabel}`
+    }).format(date) + " AST"
   );
 }
 
@@ -105,8 +110,6 @@ async function sendConfirmationEmail(args: {
   const replyWindowHours = Number(
     args.env("CONSULTATION_REPLY_WINDOW_HOURS") ?? "48",
   );
-  const timezoneLabel =
-    args.env("CONSULTATION_TIMEZONE_LABEL")?.trim() || "UST";
   const submittedAt = new Date(args.receivedAt);
   const replyDeadline = new Date(
     submittedAt.getTime() +
@@ -152,8 +155,14 @@ async function sendConfirmationEmail(args: {
             RECIPIENT_EMAIL: args.row.email,
             PREVIEW_URL: args.previewUrl,
             SUPPORT_EMAIL: supportEmail,
-            SUBMITTED_AT: formatUtcTimestamp(submittedAt, timezoneLabel),
-            REPLY_DEADLINE: formatUtcTimestamp(replyDeadline, timezoneLabel),
+            SUBMITTED_AT: formatRegionalTimestamp(
+              submittedAt,
+              args.row.country_code,
+            ),
+            REPLY_DEADLINE: formatRegionalTimestamp(
+              replyDeadline,
+              args.row.country_code,
+            ),
           },
         },
       }),
