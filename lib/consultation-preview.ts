@@ -10,6 +10,7 @@ export type ConsultationPreview = {
   phone: string;
   address: Record<string, string | null>;
   preview_url: string | null;
+  submitted_at: string;
 };
 
 export async function loadConsultationPreview(token: string) {
@@ -24,7 +25,7 @@ export async function loadConsultationPreview(token: string) {
   const { data } = await client
     .from("consultation_preview_tokens")
     .select(
-      "expires_at, tally_form_submissions(country_code, name, email, phone, address, preview_url:payload->data->>submissionPreviewUrl)",
+      "expires_at, tally_form_submissions(country_code, name, email, phone, address, submitted_at, preview_url:payload->data->>submissionPreviewUrl)",
     )
     .eq("token_hash", tokenHash)
     .gt("expires_at", new Date().toISOString())

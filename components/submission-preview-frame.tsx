@@ -16,15 +16,11 @@ export function SubmissionPreviewFrame({ previewUrl }: { previewUrl: string }) {
     <section className={styles.record} aria-label="Your submitted consultation">
       <div className={styles.toolbar}>
         <h2>Your submitted details</h2>
-        <a href={previewUrl} target="_blank" rel="noopener noreferrer">
-          Open separately <span aria-hidden="true">↗</span>
-        </a>
       </div>
       {slow && loading && (
         <div className={styles.slow} role="status">
           <p>
-            The preview is taking a little longer. You can retry or open it
-            separately.
+            The preview is taking a little longer. Please try reloading it.
           </p>
           <button
             type="button"
