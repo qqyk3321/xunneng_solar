@@ -1,12 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Script from "next/script";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./submission-preview-frame.module.css";
 
 export function SubmissionPreviewFrame({ previewUrl }: { previewUrl: string }) {
+  const frame = useRef<HTMLIFrameElement>(null);
+  const url = new URL(previewUrl);
+  url.searchParams.set("dynamicHeight", "1");
+  const embedUrl = url.href;
   const [loading, setLoading] = useState(true);
   const [slow, setSlow] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const initialize = useCallback(() => {
+    (
+      window as Window & { Tally?: { loadEmbeds: () => void } }
+    ).Tally?.loadEmbeds();
+    // Preview pages may not answer the resize handshake. Never clip the record.
+    frame.current?.setAttribute("scrolling", "auto");
+  }, []);
+  useEffect(() => {
+    const element = frame.current;
+    if (!element) return;
+    const observer = new MutationObserver(() => {
+      if (element.getAttribute("scrolling") !== "auto")
+        element.setAttribute("scrolling", "auto");
+    });
+    observer.observe(element, {
+      attributes: true,
+      attributeFilter: ["scrolling"],
+    });
+    initialize();
+    return () => observer.disconnect();
+  }, [attempt, embedUrl, initialize]);
   useEffect(() => {
     if (!loading) return;
     const timer = setTimeout(() => setSlow(true), 12000);
@@ -14,14 +40,17 @@ export function SubmissionPreviewFrame({ previewUrl }: { previewUrl: string }) {
   }, [loading, attempt]);
   return (
     <section className={styles.record} aria-label="Your submitted consultation">
+      <Script
+        src="https://tally.so/widgets/embed.js"
+        strategy="afterInteractive"
+        onReady={initialize}
+      />
       <div className={styles.toolbar}>
         <h2>Your submitted details</h2>
       </div>
       {slow && loading && (
         <div className={styles.slow} role="status">
-          <p>
-            The preview is taking a little longer. Please try reloading it.
-          </p>
+          <p>The preview is taking a little longer. Please try reloading it.</p>
           <button
             type="button"
             onClick={() => {
@@ -48,8 +77,11 @@ export function SubmissionPreviewFrame({ previewUrl }: { previewUrl: string }) {
           </div>
         )}
         <iframe
-          key={`${previewUrl}-${attempt}`}
-          src={previewUrl}
+          ref={frame}
+          key={`${embedUrl}-${attempt}`}
+          src={embedUrl}
+          height="720"
+          scrolling="auto"
           title="Consultation record preview"
           className={styles.frame}
           data-pending={(loading && !slow) || undefined}

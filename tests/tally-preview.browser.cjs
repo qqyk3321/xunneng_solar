@@ -14,20 +14,24 @@ const assert = require('node:assert/strict');
   const token = createHmac('sha256', key).update(`consultation-preview/${row.tally_submission_row_id}`).digest('base64url');
   assert.ok(createHash('sha256').update(token).digest('hex') === row.token_hash, 'Existing preview must match current signing key');
   const region = submission.country_code === 'AG' ? 'antigua' : 'dominica';
+  const expectedUrl = new URL(submission.preview_url);
+  expectedUrl.searchParams.set('dynamicHeight', '1');
   const browser = await chromium.launch();
   try {
     for (const width of [390, 1440]) {
       const page = await browser.newPage({ viewport: { width, height: 1000 } });
       let release;
       const gate = new Promise(resolve => { release = resolve; });
-      await page.route(submission.preview_url, async route => { await gate; await route.continue(); });
+      await page.route(expectedUrl.href, async route => { await gate; await route.continue(); });
       await page.goto(`http://127.0.0.1:3003/${region}/submission/${token}`, { waitUntil: 'domcontentloaded' });
       await page.getByRole('heading', { name: 'Loading your consultation…' }).waitFor();
       assert.equal(await page.locator('header').count(), 1);
       assert.equal(await page.locator('footer').count(), 1);
       const frame = page.getByTitle('Consultation record preview');
-      assert.ok(await frame.getAttribute('src') === submission.preview_url);
+      assert.ok(await frame.getAttribute('src') === expectedUrl.href);
       release();
+      await page.waitForFunction(() => document.querySelector('iframe')?.dataset.tallyEmbedWidgetInitialized === '1');
+      assert.equal(await frame.getAttribute('scrolling'), 'auto');
       await page.getByRole('heading', { name: 'Loading your consultation…' }).waitFor({ state: 'hidden', timeout: 60000 });
       const embedded = page.frames().find(f => f.url().startsWith('https://tally.so/'));
       assert.ok(embedded);

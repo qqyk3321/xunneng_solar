@@ -32,7 +32,6 @@
 .frame {
   display: block;
   width: 100%;
-  height: max(720px, 80vh);
   border: 0;
 }
 .frame[data-pending] {
