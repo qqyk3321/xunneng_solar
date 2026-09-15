@@ -1,0 +1,101 @@
+.page {
+  min-height: 100vh;
+  background: #fafbf8;
+  color: #183c43;
+  padding: 0 24px 64px;
+}
+.header {
+  max-width: 1040px;
+  margin: 0 auto;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #dce4df;
+}
+.brand,
+.home {
+  color: #0b5558;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.home {
+  font-size: 14px;
+  font-weight: 600;
+}
+.hero,
+.card {
+  max-width: 760px;
+  margin: 48px auto 24px;
+}
+.hero p {
+  color: #897044;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.hero h1 {
+  margin: 10px 0;
+  font:
+    500 clamp(32px, 6vw, 56px)/1.05 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.04em;
+}
+.hero span {
+  color: #58716c;
+}
+.card {
+  background: #fff;
+  border: 1px solid #dce7df;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 70px #143f430a;
+}
+.card h2 {
+  margin: 0 0 24px;
+  font:
+    600 22px "Space Grotesk",
+    sans-serif;
+}
+.card dl {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+.card dt {
+  color: #58716c;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.card dd {
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+.support {
+  margin: 56px auto 0;
+  max-width: 1200px;
+}
+@media (max-width: 640px) {
+  .page {
+    padding-inline: 16px;
+  }
+  .header {
+    min-height: 72px;
+  }
+  .home {
+    font-size: 12px;
+  }
+  .hero,
+  .card {
+    margin-top: 32px;
+  }
+  .card {
+    padding: 22px;
+  }
+}

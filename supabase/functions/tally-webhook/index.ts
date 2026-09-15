@@ -6,6 +6,62 @@ type Environment = (name: string) => string | undefined;
 type StoredSubmission = { id: number; received_at: string };
 type DatabaseClient = ReturnType<typeof createClient>;
 
+function base64Url(bytes: Uint8Array) {
+  return btoa(String.fromCharCode(...bytes))
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "");
+}
+
+async function hash(value: string) {
+  const digest = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(value),
+  );
+  return Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
+
+async function createPreviewUrl(args: {
+  client: DatabaseClient;
+  row: SubmissionRow;
+  submission: StoredSubmission;
+  serviceKey: string;
+  siteUrl: string;
+}) {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(args.serviceKey),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = new Uint8Array(
+    await crypto.subtle.sign(
+      "HMAC",
+      key,
+      new TextEncoder().encode(`consultation-preview/${args.submission.id}`),
+    ),
+  );
+  const token = base64Url(signature);
+  const { error } = await args.client
+    .from("consultation_preview_tokens")
+    .upsert(
+      {
+        tally_submission_row_id: args.submission.id,
+        token_hash: await hash(token),
+        expires_at: new Date(
+          new Date(args.receivedAt).getTime() + 30 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
+      },
+      { onConflict: "tally_submission_row_id" },
+    );
+  if (error) throw new Error("Preview token storage failed");
+  const region = args.row.country_code === "AG" ? "antigua" : "dominica";
+  return `${args.siteUrl.replace(/\/$/, "")}/${region}/submission/${token}`;
+}
+
 function formatUtcTimestamp(date: Date, timezoneLabel: string): string {
   return (
     new Intl.DateTimeFormat("en-US", {
@@ -38,6 +94,7 @@ async function sendConfirmationEmail(args: {
   row: SubmissionRow;
   submission: StoredSubmission;
   receivedAt: string;
+  previewUrl: string;
 }) {
   const apiKey = args.env("RESEND_API_KEY");
   const templateId = args.env("RESEND_TEMPLATE_ID");
@@ -93,6 +150,7 @@ async function sendConfirmationEmail(args: {
           id: templateId,
           variables: {
             RECIPIENT_EMAIL: args.row.email,
+            PREVIEW_URL: args.previewUrl,
             SUPPORT_EMAIL: supportEmail,
             SUBMITTED_AT: formatUtcTimestamp(submittedAt, timezoneLabel),
             REPLY_DEADLINE: formatUtcTimestamp(replyDeadline, timezoneLabel),
@@ -166,12 +224,21 @@ Deno.serve((req: Request) =>
         .select("id, received_at")
         .single();
       if (!error && data?.id && data.received_at) {
+        const previewUrl = await createPreviewUrl({
+          client,
+          row,
+          submission: data,
+          receivedAt: data.received_at,
+          serviceKey: key,
+          siteUrl: Deno.env.get("SITE_URL") ?? "https://www.solortide.com",
+        });
         await sendConfirmationEmail({
           client,
           env: (name) => Deno.env.get(name),
           row,
           submission: data,
           receivedAt: data.received_at,
+          previewUrl,
         });
         return { duplicate: false };
       }
@@ -185,12 +252,21 @@ Deno.serve((req: Request) =>
           .eq("submission_id", row.submission_id)
           .maybeSingle();
         if (!existing.error && existing.data?.id && existing.data.received_at) {
+          const previewUrl = await createPreviewUrl({
+            client,
+            row,
+            submission: existing.data,
+            receivedAt: existing.data.received_at,
+            serviceKey: key,
+            siteUrl: Deno.env.get("SITE_URL") ?? "https://www.solortide.com",
+          });
           await sendConfirmationEmail({
             client,
             env: (name) => Deno.env.get(name),
             row,
             submission: existing.data,
             receivedAt: existing.data.received_at,
+            previewUrl,
           });
           return { duplicate: true };
         }
