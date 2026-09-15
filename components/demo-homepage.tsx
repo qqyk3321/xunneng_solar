@@ -14,7 +14,12 @@ import styles from "./demo-homepage.module.css";
 export function DemoHomepage({
   accountSlot,
   contactSlot,
-}: { accountSlot?: ReactNode; contactSlot?: ReactNode } = {}) {
+  immersive = false,
+}: {
+  accountSlot?: ReactNode;
+  contactSlot?: ReactNode;
+  immersive?: boolean;
+} = {}) {
   const { country } = useSiteRegion();
   const hero =
     country === "AG"
@@ -30,7 +35,7 @@ export function DemoHomepage({
             eyebrow: "SOLAR + STORAGE · DOMINICA HOMES",
             title: "The Renewable Energy Solution for the Caribbean Region",
             description:
-          "Solar and battery solutions for your home in Dominica. Explore lower electricity bills and smarter backup, with equipment supply, installation and ongoing support coordinated by our local team.",
+              "Solar and battery solutions for your home in Dominica. Explore lower electricity bills and smarter backup, with equipment supply, installation and ongoing support coordinated by our local team.",
             support: "Serving Dominica",
           }
         : {
@@ -41,8 +46,15 @@ export function DemoHomepage({
             support: "Antigua + Dominica",
           };
   return (
-    <div className={"demo-home tailwind-scope " + styles.homepage}>
-      <SiteHeader homeSectionsLocal accountSlot={accountSlot} />
+    <div
+      className={"demo-home tailwind-scope " + styles.homepage}
+      data-immersive={immersive || undefined}
+    >
+      <SiteHeader
+        homeSectionsLocal
+        accountSlot={accountSlot}
+        immersive={immersive}
+      />
       <main className={styles.main}>
         <section
           className={styles.hero}
@@ -52,8 +64,16 @@ export function DemoHomepage({
           <div className={styles.heroMedia}>
             {/* eslint-disable-next-line @next/next/no-img-element -- Keep the existing homepage hero asset. */}
             <img
-              src={country === "DM" ? "/images/dominica-solar-hero.png" : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"}
-              alt={country === "DM" ? "Illustrative solar-powered coastal homes inspired by Dominica" : "Solar-equipped coastal homes"}
+              src={
+                country === "DM"
+                  ? "/images/dominica-solar-hero.png"
+                  : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
+              }
+              alt={
+                country === "DM"
+                  ? "Illustrative solar-powered coastal homes inspired by Dominica"
+                  : "Solar-equipped coastal homes"
+              }
               fetchPriority="high"
             />
           </div>
@@ -78,6 +98,11 @@ export function DemoHomepage({
               <span>15-Year Solar Panel Warranty</span>
             </div>
           </div>
+          {immersive && (
+            <SectionAnchor href="#calculator" className={styles.exploreCue}>
+              Explore your savings <span aria-hidden="true">↓</span>
+            </SectionAnchor>
+          )}
         </section>
 
         <section

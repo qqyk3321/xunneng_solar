@@ -23,7 +23,7 @@ export default async function RegionHomePage({ params }: RegionPageProps) {
           ),
         }}
       />
-      <DemoHomepage contactSlot={<HomepageContact />} />
+      <DemoHomepage immersive contactSlot={<HomepageContact />} />
     </>
   );
 }

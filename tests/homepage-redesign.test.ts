@@ -62,7 +62,7 @@ test("root homepage composes the calculator and contact without adding authentic
   }
   assert.match(
     home,
-    /<SiteHeader homeSectionsLocal accountSlot={accountSlot}/,
+    /<SiteHeader\s+homeSectionsLocal\s+accountSlot={accountSlot}/,
     "Existing preview can still supply its account menu",
   );
 });
