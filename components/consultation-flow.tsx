@@ -5,16 +5,23 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useSiteRegion, RegionFlag } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
+import { SUPPORT_EMAILS } from "@/lib/site-contact";
 import { BrandMark } from "./brand-mark";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   buildTallyIntakeUrl,
   isTallySubmissionMessage,
+  isTallyFormEvent,
 } from "@/lib/tally-intake";
 import styles from "./consultation-flow.module.css";
 
 const FORM_ID = process.env.NEXT_PUBLIC_TALLY_INTAKE_FORM_ID?.trim();
 const COUNTRY_NAMES = { AG: "Antigua and Barbuda", DM: "Dominica" } as const;
+function initializeTallyEmbeds() {
+  (
+    window as Window & { Tally?: { loadEmbeds: () => void } }
+  ).Tally?.loadEmbeds();
+}
 type Step = "intake" | "form" | "thanks";
 const STEPS = [
   ["intake", "Privacy"],
@@ -34,30 +41,34 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
   const currentStepIndex = STEPS.findIndex(([id]) => id === step);
   return (
     <div className="tailwind-scope">
-      <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,rgba(151,240,255,0.48),transparent_30%),linear-gradient(180deg,#f2f3ff_0%,#faf8ff_42%,#eaedff_100%)] px-margin-mobile py-space-xl md:px-margin-tablet lg:px-margin-desktop lg:py-space-2xl">
-        <section
-          className="mx-auto max-w-[1100px]"
-          aria-label="Consultation details"
-        >
-          <Link
-            href={regionPath(country)}
-            prefetch={false}
-            className={styles.brand}
-            aria-label="Sol & Tide Energy home"
-          >
-            <BrandMark />
-            <span>
-              Sol<span className={styles.ampersand}>&</span>Tide
-            </span>
-            <small>Energy</small>
-          </Link>
-          <header className="mb-space-xl flex flex-col gap-space-lg">
-            <h1 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface">
-              Start your assessment
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.topbar}>
+            <Link
+              href={regionPath(country)}
+              prefetch={false}
+              className={styles.brand}
+              aria-label="Sol & Tide Energy home"
+            >
+              <BrandMark />
+              <span>
+                Sol<span className={styles.ampersand}>&</span>Tide
+              </span>
+              <small>Energy</small>
+            </Link>
+            <div className={styles.headerLinks}>
               <span className={styles.regionBadge}>
                 <RegionFlag country={country} />
                 {COUNTRY_NAMES[country]}
               </span>
+              <Link href={regionPath(country)} className={styles.homeLink}>
+                Back to home <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </div>
+          <div className={styles.headingRow}>
+            <h1>
+              Start your assessment<span className={styles.titleDot}>.</span>
             </h1>
             <ol className={styles.steps} aria-label="Progress">
               {STEPS.map(([id, label], i) => (
@@ -87,7 +98,9 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
                 </li>
               ))}
             </ol>
-          </header>
+          </div>
+        </header>
+        <main className={styles.content} aria-label="Consultation details">
           {step === "intake" && (
             <form
               className={styles.intake}
@@ -118,7 +131,7 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Privacy Policy (opens in a new tab)
+                      Privacy Policy
                     </Link>{" "}
                     and understand how my information will be used to handle
                     this enquiry.
@@ -141,25 +154,73 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
           {step === "form" && (
             <FormStep country={country} onSubmitted={() => setStep("thanks")} />
           )}
-          {step === "thanks" && (
-            <section className={styles.intake} role="status" aria-live="polite">
-              <h2>Thank you for your enquiry.</h2>
-              <p>
-                Your form has been submitted. Our team will review your details
-                and aim to reply within 48 hours using the contact information
-                you provided.
-              </p>
-              <Link
-                className={styles.continueButton}
-                href={regionPath(country)}
-              >
-                Back to home
-              </Link>
-            </section>
-          )}
-        </section>
-      </main>
+          {step === "thanks" && <SubmissionComplete country={country} />}
+        </main>
+      </div>
     </div>
+  );
+}
+
+function SubmissionComplete({ country }: { country: ServiceCountry }) {
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    heading.current?.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+  return (
+    <section
+      className={styles.success}
+      aria-labelledby="submission-complete-title"
+    >
+      <div className={styles.successMain}>
+        <div className={styles.successSeal} aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path
+              d="m9 16 5 5 10-10"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <p className={styles.successLabel}>SUBMISSION COMPLETE</p>
+        <h2 id="submission-complete-title" ref={heading} tabIndex={-1}>
+          Your enquiry has been submitted.
+        </h2>
+        <p className={styles.successIntro}>
+          Thank you for taking the time to tell us about your home. We’re
+          looking forward to helping you take the next step.
+        </p>
+        <div className={styles.successNext}>
+          <h3>What happens next?</h3>
+          <p>
+            Our team will review your details and aim to respond{" "}
+            <strong>within 48 hours.</strong>
+          </p>
+          <p>
+            A confirmation email will arrive shortly. If you don’t see it,
+            please check your spam folder.
+          </p>
+        </div>
+        <Link className={styles.successHome} href={regionPath(country)}>
+          Back to home <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
+      <div className={styles.successHelp}>
+        <h3>Have a question in the meantime?</h3>
+        <p>
+          Explore our <Link href={regionPath(country, "/faq")}>FAQ</Link> or get
+          in touch with our team.
+        </p>
+        <a
+          className={styles.successEmail}
+          href={`mailto:${SUPPORT_EMAILS[country]}`}
+        >
+          {SUPPORT_EMAILS[country]}
+        </a>
+      </div>
+    </section>
   );
 }
 
@@ -171,9 +232,28 @@ function FormStep({
   onSubmitted: () => void;
 }) {
   const frame = useRef<HTMLIFrameElement>(null);
+  const [loading, setLoading] = useState(true);
+  const [slow, setSlow] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const url = FORM_ID ? buildTallyIntakeUrl(FORM_ID, country) : null;
   useEffect(() => {
+    // The widget may already be cached when navigating back or retrying.
+    initializeTallyEmbeds();
+  }, [attempt]);
+  useEffect(() => {
+    if (!url || !loading) return;
+    const timer = window.setTimeout(() => setSlow(true), 12000);
+    return () => window.clearTimeout(timer);
+  }, [url, loading, attempt]);
+  useEffect(() => {
     const receive = (event: MessageEvent) => {
+      if (!FORM_ID || event.source !== frame.current?.contentWindow) return;
+      if (
+        isTallyFormEvent(event.origin, event.data, FORM_ID, "Tally.FormLoaded")
+      ) {
+        setLoading(false);
+        setSlow(false);
+      }
       if (
         FORM_ID &&
         event.source === frame.current?.contentWindow &&
@@ -185,22 +265,76 @@ function FormStep({
     return () => window.removeEventListener("message", receive);
   }, [onSubmitted]);
   return (
-    <section className={styles.intake}>
+    <section className={styles.formSection}>
       {url ? (
         <>
           <Script
             src="https://tally.so/widgets/embed.js"
             strategy="afterInteractive"
+            onReady={initializeTallyEmbeds}
           />
-          <iframe
-            ref={frame}
-            className="block min-h-[720px] w-full border-0"
-            src={url}
-            data-tally-src={url}
-            height="720"
-            width="100%"
-            title="Assessment details form"
-          />
+          <div className={styles.formEmbed}>
+            {loading && (
+              <div className={slow ? styles.loadSlow : styles.loadPanel}>
+                <div role="status" aria-live="polite">
+                  {!slow && (
+                    <span className={styles.loadSpinner} aria-hidden="true" />
+                  )}
+                  <h2>
+                    {slow
+                      ? "Taking a little longer…"
+                      : "Loading your assessment…"}
+                  </h2>
+                  <p>
+                    {slow
+                      ? "If the questionnaire hasn’t appeared, please check your connection or try again."
+                      : "We’re preparing your questionnaire. It will appear here shortly."}
+                  </p>
+                </div>
+                {slow ? (
+                  <>
+                    <div className={styles.loadActions}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoading(true);
+                          setSlow(false);
+                          setAttempt((value) => value + 1);
+                        }}
+                      >
+                        Reload questionnaire
+                      </button>
+                      <a href={url} target="_blank" rel="noopener noreferrer">
+                        Open questionnaire separately
+                      </a>
+                    </div>
+                    <p className={styles.loadHint}>
+                      Reloading or opening separately starts a new form. Any
+                      answers already entered here will not carry over.
+                    </p>
+                  </>
+                ) : (
+                  <div className={styles.loadSkeleton} aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                )}
+              </div>
+            )}
+            <iframe
+              key={attempt}
+              ref={frame}
+              className={styles.questionnaire}
+              data-pending={loading && !slow ? "true" : undefined}
+              aria-hidden={(loading && !slow) || undefined}
+              tabIndex={loading && !slow ? -1 : 0}
+              src={url}
+              height="720"
+              width="100%"
+              title="Assessment details form"
+            />
+          </div>
         </>
       ) : (
         <div role="status">

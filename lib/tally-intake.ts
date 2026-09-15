@@ -23,11 +23,20 @@ export function isTallySubmissionMessage(
   data: unknown,
   formId: string,
 ) {
+  return isTallyFormEvent(origin, data, formId, "Tally.FormSubmitted");
+}
+
+export function isTallyFormEvent(
+  origin: string,
+  data: unknown,
+  formId: string,
+  event: "Tally.FormLoaded" | "Tally.FormSubmitted",
+) {
   if (origin !== "https://tally.so" || typeof data !== "string") return false;
   try {
     const message = JSON.parse(data);
     return (
-      message?.event === "Tally.FormSubmitted" &&
+      message?.event === event &&
       message?.payload?.formId === formId
     );
   } catch {

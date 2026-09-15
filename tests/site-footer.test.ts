@@ -28,4 +28,11 @@ test("homepage and FAQ share a footer and one source of contact details", () => 
   assert.match(footer, /Get Your Free Assessment/);
   assert.ok(footer.includes('href={`${regionPath(country)}#contact-us`}'));
   assert.match(footer, /SITE_CONTACT.address/);
+  assert.doesNotMatch(footer, /packageJson|Version /);
+  assert.match(footer, /Ready for your/);
+  assert.match(footer, /next step/);
+  assert.match(footer, /className=\{styles.settings\}/);
+  assert.match(footer, /variant="text"/);
+  assert.ok(footer.indexOf('variant="text"') < footer.indexOf('className={styles.middle}'));
+  assert.ok(footer.indexOf('className={styles.middle}') < footer.indexOf('className={styles.invitation}'));
 });

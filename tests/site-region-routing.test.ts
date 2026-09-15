@@ -28,3 +28,10 @@ test("URL determines region exactly, without storage or ambiguous matches", () =
     /localStorage|sessionStorage|document\.cookie/,
   );
 });
+
+test("the region dialog has a real default without changing the URL country", () => {
+  const source = readFileSync("components/site-region.tsx", "utf8");
+  assert.ok(source.includes('useState<ServiceCountry>(country ?? "AG")'));
+  assert.ok(source.includes('setDraft(country ?? "AG")'));
+  assert.ok(source.includes('const country = countryFromPath(pathname)'));
+});

@@ -83,6 +83,8 @@ export function HomeContact({
   const [processing, setProcessing] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
   const [invalid, setInvalid] = useState<"email" | "message" | null>(null);
   const [receipt, setReceipt] = useState<
     (InquiryReceipt & { email: string }) | null
@@ -95,6 +97,8 @@ export function HomeContact({
   const plainEmail = useRef<HTMLInputElement>(null);
   const modalEmail = useRef<HTMLInputElement>(null);
   const plainMessage = useRef<HTMLTextAreaElement>(null);
+  const plainPrivacy = useRef<HTMLInputElement>(null);
+  const modalPrivacy = useRef<HTMLInputElement>(null);
   const editor = useRef<InquiryEditorHandle>(null);
   const files = useRef<HTMLInputElement>(null);
   const retainedPhotos = useRef<Photo[]>([]);
@@ -166,6 +170,8 @@ export function HomeContact({
   }
   function reset() {
     if (busy) return;
+    setPrivacyAccepted(false);
+    setPrivacyError(false);
     setOpen(false);
     retainedPhotos.current.forEach((photo) => URL.revokeObjectURL(photo.url));
     updatePhotos([]);
@@ -214,6 +220,11 @@ export function HomeContact({
     if (!country) return;
     setError("");
     setInvalid(null);
+    if (!privacyAccepted) {
+      setPrivacyError(true);
+      (open ? modalPrivacy : plainPrivacy).current?.focus();
+      return;
+    }
     if (!validEmail(email.trim())) {
       setError("Please enter a valid email address, such as name@example.com.");
       setInvalid("email");
@@ -348,6 +359,45 @@ export function HomeContact({
           tabIndex={-1}
           autoComplete="off"
         />
+      </div>
+    );
+  }
+  function privacyChoice(modal: boolean) {
+    const id = modal ? "contact-modal-privacy" : "contact-privacy";
+    return (
+      <div className={styles.privacy}>
+        <label className={styles.privacyChoice} htmlFor={id}>
+          <input
+            id={id}
+            ref={modal ? modalPrivacy : plainPrivacy}
+            type="checkbox"
+            required
+            checked={privacyAccepted}
+            disabled={!country || busy || !ready}
+            aria-invalid={privacyError || undefined}
+            aria-describedby={privacyError ? `${id}-error` : undefined}
+            onChange={(event) => {
+              setPrivacyAccepted(event.target.checked);
+              setPrivacyError(false);
+            }}
+          />
+          <span>
+            I have read the{" "}
+            <Link
+              href={regionPath(country, "/privacy")}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Privacy policy
+            </Link>{" "}
+            and agree to be contacted about my enquiry.
+          </span>
+        </label>
+        {privacyError && (
+          <p id={`${id}-error`} role="alert" className={styles.privacyError}>
+            Please tick the privacy checkbox before sending your message.
+          </p>
+        )}
       </div>
     );
   }
@@ -510,6 +560,7 @@ export function HomeContact({
                   {error}
                 </p>
               )}
+              {privacyChoice(false)}
               <div className={styles.actions}>
                 {!rich && (
                   <button
@@ -525,19 +576,6 @@ export function HomeContact({
                 )}
                 {sendButton()}
               </div>
-              <p className={styles.privacy}>
-                Your message is not posted publicly. We’ll only use these
-                details to respond to your request. Please don’t include
-                sensitive information.{" "}
-                <Link
-                  href={regionPath(country, "/privacy")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Privacy policy (opens in a new tab)
-                </Link>
-                .
-              </p>
             </form>
           )}
         </div>
@@ -715,6 +753,7 @@ export function HomeContact({
                 {error}
               </p>
             )}
+            {privacyChoice(true)}
             <div className={styles.modalActions}>
               <button
                 type="button"
@@ -726,19 +765,6 @@ export function HomeContact({
               </button>
               {sendButton()}
             </div>
-            <p className={styles.privacy}>
-              Your message stays private. Closing this window keeps your draft
-              on this page. Refreshing or leaving the page clears unsent
-              content.{" "}
-              <Link
-                href={regionPath(country, "/privacy")}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy policy (opens in a new tab)
-              </Link>
-              .
-            </p>
           </form>
         )}
       </dialog>

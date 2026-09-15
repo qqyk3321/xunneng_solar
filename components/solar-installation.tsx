@@ -93,10 +93,6 @@ export function SolarInstallation() {
         </ol>
         <div className={styles.actions}>
           <AssessmentLink className={styles.cta} arrow />
-          <p>
-            Visit and installation timing depends on your property, access and
-            scheduling.
-          </p>
         </div>
       </div>
     </section>

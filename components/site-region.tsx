@@ -45,7 +45,9 @@ function RegionForPath({
   const country = countryFromPath(pathname);
   const ready = true;
   const [manual, setManual] = useState(false);
-  const [draft, setDraft] = useState<ServiceCountry | null>(null);
+  // A focused option must not look selected while Continue is disabled.
+  // Only the dialog draft defaults; the URL country changes after confirmation.
+  const [draft, setDraft] = useState<ServiceCountry>(country ?? "AG");
   const [confirmChange, setConfirmChange] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   // The generic homepage is the entry point, not a separate country landing page.
@@ -65,7 +67,7 @@ function RegionForPath({
     };
   }, [open]);
   function choose() {
-    setDraft(country);
+    setDraft(country ?? "AG");
     setConfirmChange(false);
     setManual(true);
   }
@@ -168,19 +170,27 @@ function RegionForPath({
   );
 }
 
-export function RegionSwitcher() {
+export function RegionSwitcher({
+  variant = "default",
+  className = "",
+}: {
+  variant?: "default" | "text";
+  className?: string;
+} = {}) {
   const { country, choose } = useSiteRegion();
   return (
     <button
       type="button"
-      className={styles.switcher}
+      className={`${styles.switcher} ${className}`}
       onClick={choose}
       aria-haspopup="dialog"
       aria-label="Change installation location"
     >
       {country && <RegionFlag country={country} />}
-      {country ? SERVICE_COUNTRIES[country].label : "Location"}{" "}
-      <span aria-hidden="true">▾</span>
+      <span>
+        {country ? SERVICE_COUNTRIES[country].label : variant === "text" ? "Choose location" : "Location"}
+      </span>
+      {variant === "default" && <span aria-hidden="true">▾</span>}
     </button>
   );
 }

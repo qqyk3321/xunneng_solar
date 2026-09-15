@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import packageJson from "@/package.json";
 import { SITE_CONTACT } from "@/lib/site-contact";
 import { RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
@@ -16,7 +15,7 @@ export function SiteFooter() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.top}>
-          <div>
+          <div className={styles.identity}>
             <Link
               href={regionPath(country)}
               prefetch={false}
@@ -35,48 +34,66 @@ export function SiteFooter() {
                   ? "Serving homes in Antigua."
                   : "Currently serving Antigua and Dominica."}
             </p>
-          </div>
-          <div>
-            <h2>Get in touch</h2>
+            <p className={styles.contactLabel}>Regional support</p>
             <address className={styles.contacts}>
               <RegionalSupportLink />
-              {SITE_CONTACT.showMockContacts && <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>}
-              {SITE_CONTACT.showMockContacts && country !== "DM" && <span>{SITE_CONTACT.address}</span>}
+              {SITE_CONTACT.showMockContacts && (
+                <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>
+              )}
+              {SITE_CONTACT.showMockContacts && country !== "DM" && (
+                <span>{SITE_CONTACT.address}</span>
+              )}
             </address>
+            <div className={styles.location}>
+              <RegionSwitcher
+                variant="text"
+                className={styles.locationSelector}
+              />
+            </div>
           </div>
-          <nav className={styles.links} aria-label="Footer navigation">
-            <h2>Explore</h2>
-            <Link href={regionPath(country, "/faq")} prefetch={false}>
-              FAQ
+          <div className={styles.middle}>
+            <h2 className={styles.sectionTitle}>Explore</h2>
+            <nav className={styles.links} aria-label="Footer navigation">
+              <Link href={regionPath(country, "/faq")} prefetch={false}>
+                FAQ
+              </Link>
+              <Link href={`${regionPath(country)}#calculator`} prefetch={false}>
+                Explore your savings
+              </Link>
+              <Link href={`${regionPath(country)}#contact-us`} prefetch={false}>
+                Contact us
+              </Link>
+              <Link href={regionPath(country, "/privacy")} prefetch={false}>
+                Privacy policy
+              </Link>
+            </nav>
+            <div className={styles.settings}>
+              <HomePrivacyNotice />
+            </div>
+          </div>
+          <div className={styles.invitation}>
+            <h2>
+              Ready for your <br />
+              next step?
+            </h2>
+            <p>Let’s explore solar and battery storage for your home.</p>
+            <Link
+              href={regionPath(country, "/consultation")}
+              prefetch={false}
+              className={styles.assessment}
+            >
+              Get Your Free Assessment <span aria-hidden="true">→</span>
             </Link>
-            <Link href={`${regionPath(country)}#calculator`} prefetch={false}>
-              Explore your savings
-            </Link>
-            <Link href={`${regionPath(country)}#contact-us`} prefetch={false}>
-              Contact us
-            </Link>
-            <Link href={regionPath(country, "/privacy")} prefetch={false}>
-              Privacy policy
-            </Link>
-            <RegionSwitcher />
-            <HomePrivacyNotice />
-          </nav>
+          </div>
         </div>
         <div className={styles.bottom}>
-          <div>
-            <p>
-              © {new Date().getFullYear()} Sol &amp; Tide Energy. All rights
-              reserved.
-            </p>
-            <span>Version {packageJson.version}</span>
-          </div>
-          <Link
-            href={regionPath(country, "/consultation")}
-            prefetch={false}
-            className={styles.assessment}
-          >
-            Get Your Free Assessment <span aria-hidden="true">→</span>
-          </Link>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} Sol &amp; Tide Energy. All rights
+            reserved.
+          </p>
+          <span className={styles.signature}>
+            Solar &amp; storage. Built around your home.
+          </span>
         </div>
       </div>
     </footer>

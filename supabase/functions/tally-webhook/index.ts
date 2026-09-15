@@ -2,6 +2,149 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { receiveSubmission, type SubmissionRow } from "./intake.ts";
 
+type Environment = (name: string) => string | undefined;
+type StoredSubmission = { id: number; received_at: string };
+type DatabaseClient = ReturnType<typeof createClient>;
+
+function formatUtcTimestamp(date: Date, timezoneLabel: string): string {
+  return (
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    }).format(date) + ` ${timezoneLabel}`
+  );
+}
+
+function regionalSupportEmail(
+  env: Environment,
+  countryCode: SubmissionRow["country_code"],
+): string {
+  const name =
+    countryCode === "AG" ? "ANTIGUA_SUPPORT_EMAIL" : "DOMINICA_SUPPORT_EMAIL";
+  const email = env(name)?.trim();
+  if (!email) throw new Error(`Missing ${name}`);
+  return email;
+}
+
+async function sendConfirmationEmail(args: {
+  client: DatabaseClient;
+  env: Environment;
+  row: SubmissionRow;
+  submission: StoredSubmission;
+  receivedAt: string;
+}) {
+  const apiKey = args.env("RESEND_API_KEY");
+  const templateId = args.env("RESEND_TEMPLATE_ID");
+  const from = args.env("RESEND_FROM_EMAIL");
+  if (!apiKey || !templateId || !from)
+    throw new Error("Resend is not configured");
+
+  const replyWindowHours = Number(
+    args.env("CONSULTATION_REPLY_WINDOW_HOURS") ?? "48",
+  );
+  const timezoneLabel =
+    args.env("CONSULTATION_TIMEZONE_LABEL")?.trim() || "UST";
+  const submittedAt = new Date(args.receivedAt);
+  const replyDeadline = new Date(
+    submittedAt.getTime() +
+      (Number.isFinite(replyWindowHours) ? replyWindowHours : 48) *
+        60 *
+        60 *
+        1000,
+  );
+  const supportEmail = regionalSupportEmail(args.env, args.row.country_code);
+  const idempotencyKey = `consultation-confirmation/${args.row.submission_id}`;
+  const { data: audit, error: auditError } = await args.client
+    .from("consultation_email_audit")
+    .insert({
+      tally_submission_row_id: args.submission.id,
+      recipient_email: args.row.email,
+      country_code: args.row.country_code,
+      support_email: supportEmail,
+      resend_template_id: templateId,
+      resend_idempotency_key: idempotencyKey,
+      status: "pending",
+    })
+    .select("id")
+    .single();
+  if (auditError || !audit) throw new Error("Email audit logging failed");
+
+  let response: Response;
+  try {
+    response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${apiKey}`,
+        "content-type": "application/json",
+        "idempotency-key": idempotencyKey,
+      },
+      body: JSON.stringify({
+        from,
+        to: [args.row.email],
+        reply_to: [supportEmail],
+        subject: "Sol & Tide Energy has received your consultation",
+        template: {
+          id: templateId,
+          variables: {
+            RECIPIENT_EMAIL: args.row.email,
+            SUPPORT_EMAIL: supportEmail,
+            SUBMITTED_AT: formatUtcTimestamp(submittedAt, timezoneLabel),
+            REPLY_DEADLINE: formatUtcTimestamp(replyDeadline, timezoneLabel),
+          },
+        },
+      }),
+    });
+  } catch (error) {
+    await args.client
+      .from("consultation_email_audit")
+      .update({
+        status: "failed",
+        error_message:
+          error instanceof Error
+            ? error.message.slice(0, 2000)
+            : "Network request failed",
+        completed_at: new Date().toISOString(),
+      })
+      .eq("id", audit.id);
+    throw error;
+  }
+
+  const responseText = await response.text();
+  let resendEmailId: string | null = null;
+  try {
+    const body = JSON.parse(responseText) as { id?: unknown };
+    resendEmailId = typeof body.id === "string" ? body.id : null;
+  } catch {
+    // Error responses are not guaranteed to be JSON.
+  }
+  const { error: updateError } = await args.client
+    .from("consultation_email_audit")
+    .update(
+      response.ok
+        ? {
+            status: "accepted",
+            resend_email_id: resendEmailId,
+            resend_http_status: response.status,
+            completed_at: new Date().toISOString(),
+          }
+        : {
+            status: "failed",
+            resend_http_status: response.status,
+            error_message: responseText.slice(0, 2000),
+            completed_at: new Date().toISOString(),
+          },
+    )
+    .eq("id", audit.id);
+  if (updateError) throw new Error("Email audit update failed");
+  if (!response.ok) throw new Error(responseText || "Resend send failed");
+}
+
 Deno.serve((req: Request) =>
   receiveSubmission(
     req,
@@ -17,16 +160,40 @@ Deno.serve((req: Request) =>
             fetch(input, { ...init, signal: AbortSignal.timeout(7000) }),
         },
       });
-      const { error } = await client.from("tally_form_submissions").insert(row);
-      if (!error) return { duplicate: false };
+      const { data, error } = await client
+        .from("tally_form_submissions")
+        .insert(row)
+        .select("id, received_at")
+        .single();
+      if (!error && data?.id && data.received_at) {
+        await sendConfirmationEmail({
+          client,
+          env: (name) => Deno.env.get(name),
+          row,
+          submission: data,
+          receivedAt: data.received_at,
+        });
+        return { duplicate: false };
+      }
+      if (!error)
+        throw new Error("Submission storage did not return received_at");
       if (error.code === "23505") {
         const existing = await client
           .from("tally_form_submissions")
-          .select("id")
+          .select("id, received_at")
           .eq("form_id", row.form_id)
           .eq("submission_id", row.submission_id)
           .maybeSingle();
-        if (!existing.error && existing.data) return { duplicate: true };
+        if (!existing.error && existing.data?.id && existing.data.received_at) {
+          await sendConfirmationEmail({
+            client,
+            env: (name) => Deno.env.get(name),
+            row,
+            submission: existing.data,
+            receivedAt: existing.data.received_at,
+          });
+          return { duplicate: true };
+        }
       }
       throw new Error("Submission storage failed");
     },
