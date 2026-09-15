@@ -1,38 +1,71 @@
 "use client";
 
-import { ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import styles from "./submission-preview-frame.module.css";
 
-type SubmissionPreviewFrameProps = {
-  previewUrl: string;
-};
-
-export function SubmissionPreviewFrame({ previewUrl }: SubmissionPreviewFrameProps) {
-  const [isLoading, setIsLoading] = useState(true);
-
+export function SubmissionPreviewFrame({ previewUrl }: { previewUrl: string }) {
+  const [loading, setLoading] = useState(true);
+  const [slow, setSlow] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    if (!loading) return;
+    const timer = setTimeout(() => setSlow(true), 12000);
+    return () => clearTimeout(timer);
+  }, [loading, attempt]);
   return (
-    <div className="submission-preview-frame-wrap">
-      {isLoading && (
-        <div className="submission-preview-loading" aria-live="polite">
-          <div className="submission-preview-loading-icon">
-            <ShieldCheck aria-hidden="true" />
-          </div>
-          <p>Securely loading your consultation record</p>
-          <span>This usually takes only a few seconds.</span>
-          <div className="submission-preview-skeleton-lines" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </div>
+    <section className={styles.record} aria-label="Your submitted consultation">
+      <div className={styles.toolbar}>
+        <h2>Your submitted details</h2>
+        <a href={previewUrl} target="_blank" rel="noopener noreferrer">
+          Open separately <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      {slow && loading && (
+        <div className={styles.slow} role="status">
+          <p>
+            The preview is taking a little longer. You can retry or open it
+            separately.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setSlow(false);
+              setLoading(true);
+              setAttempt((value) => value + 1);
+            }}
+          >
+            Reload preview
+          </button>
         </div>
       )}
-      <iframe
-        className="submission-preview-frame"
-        src={previewUrl}
-        title="Consultation record preview"
-        onLoad={() => setIsLoading(false)}
-      />
-    </div>
+      <div className={styles.frameWrap}>
+        {loading && !slow && (
+          <div className={styles.loading} role="status">
+            <span className={styles.spinner} aria-hidden="true" />
+            <h3>Loading your consultation…</h3>
+            <p>Your submitted details will appear here shortly.</p>
+            <div className={styles.skeleton} aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
+          </div>
+        )}
+        <iframe
+          key={`${previewUrl}-${attempt}`}
+          src={previewUrl}
+          title="Consultation record preview"
+          className={styles.frame}
+          data-pending={(loading && !slow) || undefined}
+          referrerPolicy="no-referrer"
+          aria-hidden={(loading && !slow) || undefined}
+          tabIndex={loading && !slow ? -1 : 0}
+          onLoad={() => {
+            setLoading(false);
+            setSlow(false);
+          }}
+        />
+      </div>
+    </section>
   );
 }

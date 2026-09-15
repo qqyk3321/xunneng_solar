@@ -617,6 +617,7 @@ export function HomeContact({
       )}
       {!floating && (
         <ScrollQuestionButton
+          showImmediately={isQuestion}
           targetId={isQuestion ? "ask-question" : "contact-us"}
         />
       )}

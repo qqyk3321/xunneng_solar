@@ -2,7 +2,11 @@
   min-height: 100vh;
   background: #fafbf8;
   color: #183c43;
-  padding: 0 24px 64px;
+}
+.content {
+  max-width: 1120px;
+  padding: 32px 24px 64px;
+  margin: 0 auto;
 }
 .header {
   max-width: 1040px;
@@ -82,7 +86,7 @@
   max-width: 1200px;
 }
 @media (max-width: 640px) {
-  .page {
+  .content {
     padding-inline: 16px;
   }
   .header {

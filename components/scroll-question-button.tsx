@@ -5,7 +5,13 @@ import { FloatingQuestionButton } from "./floating-question-button";
 import { useSiteRegion } from "./site-region";
 
 /** Contact remains in the page; this launcher is only a scroll shortcut. */
-export function ScrollQuestionButton({ targetId }: { targetId: string }) {
+export function ScrollQuestionButton({
+  targetId,
+  showImmediately = false,
+}: {
+  targetId: string;
+  showImmediately?: boolean;
+}) {
   const { country, open: regionOpen } = useSiteRegion();
   const [scrolled, setScrolled] = useState(false);
   const [cookieVisible, setCookieVisible] = useState(false);
@@ -30,7 +36,13 @@ export function ScrollQuestionButton({ targetId }: { targetId: string }) {
       window.removeEventListener("sol-tide:cookie-notice", cookie);
     };
   }, [targetId]);
-  if (!country || regionOpen || !scrolled || cookieVisible || atForm)
+  if (
+    !country ||
+    regionOpen ||
+    (!showImmediately && !scrolled) ||
+    cookieVisible ||
+    atForm
+  )
     return null;
   return (
     <FloatingQuestionButton
