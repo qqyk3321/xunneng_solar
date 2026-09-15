@@ -7,6 +7,7 @@ import { useSiteRegion, RegionFlag } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { SUPPORT_EMAILS } from "@/lib/site-contact";
 import { BrandMark } from "./brand-mark";
+import { HomeContact } from "./home-contact";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   buildTallyIntakeUrl,
@@ -32,13 +33,67 @@ const STEPS = [
 export function ConsultationFlow() {
   const { country } = useSiteRegion();
   if (!country) return null;
-  return <ConsultationForRegion key={country} country={country} />;
+  return (
+    <>
+      <ConsultationForRegion key={country} country={country} />
+      <HomeContact key={`question-${country}`} variant="floating" />
+    </>
+  );
 }
 
 function ConsultationForRegion({ country }: { country: ServiceCountry }) {
   const [step, setStep] = useState<Step>("intake");
   const [accepted, setAccepted] = useState(false);
   const currentStepIndex = STEPS.findIndex(([id]) => id === step);
+  useEffect(() => {
+    if (step !== "form") return;
+    const beforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    const navigate = (event: MouseEvent) => {
+      if (
+        event.button !== 0 ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        event.altKey
+      )
+        return;
+      const link =
+        event.target instanceof Element
+          ? event.target.closest("a[href]")
+          : null;
+      if (
+        !(link instanceof HTMLAnchorElement) ||
+        link.target === "_blank" ||
+        link.hasAttribute("download")
+      )
+        return;
+      const destination = new URL(link.href, window.location.href);
+      if (!["http:", "https:"].includes(destination.protocol)) return;
+      if (
+        destination.origin === window.location.origin &&
+        destination.pathname === window.location.pathname &&
+        destination.search === window.location.search
+      )
+        return;
+      if (
+        !window.confirm(
+          "Leave this assessment? Your answers may be lost, and you may need to start again.",
+        )
+      ) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+    };
+    window.addEventListener("beforeunload", beforeUnload);
+    document.addEventListener("click", navigate, true);
+    return () => {
+      window.removeEventListener("beforeunload", beforeUnload);
+      document.removeEventListener("click", navigate, true);
+    };
+  }, [step]);
   return (
     <div className="tailwind-scope">
       <div className={styles.page}>
@@ -145,10 +200,6 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
               >
                 Continue to assessment
               </button>
-              <p className={styles.small}>
-                An assessment is a starting point, not a final quote. Refreshing
-                this page restarts the assessment.
-              </p>
             </form>
           )}
           {step === "form" && (
@@ -189,20 +240,11 @@ function SubmissionComplete({ country }: { country: ServiceCountry }) {
           Your enquiry has been submitted.
         </h2>
         <p className={styles.successIntro}>
-          Thank you for taking the time to tell us about your home. We’re
-          looking forward to helping you take the next step.
+          Thank you for sharing your plans with us. Our team will review your
+          details and aim to respond <strong>within 48 hours.</strong> A
+          confirmation email will arrive shortly — please check your spam folder
+          if you don’t see it.
         </p>
-        <div className={styles.successNext}>
-          <h3>What happens next?</h3>
-          <p>
-            Our team will review your details and aim to respond{" "}
-            <strong>within 48 hours.</strong>
-          </p>
-          <p>
-            A confirmation email will arrive shortly. If you don’t see it,
-            please check your spam folder.
-          </p>
-        </div>
         <Link className={styles.successHome} href={regionPath(country)}>
           Back to home <span aria-hidden="true">↗</span>
         </Link>

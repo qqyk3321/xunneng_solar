@@ -61,9 +61,7 @@ export default async function ConsultationPreviewPage({
           </div>
         </dl>
       </section>
-      <section className={styles.support}>
-        <HomeContact initialEmail={submission.email} variant="question" />
-      </section>
+      <HomeContact initialEmail={submission.email} variant="floating" />
     </main>
   );
 }

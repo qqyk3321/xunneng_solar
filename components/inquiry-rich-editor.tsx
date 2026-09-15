@@ -55,8 +55,9 @@ export const InquiryRichEditor = forwardRef<InquiryEditorHandle, Props>(
             props.variant === "contact" ? "Your message" : "咨询内容",
           "aria-multiline": "true",
           "aria-required": "true",
-          "aria-describedby":
-            props.variant === "contact" ? "contact-photo-hint" : "image-hint",
+          ...(props.variant === "contact"
+            ? {}
+            : { "aria-describedby": "image-hint" }),
           class: `${styles.prose} simple-editor`,
         },
         handlePaste(_view, event) {

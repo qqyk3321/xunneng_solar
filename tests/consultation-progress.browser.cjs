@@ -36,6 +36,13 @@ const assert = require('node:assert/strict');
       await page.frameLocator('iframe').locator('#finish').click();
       const complete = page.getByRole('heading', { name: 'Your enquiry has been submitted.' });
       await complete.waitFor();
+      const intro = page.getByText('Thank you for sharing your plans with us.', { exact: false });
+      const centered = await intro.evaluate(el => {
+        const card = el.getBoundingClientRect();
+        const parent = el.parentElement.getBoundingClientRect();
+        return Math.abs(card.left + card.width / 2 - parent.left - parent.width / 2) < 1;
+      });
+      assert.equal(centered, true, 'Completion explanation card must be horizontally centered');
       assert.equal(await complete.evaluate(el => el === document.activeElement), true);
       assert.equal(await page.getByRole('link', { name: 'FAQ', exact: true }).getAttribute('href'), `/${region}/faq`);
       assert.equal(await page.getByRole('link', { name: `${code}-support@solortide.com`, exact: true }).getAttribute('href'), `mailto:${code}-support@solortide.com`);

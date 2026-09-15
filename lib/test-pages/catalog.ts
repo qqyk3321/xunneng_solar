@@ -1,6 +1,7 @@
 /** Register new experiments here. No page components, queries or services are imported. */
 export const TEST_HUB_PATH = "/test-pages";
 export const MAIN_PAGE_ROUTES = [
+  "/[region]/submission/[token]",
   "/",
   "/consultation",
   "/faq",

@@ -22,6 +22,16 @@ export function HomePrivacyNotice() {
   const dialog = useRef<HTMLDialogElement>(null);
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("sol-tide:cookie-notice", { detail: visible }),
+    );
+    return () => {
+      window.dispatchEvent(
+        new CustomEvent("sol-tide:cookie-notice", { detail: false }),
+      );
+    };
+  }, [visible]);
 
   useEffect(() => {
     setVisible(false);
@@ -93,7 +103,11 @@ export function HomePrivacyNotice() {
       </button>
       {visible &&
         createPortal(
-          <aside className={styles.notice} aria-labelledby="home-privacy-title">
+          <aside
+            data-cookie-notice
+            className={styles.notice}
+            aria-labelledby="home-privacy-title"
+          >
             <div className={styles.copy}>
               <h2 id="home-privacy-title">Cookie Preferences</h2>
               <p>

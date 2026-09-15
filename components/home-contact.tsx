@@ -3,6 +3,8 @@
 /* eslint-disable @next/next/no-img-element -- Local compressed photo thumbnails. */
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
+import { FloatingQuestionButton } from "./floating-question-button";
+import { ScrollQuestionButton } from "./scroll-question-button";
 import {
   Check,
   ArrowUpRight,
@@ -36,8 +38,8 @@ import {
 } from "@/lib/anonymous-inquiry/rich-text";
 import styles from "./home-contact.module.css";
 import { SupportEmail } from "./support-email";
-import { useSiteRegion, RegionFlag } from "./site-region";
-import { COUNTRY_NAMES, regionPath } from "@/lib/site-region-routing";
+import { useSiteRegion } from "./site-region";
+import { regionPath } from "@/lib/site-region-routing";
 import { RegionLinks } from "./region-links";
 
 type Photo = InquiryImage & { id: string };
@@ -68,16 +70,19 @@ export function HomeContact({
   variant = "contact",
 }: {
   initialEmail?: string;
-  variant?: "contact" | "question";
+  variant?: "contact" | "question" | "floating";
 }) {
   const { country } = useSiteRegion();
   const isQuestion = variant === "question";
+  const floating = variant === "floating";
   const [email, setEmail] = useState(initialEmail);
   const [text, setText] = useState("");
   const [rich, setRich] = useState(false);
   const [content, setContent] = useState<RichDocument>(EMPTY_DOCUMENT);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [ready, setReady] = useState(false);
   const [editorReady, setEditorReady] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -119,6 +124,7 @@ export function HomeContact({
     setReady(true);
     return () => {
       alive.current = false;
+      if (closeTimer.current) clearTimeout(closeTimer.current);
       abort.current?.abort();
       retainedPhotos.current.forEach((photo) => URL.revokeObjectURL(photo.url));
     };
@@ -160,6 +166,8 @@ export function HomeContact({
   }
   function openPhotos() {
     if (busy) return;
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setClosing(false);
     if (!rich) {
       setContent(textDocument(text));
       setRich(true);
@@ -167,6 +175,24 @@ export function HomeContact({
       edited();
     }
     setOpen(true);
+  }
+  function closeDialog(afterClose?: () => void) {
+    if (busy || closing) return;
+    if (
+      !floating ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      setOpen(false);
+      afterClose?.();
+      return;
+    }
+    setClosing(true);
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      afterClose?.();
+      closeTimer.current = null;
+    }, 200);
   }
   function reset() {
     if (busy) return;
@@ -431,7 +457,13 @@ export function HomeContact({
         <button
           type="button"
           className={modal ? styles.primary : styles.secondary}
-          onClick={modal ? () => setOpen(false) : reset}
+          onClick={
+            modal
+              ? () => {
+                  closeDialog(floating ? reset : undefined);
+                }
+              : reset
+          }
         >
           {modal ? "Done" : "Send another message"}
         </button>
@@ -440,147 +472,156 @@ export function HomeContact({
   }
   return (
     <section
-      id={isQuestion ? "ask-question" : "contact-us"}
-      className={styles.section}
-      aria-labelledby="contact-heading"
+      id={floating ? undefined : isQuestion ? "ask-question" : "contact-us"}
+      className={`${styles.section} ${floating ? styles.floating : ""}`}
+      aria-labelledby={floating ? undefined : "contact-heading"}
+      aria-label={floating ? "Ask our team a question" : undefined}
       tabIndex={-1}
     >
-      <div className={styles.layout}>
-        <div className={styles.intro}>
-          {isQuestion && (
-            <span className={styles.eyebrow}>WE’RE HERE TO HELP</span>
-          )}
-          <h2 id="contact-heading">
-            {isQuestion ? "Ask a question" : "Contact us"}
-            {isQuestion ? (
-              <span>Still have a question?</span>
-            ) : (
-              <span>
-                Let’s talk about
-                <br />
-                your next step.
-              </span>
+      {floating ? (
+        <FloatingQuestionButton
+          onOpen={openPhotos}
+          disabled={!country || !ready || busy}
+        />
+      ) : (
+        <div className={styles.layout}>
+          <div className={styles.intro}>
+            {isQuestion && (
+              <span className={styles.eyebrow}>WE’RE HERE TO HELP</span>
             )}
-          </h2>
-          <p>
-            {isQuestion
-              ? "Can’t find the answer you need? Send us your question. You can add photos to help explain it."
-              : "Have a question about solar, storage, or your property? Leave us a message. A photo can help us understand the details."}
-          </p>
-          <div className={styles.promise}>
-            <Mail size={21} />
-            <div>
-              <strong>A real reply, by email.</strong>
-              <span>We’ll get back to you within 48 hours.</span>
-            </div>
-          </div>
-          <SupportEmail />
-        </div>
-        <div className={styles.card}>
-          {country ? (
-            <p className={styles.hint}>
-              <RegionFlag country={country} /> Installation location:{" "}
-              {COUNTRY_NAMES[country]}
+            <h2 id="contact-heading">
+              {isQuestion ? "Ask a question" : "Contact us"}
+              {isQuestion ? (
+                <span>Still have a question?</span>
+              ) : (
+                <span>
+                  Let’s talk about
+                  <br />
+                  your next step.
+                </span>
+              )}
+            </h2>
+            <p>
+              {isQuestion
+                ? "Can’t find the answer you need? Send us your question. You can add photos to help explain it."
+                : "Have a question about solar, storage, or your property? Leave us a message. A photo can help us understand the details."}
             </p>
-          ) : (
-            <div>
-              <p>
-                Choose your installation location before writing your message.
-              </p>
-              <RegionLinks
-                suffix={isQuestion ? "/faq#ask-question" : "#contact-us"}
-              />
+            <div className={styles.promise}>
+              <Mail size={21} />
+              <div>
+                <strong>A real reply, by email.</strong>
+                <span>We’ll get back to you within 48 hours.</span>
+              </div>
             </div>
-          )}
-          {receipt ? (
-            successMessage(false)
-          ) : (
-            <form
-              onSubmit={submit}
-              noValidate
-              aria-label={isQuestion ? "Ask a question" : "Contact us"}
-              aria-busy={busy}
-            >
-              <fieldset
-                disabled={!country || busy || !ready}
-                className={styles.fields}
+            <SupportEmail />
+          </div>
+          <div className={styles.card}>
+            {!country && (
+              <div>
+                <p>
+                  Choose your installation location before writing your message.
+                </p>
+                <RegionLinks
+                  suffix={isQuestion ? "/faq#ask-question" : "#contact-us"}
+                />
+              </div>
+            )}
+            {receipt ? (
+              successMessage(false)
+            ) : (
+              <form
+                onSubmit={submit}
+                noValidate
+                aria-label={isQuestion ? "Ask a question" : "Contact us"}
+                aria-busy={busy}
               >
-                {emailField(false)}
-                {!rich ? (
-                  <div className={styles.field}>
-                    <label htmlFor="contact-message">
-                      Your message <span>*</span>
-                    </label>
-                    <textarea
-                      ref={plainMessage}
-                      id="contact-message"
-                      rows={5}
-                      required
-                      maxLength={MAX_TEXT}
-                      value={text}
-                      placeholder="Tell us a little about what you need…"
-                      aria-invalid={invalid === "message"}
-                      aria-describedby={
-                        invalid === "message" ? "contact-error" : undefined
-                      }
-                      onChange={(event) => {
-                        setText(event.target.value);
-                        edited();
-                      }}
-                    />
-                    <span className={styles.count}>
-                      {text.length.toLocaleString("en-US")} / 5,000
-                    </span>
-                  </div>
-                ) : (
-                  <div className={styles.draft}>
-                    <strong>Message draft ready</strong>
-                    <p>
-                      {message.trim() || "Add a few details to your message."}
-                    </p>
-                    <span>
-                      {activePhotos.length}{" "}
-                      {activePhotos.length === 1 ? "photo" : "photos"} attached
-                      · Your draft stays on this page
-                    </span>
+                <fieldset
+                  disabled={!country || busy || !ready}
+                  className={styles.fields}
+                >
+                  {emailField(false)}
+                  {!rich ? (
+                    <div className={styles.field}>
+                      <label htmlFor="contact-message">
+                        Your message <span>*</span>
+                      </label>
+                      <textarea
+                        ref={plainMessage}
+                        id="contact-message"
+                        rows={5}
+                        required
+                        maxLength={MAX_TEXT}
+                        value={text}
+                        placeholder="Tell us a little about what you need…"
+                        aria-invalid={invalid === "message"}
+                        aria-describedby={
+                          invalid === "message" ? "contact-error" : undefined
+                        }
+                        onChange={(event) => {
+                          setText(event.target.value);
+                          edited();
+                        }}
+                      />
+                      <span className={styles.count}>
+                        {text.length.toLocaleString("en-US")} / 5,000
+                      </span>
+                    </div>
+                  ) : (
+                    <div className={styles.draft}>
+                      <strong>Message draft ready</strong>
+                      <p>
+                        {message.trim() || "Add a few details to your message."}
+                      </p>
+                      <span>
+                        {activePhotos.length}{" "}
+                        {activePhotos.length === 1 ? "photo" : "photos"}{" "}
+                        attached · Your draft stays on this page
+                      </span>
+                      <button
+                        type="button"
+                        className={styles.secondary}
+                        onClick={openPhotos}
+                        ref={openButton}
+                      >
+                        Continue editing
+                      </button>
+                    </div>
+                  )}
+                  {trap(false)}
+                </fieldset>
+                {error && !open && (
+                  <p id="contact-error" className={styles.error} role="alert">
+                    {error}
+                  </p>
+                )}
+                {privacyChoice(false)}
+                <div className={styles.actions}>
+                  {!rich && (
                     <button
                       type="button"
                       className={styles.secondary}
+                      disabled={!country || !ready || busy}
                       onClick={openPhotos}
                       ref={openButton}
                     >
-                      Continue editing
+                      <ImagePlus size={18} />
+                      Add photos
                     </button>
-                  </div>
-                )}
-                {trap(false)}
-              </fieldset>
-              {error && !open && (
-                <p id="contact-error" className={styles.error} role="alert">
-                  {error}
-                </p>
-              )}
-              {privacyChoice(false)}
-              <div className={styles.actions}>
-                {!rich && (
-                  <button
-                    type="button"
-                    className={styles.secondary}
-                    disabled={!country || !ready || busy}
-                    onClick={openPhotos}
-                    ref={openButton}
-                  >
-                    <ImagePlus size={18} />
-                    Add photos
-                  </button>
-                )}
-                {sendButton()}
-              </div>
-            </form>
-          )}
+                  )}
+                  {sendButton()}
+                </div>
+              </form>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+      {!floating && (
+        <ScrollQuestionButton
+          targetId={isQuestion ? "ask-question" : "contact-us"}
+        />
+      )}
       <dialog
+        data-closing={closing || undefined}
         ref={dialog}
         className={styles.dialog}
         onKeyDownCapture={(event) => {
@@ -594,7 +635,7 @@ export function HomeContact({
           ) {
             event.preventDefault();
             event.stopPropagation();
-            if (!busy) setOpen(false);
+            if (!busy) closeDialog();
           }
         }}
         onKeyDown={(event) => {
@@ -625,31 +666,26 @@ export function HomeContact({
           }
         }}
         aria-labelledby="contact-dialog-title"
-        aria-describedby="contact-dialog-description"
         onCancel={(event) => {
           event.preventDefault();
-          if (!busy) setOpen(false);
+          if (!busy) closeDialog();
         }}
         onClick={(event) => {
-          if (event.target === event.currentTarget && !busy) setOpen(false);
+          if (event.target === event.currentTarget && !busy) closeDialog();
         }}
       >
         <div className={styles.modalHeader}>
           <div>
-            <span className={styles.eyebrow}>CONTACT US</span>
             <h2 id="contact-dialog-title" ref={dialogTitle} tabIndex={-1}>
               A little more detail.
             </h2>
-            <p id="contact-dialog-description">
-              Tell us what’s on your mind. Add photos if they help.
-            </p>
           </div>
           <button
             type="button"
             className={styles.close}
             aria-label="Close message window"
             disabled={busy}
-            onClick={() => setOpen(false)}
+            onClick={() => closeDialog()}
           >
             <X size={22} />
           </button>
@@ -732,14 +768,6 @@ export function HomeContact({
                   void addPhotos(selected);
                 }}
               />
-              <p id="contact-photo-hint" className={styles.hint}>
-                Up to 3 photos · JPG, PNG or WebP · 10 MB per original.
-                <br />
-                Photos are compressed on your device before sending, usually to
-                about 100 KB each (150 KB maximum). You can also paste or drop
-                photos into your message. Photos start small; drag the corner
-                handle to resize.
-              </p>
               {trap(true)}
             </fieldset>
             {processing && (
@@ -759,7 +787,7 @@ export function HomeContact({
                 type="button"
                 className={styles.secondary}
                 disabled={busy}
-                onClick={() => setOpen(false)}
+                onClick={() => closeDialog()}
               >
                 Keep draft &amp; close
               </button>
