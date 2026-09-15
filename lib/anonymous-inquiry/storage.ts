@@ -72,6 +72,7 @@ export async function saveInquiry(
   const result = await client
     .from(INQUIRY_TABLE)
     .insert({
+      ...(payload.countryCode ? { country_code: payload.countryCode } : {}),
       ...(payload.format ? { format: payload.format } : {}),
       id: payload.id,
       email: payload.email,

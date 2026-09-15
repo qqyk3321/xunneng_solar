@@ -42,9 +42,9 @@ async function main() {
     );
     assert.equal(
       await section
-        .getByRole("link", { name: "support@example.com", exact: true })
+        .getByRole("link", { name: "support@solortide.com", exact: true })
         .getAttribute("href"),
-      "mailto:support@example.com",
+      "mailto:support@solortide.com",
     );
     const form = page.getByRole("form", {
       name: faq ? "Ask a question" : "Contact us",

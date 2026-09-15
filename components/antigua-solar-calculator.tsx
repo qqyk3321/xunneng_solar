@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
+import { RegionLinks } from "./region-links";
 import {
   ANTIGUA_CONFIG,
   DOMINICA_CONFIG,
@@ -40,6 +41,11 @@ export function AntiguaSolarCalculator() {
   const min = Math.ceil(bounds.min);
   const max = Math.floor(bounds.max);
   const selectedValue = money(bill);
+
+  if (!country) return <section className={styles.module}>
+    <h3>Choose your location to explore your savings.</h3>
+    <RegionLinks suffix="#calculator" />
+  </section>;
 
   return (
     <section

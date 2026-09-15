@@ -134,6 +134,7 @@ test("storage phase is logged and logger errors do not break the friendly respon
   data.set("requestId", randomUUID());
   data.set("website", "");
   data.set("format", "plain");
+  data.set("country_code", "AG");
   data.set("content", JSON.stringify(textDocument("Please help with solar")));
   const handler = createContactHandler({
     enabled: true,

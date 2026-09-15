@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { loadSingleForm } from "@/lib/rich-text-preview/storage";
 import { InquiryRichContent } from "@/components/inquiry-rich-content";
@@ -23,7 +24,7 @@ export default async function SavedFormPreviewPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <a href="/rich-text-preview">← 填写表单</a>
+        <Link href="/rich-text-preview" prefetch={false}>← 填写表单</Link>
         <span>独立预览 · 从 Supabase 读取</span>
       </header>
       <main className={styles.main}>
@@ -102,10 +103,10 @@ export default async function SavedFormPreviewPage() {
           </section>
         )}
         <nav className={labStyles.actions} aria-label="表单操作">
-          <a className={styles.primary} href="/rich-text-preview/view">
+          <Link className={styles.primary} href="/rich-text-preview/view" prefetch={false}>
             重新读取最新内容
-          </a>
-          <a href="/rich-text-preview">重新填写并覆盖</a>
+          </Link>
+          <Link href="/rich-text-preview" prefetch={false}>重新填写并覆盖</Link>
         </nav>
       </main>
     </div>

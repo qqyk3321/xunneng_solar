@@ -61,7 +61,7 @@ test("navigation targets are real local pages; dynamic previews never use placeh
     )?.href,
     "/contact-submissions-preview",
   );
-  assert.ok(MAIN_PAGE_ROUTES.includes("/submission-preview-test"));
+  assert.ok(TEST_PAGES.some(page => page.route === "/submission-preview-test"));
 });
 test("search is local, case-insensitive and supports routes, Chinese keywords and category filters", () => {
   assert.equal(filterTestPages("").length, TEST_PAGES.length);

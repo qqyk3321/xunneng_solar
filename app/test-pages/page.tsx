@@ -4,7 +4,7 @@ import { TestDirectory } from "./test-directory";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Test pages | Sol & Tide Energy",
+  title: "Retired experiments | Sol & Tide Energy",
   robots: { index: false, follow: false },
 };
 

@@ -18,7 +18,7 @@ test("content assessment CTAs share orange styling while header and footer stay 
     assert.doesNotMatch(readFileSync(file, "utf8"), /AssessmentLink/);
   }
   const component = readFileSync("components/assessment-link.tsx", "utf8");
-  assert.match(component, /href="\/consultation"/);
+  assert.ok(component.includes('href={regionPath(country, "/consultation")}'));
   assert.match(component, /prefetch={false}/);
   const css = readFileSync("components/assessment-link.module.css", "utf8");
   assert.match(css, /background: #fea619/);

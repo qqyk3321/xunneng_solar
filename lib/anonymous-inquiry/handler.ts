@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import type { ServiceCountry } from "../consultation-intake";
 import { detectImageMime, type ImageMime } from "@/lib/image-lab/config";
 import {
   MAX_ATTACHMENT_BYTES,
@@ -16,6 +17,7 @@ import {
 } from "./rich-text";
 
 export type InquiryPayload = {
+  countryCode?: ServiceCountry;
   format?: "plain" | "rich";
   id: string;
   email: string;
@@ -34,6 +36,7 @@ export class InquiryError extends Error {
   }
 }
 type Dependencies = {
+  requireCountry?: boolean;
   allowFormat?: boolean;
   enabled: boolean;
   origin: string | ((request: Request) => boolean);
@@ -127,10 +130,18 @@ export function createInquiryHandler(deps: Dependencies) {
             "website",
             "images",
             ...(deps.allowFormat ? ["format"] : []),
+            ...(deps.requireCountry ? ["country_code"] : []),
           ].includes(key)
         )
           throw new InquiryError(400, "提交包含不支持的字段。");
       const email = field("email").trim().toLowerCase();
+      let countryCode: ServiceCountry | undefined;
+      if (deps.requireCountry) {
+        const value = field("country_code");
+        if (value !== "AG" && value !== "DM")
+          throw new InquiryError(400, "Please select a supported installation location.");
+        countryCode = value;
+      }
       const rawContent = field("content");
       if (new TextEncoder().encode(rawContent).length > MAX_DOCUMENT_BYTES)
         throw new InquiryError(413, "富文本结构过大，请简化格式后重试。");
@@ -223,6 +234,7 @@ export function createInquiryHandler(deps: Dependencies) {
               createHash("sha256").update(i.bytes).digest("hex"),
             ]),
             ...(format ? [format] : []),
+            ...(countryCode ? [countryCode] : []),
           ]),
         )
         .digest("hex");
@@ -231,6 +243,7 @@ export function createInquiryHandler(deps: Dependencies) {
       inFlight.add(id);
       lockedId = id;
       const receipt = await deps.save({
+        ...(countryCode ? { countryCode } : {}),
         ...(format ? { format } : {}),
         id,
         email,

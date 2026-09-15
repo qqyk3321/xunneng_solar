@@ -4,8 +4,11 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PRIVACY_VERSION } from "@/lib/consultation-intake";
 import styles from "./privacy.module.css";
+import { siteUrl } from "@/lib/region-seo";
+import { RegionalSupportLink } from "@/components/support-email";
 
 export const metadata: Metadata = {
+  alternates: { canonical: siteUrl("/privacy") },
   title: "Privacy Policy | Sol & Tide Energy",
   description:
     "How information shared through our website is used to handle solar enquiries.",
@@ -27,7 +30,7 @@ export default function PrivacyPage() {
         </p>
         <aside className={styles.draft}>
           Initial website notice. Our legal company details, dedicated privacy
-          contact and detailed retention schedule are being finalised. This
+            arrangements and detailed retention schedule are being finalised. This
           notice will be updated as those details are confirmed.
         </aside>
         <section>
@@ -35,10 +38,10 @@ export default function PrivacyPage() {
           <p>
             When you contact Sol &amp; Tide Energy or request an assessment, you
             may provide your name, email address, phone number, country,
-            property address or map location, electricity needs, bill
-            information, messages and photos. Please share only what is relevant
-            to your enquiry and avoid account numbers, identity documents or
-            other unnecessary sensitive information.
+            property address, electricity needs, bill information, messages and
+            photos. Please share only what is relevant to your enquiry and avoid
+            account numbers, identity documents or other unnecessary sensitive
+            information.
           </p>
         </section>
         <section>
@@ -47,26 +50,24 @@ export default function PrivacyPage() {
             We use your enquiry information to understand your requirements,
             prepare an initial assessment, respond to questions and discuss
             suitable next steps. The consultation form also includes your
-            selected service country and the version and time of your privacy
-            acknowledgement. This acknowledgement is not a marketing
-            subscription.
+            selected service country. The introductory privacy acknowledgement
+            is not a marketing subscription.
           </p>
         </section>
         <section>
           <h2>3. Services involved in your visit</h2>
           <p>
-            Google Maps supports property searches and map selection, and Tally
-            hosts the assessment details form. Website hosting, security and
-            data-storage providers also process information needed to operate
-            the site. Loading external services, fonts or images can disclose
-            technical information such as your IP address and browser details to
-            their providers.
+            Tally hosts the assessment details form. Website hosting, security
+            and data-storage providers also process information needed to
+            operate the site. Loading external services, fonts or images can
+            disclose technical information such as your IP address and browser
+            details to their providers.
           </p>
           <p>
-            In the consultation flow, the map loads after the introductory step
-            and Tally loads when you open the details form. Providers may
-            process data outside your country and have their own privacy
-            practices. A complete provider and transfer review is pending.
+            In the consultation flow, Tally loads when you open the details form
+            after the privacy acknowledgement. Providers may process data
+            outside your country and have their own privacy practices. A
+            complete provider and transfer review is pending.
           </p>
           <p>
             <a
@@ -74,7 +75,7 @@ export default function PrivacyPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Google privacy information
+              Google privacy information (fonts and images)
             </a>{" "}
             ·{" "}
             <a
@@ -89,10 +90,11 @@ export default function PrivacyPage() {
         <section id="cookies">
           <h2>4. Cookies and browser storage</h2>
           <p>
-            We store your selected installation location in this browser’s local
-            storage to show relevant equipment information, electricity
-            estimates and assessment location. You can change it in the header
-            or footer, or remove it by clearing site data.
+            Your selected installation location is included in the page address,
+            not saved as a browser storage preference. It determines the equipment
+            information, electricity estimates and assessment location shown.
+            Your location is also included when you send a question. You can
+            switch locations using the header or footer.
           </p>
           <p>
             Site features and third-party services may use cookies or similar
@@ -127,10 +129,9 @@ export default function PrivacyPage() {
             </Link>{" "}
             to ask about information you have submitted or request a correction
             or deletion. Include the email address used for the enquiry, without
-            sending identity documents. Requests may require verification before
-            action. Our dedicated privacy contact and legal company identity
-            will be added once confirmed; example contact details elsewhere on
-            the site should not be used for privacy requests.
+            sending identity documents. For regional support: <RegionalSupportLink />.
+            Requests may require verification before action. Our legal company
+            identity will be added once confirmed.
           </p>
         </section>
         <section>

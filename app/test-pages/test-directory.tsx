@@ -29,20 +29,20 @@ export function TestDirectory() {
       <main className={styles.main}>
         <div className={styles.intro}>
           <p className={styles.eyebrow}>LOCAL EXPERIMENT ARCHIVE</p>
-          <h1>Test pages, all in one place.</h1>
+          <h1>Retired experiments.</h1>
           <p>
-            Archived prototypes and private review tools. Available locally
-            only; all experiment pages and their APIs are disabled online.
+            Reference only. Account sign-in and all former test pages and their
+            APIs are disabled, including on this local server.
           </p>
         </div>
         <aside className={styles.notice}>
           <ShieldAlert size={20} aria-hidden="true" />
           <div>
-            <strong>Navigation only — nothing is run in advance.</strong>
+            <strong>Archived — these tools no longer run.</strong>
             <p>
-              Pages open in a new tab only when clicked. Message review tools
-              may contain real customer data. Keep this development server on a
-              trusted network and use sample data when testing new submissions.
+              Source code and historical notes are retained for reference.
+              Homepage, FAQ, Contact us and the new consultation flow remain
+              active.
             </p>
           </div>
         </aside>
@@ -51,7 +51,7 @@ export function TestDirectory() {
             <strong>Main business pages</strong>
             <span>
               Live features: homepage, calculator, Contact us, FAQ questions and
-              consultation. Existing customer result links remain available.
+              consultation. Legacy consultation result links are retired.
             </span>
           </div>
           <div>
@@ -135,38 +135,16 @@ export function TestDirectory() {
                       className={styles.card}
                       data-test-route={page.route}
                     >
-                      <span className={styles.access}>{page.access}</span>
+                      <span className={styles.access}>
+                        Retired · unavailable
+                      </span>
                       <h3>{page.title}</h3>
                       <code className={styles.route}>{page.route}</code>
                       <p className={styles.description}>{page.description}</p>
-                      {page.notice && (
-                        <p className={styles.cardNotice}>{page.notice}</p>
-                      )}
-                      <div className={styles.actions}>
-                        <a
-                          className={styles.openButton}
-                          href={page.href}
-                          aria-label={`${page.action ?? "Open page"}: ${page.title} (new tab)`}
-                          {...externalTab}
-                        >
-                          {page.action ?? "Open page"}
-                          <ArrowUpRight size={16} aria-hidden="true" />
-                        </a>
-                        {page.shortcuts && (
-                          <div className={styles.shortcuts}>
-                            {page.shortcuts.map((shortcut) => (
-                              <a
-                                key={shortcut.href}
-                                href={shortcut.href}
-                                {...externalTab}
-                              >
-                                {shortcut.title}
-                                <ArrowUpRight size={12} aria-hidden="true" />
-                              </a>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      <p className={styles.cardNotice}>
+                        Historical description only. This page and its actions
+                        are disabled.
+                      </p>
                     </article>
                   ))}
                 </div>

@@ -61,7 +61,7 @@ test("FAQ reuses the guarded contact module and links to its own inquiry section
   assert.match(directory, /<SectionAnchor href="#ask-question">/);
   const header = readFileSync("components/site-header.tsx", "utf8");
   assert.match(header, /homeSectionsLocal = false/);
-  assert.match(header, /href={`\/#\${id}`}/);
+  assert.ok(header.includes('href={`${regionPath(country)}#${id}`}'));
 });
 
 test("FAQ entries have unique IDs, real topics and safe local destinations", () => {

@@ -2,71 +2,45 @@
 
 import Script from "next/script";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { useSiteRegion, RegionFlag } from "./site-region";
+import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
+import type { ServiceCountry } from "@/lib/consultation-intake";
+import {
+  buildTallyIntakeUrl,
+  isTallySubmissionMessage,
+} from "@/lib/tally-intake";
 import styles from "./consultation-flow.module.css";
-import { useRouter } from "next/navigation";
-import { Check, ChevronLeft, MapPin, Send, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import {
-  acknowledgeIntake,
-  SERVICE_COUNTRIES,
-  type IntakeAcknowledgement,
-} from "@/lib/consultation-intake";
-import {
-  GoogleMapsAddressSelection,
-  type ConfirmedGoogleMapLocation,
-} from "@/components/google-maps-address-selection";
 
-type Step = "intake" | "location" | "form" | "thanks";
+const FORM_ID = process.env.NEXT_PUBLIC_TALLY_INTAKE_FORM_ID?.trim();
+const COUNTRY_NAMES = { AG: "Antigua and Barbuda", DM: "Dominica" } as const;
+type Step = "intake" | "form" | "thanks";
+const STEPS = [
+  ["intake", "Privacy"],
+  ["form", "Your details"],
+  ["thanks", "Complete"],
+] as const;
 
-type SelectedPlace = {
-  address: string;
-  lat: number;
-  lng: number;
-  locationJson: string;
-};
-
-const TALLY_FORM_ID = process.env.NEXT_PUBLIC_TALLY_FORM_ID?.trim();
-
-export function ConsultationFlow({ apiKey }: { apiKey: string }) {
+export function ConsultationFlow() {
   const { country } = useSiteRegion();
-  return (
-    <ConsultationForRegion
-      key={country ?? "unset"}
-      apiKey={apiKey}
-      country={country ?? ""}
-    />
-  );
+  if (!country) return null;
+  return <ConsultationForRegion key={country} country={country} />;
 }
 
-function ConsultationForRegion({
-  apiKey,
-  country,
-}: {
-  apiKey: string;
-  country: string;
-}) {
+function ConsultationForRegion({ country }: { country: ServiceCountry }) {
   const [step, setStep] = useState<Step>("intake");
   const [accepted, setAccepted] = useState(false);
-  const [intake, setIntake] = useState<IntakeAcknowledgement | null>(null);
-  const [selectedPlace, setSelectedPlace] = useState<SelectedPlace | null>(
-    null,
-  );
-
-  if (!TALLY_FORM_ID) {
-    throw new Error("Missing NEXT_PUBLIC_TALLY_FORM_ID");
-  }
-
+  const currentStepIndex = STEPS.findIndex(([id]) => id === step);
   return (
     <div className="tailwind-scope">
       <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,rgba(151,240,255,0.48),transparent_30%),linear-gradient(180deg,#f2f3ff_0%,#faf8ff_42%,#eaedff_100%)] px-margin-mobile py-space-xl md:px-margin-tablet lg:px-margin-desktop lg:py-space-2xl">
         <section
-          className="mx-auto max-w-[1360px]"
+          className="mx-auto max-w-[1100px]"
           aria-label="Consultation details"
         >
           <Link
-            href="/"
+            href={regionPath(country)}
             prefetch={false}
             className={styles.brand}
             aria-label="Sol & Tide Energy home"
@@ -77,124 +51,111 @@ function ConsultationForRegion({
             </span>
             <small>Energy</small>
           </Link>
-          <header className="mb-space-xl flex flex-col gap-space-lg md:mb-space-2xl md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="mb-space-2xs font-label-md text-label-md font-bold uppercase tracking-wider text-primary">
-                Consultation
-              </p>
-              <h1 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface">
-                Start your assessment
-                {(country === "AG" || country === "DM") && (
-                  <span className={styles.regionBadge}>
-                    <RegionFlag country={country} />
-                    {SERVICE_COUNTRIES[country].label}
+          <header className="mb-space-xl flex flex-col gap-space-lg">
+            <h1 className="font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface">
+              Start your assessment
+              <span className={styles.regionBadge}>
+                <RegionFlag country={country} />
+                {COUNTRY_NAMES[country]}
+              </span>
+            </h1>
+            <ol className={styles.steps} aria-label="Progress">
+              {STEPS.map(([id, label], i) => (
+                <li
+                  key={id}
+                  aria-current={step === id ? "step" : undefined}
+                  className={styles.step}
+                  data-state={
+                    i < currentStepIndex
+                      ? "completed"
+                      : i === currentStepIndex
+                        ? "current"
+                        : "upcoming"
+                  }
+                >
+                  <span className={styles.stepNumber} aria-hidden="true">
+                    {i < currentStepIndex ? "✓" : i + 1}
                   </span>
-                )}
-              </h1>
-            </div>
-            <StepMeter step={step} />
+                  <span>{label}</span>
+                  <span className="sr-only">
+                    {i < currentStepIndex
+                      ? " — completed"
+                      : i === currentStepIndex
+                        ? " — current step"
+                        : " — upcoming"}
+                  </span>
+                </li>
+              ))}
+            </ol>
           </header>
-
           {step === "intake" && (
             <form
               className={styles.intake}
               onSubmit={(event) => {
                 event.preventDefault();
-                const acknowledgement = acknowledgeIntake(country, accepted);
-                if (!acknowledgement) return;
-                setIntake(acknowledgement);
-                setStep("location");
+                if (accepted) setStep("form");
               }}
             >
-              <p className={styles.eyebrow}>LET’S START WITH YOUR LOCATION</p>
-              <h2>Solar for your corner of the Caribbean.</h2>
-              <p>
-                We currently serve Antigua and Dominica. More Caribbean
-                locations will follow.
-              </p>
-              <>
-                <div className={styles.notice}>
-                  <h3>Before we begin</h3>
-                  <p>
-                    We’ll use your contact details, property location and the
-                    information you share to assess your needs and respond to
-                    your enquiry. Continuing opens Google Maps; the details step
-                    uses Tally.
-                  </p>
-                  <label className={styles.checkbox}>
-                    <input
-                      type="checkbox"
-                      checked={accepted}
-                      required
-                      onChange={(event) => setAccepted(event.target.checked)}
-                    />
-                    <span>
-                      I have read the{" "}
-                      <Link
-                        href="/privacy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Privacy Policy (opens in a new tab)
-                      </Link>{" "}
-                      and understand how my information will be used to handle
-                      this enquiry.
-                    </span>
-                  </label>
-                </div>
-                <button
-                  className={styles.continueButton}
-                  type="submit"
-                  disabled={!country || !accepted}
-                >
-                  Continue to assessment
-                </button>
-                <p className={styles.small}>
-                  An assessment is a starting point, not a final quote. System
-                  design, pricing and installation arrangements are confirmed
-                  after review. Refreshing this page restarts the assessment.
+              <h2>Let’s plan your home energy.</h2>
+              <div className={styles.notice}>
+                <h3>Before we begin</h3>
+                <p>
+                  We’ll use your contact details, installation address and the
+                  information you share to assess your needs and respond to your
+                  enquiry. Your details will be collected using Tally.
                 </p>
-              </>
+                <label className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    checked={accepted}
+                    required
+                    onChange={(event) => setAccepted(event.target.checked)}
+                  />
+                  <span>
+                    I have read the{" "}
+                    <Link
+                      href={regionPath(country, "/privacy")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy Policy (opens in a new tab)
+                    </Link>{" "}
+                    and understand how my information will be used to handle
+                    this enquiry.
+                  </span>
+                </label>
+              </div>
+              <button
+                className={styles.continueButton}
+                type="submit"
+                disabled={!accepted}
+              >
+                Continue to assessment
+              </button>
+              <p className={styles.small}>
+                An assessment is a starting point, not a final quote. Refreshing
+                this page restarts the assessment.
+              </p>
             </form>
           )}
-
-          {step === "location" && intake && (
-            <div>
-              <button
-                className={styles.back}
-                type="button"
-                onClick={() => {
-                  setStep("intake");
-                  setIntake(null);
-                  setSelectedPlace(null);
-                }}
-              >
-                Review privacy notice
-              </button>
-              <p className={styles.countryLabel}>
-                Property location: {SERVICE_COUNTRIES[intake.country].label}
+          {step === "form" && (
+            <FormStep country={country} onSubmitted={() => setStep("thanks")} />
+          )}
+          {step === "thanks" && (
+            <section className={styles.intake} role="status" aria-live="polite">
+              <h2>Thank you for your enquiry.</h2>
+              <p>
+                Your form has been submitted. Our team will review your details
+                and aim to reply within 48 hours using the contact information
+                you provided.
               </p>
-              <LocationStep
-                apiKey={apiKey}
-                intake={intake}
-                onConfirm={(place) => {
-                  setSelectedPlace(place);
-                  setStep("form");
-                }}
-              />
-            </div>
-          )}
-
-          {step === "form" && selectedPlace && (
-            <FormStep
-              place={selectedPlace}
-              onBack={() => setStep("location")}
-              onSubmitted={() => setStep("thanks")}
-            />
-          )}
-
-          {step === "thanks" && selectedPlace && (
-            <ThanksModal place={selectedPlace} />
+              <Link
+                className={styles.continueButton}
+                href={regionPath(country)}
+              >
+                Back to home
+              </Link>
+            </section>
           )}
         </section>
       </main>
@@ -202,228 +163,55 @@ function ConsultationForRegion({
   );
 }
 
-function StepMeter({ step }: { step: Step }) {
-  const steps = [
-    { id: "intake", label: "Start" },
-    { id: "location", label: "Location" },
-    { id: "form", label: "Details" },
-    { id: "thanks", label: "Complete" },
-  ] as const;
-  const activeIndex = steps.findIndex((item) => item.id === step);
-
-  return (
-    <ol className={styles.steps} aria-label="Progress">
-      {steps.map((item, index) => (
-        <li
-          className={`flex min-h-9 flex-none items-center gap-space-xs rounded-full border px-space-sm py-space-2xs font-body-sm text-body-sm transition-colors ${
-            index <= activeIndex
-              ? "border-primary-container bg-surface-container-lowest font-bold text-on-surface shadow-sm"
-              : "border-outline-variant/50 bg-surface-container-low text-on-surface-variant"
-          }`}
-          key={item.id}
-        >
-          <span
-            className={`inline-flex h-6 w-6 items-center justify-center rounded-full font-label-sm text-label-sm ${
-              index <= activeIndex
-                ? "bg-primary-container text-on-primary"
-                : "bg-surface-container-highest text-on-surface-variant"
-            }`}
-          >
-            {index + 1}
-          </span>
-          {item.label}
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function LocationStep({
-  apiKey,
-  intake,
-  onConfirm,
-}: {
-  apiKey: string;
-  intake: IntakeAcknowledgement;
-  onConfirm: (place: SelectedPlace) => void;
-}) {
-  const handleConfirmedLocation = (location: ConfirmedGoogleMapLocation) => {
-    const locationPayload = {
-      ...location,
-      capturedAt: new Date().toISOString(),
-      serviceCountry: intake.country,
-      serviceCountryName: SERVICE_COUNTRIES[intake.country].label,
-      privacyAcknowledgement: {
-        version: intake.privacyVersion,
-        acknowledgedAt: intake.acknowledgedAt,
-      },
-    };
-
-    onConfirm({
-      address: location.address,
-      lat: location.lat,
-      lng: location.lng,
-      locationJson: JSON.stringify(locationPayload),
-    });
-  };
-
-  return (
-    <GoogleMapsAddressSelection
-      apiKey={apiKey}
-      embedded
-      initialCenter={SERVICE_COUNTRIES[intake.country].center}
-      countryName={SERVICE_COUNTRIES[intake.country].label}
-      region={intake.country}
-      addressPlaceholder={`Search for your property in ${SERVICE_COUNTRIES[intake.country].label}`}
-      enableMapPointSelection
-      onConfirmed={handleConfirmedLocation}
-    />
-  );
-}
-
 function FormStep({
-  place,
-  onBack,
+  country,
   onSubmitted,
 }: {
-  place: SelectedPlace;
-  onBack: () => void;
+  country: ServiceCountry;
   onSubmitted: () => void;
 }) {
-  const tallyUrl = useMemo(() => {
-    const url = new URL(`https://tally.so/embed/${TALLY_FORM_ID}`);
-    url.searchParams.set("alignLeft", "1");
-    url.searchParams.set("hideTitle", "1");
-    url.searchParams.set("transparentBackground", "1");
-    url.searchParams.set("dynamicHeight", "1");
-    url.searchParams.set("location_json", place.locationJson);
-    return url.toString();
-  }, [place]);
-
+  const frame = useRef<HTMLIFrameElement>(null);
+  const url = FORM_ID ? buildTallyIntakeUrl(FORM_ID, country) : null;
   useEffect(() => {
-    function handleMessage(event: MessageEvent) {
+    const receive = (event: MessageEvent) => {
       if (
-        typeof event.data !== "string" ||
-        !event.data.includes("Tally.FormSubmitted")
+        FORM_ID &&
+        event.source === frame.current?.contentWindow &&
+        isTallySubmissionMessage(event.origin, event.data, FORM_ID)
       )
-        return;
-
-      try {
-        const message = JSON.parse(event.data) as {
-          event?: string;
-          payload?: { formId?: string };
-        };
-        if (
-          message.event === "Tally.FormSubmitted" &&
-          message.payload?.formId === TALLY_FORM_ID
-        ) {
-          onSubmitted();
-        }
-      } catch {
         onSubmitted();
-      }
-    }
-
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    };
+    window.addEventListener("message", receive);
+    return () => window.removeEventListener("message", receive);
   }, [onSubmitted]);
-
   return (
-    <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-space-md shadow-[0_12px_24px_-6px_rgba(0,122,135,0.08),0_4px_8px_-2px_rgba(15,23,42,0.03)] md:p-space-lg">
-      <Script
-        src="https://tally.so/widgets/embed.js"
-        strategy="afterInteractive"
-      />
-      <div className="mb-space-md flex flex-col gap-space-sm md:flex-row md:items-center md:justify-between">
-        <button
-          className="inline-flex min-h-11 items-center justify-center gap-space-xs rounded-lg border border-outline-variant/60 bg-surface-container-low px-space-md py-space-xs font-label-md text-body-sm font-bold text-primary transition-all hover:border-primary hover:bg-primary-fixed/30"
-          onClick={onBack}
-          type="button"
-        >
-          <ChevronLeft aria-hidden="true" className="h-[18px] w-[18px]" />
-          Change location
-        </button>
-        <div className="flex min-w-0 items-center gap-space-xs rounded-lg bg-primary-fixed/30 px-space-md py-space-xs text-on-surface-variant">
-          <MapPin
-            aria-hidden="true"
-            className="h-[18px] w-[18px] shrink-0 text-primary"
+    <section className={styles.intake}>
+      {url ? (
+        <>
+          <Script
+            src="https://tally.so/widgets/embed.js"
+            strategy="afterInteractive"
           />
-          <span className="truncate font-body-sm text-body-sm">
-            {place.address}
-          </span>
-        </div>
-      </div>
-      <iframe
-        className="block min-h-[720px] w-full rounded-lg border-0"
-        data-tally-src={tallyUrl}
-        height="720"
-        src={tallyUrl}
-        title="Assessment details form"
-        width="100%"
-      />
-    </div>
-  );
-}
-
-function ThanksModal({ place }: { place: SelectedPlace }) {
-  const router = useRouter();
-
-  return (
-    <div
-      className="tailwind-scope fixed inset-0 z-50 flex items-center justify-center bg-on-surface/65 p-space-md backdrop-blur-sm"
-      role="presentation"
-    >
-      <div
-        aria-labelledby="thanks-title"
-        aria-modal="true"
-        className="relative w-full max-w-[440px] rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-space-xl text-center shadow-[0_24px_48px_-12px_rgba(15,23,42,0.16),0_0_0_1px_rgba(15,23,42,0.05)]"
-        role="dialog"
-      >
-        <button
-          aria-label="Close"
-          className="absolute right-space-md top-space-md inline-flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-low text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface"
-          onClick={() => router.replace("/")}
-          type="button"
-        >
-          <X aria-hidden="true" className="h-[18px] w-[18px]" />
-        </button>
-        <div className="mb-space-lg inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-fixed/40 text-primary">
-          <Send aria-hidden="true" className="h-7 w-7" />
-        </div>
-        <p className="mb-space-2xs font-label-md text-label-md font-bold uppercase tracking-wider text-primary">
-          Submission received
-        </p>
-        <h2
-          id="thanks-title"
-          className="font-headline-md text-headline-md font-bold text-on-surface"
-        >
-          Thank you for your submission
-        </h2>
-        <p className="mt-space-md font-body-md text-body-md leading-relaxed text-on-surface-variant">
-          Our team will review your details and send your tailored proposal and
-          quotation by email. You can also reply to that email if you need
-          further assistance.
-        </p>
-        <div className="my-space-lg flex items-center gap-space-xs rounded-lg bg-surface-container-low px-space-md py-space-sm text-left text-on-surface-variant">
-          <MapPin
-            aria-hidden="true"
-            className="h-5 w-5 shrink-0 text-primary"
+          <iframe
+            ref={frame}
+            className="block min-h-[720px] w-full border-0"
+            src={url}
+            data-tally-src={url}
+            height="720"
+            width="100%"
+            title="Assessment details form"
           />
-          <span className="font-body-sm text-body-sm leading-relaxed">
-            {place.address}
-          </span>
+        </>
+      ) : (
+        <div role="status">
+          <h2>Our updated assessment form is being prepared.</h2>
+          <p>
+            Please use{" "}
+            <Link href={`${regionPath(country)}#contact-us`}>Contact us</Link>{" "}
+            to get in touch in the meantime.
+          </p>
         </div>
-        <button
-          className="inline-flex min-h-11 w-full items-center justify-center gap-space-xs rounded-lg bg-primary-container px-space-lg py-space-sm font-label-md text-body-md font-bold text-on-primary shadow-[0_4px_14px_rgba(0,122,135,0.25)] transition-all hover:bg-primary"
-          onClick={() => {
-            router.replace("/");
-          }}
-          type="button"
-        >
-          <Check aria-hidden="true" className="h-[18px] w-[18px]" />
-          Back to home
-        </button>
-      </div>
-    </div>
+      )}
+    </section>
   );
 }

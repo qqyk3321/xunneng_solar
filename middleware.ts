@@ -1,10 +1,16 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { updateSupabaseSession } from "@/lib/supabase-auth/middleware";
-import { isTestRoute, testsEnabled } from "@/lib/test-pages/access";
+import {
+  isTestRoute,
+  isRetiredRoute,
+  testsEnabled,
+} from "@/lib/test-pages/access";
 
 export async function middleware(request: NextRequest) {
   // Block pages AND child APIs/callbacks before touching sessions or private data.
-  if (isTestRoute(request.nextUrl.pathname) && !testsEnabled()) {
+  if (
+    isRetiredRoute(request.nextUrl.pathname) ||
+    (isTestRoute(request.nextUrl.pathname) && !testsEnabled())
+  ) {
     return new NextResponse("Not found", {
       status: 404,
       headers: {
@@ -13,19 +19,7 @@ export async function middleware(request: NextRequest) {
       },
     });
   }
-  const pathname = request.nextUrl.pathname;
-  if (
-    pathname !== "/auth-preview" &&
-    !pathname.startsWith("/auth-preview/") &&
-    pathname !== "/home-preview" &&
-    pathname !== "/my-submissions-preview"
-  )
-    return NextResponse.next();
-  const response = await updateSupabaseSession(request);
-  if (request.nextUrl.pathname === "/my-submissions-preview") {
-    response.headers.set("Cache-Control", "private, no-store");
-  }
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {
@@ -41,5 +35,6 @@ export const config = {
     "/contact-submissions-preview/:path*",
     "/image-upload-preview/:path*",
     "/rich-text-preview/:path*",
+    "/submission-preview-test/:path*",
   ],
 };

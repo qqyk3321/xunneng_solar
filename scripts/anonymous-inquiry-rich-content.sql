@@ -1,3 +1,4 @@
+-- HISTORICAL REFERENCE ONLY. Current projects must use supabase/migrations via db push.
 -- Standalone additive preview schema upgrade; existing rows remain unchanged.
 begin;
 alter table public.anonymous_inquiries_preview

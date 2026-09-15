@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AnonymousInquiryForm } from "@/components/anonymous-inquiry-form";
 import styles from "@/components/anonymous-inquiry-form.module.css";
@@ -15,7 +16,7 @@ export default function RichTextPreviewPage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <span>RICH TEXT LAB · 独立实验</span>
-        <a href="/rich-text-preview/view">查看已保存的表单 →</a>
+        <Link href="/rich-text-preview/view" prefetch={false}>查看已保存的表单 →</Link>
       </header>
       <main className={styles.main}>
         <div className={styles.intro}>

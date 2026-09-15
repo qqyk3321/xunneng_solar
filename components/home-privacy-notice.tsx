@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { regionPath } from "@/lib/site-region-routing";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -30,7 +31,13 @@ export function HomePrivacyNotice() {
     } catch {
       /* Storage is optional. */
     }
-    if (pathname !== "/" || dismissed.current || !country || regionOpen) return;
+    if (
+      !["/", "/antigua", "/dominica"].includes(pathname) ||
+      dismissed.current ||
+      !country ||
+      regionOpen
+    )
+      return;
     let elapsed = false;
     let shown = false;
     const check = () => {
@@ -92,7 +99,7 @@ export function HomePrivacyNotice() {
               <p>
                 Information about cookies, privacy and your browsing experience.
                 Learn how information is handled in our{" "}
-                <Link href="/privacy" prefetch={false}>
+                <Link href={regionPath(country, "/privacy")} prefetch={false}>
                   Privacy Policy
                 </Link>
                 .

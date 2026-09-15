@@ -11,7 +11,7 @@ test("installation journey is independent of the reserved system guide", () => {
   assert.doesNotMatch(home, /THE CONSULTATION PROCESS|id="how-it-works"/);
   assert.doesNotMatch(header, /homeLink\("how-it-works"|href=".*how-it-works/);
   assert.doesNotMatch(header, /How it works|navReserved/);
-  assert.ok(header.indexOf('homeLink("contact-us"') < header.indexOf('href="/faq"'));
+  assert.ok(header.indexOf('homeLink("contact-us"') < header.indexOf('href={regionPath(country, "/faq")}'));
   for (const phrase of [
     "Your Solar Installation in {location}",
     "Within 48 hours",

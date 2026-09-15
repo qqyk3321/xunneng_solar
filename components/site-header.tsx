@@ -1,7 +1,10 @@
+"use client";
+
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { SectionAnchor } from "./section-anchor";
-import { RegionSwitcher } from "./site-region";
+import { RegionSwitcher, useSiteRegion } from "./site-region";
+import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
 import styles from "./demo-homepage.module.css";
 
@@ -13,11 +16,12 @@ export function SiteHeader({
   homeSectionsLocal?: boolean;
   accountSlot?: ReactNode;
 }) {
+  const { country } = useSiteRegion();
   function homeLink(id: string, label: string) {
     return homeSectionsLocal ? (
       <SectionAnchor href={`#${id}`}>{label}</SectionAnchor>
     ) : (
-      <Link href={`/#${id}`} prefetch={false}>
+      <Link href={`${regionPath(country)}#${id}`} prefetch={false}>
         {label}
       </Link>
     );
@@ -29,7 +33,7 @@ export function SiteHeader({
     >
       <div className={styles.headerInner}>
         <Link
-          href="/"
+          href={regionPath(country)}
           prefetch={false}
           className={styles.brand}
           aria-label="Sol & Tide Energy home"
@@ -41,16 +45,20 @@ export function SiteHeader({
           {homeLink("calculator", "Savings")}
           {homeLink("benefits", "Why solar")}
           {homeLink("contact-us", "Contact us")}
-          <Link href="/faq" prefetch={false}>
+          <Link href={regionPath(country, "/faq")} prefetch={false}>
             FAQ
           </Link>
         </nav>
         <div className={styles.headerActions}>
-          <Link href="/faq" prefetch={false} className={styles.mobileFaq}>
+          <Link
+            href={regionPath(country, "/faq")}
+            prefetch={false}
+            className={styles.mobileFaq}
+          >
             FAQ
           </Link>
           <Link
-            href="/consultation"
+            href={regionPath(country, "/consultation")}
             prefetch={false}
             className={styles.headerCta}
           >

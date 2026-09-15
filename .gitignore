@@ -9,6 +9,14 @@ supabase/.temp
 .vscode/
 node_modules/
 email/
-supabase/
+supabase/*
+!supabase/migrations/
+!supabase/functions/
+supabase/functions/*
+!supabase/functions/tally-webhook/
+supabase/functions/tally-webhook/*
+!supabase/functions/tally-webhook/index.ts
+!supabase/functions/tally-webhook/intake.ts
+!supabase/functions/tally-webhook/deno.json
 ticket-query-local/
 tsconfig.tsbuildinfo

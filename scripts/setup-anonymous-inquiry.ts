@@ -1,4 +1,5 @@
-// Explicit setup only; never imported by a public route.
+// Explicit Storage setup only; apply CLI migrations first. Never imported by a public route.
+// Run: node --env-file=.env --import tsx scripts/setup-anonymous-inquiry.ts
 import { createClient } from "@supabase/supabase-js";
 import {
   INQUIRY_BUCKET,
@@ -13,10 +14,11 @@ async function main() {
   const client = createClient(url, key, { auth: { persistSession: false } });
   const table = await client
     .from(INQUIRY_TABLE)
-    .select("id", { count: "exact", head: true });
+    .select("id,format,content,images")
+    .limit(0);
   if (table.error)
     throw new Error(
-      "Create the dedicated inquiry table with the SQL setup script first.",
+      "Apply the contact inquiry migration with supabase db push first.",
     );
   const mimes = ["image/jpeg", "image/png", "image/webp"];
   const existing = await client.storage.getBucket(INQUIRY_BUCKET);

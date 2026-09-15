@@ -9,6 +9,7 @@ export const TEST_ROUTE_ROOTS = [
   "/contact-submissions-preview",
   "/image-upload-preview",
   "/rich-text-preview",
+  "/submission-preview-test",
 ] as const;
 
 export function isTestRoute(pathname: string) {
@@ -19,4 +20,9 @@ export function isTestRoute(pathname: string) {
 
 export function testsEnabled() {
   return process.env.NODE_ENV === "development";
+}
+
+/** Retired even during development. The archive index itself remains local-only. */
+export function isRetiredRoute(pathname: string) {
+  return isTestRoute(pathname) && pathname !== "/test-pages";
 }

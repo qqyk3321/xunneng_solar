@@ -1,3 +1,4 @@
+// Archived 2026-09-14. Reference only, not compiled or served.
 import { ExternalLink, MapPinned } from "lucide-react";
 
 type SubmissionLocationCardProps = {

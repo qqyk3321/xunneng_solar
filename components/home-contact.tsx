@@ -36,6 +36,9 @@ import {
 } from "@/lib/anonymous-inquiry/rich-text";
 import styles from "./home-contact.module.css";
 import { SupportEmail } from "./support-email";
+import { useSiteRegion, RegionFlag } from "./site-region";
+import { COUNTRY_NAMES, regionPath } from "@/lib/site-region-routing";
+import { RegionLinks } from "./region-links";
 
 type Photo = InquiryImage & { id: string };
 function newId() {
@@ -67,6 +70,7 @@ export function HomeContact({
   initialEmail?: string;
   variant?: "contact" | "question";
 }) {
+  const { country } = useSiteRegion();
   const isQuestion = variant === "question";
   const [email, setEmail] = useState(initialEmail);
   const [text, setText] = useState("");
@@ -104,7 +108,7 @@ export function HomeContact({
   );
   const message = rich ? richTextPlainText(content) : text;
   const busy = processing || sending;
-  const cannotSend = !ready || busy || (rich && !editorReady);
+  const cannotSend = !country || !ready || busy || (rich && !editorReady);
 
   useEffect(() => {
     alive.current = true;
@@ -207,6 +211,7 @@ export function HomeContact({
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (locked.current || cannotSend || receipt) return;
+    if (!country) return;
     setError("");
     setInvalid(null);
     if (!validEmail(email.trim())) {
@@ -242,6 +247,7 @@ export function HomeContact({
     form.set("email", submittedEmail);
     form.set("content", JSON.stringify(validated.document));
     form.set("format", rich ? "rich" : "plain");
+    form.set("country_code", country);
     if (!requestId.current) requestId.current = newId();
     form.set("requestId", requestId.current);
     for (const id of validated.imageIds) {
@@ -421,6 +427,21 @@ export function HomeContact({
           <SupportEmail />
         </div>
         <div className={styles.card}>
+          {country ? (
+            <p className={styles.hint}>
+              <RegionFlag country={country} /> Installation location:{" "}
+              {COUNTRY_NAMES[country]}
+            </p>
+          ) : (
+            <div>
+              <p>
+                Choose your installation location before writing your message.
+              </p>
+              <RegionLinks
+                suffix={isQuestion ? "/faq#ask-question" : "#contact-us"}
+              />
+            </div>
+          )}
           {receipt ? (
             successMessage(false)
           ) : (
@@ -430,7 +451,10 @@ export function HomeContact({
               aria-label={isQuestion ? "Ask a question" : "Contact us"}
               aria-busy={busy}
             >
-              <fieldset disabled={busy || !ready} className={styles.fields}>
+              <fieldset
+                disabled={!country || busy || !ready}
+                className={styles.fields}
+              >
                 {emailField(false)}
                 {!rich ? (
                   <div className={styles.field}>
@@ -491,7 +515,7 @@ export function HomeContact({
                   <button
                     type="button"
                     className={styles.secondary}
-                    disabled={!ready || busy}
+                    disabled={!country || !ready || busy}
                     onClick={openPhotos}
                     ref={openButton}
                   >
@@ -504,7 +528,15 @@ export function HomeContact({
               <p className={styles.privacy}>
                 Your message is not posted publicly. We’ll only use these
                 details to respond to your request. Please don’t include
-                sensitive information. <Link href="/privacy" target="_blank" rel="noopener noreferrer">Privacy policy (opens in a new tab)</Link>.
+                sensitive information.{" "}
+                <Link
+                  href={regionPath(country, "/privacy")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy policy (opens in a new tab)
+                </Link>
+                .
               </p>
             </form>
           )}
@@ -697,7 +729,15 @@ export function HomeContact({
             <p className={styles.privacy}>
               Your message stays private. Closing this window keeps your draft
               on this page. Refreshing or leaving the page clears unsent
-              content. <Link href="/privacy" target="_blank" rel="noopener noreferrer">Privacy policy (opens in a new tab)</Link>.
+              content.{" "}
+              <Link
+                href={regionPath(country, "/privacy")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy policy (opens in a new tab)
+              </Link>
+              .
             </p>
           </form>
         )}

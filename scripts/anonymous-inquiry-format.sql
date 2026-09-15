@@ -1,3 +1,4 @@
+-- HISTORICAL REFERENCE ONLY. Current projects must use supabase/migrations via db push.
 -- Local contact preview only. Nullable field preserves existing records unchanged.
 begin;
 alter table public.anonymous_inquiries_preview add column if not exists format text;

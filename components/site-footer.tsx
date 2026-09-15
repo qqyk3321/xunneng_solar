@@ -4,8 +4,10 @@ import Link from "next/link";
 import packageJson from "@/package.json";
 import { SITE_CONTACT } from "@/lib/site-contact";
 import { RegionSwitcher, useSiteRegion } from "./site-region";
+import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
 import { HomePrivacyNotice } from "./home-privacy-notice";
+import { RegionalSupportLink } from "./support-email";
 import styles from "./site-footer.module.css";
 
 export function SiteFooter() {
@@ -16,7 +18,7 @@ export function SiteFooter() {
         <div className={styles.top}>
           <div>
             <Link
-              href="/"
+              href={regionPath(country)}
               prefetch={false}
               className={styles.brand}
               aria-label="Sol & Tide Energy home"
@@ -27,29 +29,33 @@ export function SiteFooter() {
             <p className={styles.description}>
               Solar and battery storage for Caribbean homes.
               <br />
-              {country === "DM" ? "Serving homes in Dominica." : country === "AG" ? "Serving homes in Antigua." : "Currently serving Antigua and Dominica."}
+              {country === "DM"
+                ? "Serving homes in Dominica."
+                : country === "AG"
+                  ? "Serving homes in Antigua."
+                  : "Currently serving Antigua and Dominica."}
             </p>
           </div>
           <div>
             <h2>Get in touch</h2>
             <address className={styles.contacts}>
-              <a href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
-              <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>
-              {country !== "DM" && <span>{SITE_CONTACT.address}</span>}
+              <RegionalSupportLink />
+              {SITE_CONTACT.showMockContacts && <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>}
+              {SITE_CONTACT.showMockContacts && country !== "DM" && <span>{SITE_CONTACT.address}</span>}
             </address>
           </div>
           <nav className={styles.links} aria-label="Footer navigation">
             <h2>Explore</h2>
-            <Link href="/faq" prefetch={false}>
+            <Link href={regionPath(country, "/faq")} prefetch={false}>
               FAQ
             </Link>
-            <Link href="/#calculator" prefetch={false}>
+            <Link href={`${regionPath(country)}#calculator`} prefetch={false}>
               Explore your savings
             </Link>
-            <Link href="/#contact-us" prefetch={false}>
+            <Link href={`${regionPath(country)}#contact-us`} prefetch={false}>
               Contact us
             </Link>
-            <Link href="/privacy" prefetch={false}>
+            <Link href={regionPath(country, "/privacy")} prefetch={false}>
               Privacy policy
             </Link>
             <RegionSwitcher />
@@ -65,7 +71,7 @@ export function SiteFooter() {
             <span>Version {packageJson.version}</span>
           </div>
           <Link
-            href="/consultation"
+            href={regionPath(country, "/consultation")}
             prefetch={false}
             className={styles.assessment}
           >

@@ -28,7 +28,7 @@ export function DemoHomepage({
       : country === "DM"
         ? {
             eyebrow: "SOLAR + STORAGE · DOMINICA HOMES",
-            title: "The Renewable Energy Solution for Dominica",
+            title: "The Renewable Energy Solution for the Caribbean Region",
             description:
           "Solar and battery solutions for your home in Dominica. Explore lower electricity bills and smarter backup, with equipment supply, installation and ongoing support coordinated by our local team.",
             support: "Serving Dominica",

@@ -36,9 +36,20 @@ export async function requireContactLimit(result: LimitResult) {
 let configured:
   { source: Ratelimit; total: Ratelimit; secret: string } | undefined;
 
+export function contactUpstashEnabled(
+  env: Record<string, string | undefined> = process.env,
+) {
+  const value = env.CONTACT_UPSTASH_ENABLED?.trim().toLowerCase();
+  if (value === "false") return false;
+  if (value === "true") return true;
+  // Preserve the existing default; typos must not silently disable protection.
+  if (value) throw new ContactFailure("upstash.config", "missing_configuration");
+  return env.NODE_ENV !== "development";
+}
+
 export async function checkContactLimit(request: Request) {
-  // Local prototypes retain the handler's existing process-local safety ceiling.
-  if (process.env.NODE_ENV === "development") return;
+  // This switch only controls Redis-backed limits, not other request validation.
+  if (!contactUpstashEnabled()) return;
   if (!configured) {
     const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
     const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();

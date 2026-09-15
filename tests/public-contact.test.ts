@@ -7,15 +7,48 @@ import {
   contactOrigins,
   isContactOrigin,
 } from "../lib/anonymous-inquiry/origin";
-import { requireContactLimit } from "../lib/anonymous-inquiry/rate-limit";
+import { checkContactLimit, contactUpstashEnabled, requireContactLimit } from "../lib/anonymous-inquiry/rate-limit";
+
+test("Contact Upstash switch preserves defaults and supports explicit overrides", () => {
+  assert.equal(contactUpstashEnabled({ NODE_ENV: "development" }), false);
+  assert.equal(contactUpstashEnabled({ NODE_ENV: "production" }), true);
+  assert.equal(contactUpstashEnabled({ NODE_ENV: "development", CONTACT_UPSTASH_ENABLED: "true" }), true);
+  assert.equal(contactUpstashEnabled({ NODE_ENV: "production", CONTACT_UPSTASH_ENABLED: " false " }), false);
+  assert.throws(() => contactUpstashEnabled({ CONTACT_UPSTASH_ENABLED: "off" }));
+});
+
+test("Disabled Upstash needs no credentials; explicit enable still requires them", async () => {
+  const names = ["CONTACT_UPSTASH_ENABLED", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"];
+  const original = names.map(name => process.env[name]);
+  try {
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    process.env.CONTACT_UPSTASH_ENABLED = "false";
+    await checkContactLimit(new Request("https://example.com/api/contact"));
+    process.env.CONTACT_UPSTASH_ENABLED = "true";
+    await assert.rejects(checkContactLimit(new Request("https://example.com/api/contact")));
+  } finally {
+    names.forEach((name, index) => {
+      if (original[index] === undefined) delete process.env[name];
+      else process.env[name] = original[index];
+    });
+  }
+});
 
 const env = { NODE_ENV: "production", SITE_URL: "https://solar.example" };
+test("One SITE_URL supports local HTTP; production requires HTTPS", () => {
+  const config = { SITE_URL: "http://localhost:3003" };
+  assert.deepEqual(contactOrigins({ ...config, NODE_ENV: "development" }), ["http://localhost:3003"]);
+  assert.deepEqual(contactOrigins({ ...config, NODE_ENV: "production" }), []);
+  assert.deepEqual(contactOrigins({ NODE_ENV: "development" }), []);
+});
 function request(origin = env.SITE_URL) {
   const form = new FormData();
   form.set("email", "release-check@example.com");
   form.set("requestId", "4583a8b3-a6a3-435d-b332-bfab81c1fb91");
   form.set("website", "");
   form.set("format", "plain");
+  form.set("country_code", "AG");
   form.set(
     "content",
     JSON.stringify(
@@ -52,9 +85,7 @@ test("production and Vercel Preview accept only configured HTTPS origins", () =>
     }),
     [],
   );
-  assert.deepEqual(contactOrigins({ NODE_ENV: "development" }), [
-    "http://192.168.1.176:3003",
-  ]);
+  assert.deepEqual(contactOrigins({ NODE_ENV: "development" }), []);
   const vercel = {
     ...env,
     VERCEL: "1",

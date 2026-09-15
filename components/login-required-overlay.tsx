@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { ArrowRight, LockKeyhole } from "lucide-react";
 import { previewReturnPath } from "@/lib/supabase-auth/return-path";
 import styles from "./login-required-overlay.module.css";
@@ -159,13 +160,14 @@ function LoginPrompt({ loginHref }: { loginHref: string }) {
           Sign in now
           <ArrowRight size={17} aria-hidden="true" />
         </a>
-        <a
+        <Link
           className={styles.secondary}
           href="/home-preview"
+          prefetch={false}
           onClick={stopCountdown}
         >
           Back to homepage
-        </a>
+        </Link>
       </div>
     </div>
   );

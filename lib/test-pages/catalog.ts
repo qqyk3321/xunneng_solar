@@ -5,7 +5,10 @@ export const MAIN_PAGE_ROUTES = [
   "/consultation",
   "/faq",
   "/privacy",
-  "/submission-preview-test",
+  "/[region]",
+  "/[region]/consultation",
+  "/[region]/faq",
+  "/[region]/privacy",
 ] as const;
 export const TEST_GROUPS = [
   {
@@ -54,13 +57,25 @@ export type TestPageEntry = {
 };
 export const TEST_PAGES: TestPageEntry[] = [
   {
+    route: "/submission-preview-test",
+    title: "Legacy consultation result",
+    description:
+      "Retired map-based result and email preview. No longer part of the consultation flow.",
+    group: "records",
+    access: "Retired",
+    href: "/submission-preview-test",
+    keywords: ["legacy", "旧方案"],
+  },
+  {
     route: "/test-pages/cookie-preview",
     title: "Cookie preferences — UI prototype",
-    description: "Preview the banner and settings dialog. Buttons only change this demo's appearance; no cookie controls are connected.",
+    description:
+      "Preview the banner and settings dialog. Buttons only change this demo's appearance; no cookie controls are connected.",
     group: "account",
     access: "Local-only visual prototype",
     href: "/test-pages/cookie-preview",
-    notice: "Not a working consent manager. Preferences are not persisted and do not affect any services.",
+    notice:
+      "Not a working consent manager. Preferences are not persisted and do not affect any services.",
     keywords: ["cookie", "privacy", "隐私", "样式", "弹窗"],
   },
   {

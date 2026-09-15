@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element -- Preview the local compressed blob, without image optimization. */
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import {
   Check,
   ImagePlus,
@@ -257,9 +258,9 @@ export function AnonymousInquiryForm({
         </p>
         {singleDocument && (
           <p>
-            <a className={styles.primary} href="/rich-text-preview/view">
+            <Link className={styles.primary} href="/rich-text-preview/view" prefetch={false}>
               打开独立预览页
-            </a>
+            </Link>
           </p>
         )}
         <details className={styles.savedPreview} open>

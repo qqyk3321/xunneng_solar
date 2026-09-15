@@ -23,18 +23,14 @@ test("intake requires acknowledgement and an available service country", () => {
   assert.notDeepEqual(SERVICE_COUNTRIES.AG.center, SERVICE_COUNTRIES.DM.center);
 });
 
-test("consultation gates third-party UI and carries acknowledgement in the existing payload", () => {
+test("consultation gates Tally on privacy and URL country; no legacy map or storage", () => {
   const source = readFileSync("components/consultation-flow.tsx", "utf8");
   assert.match(source, /useState<Step>\("intake"\)/);
-  assert.match(source, /step === "location" && intake/);
-  assert.match(source, /step === "form" && selectedPlace/);
-  assert.match(source, /privacyAcknowledgement:/);
-  assert.match(source, /serviceCountry: intake.country/);
-  assert.match(
-    source,
-    /url.searchParams.set\("location_json", place.locationJson\)/,
-  );
-  assert.doesNotMatch(source, /sessionStorage|localStorage/);
+  assert.match(source, /step === "form"/);
+  assert.match(source, /if \(!country\) return null/);
+  assert.doesNotMatch(source, /localStorage|REGION_STORAGE_KEY/);
+  assert.match(source, /NEXT_PUBLIC_TALLY_INTAKE_FORM_ID/);
+  assert.doesNotMatch(source, /GoogleMaps|location_json|selectedPlace/);
 });
 
 test("cookie demo is local-only and not a functioning consent manager", () => {

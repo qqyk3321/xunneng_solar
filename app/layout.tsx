@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SiteRegionProvider } from "@/components/site-region";
+import { siteUrl } from "@/lib/region-seo";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
+  robots: process.env.NODE_ENV !== "production" || (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production")
+    ? { index: false, follow: false }
+    : { index: true, follow: true },
   title: "Sol & Tide Energy | Caribbean Solar & Storage",
   description:
     "Solar and battery solutions for the Caribbean. Currently serving Antigua and Dominica.",

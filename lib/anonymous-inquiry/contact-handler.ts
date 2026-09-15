@@ -3,7 +3,7 @@ import { createInquiryHandler } from "./handler";
 export function contactSubmitError(status: number) {
   switch (status) {
     case 400:
-      return "Please check your email, message (5–5,000 characters), and photos, then try again.";
+      return "Please check your installation location, email, message (5–5,000 characters), and photos, then try again.";
     case 403:
       return "Please send your message from this website's contact form.";
     case 404:
@@ -25,7 +25,7 @@ export function contactSubmitError(status: number) {
 export function createContactHandler(
   deps: Parameters<typeof createInquiryHandler>[0],
 ) {
-  const handle = createInquiryHandler({ ...deps, allowFormat: true });
+  const handle = createInquiryHandler({ ...deps, allowFormat: true, requireCountry: true });
   return async (request: Request) => {
     const response = await handle(request);
     if (response.ok) return response;

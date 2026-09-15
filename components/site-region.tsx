@@ -8,7 +8,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { countryFromPath, switchedRegionPath } from "@/lib/site-region-routing";
 import Image from "next/image";
 import {
   SERVICE_COUNTRIES,
@@ -16,39 +17,41 @@ import {
 } from "@/lib/consultation-intake";
 import styles from "./site-region.module.css";
 
-const KEY = "sol-tide:installation-region:v1";
 const RegionContext = createContext<{
   country: ServiceCountry | null;
+  ready: boolean;
   open: boolean;
   choose: () => void;
-}>({ country: null, open: false, choose: () => {} });
+}>({ country: null, ready: false, open: false, choose: () => {} });
 export const useSiteRegion = () => useContext(RegionContext);
 
 export function SiteRegionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [country, setCountry] = useState<ServiceCountry | null>(null);
-  const [ready, setReady] = useState(false);
+  return (
+    <RegionForPath key={pathname} pathname={pathname}>
+      {children}
+    </RegionForPath>
+  );
+}
+
+function RegionForPath({
+  children,
+  pathname,
+}: {
+  children: ReactNode;
+  pathname: string;
+}) {
+  const router = useRouter();
+  const country = countryFromPath(pathname);
+  const ready = true;
   const [manual, setManual] = useState(false);
   const [draft, setDraft] = useState<ServiceCountry | null>(null);
   const [confirmChange, setConfirmChange] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
-  const publicPage = [
-    "/",
-    "/faq",
-    "/consultation",
-    "/home-preview",
-    "/antigua-calculator-preview",
-  ].includes(pathname);
-  const open = manual || (ready && !country && publicPage);
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(KEY);
-      if (saved === "AG" || saved === "DM") setCountry(saved);
-    } catch {
-      /* Browser storage is optional. */
-    }
-    setReady(true);
-  }, []);
+  // The generic homepage is the entry point, not a separate country landing page.
+  // Regional URLs remain directly accessible without a prompt or stored choice.
+  const requiresSelection = pathname === "/";
+  const open = requiresSelection || manual;
   useEffect(() => {
     if (!open) {
       dialog.current?.close();
@@ -71,23 +74,18 @@ export function SiteRegionProvider({ children }: { children: ReactNode }) {
     if (
       country &&
       draft !== country &&
-      pathname === "/consultation" &&
+      pathname.endsWith("/consultation") &&
       !confirmChange
     ) {
       setConfirmChange(true);
       return;
     }
-    try {
-      localStorage.setItem(KEY, draft);
-    } catch {
-      /* Keep the in-memory choice. */
-    }
-    setCountry(draft);
     setManual(false);
     setConfirmChange(false);
+    router.push(switchedRegionPath(pathname, draft) + window.location.hash);
   }
   return (
-    <RegionContext.Provider value={{ country, open, choose }}>
+    <RegionContext.Provider value={{ country, ready, open, choose }}>
       {children}
       <dialog
         ref={dialog}
@@ -96,10 +94,10 @@ export function SiteRegionProvider({ children }: { children: ReactNode }) {
         aria-describedby="region-description"
         onCancel={(event) => {
           event.preventDefault();
-          if (country) setManual(false);
+          if (!requiresSelection) setManual(false);
         }}
       >
-        {country && (
+        {!requiresSelection && (
           <button
             className={styles.close}
             aria-label="Close location selection"
@@ -150,7 +148,7 @@ export function SiteRegionProvider({ children }: { children: ReactNode }) {
         {confirmChange && (
           <p className={styles.warning} role="alert">
             Changing location restarts your assessment and clears the current
-            address, map selection and unsent form. Continue?
+            unsent form. Continue?
           </p>
         )}
         <button className={styles.save} disabled={!draft} onClick={save}>
@@ -161,8 +159,9 @@ export function SiteRegionProvider({ children }: { children: ReactNode }) {
               : "Continue"}
         </button>
         <p className={styles.hint}>
-          We’ll remember your choice on this browser. You can change your
-          location anytime in the header or footer.
+          Your location is included in the page address. You can switch location
+          anytime in the header or footer. Unsent drafts are not carried over
+          when switching locations.
         </p>
       </dialog>
     </RegionContext.Provider>
@@ -192,6 +191,22 @@ export function RegionCertification() {
 }
 
 /** Decorative beside the country name; local SVG avoids emoji/font differences. */
-export function RegionFlag({ country, large = false }: { country: ServiceCountry; large?: boolean }) {
-  return <Image src={`/flags/${country.toLowerCase()}.svg`} alt="" aria-hidden="true" width={large ? 48 : 24} height={large ? 36 : 18} unoptimized className={large ? styles.flagLarge : styles.flag} />;
+export function RegionFlag({
+  country,
+  large = false,
+}: {
+  country: ServiceCountry;
+  large?: boolean;
+}) {
+  return (
+    <Image
+      src={`/flags/${country.toLowerCase()}.svg`}
+      alt=""
+      aria-hidden="true"
+      width={large ? 48 : 24}
+      height={large ? 36 : 18}
+      unoptimized
+      className={large ? styles.flagLarge : styles.flag}
+    />
+  );
 }

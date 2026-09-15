@@ -8,9 +8,23 @@ const files = readdirSync("tests")
   )
   .sort()
   .map((file) => `tests/${file}`);
+// Next's navigation module needs the normal React runtime outside Next's bundler.
+const navigationTests = files.filter((file) => file === "tests/seo.test.ts");
 const result = spawnSync(
   process.execPath,
-  ["--conditions=react-server", "--import", "tsx", "--test", ...files],
+  [
+    "--conditions=react-server",
+    "--import",
+    "tsx",
+    "--test",
+    ...files.filter((file) => !navigationTests.includes(file)),
+  ],
   { stdio: "inherit" },
 );
-process.exit(result.status ?? 1);
+if (result.status !== 0) process.exit(result.status ?? 1);
+const navigationResult = spawnSync(
+  process.execPath,
+  ["--import", "tsx", "--test", ...navigationTests],
+  { stdio: "inherit" },
+);
+process.exit(navigationResult.status ?? 1);

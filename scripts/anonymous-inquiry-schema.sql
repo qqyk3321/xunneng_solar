@@ -1,3 +1,4 @@
+-- HISTORICAL REFERENCE ONLY. Current projects must use supabase/migrations via db push.
 -- Deliberately a standalone setup script, not an invented migration history entry.
 -- Apply once with: supabase db query --linked --file scripts/anonymous-inquiry-schema.sql
 -- Refuses to overwrite an existing table. No business tables or auth settings are changed.

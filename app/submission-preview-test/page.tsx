@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
-import { SubmissionLocationCard } from "@/components/submission-location-card";
 import {
   ArrowLeft,
   CalendarClock,
@@ -117,7 +116,6 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
   const previewUrl = submission?.submission_preview_url;
   const location = submission ? parseSubmissionLocation(submission.location_json) : undefined;
   const submittedAt = submission ? formatSubmittedAt(submission.received_at) : undefined;
-  const mapsEmbedKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY?.trim();
 
   if (!previewUrl) {
     redirect("/");
@@ -199,7 +197,7 @@ export default async function SubmissionPreviewTestPage({ searchParams }: PagePr
               </span>
             </div>
           ) : null}
-          {location ? <SubmissionLocationCard {...location} embedKey={mapsEmbedKey} /> : null}
+          {location ? <p>{location.address}</p> : null}
         </aside>
 
         <section className="submission-preview-content">

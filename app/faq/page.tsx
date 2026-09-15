@@ -4,12 +4,9 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FaqDirectory } from "./faq-directory";
 import styles from "./faq.module.css";
+import { faqMetadata } from "@/lib/region-seo";
 
-export const metadata: Metadata = {
-  title: "FAQ | Sol & Tide Energy",
-  description:
-    "Find answers about our solar calculator, battery storage, consultations and support.",
-};
+export const metadata: Metadata = faqMetadata();
 
 export default function FaqPage() {
   return (

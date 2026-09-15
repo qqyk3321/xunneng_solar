@@ -5,6 +5,23 @@ import type { InquiryPayload } from "../lib/anonymous-inquiry/handler";
 import { textDocument } from "../lib/anonymous-inquiry/rich-text";
 
 const origin = "http://192.168.1.176:3003";
+test("public contact requires one valid country and includes it in the retry hash", async () => {
+  const { saved, handle } = setup();
+  for (const country of [null, "", "DO", "ag"]) {
+    const data = form();
+    if (country === null) data.delete("country_code"); else data.set("country_code", country);
+    assert.equal((await handle(data)).status, 400);
+  }
+  const duplicate = form(); duplicate.append("country_code", "DM");
+  assert.equal((await handle(duplicate)).status, 400);
+  assert.equal(saved.length, 0);
+  for (const country of ["AG", "DM"]) {
+    const data = form(); data.set("country_code", country);
+    assert.equal((await handle(data)).status, 201);
+    assert.equal(saved.at(-1)!.countryCode, country);
+  }
+  assert.notEqual(saved[0].digest, saved[1].digest);
+});
 const id = "4583a8b3-a6a3-435d-b332-bfab81c1fb91";
 function form(format = "plain") {
   const data = new FormData();
@@ -12,6 +29,7 @@ function form(format = "plain") {
   data.set("requestId", id);
   data.set("website", "");
   data.set("format", format);
+  data.set("country_code", "AG");
   data.set(
     "content",
     JSON.stringify(

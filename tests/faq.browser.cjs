@@ -29,7 +29,7 @@ async function main() {
     const footer = page.getByRole("contentinfo");
     assert.equal(await footer.count(), 1);
     for (const [label, href] of [
-      ["support@example.com", "mailto:support@example.com"],
+      ["support@solortide.com", "mailto:support@solortide.com"],
       ["+1 (268) 555-0100", "tel:+12685550100"],
       ["Get Your Free Assessment", "/consultation"],
       ["Contact us", "/#contact-us"],

@@ -1,4 +1,5 @@
-import { createGeocodeHandler } from "@/lib/server-geocode";
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-export const POST = createGeocodeHandler(process.env);
+// Retired endpoint: never loads Google SDKs or calls external services.
+export function POST() {
+  return new Response("Not found", { status: 404 });
+}
+export const GET = POST;
