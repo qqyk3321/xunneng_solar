@@ -20,3 +20,4 @@ supabase/functions/tally-webhook/*
 !supabase/functions/tally-webhook/deno.json
 ticket-query-local/
 tsconfig.tsbuildinfo
+.vercel
