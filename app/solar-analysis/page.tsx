@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { accessCookieIsValid, SOLAR_ACCESS_COOKIE } from "./access";
 import { unlockSolarAnalysis } from "./actions";
 import SolarAnalysis from "./solar-analysis-client";
+import { SolarVisitTracker } from "./visit-tracker";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,7 @@ export default async function SolarAnalysisPage({
     cookieStore.get(SOLAR_ACCESS_COOKIE)?.value,
   );
 
-  if (unlocked) return <SolarAnalysis />;
+  if (unlocked) return <><SolarVisitTracker /><SolarAnalysis /></>;
 
   const { error } = await searchParams;
   return (

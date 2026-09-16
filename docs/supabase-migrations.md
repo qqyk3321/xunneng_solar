@@ -8,6 +8,8 @@
 
 ## 迁移历史
 
+- `20260916161424_add_solar_analysis_access_logs.sql`：新增光伏分析授权访问日志，RLS 开启，仅 service_role SELECT/INSERT；已通过 migration 应用。记录规则、权限和验证见 `docs/solar-analysis-access-logs.md`。
+
 - `20260915055021_add_contact_country.sql`：匿名留言增加安装地区代码和数据库生成的国家名，旧记录保持 NULL；已通过 CLI migration 应用。详见 `docs/url-regions-and-contact.md`。
 
 - `20260915053253_baseline_tally_intake_v2.sql`：新项目已有的 Tally V2 表、字段、约束、索引、RLS 和授权基线。建立基线前已核对远程结构、生成列、identity、序列权限以及表权限；新项目没有原有 migration 历史，因此仅对这一个版本使用 CLI `migration repair --status applied` 登记，不重新执行建表。
