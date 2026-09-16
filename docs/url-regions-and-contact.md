@@ -1,5 +1,18 @@
 # URL 地区与匿名留言国家字段
 
+## 2026-09-16：首页增加安提瓜别名入口
+
+本节覆盖下方历史记录中关于根路径强制地区选择的描述。
+
+- `/` 与 `/antigua` 复用 `RegionalHomepage` 服务端组件，直接展示安提瓜内容，不跳转、不自动打开地区选择。
+- 仅精确根路径 `/` 额外识别为 AG；`/faq`、`/consultation`、`/privacy` 和未知路径仍然没有默认地区。
+- 跨页链接保留 `/antigua/…` 前缀；首页本地锚点仍在当前页滚动。地区选择可主动打开、取消，在 `/` 保存 AG 不导航，切换 DM 去 `/dominica`。
+- 根首页的 canonical、Open Graph URL 与安提瓜首页一致，指向 `/antigua`；首页 x-default 指向 `/antigua`，sitemap 不再单列非规范首页 `/`。咨询页 alternate 与 sitemap 条目不变。
+- Edge Function、数据库、已有咨询与结果页路由及邮件链接不改动。留言的 `country_code` 在根首页为 AG，在多米尼克为 DM。
+- 回归入口：`npm test`、`tests/site-region.browser.cjs`、`tests/site-navigation-loader.browser.cjs`。浏览器测试拦截提交，不写真实客户数据。
+
+## 历史记录
+
 2026-09-15 实施。替代过去的 localStorage 地区方案；旧浏览器里的地区值不再读取，也不覆盖 URL。
 
 ## 路由与页面

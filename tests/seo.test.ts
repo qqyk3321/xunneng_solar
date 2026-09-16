@@ -6,6 +6,8 @@ import {
   regionMetadata,
   faqMetadata,
   regionOrganization,
+  countryMetadata,
+  regionAlternates,
 } from "../lib/region-seo";
 import sitemap from "../app/sitemap";
 
@@ -38,18 +40,30 @@ test("regional homes have independent metadata and shared FAQ has a single canon
   assert.ok(!urls.some((url) => url.includes("preview")));
 });
 
-test("homepage keeps a required region dialog and truthful organization fields", () => {
+test("homepage is the Antigua alias with voluntary selection and shared server content", async () => {
   const provider = readFileSync("components/site-region.tsx", "utf8");
-  assert.match(provider, /requiresSelection = pathname === "\/"/);
-  assert.match(provider, /requiresSelection \|\| manual/);
+  assert.match(provider, /const open = !navigating && manual/);
+  assert.doesNotMatch(provider, /requiresSelection/);
   const homepage = readFileSync("app/page.tsx", "utf8");
-  assert.match(homepage, /application\/ld\+json/);
+  assert.match(homepage, /<RegionalHomepage country="AG"/);
+  assert.match(homepage, /countryMetadata\("AG", "home"\)/);
+  assert.match(readFileSync("app/[region]/page.tsx", "utf8"), /<RegionalHomepage country=\{country\}/);
+  const shared = readFileSync("components/regional-homepage.tsx", "utf8");
+  assert.match(shared, /application\/ld\+json/);
+  assert.doesNotMatch(shared, /["']use client["']/);
   assert.doesNotMatch(
-    homepage,
+    shared,
     /SITE_CONTACT\.(phone|address)|aggregateRating/,
   );
   const links = readFileSync("components/region-links.tsx", "utf8");
   assert.match(links, /<Link[^>]+href=\{regionPath/);
+  assert.deepEqual(countryMetadata("AG", "home"), await regionMetadata(Promise.resolve({ region: "antigua" }), "home"));
+  assert.equal(regionAlternates()["x-default"], siteUrl("/antigua"));
+  assert.equal(regionAlternates("/consultation")["x-default"], siteUrl("/consultation"));
+  const urls = sitemap().map(entry => entry.url);
+  assert.ok(!urls.includes(siteUrl("/")), "non-canonical root alias is not listed separately");
+  for (const path of ["/antigua", "/dominica", "/consultation", "/antigua/consultation", "/dominica/consultation"])
+    assert.ok(urls.includes(siteUrl(path)));
 });
 
 test("regional structured contacts match visible support and never invent a common mailbox", () => {

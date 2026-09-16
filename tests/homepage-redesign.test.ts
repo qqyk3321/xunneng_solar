@@ -36,9 +36,11 @@ test("brand covers the Caribbean while the calculator stays Antigua-specific", (
 
 test("root homepage composes the calculator and contact without adding authentication", () => {
   const root = read("app/page.tsx");
+  const regional = read("components/regional-homepage.tsx");
   const home = read("components/demo-homepage.tsx");
-  assert.match(root, /contactSlot={<HomepageContact\s*\/>}/);
-  assert.doesNotMatch(root + home, /createClient|supabase-auth|getClaims/);
+  assert.match(root, /<RegionalHomepage country="AG"/);
+  assert.match(regional, /contactSlot={<HomepageContact\s*\/>}/);
+  assert.doesNotMatch(root + regional + home, /createClient|supabase-auth|getClaims/);
   assert.match(home, /<AntiguaSolarCalculator country={country}\s*\/>/);
   const calculator = read("components/antigua-solar-calculator.tsx");
   assert.match(calculator, /<AssessmentLink/);

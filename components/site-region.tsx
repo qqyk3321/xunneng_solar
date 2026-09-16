@@ -28,7 +28,7 @@ export const useSiteRegion = () => useContext(RegionContext);
 export function SiteRegionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   return (
-    <RegionForPath key={pathname} pathname={pathname}>
+    <RegionForPath pathname={pathname}>
       {children}
     </RegionForPath>
   );
@@ -49,11 +49,28 @@ function RegionForPath({
   // Only the dialog draft defaults; the URL country changes after confirmation.
   const [draft, setDraft] = useState<ServiceCountry>(country ?? "AG");
   const [confirmChange, setConfirmChange] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
-  // The generic homepage is the entry point, not a separate country landing page.
-  // Regional URLs remain directly accessible without a prompt or stored choice.
-  const requiresSelection = pathname === "/";
-  const open = requiresSelection || manual;
+  const navigationFrame = useRef<number | undefined>(undefined);
+  useEffect(() => {
+    setManual(false);
+    setConfirmChange(false);
+    setNavigating(false);
+    setDraft(country ?? "AG");
+  }, [pathname, country]);
+  useEffect(() => {
+    const ended = () => {
+      // A failed navigation must allow another attempt on the original page.
+      if (window.location.pathname === pathname) setNavigating(false);
+    };
+    window.addEventListener("solortide:navigation-end", ended);
+    return () => {
+      window.removeEventListener("solortide:navigation-end", ended);
+      window.cancelAnimationFrame(navigationFrame.current ?? 0);
+    };
+  }, [pathname]);
+  // Region selection is always voluntary, including the Antigua root alias.
+  const open = !navigating && manual;
   useEffect(() => {
     if (!open) {
       dialog.current?.close();
@@ -72,7 +89,7 @@ function RegionForPath({
     setManual(true);
   }
   function save() {
-    if (!draft) return;
+    if (!draft || navigating) return;
     if (
       country &&
       draft !== country &&
@@ -84,7 +101,20 @@ function RegionForPath({
     }
     setManual(false);
     setConfirmChange(false);
-    router.push(switchedRegionPath(pathname, draft) + window.location.hash);
+    // Native modal dialogs sit above every CSS z-index. Close before showing
+    // the already-mounted loader, then give the browser a frame to paint it.
+    dialog.current?.close();
+    const destination = switchedRegionPath(pathname, draft);
+    if (destination === pathname) return;
+    setNavigating(true);
+    window.dispatchEvent(new CustomEvent("solortide:navigation-start", {
+      detail: { immediate: true },
+    }));
+    navigationFrame.current = window.requestAnimationFrame(() => {
+      navigationFrame.current = window.requestAnimationFrame(() => {
+        router.push(destination + window.location.hash);
+      });
+    });
   }
   return (
     <RegionContext.Provider value={{ country, ready, open, choose }}>
@@ -96,18 +126,16 @@ function RegionForPath({
         aria-describedby="region-description"
         onCancel={(event) => {
           event.preventDefault();
-          if (!requiresSelection) setManual(false);
+          setManual(false);
         }}
       >
-        {!requiresSelection && (
-          <button
-            className={styles.close}
-            aria-label="Close location selection"
-            onClick={() => setManual(false)}
-          >
-            ×
-          </button>
-        )}
+        <button
+          className={styles.close}
+          aria-label="Close location selection"
+          onClick={() => setManual(false)}
+        >
+          ×
+        </button>
         <p className={styles.eyebrow}>YOUR LOCATION</p>
         <h2 id="region-title">Where would you like to install your system?</h2>
         <p id="region-description" className={styles.description}>
@@ -153,7 +181,7 @@ function RegionForPath({
             unsent form. Continue?
           </p>
         )}
-        <button className={styles.save} disabled={!draft} onClick={save}>
+        <button className={styles.save} disabled={!draft || navigating} onClick={save}>
           {confirmChange
             ? "Change location and restart"
             : country
@@ -161,9 +189,10 @@ function RegionForPath({
               : "Continue"}
         </button>
         <p className={styles.hint}>
-          Your location is included in the page address. You can switch location
-          anytime in the header or footer. Unsent drafts are not carried over
-          when switching locations.
+          The main homepage serves Antigua & Barbuda. Regional page addresses
+          identify the selected location. You can switch location anytime in the
+          header or footer. Unsent drafts are not carried over when switching
+          locations.
         </p>
       </dialog>
     </RegionContext.Provider>

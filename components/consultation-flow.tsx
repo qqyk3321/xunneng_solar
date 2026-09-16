@@ -83,6 +83,7 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
       ) {
         event.preventDefault();
         event.stopImmediatePropagation();
+        window.dispatchEvent(new Event("solortide:navigation-cancel"));
       }
     };
     window.addEventListener("beforeunload", beforeUnload);

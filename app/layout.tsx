@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SiteRegionProvider } from "@/components/site-region";
+import { SiteNavigationLoader } from "@/components/site-navigation-loader";
 import { siteUrl } from "@/lib/region-seo";
 
 export const metadata: Metadata = {
@@ -19,8 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.documentElement.dataset.siteLoading="initial";window.__solTideInitialLoader=window.setTimeout(function(){if(document.documentElement.dataset.siteLoading==="initial")delete document.documentElement.dataset.siteLoading},20000)',
+          }}
+        />
         <link href="https://fonts.googleapis.com" rel="preconnect" />
         <link
           crossOrigin="anonymous"
@@ -33,6 +40,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <SiteNavigationLoader />
         <SiteRegionProvider>{children}</SiteRegionProvider>
       </body>
     </html>

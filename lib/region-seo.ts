@@ -82,7 +82,7 @@ export function regionAlternates(suffix = "") {
   return {
     "en-AG": siteUrl(regionPath("AG", suffix)),
     "en-DM": siteUrl(regionPath("DM", suffix)),
-    "x-default": siteUrl(suffix || "/"),
+    "x-default": siteUrl(suffix || regionPath("AG")),
   };
 }
 export async function regionMetadata(
@@ -90,6 +90,12 @@ export async function regionMetadata(
   page: "home" | "faq" | "consultation",
 ): Promise<Metadata> {
   const country = await requireRegion(params);
+  return countryMetadata(country, page);
+}
+export function countryMetadata(
+  country: ServiceCountry,
+  page: "home" | "faq" | "consultation",
+): Metadata {
   if (page === "faq") return faqMetadata();
   const suffix = page === "home" ? "" : `/${page}`;
   const title =

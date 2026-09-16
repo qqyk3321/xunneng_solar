@@ -28,11 +28,6 @@ export default function PrivacyPage() {
         <p className={styles.version}>
           Last updated: 13 September 2026 · Version {PRIVACY_VERSION}
         </p>
-        <aside className={styles.draft}>
-          Initial website notice. Our legal company details, dedicated privacy
-            arrangements and detailed retention schedule are being finalised. This
-          notice will be updated as those details are confirmed.
-        </aside>
         <section>
           <h2>1. Information you choose to share</h2>
           <p>
@@ -142,9 +137,6 @@ export default function PrivacyPage() {
             available when you start your consultation.
           </p>
         </section>
-        <Link className={styles.back} href="/consultation" prefetch={false}>
-          Start your assessment →
-        </Link>
       </main>
       <SiteFooter />
     </>
