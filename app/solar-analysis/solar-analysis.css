@@ -88,6 +88,17 @@
   text-decoration: none;
   white-space: nowrap;
 }
+.hero-actions { display: flex; align-items: center; gap: 10px; }
+.tour-launch {
+  min-height: 40px;
+  padding: 10px 15px;
+  border: 1px solid #087b69;
+  border-radius: 8px;
+  background: #087b69;
+  color: #fff;
+  font-weight: 800;
+}
+.tour-launch:hover { background: #066658; }
 .v2-card {
   margin-bottom: 24px;
   padding: 26px;
@@ -235,6 +246,8 @@
 .profile-picker > div:first-child { display: grid; gap: 4px; }
 .profile-picker strong { color: #21384d; font-size: 14px; }
 .profile-picker small { color: #758596; font-size: 12px; line-height: 1.45; }
+.profile-choice-area,
+.month-choice-area { min-width: 0; }
 .profile-choices { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .profile-choices button {
   min-height: 43px;
@@ -272,6 +285,52 @@
 .month-tabs button { min-height: 38px; padding: 7px 5px; border: 1px solid #d5e0e6; border-radius: 9px; background: #f7fafb; color: #5d6d7f; font-weight: 700; }
 .month-tabs button:hover { border-color: #73a99e; color: #087b69; }
 .month-tabs button.active { border-color: #087b69; background: #087b69; color: #fff; box-shadow: 0 4px 12px rgba(8,123,105,.19); }
+.tour-action-hint {
+  position: relative;
+  display: inline-flex;
+  min-height: 38px;
+  margin: 0 0 12px;
+  padding: 9px 13px;
+  align-items: center;
+  gap: 8px;
+  border-radius: 9px;
+  background: #fff4cc;
+  color: #6d4d00;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 7px 20px rgba(88, 62, 0, .18);
+  animation: tourHintFloat 1.2s ease-in-out infinite alternate;
+}
+.tour-action-hint::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  bottom: -8px;
+  border-top: 8px solid #fff4cc;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+.tour-action-hint b { color: #087b69; font-size: 18px; line-height: 1; }
+.month-hint { margin-top: -4px; }
+.tour-control-focus {
+  position: relative;
+  padding: 5px;
+  border-radius: 12px;
+  outline: 3px solid #ffd45f;
+  outline-offset: 3px;
+  background: rgba(255, 248, 218, .72);
+  box-shadow: 0 0 0 7px rgba(255, 212, 95, .18);
+  animation: tourControlPulse 1.2s ease-in-out infinite alternate;
+}
+.month-tabs.tour-control-focus { margin: 0 0 20px; }
+@keyframes tourHintFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-4px); }
+}
+@keyframes tourControlPulse {
+  from { box-shadow: 0 0 0 5px rgba(255, 212, 95, .12); }
+  to { box-shadow: 0 0 0 10px rgba(255, 212, 95, .24); }
+}
 .chart-explain { margin: -8px 0 12px; color: #718093; font-size: 13px; line-height: 1.6; }
 .v2-hourly-chart { width: 100%; height: 430px; }
 .month-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
@@ -303,6 +362,17 @@
 .v2-summary .primary span { color: #bfdfda; }
 .v2-summary strong { display: block; margin: 10px 0 7px; color: #087b69; font-size: 22px; line-height: 1.2; }
 .v2-summary .primary strong { color: #fff; }
+.summary-section {
+  margin-bottom: 24px;
+  padding: 26px;
+  border: 1px solid #dce5eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(24, 50, 74, .04);
+}
+.summary-title { margin-bottom: 18px; }
+.summary-section .v2-highlights { margin-bottom: 14px; }
+.summary-section .v2-summary { margin-bottom: 0; }
 
 .v2-modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 20px; background: rgba(6,29,26,.76); }
 .v2-modal > section { position: relative; width: min(900px, 100%); max-height: 92vh; overflow: auto; padding: 28px; border-radius: 16px; background: #fff; }
@@ -311,6 +381,72 @@
 .v2-percent-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
 .v2-percent-grid span { padding: 8px; border-radius: 7px; background: #f2f7f6; color: #68788a; font-size: 11px; }
 .v2-percent-grid b { display: block; margin-top: 3px; color: #087b69; font-size: 13px; }
+.profile-modal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding-right: 42px; }
+.profile-modal-head small { color: #718093; font-size: 11px; }
+.profile-modal-head h2 { margin: 5px 0 0; }
+.profile-modal-head > button {
+  min-height: 40px;
+  padding: 9px 14px;
+  border: 1px solid #087b69;
+  border-radius: 9px;
+  background: #087b69;
+  color: #fff;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.profile-modal-head > button:hover:not(:disabled) { background: #066658; }
+.profile-modal-head > button.selected,
+.profile-modal-head > button:disabled {
+  border-color: #b9d9d1;
+  background: #e9f5f2;
+  color: #087b69;
+  cursor: default;
+  opacity: 1;
+}
+
+.tour-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(4, 20, 18, .7);
+  backdrop-filter: blur(2px);
+}
+.tour-target {
+  position: relative;
+  z-index: 70;
+  border-radius: 16px;
+  box-shadow: 0 0 0 4px #64d2b5, 0 24px 70px rgba(0, 0, 0, .36);
+  scroll-margin: 120px;
+}
+.tour-panel {
+  position: fixed;
+  z-index: 80;
+  right: 26px;
+  bottom: 26px;
+  width: min(440px, calc(100vw - 32px));
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 16px;
+  background: #fff;
+  color: #18283b;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, .35);
+}
+.tour-progress { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tour-progress span { color: #087b69; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.tour-progress b { color: #718093; font-size: 11px; }
+.tour-dots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 13px 0 17px; }
+.tour-dots i { height: 4px; border-radius: 999px; background: #dfe7e9; }
+.tour-dots i.done { background: #91c8ba; }
+.tour-dots i.active { background: #087b69; }
+.tour-panel h2 { margin: 0 0 9px; font-size: 20px; }
+.tour-panel > p { margin: 0; color: #657589; font-size: 13px; line-height: 1.65; }
+.tour-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+.tour-actions > div { display: flex; gap: 8px; }
+.tour-actions button { min-height: 39px; padding: 9px 13px; border-radius: 8px; font-weight: 800; }
+.tour-exit,
+.tour-prev { border: 1px solid #d3dee3; background: #fff; color: #607284; }
+.tour-next { border: 1px solid #087b69; background: #087b69; color: #fff; }
+.tour-next:hover { background: #066658; }
 
 @media (max-width: 1050px) {
   .annual-layout { grid-template-columns: 1fr; }
@@ -339,7 +475,8 @@
   .solar-lock-card { padding: 28px 22px; }
   .v2-shell { width: min(100% - 24px, 1320px); padding-top: 28px; }
   .v2-hero { display: grid; }
-  .v2-card { padding: 18px; margin-bottom: 16px; }
+  .v2-card,
+  .summary-section { padding: 18px; margin-bottom: 16px; }
   .section-title { display: grid; }
   .config-title { display: flex; align-items: flex-start; }
   .section-title .config-help { flex: 0 0 auto; padding: 7px; font-size: 0; }
@@ -357,6 +494,14 @@
   .input-results > span:last-child { border-bottom: 0; }
   .v2-hourly-chart { height: 360px; }
   .v2-percent-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-actions { width: 100%; }
+  .hero-actions > * { flex: 1; text-align: center; }
+  .profile-modal-head { display: grid; padding-right: 34px; }
+  .profile-modal-head > button { width: 100%; }
+  .tour-panel { right: 16px; bottom: 16px; padding: 18px; }
+  .tour-actions { align-items: stretch; flex-direction: column; }
+  .tour-actions > div { display: grid; grid-template-columns: 1fr 1fr; }
+  .tour-actions > div > :only-child { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
   .profile-picker { padding: 14px; }
@@ -364,4 +509,8 @@
 }
 @media (max-width: 520px) {
   .month-tabs { grid-template-columns: repeat(4, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tour-action-hint,
+  .tour-control-focus { animation: none; }
 }

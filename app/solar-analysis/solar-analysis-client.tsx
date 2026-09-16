@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import EChart from "./echart";
 import curve from "../../hoymiles_gooo_Glorida_generation_curve.json";
 
@@ -18,6 +18,33 @@ const PROFILES = {
   evening: { name: "傍晚高峰", values: [1.56,1.45,1.45,1.34,1.34,2,2.78,4.23,4.45,4.45,4.45,4.79,4.23,3.9,3.67,3.34,3.34,5.57,7.57,7.8,8.23,8.41,7.96,1.69] },
   night: { name: "夜间用电", values: [5.28,5.19,4.41,4.3,3.76,3.76,3.49,3.49,2.8,2.8,2.7,2.7,2.8,3.1,3.1,3.4,3.8,4,5.2,5.3,5.6,5.6,5.3,8.12] },
 };
+const TOUR_STEPS = [
+  {
+    target: "solar-step-config",
+    title: "输入用电与系统参数",
+    description: "输入月用电量或月账单，再选择逆变器、电池、组件功率和超配比。右侧会实时计算组件数量与实际装机容量。",
+  },
+  {
+    target: "solar-step-profile",
+    title: "选择每日用电模型",
+    description: "点击上方“白天用电、白天高峰、傍晚高峰、夜间用电”4 个按钮，选择最符合用户习惯的具体模式。下方缩略图用于放大查看 24 小时占比。",
+  },
+  {
+    target: "solar-step-hourly",
+    title: "选择月份查看逐时信息",
+    description: "在 03 逐时能源来源中点击 1–12 月按钮，切换查看不同月份的逐时发电、用电、电池充放电与电网流向。",
+  },
+  {
+    target: "solar-step-monthly",
+    title: "查看每个月预估使用量",
+    description: "查看 12 个月的光伏发电、家庭用电、电网供电与送电量，并结合系统技术参数理解全年变化。",
+  },
+  {
+    target: "solar-step-key-metrics",
+    title: "查看两个关键结果",
+    description: "重点查看“光伏发电自用率”和“年度电费节省”。前者反映光伏能源被系统自身利用的比例，后者展示安提瓜和多米尼克预计可节省的年度账单金额与百分比。",
+  },
+] as const;
 
 type ProfileKey = keyof typeof PROFILES;
 type InputMode = "kwh" | "antigua" | "dominica";
@@ -145,6 +172,13 @@ export default function SolarAnalysis() {
   const [profileKey, setProfileKey] = useState<ProfileKey>("evening");
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [detailProfile, setDetailProfile] = useState<ProfileKey | null>(null);
+  const [tourStep, setTourStep] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (tourStep === null) return;
+    const target = document.getElementById(TOUR_STEPS[tourStep].target);
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [tourStep]);
 
   const monthlyInputKwh = inputMode === "kwh"
     ? inputValue
@@ -320,10 +354,10 @@ export default function SolarAnalysis() {
           <h1>光伏与储能系统分析</h1>
           <p>从月账单、设备配置到全年逐时能量流，一页完成估算。</p>
         </div>
-        <Link href="/" className="secondary">返回首页</Link>
+        <div className="hero-actions"><button type="button" className="tour-launch" onClick={() => setTourStep(0)}>使用教程</button><Link href="/" className="secondary">返回首页</Link></div>
       </header>
 
-      <section className="v2-card input-card">
+      <section id="solar-step-config" className={`v2-card input-card ${tourStep === 0 ? "tour-target" : ""}`}>
         <div className="section-title config-title">
           <div><span>01</span><div><h2>输入与系统配置</h2><small>设置用电基准、逆变器、储能和光伏组件</small></div></div>
           <span className="config-help" tabIndex={0}><b>?</b> 计算说明<span role="tooltip">月度用电量或电费统一按 30 天换算为每日用电量；全年每天使用相同的每日用电总量。组件数量按“逆变器功率 × 超配比 ÷ 单块组件功率”向上取整。</span></span>
@@ -348,28 +382,36 @@ export default function SolarAnalysis() {
         </div>
       </section>
 
-      <section className="v2-card hourly-card">
-        <div className="section-title"><div><span>02</span><h2>逐时能源来源与每日用电模型</h2></div></div>
-        <div className="profile-picker"><div><strong>选择每日用电模型</strong><small>选择后，逐时图和全年结果会立即重新计算</small></div><div className="profile-choices" role="group" aria-label="选择每日用电模型">{(Object.keys(PROFILES) as ProfileKey[]).map((key) => <button key={key} type="button" className={profileKey === key ? "active" : ""} aria-pressed={profileKey === key} onClick={() => setProfileKey(key)}>{PROFILES[key].name}</button>)}</div></div>
+      <section id="solar-step-profile" className={`v2-card profile-card ${tourStep === 1 ? "tour-target" : ""}`}>
+        <div className="section-title"><div><span>02</span><h2>每日用电模型</h2></div><p>先选择最符合用户习惯的 24 小时用电分布</p></div>
+        <div className="profile-picker"><div><strong>选择每日用电模型</strong><small>选择后，逐时图和全年结果会立即重新计算</small></div><div className="profile-choice-area">{tourStep === 1 && <div className="tour-action-hint"><b>↓</b><span>点击下面 4 个按钮，选择具体用电模式</span></div>}<div className={`profile-choices ${tourStep === 1 ? "tour-control-focus" : ""}`} role="group" aria-label="选择每日用电模型">{(Object.keys(PROFILES) as ProfileKey[]).map((key) => <button key={key} type="button" className={profileKey === key ? "active" : ""} aria-pressed={profileKey === key} onClick={() => setProfileKey(key)}>{PROFILES[key].name}</button>)}</div></div></div>
         {profileGallery}
-        <div className="month-tabs" role="group" aria-label="选择月份">{months.map((item) => <button key={item.month} type="button" className={selectedMonth === item.month ? "active" : ""} onClick={() => setSelectedMonth(item.month)}>{item.month}月</button>)}</div>
+      </section>
+
+      <section id="solar-step-hourly" className={`v2-card hourly-card ${tourStep === 2 ? "tour-target" : ""}`}>
+        <div className="section-title"><div><span>03</span><h2>逐时能源来源</h2></div><p>选择月份，查看一天 24 小时的发电、用电、电池与电网流向</p></div>
+        <div className="month-choice-area">{tourStep === 2 && <div className="tour-action-hint month-hint"><b>↓</b><span>点击月份按钮，切换查看该月的逐时信息</span></div>}<div className={`month-tabs ${tourStep === 2 ? "tour-control-focus" : ""}`} role="group" aria-label="选择月份">{months.map((item) => <button key={item.month} type="button" className={selectedMonth === item.month ? "active" : ""} onClick={() => setSelectedMonth(item.month)}>{item.month}月</button>)}</div></div>
         <p className="chart-explain">每小时只有一根堆叠柱，依次表示光伏直供、电池供电、电网供电、电池充电和送给电网，不重复计算光伏直供。电池充电与放电功率均限制为每 1 kWh 容量最多 0.5 kW。绿色与橙色拟合曲线分别表示光伏发电和家庭用电，均位于 X 轴上方。</p>
         <EChart option={hourlyOption} className="v2-hourly-chart" />
         <div className="month-strip"><span>本月发电 <b>{format(month.generation)} kWh</b></span><span>本月用电 <b>{format(month.consumption)} kWh</b></span><span>电网供电 <b>{format(month.grid)} kWh</b></span><span>送给电网 <b>{format(month.export)} kWh</b></span></div>
       </section>
 
-      <section className="annual-layout">
-        <section className="v2-card annual-chart-card"><div className="section-title"><div><span>03</span><h2>12 个月发电与用电</h2></div><p>光伏柱 = 光伏自用 + 送给电网</p></div><EChart option={annualOption} className="v2-annual-chart" /></section>
+      <section id="solar-step-monthly" className={`annual-layout ${tourStep === 3 ? "tour-target" : ""}`}>
+        <section className="v2-card annual-chart-card"><div className="section-title"><div><span>04</span><h2>12 个月发电与用电</h2></div><p>光伏柱 = 光伏自用 + 送给电网</p></div><EChart option={annualOption} className="v2-annual-chart" /></section>
         <aside className="v2-card technical"><h2>系统技术统计</h2><dl><div><dt>逆变器 AC 功率</dt><dd>{format(inverterKw)} kW</dd></div><div><dt>组件数量 / 功率</dt><dd>{panelCount} × {panelW} W</dd></div><div><dt>光伏 DC 容量</dt><dd>{format(capacityKwp)} kWp</dd></div><div><dt>实际 DC/AC 比</dt><dd>{format(capacityKwp / inverterKw)}</dd></div><div><dt>电池容量</dt><dd>{format(batteryKwh)} kWh</dd></div><div><dt>电池充/放电功率上限</dt><dd>{format(batteryKwh * BATTERY_POWER_PER_KWH)} kW</dd></div><div><dt>日均用电</dt><dd>{format(dailyKwh)} kWh</dd></div><div><dt>单位装机年发电</dt><dd>{format(annual.generation / capacityKwp)} kWh/kWp</dd></div></dl></aside>
       </section>
 
-      <section className="v2-highlights">
-        <article><span>光伏发电自用率</span><strong>{format(solarSelfUseRatio * 100)}%</strong><small>（年度光伏发电 − 年度送电网）÷ 年度光伏发电</small></article>
-        <article><span>年度电费节省</span><div><p>安提瓜 <b>EC$ {format(antiguaSaving)}</b><em>{format(annual.antiguaBaseline > 0 ? antiguaSaving / annual.antiguaBaseline * 100 : 0)}%</em></p><p>多米尼克 <b>EC$ {format(dominicaSaving)}</b><em>{format(annual.dominicaBaseline > 0 ? dominicaSaving / annual.dominicaBaseline * 100 : 0)}%</em></p></div><small>原年度账单与采用光伏后的电网购电账单之差</small></article>
+      <section id="solar-step-summary" className="summary-section">
+        <div className="section-title summary-title"><div><span>05</span><h2>年度汇总信息</h2></div><p>重点结果：光伏发电自用率与年度电费节省</p></div>
+        <section id="solar-step-key-metrics" className={`v2-highlights ${tourStep === 4 ? "tour-target" : ""}`}>
+          <article><span>光伏发电自用率</span><strong>{format(solarSelfUseRatio * 100)}%</strong><small>（年度光伏发电 − 年度送电网）÷ 年度光伏发电</small></article>
+          <article><span>年度电费节省</span><div><p>安提瓜 <b>EC$ {format(antiguaSaving)}</b><em>{format(annual.antiguaBaseline > 0 ? antiguaSaving / annual.antiguaBaseline * 100 : 0)}%</em></p><p>多米尼克 <b>EC$ {format(dominicaSaving)}</b><em>{format(annual.dominicaBaseline > 0 ? dominicaSaving / annual.dominicaBaseline * 100 : 0)}%</em></p></div><small>原年度账单与采用光伏后的电网购电账单之差</small></article>
+        </section>
+        <section className="v2-summary"><article className="primary"><span>年度光伏发电</span><strong>{format(annual.generation)} kWh</strong></article><article><span>年度家庭用电</span><strong>{format(annual.consumption)} kWh</strong></article><article><span>年度电网供电</span><strong>{format(annual.grid)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaCost)}<br />多米尼克 EC$ {format(annual.dominicaCost)}</small></article><article><span>年度送给电网</span><strong>{format(annual.export)} kWh</strong></article><article><span>减少电网购电</span><strong>{format(annual.selfUse)} kWh</strong><small>占年度用电 {format(annual.selfUse / annual.consumption * 100)}%</small></article></section>
       </section>
-      <section className="v2-summary"><article className="primary"><span>年度光伏发电</span><strong>{format(annual.generation)} kWh</strong></article><article><span>年度家庭用电</span><strong>{format(annual.consumption)} kWh</strong></article><article><span>年度电网供电</span><strong>{format(annual.grid)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaCost)}<br />多米尼克 EC$ {format(annual.dominicaCost)}</small></article><article><span>年度送给电网</span><strong>{format(annual.export)} kWh</strong></article><article><span>减少电网购电</span><strong>{format(annual.selfUse)} kWh</strong><small>占年度用电 {format(annual.selfUse / annual.consumption * 100)}%</small></article></section>
 
-      {detailProfile && <div className="v2-modal" role="dialog" aria-modal="true" onMouseDown={(event) => { if (event.currentTarget === event.target) setDetailProfile(null); }}><section><button type="button" aria-label="关闭" onClick={() => setDetailProfile(null)}>×</button><h2>{PROFILES[detailProfile].name} · 00:00–24:00</h2><EChart option={profileOption(detailProfile, true)} className="v2-detail-chart" /><div className="v2-percent-grid">{PROFILES[detailProfile].values.map((value, hour) => <span key={hour}>{String(hour).padStart(2, "0")}:00–{String(hour + 1).padStart(2, "0")}:00 <b>{format(value)}%</b></span>)}</div></section></div>}
+      {detailProfile && <div className="v2-modal" role="dialog" aria-modal="true" onMouseDown={(event) => { if (event.currentTarget === event.target) setDetailProfile(null); }}><section><button type="button" aria-label="关闭" onClick={() => setDetailProfile(null)}>×</button><div className="profile-modal-head"><div><small>每日用电模型详情</small><h2>{PROFILES[detailProfile].name} · 00:00–24:00</h2></div><button type="button" className={profileKey === detailProfile ? "selected" : ""} disabled={profileKey === detailProfile} onClick={() => setProfileKey(detailProfile)}>{profileKey === detailProfile ? "该模式已选中" : "切换为该模式"}</button></div><EChart option={profileOption(detailProfile, true)} className="v2-detail-chart" /><div className="v2-percent-grid">{PROFILES[detailProfile].values.map((value, hour) => <span key={hour}>{String(hour).padStart(2, "0")}:00–{String(hour + 1).padStart(2, "0")}:00 <b>{format(value)}%</b></span>)}</div></section></div>}
+      {tourStep !== null && <><div className="tour-backdrop" aria-hidden="true" /><aside className="tour-panel" role="dialog" aria-modal="true" aria-labelledby="tour-title"><div className="tour-progress"><span>使用教程</span><b>STEP {tourStep + 1} / {TOUR_STEPS.length}</b></div><div className="tour-dots" aria-hidden="true">{TOUR_STEPS.map((_, index) => <i key={index} className={index === tourStep ? "active" : index < tourStep ? "done" : ""} />)}</div><h2 id="tour-title">{TOUR_STEPS[tourStep].title}</h2><p>{TOUR_STEPS[tourStep].description}</p><div className="tour-actions"><button type="button" className="tour-exit" onClick={() => setTourStep(null)}>退出教程</button><div>{tourStep > 0 && <button type="button" className="tour-prev" onClick={() => setTourStep(tourStep - 1)}>上一步</button>}<button type="button" className="tour-next" onClick={() => tourStep === TOUR_STEPS.length - 1 ? setTourStep(null) : setTourStep(tourStep + 1)}>{tourStep === TOUR_STEPS.length - 1 ? "完成" : "下一步"}</button></div></div></aside></>}
     </main>
   );
 }
