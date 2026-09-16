@@ -1,0 +1,45 @@
+{
+  "source": "S-Miles Designer project gooo_Glorida",
+  "retrieved_at": "2026-09-16T15:00:00+08:00",
+  "project": {
+    "id": "2100101059125637120",
+    "address": "MF7M+WM, Frostproof, Florida, United States"
+  },
+  "units": {
+    "profile_percent": "percentage of the selected daily electricity consumption allocated to this one-hour period",
+    "daily_kwh_formula": "annual mode: annual_consumption_kwh / 365 * profile_percent / 100; monthly mode: monthly_consumption_kwh / days_in_month * profile_percent / 100"
+  },
+  "project_current_configuration": {
+    "enabled": true,
+    "interval": "annual",
+    "annual_consumption_kwh": 5000,
+    "daily_model_id": 3,
+    "daily_model_name": "evening_peak",
+    "monthly_model_id": 2,
+    "stored_daily_profile_percent": [1.56, 1.45, 1.45, 1.34, 1.34, 2, 2.78, 4.23, 4.45, 4.45, 4.45, 4.79, 4.23, 3.9, 3.67, 3.34, 3.34, 5.57, 7.57, 7.8, 8.23, 8.41, 7.96, 1.69]
+  },
+  "time_periods": ["00:00-01:00", "01:00-02:00", "02:00-03:00", "03:00-04:00", "04:00-05:00", "05:00-06:00", "06:00-07:00", "07:00-08:00", "08:00-09:00", "09:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00", "22:00-23:00", "23:00-24:00"],
+  "models": {
+    "0_custom": {
+      "name": "custom",
+      "profile_percent": ["user-entered: use project_current_configuration.stored_daily_profile_percent when this model is selected"]
+    },
+    "1_daytime_electricity": {
+      "name": "daytime_electricity",
+      "profile_percent": [1.9, 1.7, 1.6, 1.5, 1.5, 2, 2.6, 3.6, 5.1, 6.4, 7.4, 7.9, 7.9, 7.9, 7.6, 7.1, 6.6, 4.9, 3.9, 3.1, 2.6, 2.1, 1.7, 1.4]
+    },
+    "2_daytime_rush_hours": {
+      "name": "daytime_rush_hours",
+      "profile_percent": [2, 1.4, 1.3, 1.2, 1.3, 1.5, 3.5, 6.2, 7.7, 7.2, 5.2, 4.4, 4, 3.8, 3.8, 3.8, 3.8, 7.3, 7.8, 7.8, 6, 4, 3, 2]
+    },
+    "3_evening_peak": {
+      "name": "evening_peak",
+      "profile_percent": [1.56, 1.45, 1.45, 1.34, 1.34, 2, 2.78, 4.23, 4.45, 4.45, 4.45, 4.79, 4.23, 3.9, 3.67, 3.34, 3.34, 5.57, 7.57, 7.8, 8.23, 8.41, 7.96, 1.69]
+    },
+    "4_electricity_at_night": {
+      "name": "electricity_at_night",
+      "profile_percent": [5.28, 5.19, 4.41, 4.3, 3.76, 3.76, 3.49, 3.49, 2.8, 2.8, 2.7, 2.7, 2.8, 3.1, 3.1, 3.4, 3.8, 4, 5.2, 5.3, 5.6, 5.6, 5.3, 8.12],
+      "note": "The platform's supplied weights total 96.9765%; its UI assigns the rounding residual to 23:00-24:00, yielding 8.12%."
+    }
+  }
+}
