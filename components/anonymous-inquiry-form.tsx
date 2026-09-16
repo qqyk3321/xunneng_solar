@@ -1,7 +1,14 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element -- Preview the local compressed blob, without image optimization. */
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import Link from "next/link";
 import {
   Check,
@@ -25,10 +32,7 @@ import {
 } from "@/lib/anonymous-inquiry/config";
 import { formatBytes } from "@/lib/image-lab/config";
 import styles from "./anonymous-inquiry-form.module.css";
-import {
-  InquiryRichEditor,
-  type InquiryEditorHandle,
-} from "./inquiry-rich-editor";
+import type { InquiryEditorHandle } from "./inquiry-rich-editor";
 import { InquiryRichContent } from "./inquiry-rich-content";
 import {
   EMPTY_DOCUMENT,
@@ -37,6 +41,11 @@ import {
   validateRichDocument,
   type RichDocument,
 } from "@/lib/anonymous-inquiry/rich-text";
+
+const InquiryRichEditor = lazy(async () => {
+  const editorModule = await import("./inquiry-rich-editor");
+  return { default: editorModule.InquiryRichEditor };
+});
 
 type DraftImage = InquiryImage & { id: string };
 
@@ -341,24 +350,28 @@ export function AnonymousInquiryForm({
               咨询内容 <span>*</span>
             </label>
             <div className={styles.editor}>
-              <InquiryRichEditor
-                onPickImages={() => fileInput.current?.click()}
-                canAddImage={activeImages.length < MAX_IMAGES}
-                onReady={setEditorReady}
-                ref={messageInput}
-                disabled={busy}
-                invalid={fieldError === "message"}
-                resolveImage={(id) =>
-                  imageRef.current.find((img) => img.id === id)?.url
-                }
-                onFiles={(files) => {
-                  void addImages(files);
-                }}
-                onChange={(value) => {
-                  setContent(value);
-                  edited();
-                }}
-              />
+              <Suspense
+                fallback={<p role="status">正在准备文字编辑器…</p>}
+              >
+                <InquiryRichEditor
+                  onPickImages={() => fileInput.current?.click()}
+                  canAddImage={activeImages.length < MAX_IMAGES}
+                  onReady={setEditorReady}
+                  ref={messageInput}
+                  disabled={busy}
+                  invalid={fieldError === "message"}
+                  resolveImage={(id) =>
+                    imageRef.current.find((img) => img.id === id)?.url
+                  }
+                  onFiles={(files) => {
+                    void addImages(files);
+                  }}
+                  onChange={(value) => {
+                    setContent(value);
+                    edited();
+                  }}
+                />
+              </Suspense>
               {activeImages.length > 0 && (
                 <ul className={styles.images}>
                   {activeImages.map((img, index) => (

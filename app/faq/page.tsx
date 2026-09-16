@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { HomepageContact } from "@/components/homepage-contact";
+import { DeferredHomepageContact } from "@/components/deferred-homepage-contact";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FaqDirectory } from "./faq-directory";
@@ -25,7 +25,7 @@ export default function FaqPage() {
           <FaqDirectory />
         </div>
         <div className="tailwind-scope">
-          <HomepageContact variant="question" />
+          <DeferredHomepageContact variant="question" />
         </div>
       </main>
       <SiteFooter />

@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element -- Local compressed photo thumbnails. */
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { lazy, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { FloatingQuestionButton } from "./floating-question-button";
 import { ScrollQuestionButton } from "./scroll-question-button";
@@ -13,10 +13,7 @@ import {
   Mail,
   X,
 } from "lucide-react";
-import {
-  InquiryRichEditor,
-  type InquiryEditorHandle,
-} from "./inquiry-rich-editor";
+import type { InquiryEditorHandle } from "./inquiry-rich-editor";
 import {
   compressInquiryImage,
   type InquiryImage,
@@ -41,6 +38,13 @@ import { SupportEmail } from "./support-email";
 import { useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { RegionLinks } from "./region-links";
+
+// Tiptap is sizeable and is only needed after the user opens the photo/rich
+// editor. Keeping it behind React.lazy removes it from the homepage entry JS.
+const InquiryRichEditor = lazy(async () => {
+  const editorModule = await import("./inquiry-rich-editor");
+  return { default: editorModule.InquiryRichEditor };
+});
 
 type Photo = InquiryImage & { id: string };
 function newId() {

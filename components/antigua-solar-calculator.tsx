@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
 import { RegionLinks } from "./region-links";
+import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   ANTIGUA_CONFIG,
   DOMINICA_CONFIG,
@@ -18,7 +19,9 @@ const hours = new Intl.NumberFormat("en-US", {
 });
 const money = (value: number) => "EC$ " + number.format(value);
 
-export function AntiguaSolarCalculator() {
+export function AntiguaSolarCalculator({
+  country: explicitCountry,
+}: { country?: ServiceCountry | null } = {}) {
   const id = useId();
   const ids = {
     inputTitle: id + "-input-title",
@@ -28,7 +31,8 @@ export function AntiguaSolarCalculator() {
     range: id + "-range",
     tooltip: id + "-tooltip",
   };
-  const { country } = useSiteRegion();
+  const { country: contextCountry } = useSiteRegion();
+  const country = explicitCountry === undefined ? contextCountry : explicitCountry;
   const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
   const bounds = billBounds(config);
   const [requestedBill, setBill] = useState(ANTIGUA_CONFIG.defaultBill);

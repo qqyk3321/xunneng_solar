@@ -25,9 +25,11 @@ test("intake requires acknowledgement and an available service country", () => {
 
 test("consultation gates Tally on privacy and URL country; no legacy map or storage", () => {
   const source = readFileSync("components/consultation-flow.tsx", "utf8");
+  const route = readFileSync("app/[region]/consultation/page.tsx", "utf8");
   assert.match(source, /useState<Step>\("intake"\)/);
   assert.match(source, /step === "form"/);
-  assert.match(source, /if \(!country\) return null/);
+  assert.match(route, /await requireRegion\(params\)/);
+  assert.match(route, /<ConsultationFlow country={country}\s*\/>/);
   assert.doesNotMatch(source, /localStorage|REGION_STORAGE_KEY/);
   assert.match(source, /NEXT_PUBLIC_TALLY_INTAKE_FORM_ID/);
   assert.doesNotMatch(source, /GoogleMaps|location_json|selectedPlace/);

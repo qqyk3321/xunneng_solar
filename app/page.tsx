@@ -29,7 +29,7 @@ export default function HomePage() {
           __html: JSON.stringify(organization).replace(/</g, "\\u003c"),
         }}
       />
-      <DemoHomepage contactSlot={<HomepageContact />} />
+      <DemoHomepage country={null} contactSlot={<HomepageContact />} />
     </>
   );
 }

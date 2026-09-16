@@ -4,10 +4,11 @@ import test from "node:test";
 
 test("why choose us preserves the anchor, scoped claims and readable counter fallback", () => {
   const source = readFileSync("components/why-choose-us.tsx", "utf8");
+  const animation = readFileSync("components/animated-stat-value.tsx", "utf8");
   assert.match(source, /id="benefits"/);
   assert.match(
     readFileSync("components/demo-homepage.tsx", "utf8"),
-    /<WhyChooseUs\s*\/>/,
+    /<WhyChooseUs country={country}\s*\/>/,
   );
   for (const phrase of [
     "100% local",
@@ -28,10 +29,10 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
     source,
     /complimentary|free maintenance|uninterrupted|guaranteed savings/i,
   );
-  assert.match(source, /useState\(value\)/);
-  assert.match(source, /requestAnimationFrame/);
-  assert.match(source, /cancelAnimationFrame/);
-  assert.match(source, /observer.disconnect/);
-  assert.match(source, /prefers-reduced-motion/);
-  assert.match(source, /aria-hidden="true" data-animated-value/);
+  assert.match(animation, /useState\(value\)/);
+  assert.match(animation, /requestAnimationFrame/);
+  assert.match(animation, /cancelAnimationFrame/);
+  assert.match(animation, /observer.disconnect/);
+  assert.match(animation, /prefers-reduced-motion/);
+  assert.match(animation, /aria-hidden="true" data-animated-value/);
 });

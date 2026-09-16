@@ -4,10 +4,11 @@ import test from "node:test";
 
 test("installation journey is independent of the reserved system guide", () => {
   const installation = readFileSync("components/solar-installation.tsx", "utf8");
+  const reveal = readFileSync("components/installation-reveal.tsx", "utf8");
   const home = readFileSync("components/demo-homepage.tsx", "utf8");
   const header = readFileSync("components/site-header.tsx", "utf8");
   assert.match(installation, /id="solar-installation"/);
-  assert.match(home, /<SolarInstallation\s*\/>/);
+  assert.match(home, /<SolarInstallation country={country}\s*\/>/);
   assert.doesNotMatch(home, /THE CONSULTATION PROCESS|id="how-it-works"/);
   assert.doesNotMatch(header, /homeLink\("how-it-works"|href=".*how-it-works/);
   assert.doesNotMatch(header, /How it works|navReserved/);
@@ -23,7 +24,7 @@ test("installation journey is independent of the reserved system guide", () => {
     "approve the final plan",
   ])
     assert.ok(installation.includes(phrase));
-  assert.match(installation, /observer.disconnect\(\)/);
-  assert.match(installation, /prefers-reduced-motion/);
+  assert.match(reveal, /observer.disconnect\(\)/);
+  assert.match(reveal, /prefers-reduced-motion/);
   assert.match(installation, /<AssessmentLink/);
 });

@@ -1,7 +1,6 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { RegionCertification, useSiteRegion } from "./site-region";
+import Image from "next/image";
+import type { ServiceCountry } from "@/lib/consultation-intake";
 import { AssessmentLink } from "./assessment-link";
 import { AntiguaSolarCalculator } from "./antigua-solar-calculator";
 import { SectionAnchor } from "./section-anchor";
@@ -15,12 +14,13 @@ export function DemoHomepage({
   accountSlot,
   contactSlot,
   immersive = false,
+  country = null,
 }: {
   accountSlot?: ReactNode;
   contactSlot?: ReactNode;
   immersive?: boolean;
+  country?: ServiceCountry | null;
 } = {}) {
-  const { country } = useSiteRegion();
   const hero =
     country === "AG"
       ? {
@@ -62,19 +62,21 @@ export function DemoHomepage({
           data-testid="home-hero"
         >
           <div className={styles.heroMedia}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- Keep the existing homepage hero asset. */}
-            <img
+            <Image
               src={
                 country === "DM"
                   ? "/images/dominica-solar-hero.png"
                   : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
               }
+              fill
+              priority
+              quality={78}
+              sizes="100vw"
               alt={
                 country === "DM"
                   ? "Illustrative solar-powered coastal homes inspired by Dominica"
                   : "Solar-equipped coastal homes"
               }
-              fetchPriority="high"
             />
           </div>
           <div className={styles.heroContent}>
@@ -82,7 +84,7 @@ export function DemoHomepage({
             <h1 id="hero-title">{hero.title}</h1>
             <p className={styles.heroCopy}>{hero.description}</p>
             <div className={styles.heroActions}>
-              <AssessmentLink className={styles.primary} />
+              <AssessmentLink country={country} className={styles.primary} />
               <SectionAnchor href="#calculator" className={styles.solarButton}>
                 Get an Estimate
               </SectionAnchor>
@@ -90,7 +92,12 @@ export function DemoHomepage({
             <div className={styles.heroNotes}>
               <span>150+ MPH Rated</span>
               <span>
-                <RegionCertification /> Certified Equipment
+                {country === "AG"
+                  ? "UL"
+                  : country === "DM"
+                    ? "CE"
+                    : "UL/CE"}{" "}
+                Certified Equipment
               </span>
               <span>{hero.support}</span>
               <span>8-Year Inverter Warranty</span>
@@ -117,13 +124,13 @@ export function DemoHomepage({
                 <h2 id="calculator-heading">What could solar save you?</h2>
               </div>
             </div>
-            <AntiguaSolarCalculator />
+            <AntiguaSolarCalculator country={country} />
           </div>
         </section>
 
-        <WhyChooseUs />
+        <WhyChooseUs country={country} />
 
-        <SolarInstallation />
+        <SolarInstallation country={country} />
         {contactSlot}
       </main>
       <SiteFooter />

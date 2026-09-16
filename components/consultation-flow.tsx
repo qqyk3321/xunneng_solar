@@ -3,11 +3,11 @@
 import Script from "next/script";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { useSiteRegion, RegionFlag } from "./site-region";
+import { RegionFlag } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { SUPPORT_EMAILS } from "@/lib/site-contact";
 import { BrandMark } from "./brand-mark";
-import { HomeContact } from "./home-contact";
+import { DeferredFloatingContact } from "./deferred-floating-contact";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   buildTallyIntakeUrl,
@@ -30,13 +30,11 @@ const STEPS = [
   ["thanks", "Complete"],
 ] as const;
 
-export function ConsultationFlow() {
-  const { country } = useSiteRegion();
-  if (!country) return null;
+export function ConsultationFlow({ country }: { country: ServiceCountry }) {
   return (
     <>
       <ConsultationForRegion key={country} country={country} />
-      <HomeContact key={`question-${country}`} variant="floating" />
+      <DeferredFloatingContact key={`question-${country}`} />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
 import { tallyPreviewUrl } from "@/lib/tally-preview-url";
 import { submissionTiming } from "@/lib/submission-timing";
-import { HomeContact } from "@/components/home-contact";
+import { DeferredFloatingContact } from "@/components/deferred-floating-contact";
 import { loadConsultationPreview } from "@/lib/consultation-preview";
 import { countryFromSlug } from "@/lib/site-region-routing";
 import styles from "./preview.module.css";
@@ -105,7 +105,7 @@ export default async function ConsultationPreviewPage({
         )}
       </main>
       <SiteFooter />
-      <HomeContact initialEmail={submission.email} variant="floating" />
+      <DeferredFloatingContact initialEmail={submission.email} />
     </div>
   );
 }

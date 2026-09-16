@@ -1,8 +1,7 @@
-"use client";
-
-import { useEffect, useRef, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import type { ServiceCountry } from "@/lib/consultation-intake";
 import { AssessmentLink } from "./assessment-link";
-import { useSiteRegion } from "./site-region";
+import { InstallationReveal } from "./installation-reveal";
 import styles from "./solar-installation.module.css";
 
 const steps = [
@@ -29,44 +28,31 @@ const steps = [
 ];
 
 /** Standalone installation journey, separate from the future system-explainer page. */
-export function SolarInstallation() {
-  const { country } = useSiteRegion();
-  const location = country === "DM" ? "Dominica" : country === "AG" ? "Antigua" : "the Caribbean";
-  const section = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (
-      !section.current ||
-      !("IntersectionObserver" in window) ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.setAttribute("data-revealed", "true");
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.15 },
-    );
-    section.current
-      .querySelectorAll("[data-installation-step]")
-      .forEach((step) => observer.observe(step));
-    return () => observer.disconnect();
-  }, []);
+export function SolarInstallation({
+  country,
+}: {
+  country: ServiceCountry | null;
+}) {
+  const location =
+    country === "DM"
+      ? "Dominica"
+      : country === "AG"
+        ? "Antigua"
+        : "the Caribbean";
 
   return (
     <section
-      ref={section}
       id="solar-installation"
       className={styles.section}
       aria-labelledby="installation-heading"
       tabIndex={-1}
     >
+      <InstallationReveal sectionId="solar-installation" />
       <div className={styles.container}>
         <div className={styles.heading}>
-          <h2 id="installation-heading">Your Solar Installation in {location}</h2>
+          <h2 id="installation-heading">
+            Your Solar Installation in {location}
+          </h2>
           <p>
             A clear path from your first request to solar-powered everyday
             living.
@@ -92,7 +78,7 @@ export function SolarInstallation() {
           ))}
         </ol>
         <div className={styles.actions}>
-          <AssessmentLink className={styles.cta} arrow />
+          <AssessmentLink country={country} className={styles.cta} arrow />
         </div>
       </div>
     </section>

@@ -39,7 +39,7 @@ test("root homepage composes the calculator and contact without adding authentic
   const home = read("components/demo-homepage.tsx");
   assert.match(root, /contactSlot={<HomepageContact\s*\/>}/);
   assert.doesNotMatch(root + home, /createClient|supabase-auth|getClaims/);
-  assert.match(home, /<AntiguaSolarCalculator\s*\/>/);
+  assert.match(home, /<AntiguaSolarCalculator country={country}\s*\/>/);
   const calculator = read("components/antigua-solar-calculator.tsx");
   assert.match(calculator, /<AssessmentLink/);
   assert.doesNotMatch(calculator, /contactHref|SectionAnchor/);
@@ -53,7 +53,7 @@ test("root homepage composes the calculator and contact without adding authentic
   assert.match(home, /Antigua and Dominica/);
   for (const label of [
     "150+ MPH Rated",
-    "<RegionCertification /> Certified Equipment",
+    "Certified Equipment",
     "Local Parts Stock",
     "8-Year Inverter Warranty",
     "15-Year Solar Panel Warranty",

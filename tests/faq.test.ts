@@ -55,8 +55,16 @@ test("software monitoring is searchable and explains free access and connectivit
 test("FAQ reuses the guarded contact module and links to its own inquiry section", () => {
   const page = readFileSync("app/faq/page.tsx", "utf8");
   const directory = readFileSync("app/faq/faq-directory.tsx", "utf8");
-  assert.match(page, /<HomepageContact variant="question"\s*\/>/);
-  assert.ok(page.indexOf("<FaqDirectory") < page.indexOf("<HomepageContact"));
+  const deferredContact = readFileSync(
+    "components/deferred-homepage-contact.tsx",
+    "utf8",
+  );
+  assert.match(page, /<DeferredHomepageContact variant="question"\s*\/>/);
+  assert.ok(
+    page.indexOf("<FaqDirectory") < page.indexOf("<DeferredHomepageContact"),
+  );
+  assert.match(deferredContact, /import\("\.\/homepage-contact"\)/);
+  assert.match(deferredContact, /id={question \? "ask-question"/);
   assert.match(page, /<SiteHeader\s*\/>/);
   assert.match(directory, /<SectionAnchor href="#ask-question">/);
   const header = readFileSync("components/site-header.tsx", "utf8");
