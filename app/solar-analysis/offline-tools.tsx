@@ -26,9 +26,9 @@ function send(worker: ServiceWorker, type: string, progress?: (reply: WorkerRepl
 }
 
 async function activeWorker(registration: ServiceWorkerRegistration) {
-  if (registration.active) return registration.active;
-  const worker = registration.installing || registration.waiting;
+  const worker = registration.installing || registration.waiting || registration.active;
   if (!worker) throw new Error("浏览器未能启动离线工具，请重试。");
+  if (worker.state === "activated") return worker;
   await new Promise<void>((resolve, reject) => {
     const finish = () => {
       if (worker.state === "activated" || worker.state === "redundant") {

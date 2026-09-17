@@ -6,7 +6,7 @@ import vm from "node:vm";
 
 const script = readFileSync("public/solar-analysis/sw.js", "utf8");
 const origin = "https://solar.example";
-const asset = "/_next/static/chunks/solar-test.js";
+const asset = "/_next/static/chunks/webpack-012abc.js";
 const bytes = Buffer.from("window.offlineTest = true;");
 const digest = createHash("sha256").update(bytes).digest("hex");
 
@@ -14,7 +14,7 @@ function harness() {
   const listeners: Record<string, (e: any) => void> = {};
   const stores = new Map<string, Map<string, Response>>();
   const requests: string[] = [];
-  const controls = { authorized: true, locked: false, fail: false, broken: false, version: "a".repeat(20), outside: false, malformed: false, shellAsset: "", onAsset: undefined as undefined | (() => void) };
+  const controls = { authorized: true, locked: false, fail: false, broken: false, version: "a".repeat(20), outside: false, malformed: false, suffix: "", shellAsset: "", onAsset: undefined as undefined | (() => void) };
   const key = (url: any) => new URL(typeof url === "string" ? url : url.url, origin).href;
   const caches = {
     async keys() { return [...stores.keys()]; },
@@ -31,7 +31,7 @@ function harness() {
     if (controls.fail) throw new TypeError("offline");
     if (path.endsWith("offline-permission")) return Response.json(controls.authorized ? { authorized: true } : { error: "denied" }, { status: controls.authorized ? 200 : 401 });
     if (path.endsWith("offline-assets.json")) return Response.json({ schema: 1, version: controls.version, assets: [{ url: controls.malformed ? "/api/private" : asset, bytes: bytes.length, sha256: digest }] });
-    if (path === asset) { controls.onAsset?.(); return new Response(controls.broken ? "wrong" : bytes); }
+    if (path === asset) { controls.onAsset?.(); return new Response((controls.broken ? "wrong" : bytes.toString()) + controls.suffix); }
     if (path === "/solar-analysis") return new Response(controls.locked ? '<input id="solar-password" />' : '<main data-solar-authorized="true">Analysis</main>' + (controls.shellAsset ? `<script src="${controls.shellAsset}"></script>` : ""));
     return new Response("network only");
   };
@@ -41,7 +41,7 @@ function harness() {
     skipWaiting() {},
     clients: { async claim() {}, async get() { return { url: origin + (controls.outside ? "/antigua" : "/solar-analysis") }; } },
   };
-  vm.runInNewContext(script, { self, caches, fetch, Response, URL, AbortSignal, AbortController, crypto: webcrypto, console, Date });
+  vm.runInNewContext(script, { self, caches, fetch, Response, URL, AbortSignal, AbortController, TextDecoder, crypto: webcrypto, console, Date });
   const message = async (type: string, path = "/solar-analysis") => {
     const replies: any[] = []; let work: Promise<void> | undefined;
     listeners.message({ source: { url: origin + path }, data: { type }, ports: [{ postMessage(value: any) { replies.push(value); } }], waitUntil(p: Promise<void>) { work = p; } });
@@ -135,6 +135,18 @@ test("deployment skew between HTML and the resource manifest fails safely", asyn
   assert.equal((await h.message("STATUS")).ready, false);
   h.controls.shellAsset = asset + "?dpl=current";
   assert.equal((await h.message("PREPARE")).ready, true);
+});
+
+test("Vercel toolbar suffix is removed, but original runtime must pass its exact hash", async () => {
+  const h = harness();
+  h.controls.suffix = '\n;(function(){if(typeof document==="undefined"||!/(?:^|;\\s)__vercel_toolbar=1/.test(document.cookie))return;var s=document.createElement("script");s.src="https://vercel.live/_next-live/feedback/feedback.js";})();\n';
+  assert.equal((await h.message("PREPARE")).ready, true);
+  h.controls.fail = true;
+  assert.equal(await (await h.request(asset, "cors"))!.text(), bytes.toString());
+  h.controls.fail = false; h.controls.broken = true;
+  assert.match((await h.message("PREPARE")).error, /版本不一致/);
+  h.controls.broken = false; h.controls.suffix = '\nwindow.unrecognized = true;';
+  assert.match((await h.message("PREPARE")).error, /版本不一致/);
 });
 
 test("manifest is solar-scoped and offline preparation is production-only", () => {

@@ -53,6 +53,11 @@ persisted by this feature; a reopened page uses the existing defaults.
 - Every resource is size/hash checked in a staging cache. Commit is atomic at the
   metadata pointer. Failure/cancellation keeps the previous complete version.
   One prior pack is retained for already-open tabs, then replaced on later updates.
+- Vercel may append an opt-in toolbar bootstrap to `webpack-*.js` after postbuild.
+  Only for this recognized suffix, the worker verifies the original prefix against
+  its complete build-time SHA-256 and size, then caches ONLY that verified prefix.
+  The toolbar is not part of the offline tool. Modified original bytes, arbitrary
+  suffixes and changes to any other asset still fail validation.
 - Browser Cache Storage stores program resources; existing localStorage model
   caching still works. Optional persistent-storage permission is best effort.
   Missing resources are checked before reporting ready or opening offline.

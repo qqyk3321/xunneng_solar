@@ -37,6 +37,21 @@ async function permission(signal) {
   const data = await response.json();
   if (!response.ok || data.authorized !== true) throw new Error(data.error || '请联网重新验证密码。');
 }
+async function verifiedAsset(asset, response) {
+  const bytes = await response.clone().arrayBuffer();
+  let payload = bytes;
+  // Vercel appends its opt-in toolbar bootstrap AFTER our postbuild hashes.
+  // Cache only the original, fully verified runtime; never execute or trust the
+  // appended code offline. All other files still require exact bytes and hash.
+  if (bytes.byteLength > asset.bytes && /^\/_next\/static\/chunks\/webpack-[a-f0-9]+\.js$/.test(asset.url)) {
+    const tail = new TextDecoder().decode(bytes.slice(asset.bytes));
+    if (/^\s*;\(function\(\)\{if\(typeof document==="undefined"\|\|[\s\S]*__vercel_toolbar=1[\s\S]*https:\/\/vercel\.live\/_next-live\/feedback\/feedback\.js[\s\S]*\}\)\(\);\s*$/.test(tail)) payload = bytes.slice(0, asset.bytes);
+  }
+  const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', payload))].map(n => n.toString(16).padStart(2, '0')).join('');
+  if (hash !== asset.sha256 || payload.byteLength !== asset.bytes) throw new Error('资源版本不一致，请刷新页面后重试。');
+  if (payload === bytes) return response;
+  return new Response(payload, { headers: { 'Content-Type': 'application/javascript; charset=utf-8', 'Cache-Control': 'public, max-age=31536000, immutable' } });
+}
 async function prepare(port, signal) {
   let staging;
   try {
@@ -67,10 +82,7 @@ async function prepare(port, signal) {
       const asset = manifest.assets[i];
       // Network fetches are intentionally not satisfied from an old offline pack.
       const response = await network(asset.url, signal);
-      const bytes = await response.clone().arrayBuffer();
-      const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
-      if (hash !== asset.sha256 || bytes.byteLength !== asset.bytes) throw new Error('资源版本不一致，请刷新页面后重试。');
-      await cache.put(asset.url, response);
+      await cache.put(asset.url, await verifiedAsset(asset, response));
       loaded += asset.bytes;
       port.postMessage({ progress: true, percent: Math.round(loaded / total * 95), message: `正在保存离线资源 ${i + 1}/${manifest.assets.length}（${(loaded / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB）` });
     }
