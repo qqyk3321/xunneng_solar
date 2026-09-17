@@ -3,6 +3,7 @@ import "./globals.css";
 import { SiteRegionProvider } from "@/components/site-region";
 import { SiteNavigationLoader } from "@/components/site-navigation-loader";
 import { siteUrl } from "@/lib/region-seo";
+import { SiteAnalytics } from "@/components/site-analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body>
         <SiteNavigationLoader />
         <SiteRegionProvider>{children}</SiteRegionProvider>
+        {process.env.VERCEL_ENV === "production" && <SiteAnalytics />}
       </body>
     </html>
   );

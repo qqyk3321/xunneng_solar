@@ -1,0 +1,38 @@
+# Vercel Web Analytics
+
+Only enabled in Vercel Production (`VERCEL_ENV=production`). Local development and
+Preview builds do not collect traffic. The dashboard must have Web Analytics
+enabled; deploy the integration before expecting data.
+
+Tracked paths: `/`, `/antigua`, `/dominica`, `/consultation`,
+`/antigua/consultation`, `/dominica/consultation`. All other paths are excluded,
+including FAQ, privacy, solar analysis, submission results, archived tools and 404s.
+New regions require an explicit allowlist update.
+
+Uses `@vercel/analytics/next` for initial page views and client-side navigation.
+No manual page-view sender or custom click/form events. Query strings and fragments
+are removed from event URLs. An excluded initial page does not inject the tracking
+script; the `beforeSend` filter also blocks excluded events after navigating away
+from a tracked page. Prefetching is not a page view.
+
+The root layout remains a Server Component. Tracking is an independent, nonvisual
+client component, not a wrapper around page content. Script/network failures do
+not gate rendering, navigation or form actions. No application-level retry loop,
+database migration, secret, or database client is added.
+
+Cookie preferences, access cookies, solar access logs and privacy copy are
+unchanged. This integration neither reads nor writes consent/auth cookies.
+It is not a consent-management implementation or a legal-compliance assessment.
+
+Unit tests: `npm test`. Browser checks use an intercepted analytics script and
+intercepted test requests, never real provider collection. Production dashboard
+collection still needs verification after deployment.
+
+Validation: 184 tests passed, isolated production build passed, and browser checks
+covered all six allowed paths, excluded direct/SPA entries, refresh/back-to-home,
+URL redaction and a blocked analytics script. No test traffic was sent to Vercel.
+
+```sh
+PLAYWRIGHT_MODULE=/path/to/playwright ANALYTICS_TEST_ORIGIN=http://127.0.0.1:3197 \
+  node tests/web-analytics.browser.cjs
+```
