@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     "/solar-analysis/model": ["./data/solar-generation/additional-v1/**/raw.json.gz", "./data/solar-generation/additional-v1/**/weather/**", "./data/solar-generation/additional-v1/**/*.request.json", "./data/solar-generation/additional-v1/**/curve.json"],
   },
   async headers() {
-    return ["/icon.svg", "/flags/ag.svg", "/flags/dm.svg"].map((source) => ({
+    const brandHeaders = ["/icon.svg", "/flags/ag.svg", "/flags/dm.svg"].map((source) => ({
       source,
       headers: [
         { key: "Cache-Control", value: "public, max-age=86400" },
@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         },
       ],
     }));
+    return [...brandHeaders, ...["/fonts/report-noto-sans-sc-v1.ttf", "/fonts/report-space-grotesk-v1.ttf"].map(source=>({
+      source,
+      headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+    }))];
   },
   images: {
     remotePatterns: [

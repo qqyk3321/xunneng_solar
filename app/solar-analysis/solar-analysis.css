@@ -330,52 +330,6 @@
 .month-tabs button { min-height: 38px; padding: 7px 5px; border: 1px solid #d5e0e6; border-radius: 9px; background: #f7fafb; color: #5d6d7f; font-weight: 700; }
 .month-tabs button:hover { border-color: #73a99e; color: #087b69; }
 .month-tabs button.active { border-color: #087b69; background: #087b69; color: #fff; box-shadow: 0 4px 12px rgba(8,123,105,.19); }
-.tour-action-hint {
-  position: relative;
-  display: inline-flex;
-  min-height: 38px;
-  margin: 0 0 12px;
-  padding: 9px 13px;
-  align-items: center;
-  gap: 8px;
-  border-radius: 9px;
-  background: #fff4cc;
-  color: #6d4d00;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow: 0 7px 20px rgba(88, 62, 0, .18);
-  animation: tourHintFloat 1.2s ease-in-out infinite alternate;
-}
-.tour-action-hint::after {
-  content: "";
-  position: absolute;
-  left: 22px;
-  bottom: -8px;
-  border-top: 8px solid #fff4cc;
-  border-right: 8px solid transparent;
-  border-left: 8px solid transparent;
-}
-.tour-action-hint b { color: #087b69; font-size: 18px; line-height: 1; }
-.month-hint { margin-top: -4px; }
-.tour-control-focus {
-  position: relative;
-  padding: 5px;
-  border-radius: 12px;
-  outline: 3px solid #ffd45f;
-  outline-offset: 3px;
-  background: rgba(255, 248, 218, .72);
-  box-shadow: 0 0 0 7px rgba(255, 212, 95, .18);
-  animation: tourControlPulse 1.2s ease-in-out infinite alternate;
-}
-.month-tabs.tour-control-focus { margin: 0 0 20px; }
-@keyframes tourHintFloat {
-  from { transform: translateY(0); }
-  to { transform: translateY(-4px); }
-}
-@keyframes tourControlPulse {
-  from { box-shadow: 0 0 0 5px rgba(255, 212, 95, .12); }
-  to { box-shadow: 0 0 0 10px rgba(255, 212, 95, .24); }
-}
 .chart-explain { margin: -8px 0 12px; color: #718093; font-size: 13px; line-height: 1.6; }
 .v2-hourly-chart { width: 100%; height: 430px; }
 .month-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
@@ -449,49 +403,55 @@
   opacity: 1;
 }
 
-.tour-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  background: rgba(4, 20, 18, .7);
-  backdrop-filter: blur(2px);
-}
-.tour-target {
-  position: relative;
-  z-index: 70;
-  border-radius: 16px;
-  box-shadow: 0 0 0 4px #64d2b5, 0 24px 70px rgba(0, 0, 0, .36);
-  scroll-margin: 120px;
-}
-.tour-panel {
+/* Spotlight guidance: dim the surroundings while keeping the target interactive. */
+.tour-backdrop { position: fixed; inset: 0; z-index: 70; pointer-events: none; visibility: hidden; }
+.tour-backdrop[data-ready="true"] { visibility: visible; }
+.tour-backdrop > div { position: absolute; background: rgba(9, 32, 29, .42); pointer-events: auto; }
+.tour-shade-top { top: 0; left: 0; right: 0; height: var(--tour-top, 0px); }
+.tour-shade-bottom { top: var(--tour-bottom, 0px); bottom: 0; left: 0; right: 0; }
+.tour-shade-left, .tour-shade-right { top: var(--tour-top, 0px); height: calc(var(--tour-bottom, 0px) - var(--tour-top, 0px)); }
+.tour-shade-left { left: 0; width: var(--tour-left, 0px); }
+.tour-shade-right { left: var(--tour-right, 0px); right: 0; }
+.tour-emphasis { position: fixed; inset: 0; z-index: 75; pointer-events: none; visibility: hidden; }
+.tour-emphasis[data-ready="true"] { visibility: visible; }
+.tour-focus-frame { position: absolute; box-sizing: border-box; border: 3px solid #20b796; border-radius: 12px; box-shadow: 0 0 0 2px #fff, 0 0 18px #20b79650; }
+.tour-target { scroll-margin: 90px; }
+.analysis-tour {
   position: fixed;
   z-index: 80;
-  right: 26px;
-  bottom: 26px;
-  width: min(440px, calc(100vw - 32px));
-  padding: 22px;
-  border: 1px solid rgba(255, 255, 255, .15);
-  border-radius: 16px;
+  width: min(350px, calc(100vw - 24px));
+  box-sizing: border-box;
+  padding: 16px;
+  border: 1px solid #98cfc0;
+  border-radius: 12px;
   background: #fff;
-  color: #18283b;
-  box-shadow: 0 26px 80px rgba(0, 0, 0, .35);
+  color: #193b32;
+  box-shadow: 0 8px 28px #153b3224;
 }
-.tour-progress { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
-.tour-progress span { color: #087b69; font-size: 12px; font-weight: 800; letter-spacing: .08em; }
-.tour-progress b { color: #718093; font-size: 11px; }
-.tour-dots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 13px 0 17px; }
-.tour-dots i { height: 4px; border-radius: 999px; background: #dfe7e9; }
-.tour-dots i.done { background: #91c8ba; }
-.tour-dots i.active { background: #087b69; }
-.tour-panel h2 { margin: 0 0 9px; font-size: 20px; }
-.tour-panel > p { margin: 0; color: #657589; font-size: 13px; line-height: 1.65; }
-.tour-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
-.tour-actions > div { display: flex; gap: 8px; }
-.tour-actions button { min-height: 39px; padding: 9px 13px; border-radius: 8px; font-weight: 800; }
-.tour-exit,
-.tour-prev { border: 1px solid #d3dee3; background: #fff; color: #607284; }
-.tour-next { border: 1px solid #087b69; background: #087b69; color: #fff; }
-.tour-next:hover { background: #066658; }
+.tour-pointer { position: absolute; inset: 0; overflow: visible; pointer-events: none; }
+.analysis-tour .tour-progress { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.analysis-tour .tour-progress span { color: #087b69; font-size: 11px; font-weight: 700; }
+.analysis-tour .tour-progress b { color: #7a9086; font-size: 11px; margin-left: auto; }
+.analysis-tour .tour-progress button { border: 0; background: #f0f6f3; color: #5b776b; border-radius: 5px; width: 24px; height: 24px; font-size: 19px; cursor: pointer; }
+.tour-copy h2 { margin: 0 0 7px; font-size: 16px; }
+.tour-copy p { margin: 0; font-size: 12px; line-height: 1.75; color: #587064; }
+.tour-copy small { display: block; margin-top: 8px; color: #99652c; }
+.tour-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 14px; }
+.tour-footer > span { font-size: 10px; color: #8a9b91; }
+.tour-footer > div { display: flex; gap: 6px; }
+.tour-footer button { min-height: 32px; padding: 6px 10px; border: 1px solid #d8e6df; border-radius: 6px; background: #fff; font-size: 11px; color: #426c5a; cursor: pointer; }
+.tour-footer .tour-next { border-color: #087b69; background: #087b69; color: #fff; }
+.parameter-auto-note { margin: 12px 0 0; color: #7a8c82; font-size: 11px; }
+@media (max-width: 1179px) {
+  .compact-analysis .live-annual-summary.is-guided .live-summary-body { max-height: 36dvh; }
+}
+@media (max-width: 650px) {
+  .analysis-tour { padding: 12px; }
+  .tour-target { scroll-margin: 20px; }
+  .tour-copy h2 { font-size: 15px; }
+  .tour-footer > span { display: none; }
+  .tour-footer { justify-content: flex-end; }
+}
 
 @media (max-width: 1050px) {
   .annual-layout { grid-template-columns: 1fr; }
@@ -543,10 +503,6 @@
   .hero-actions > * { flex: 1; text-align: center; }
   .profile-modal-head { display: grid; padding-right: 34px; }
   .profile-modal-head > button { width: 100%; }
-  .tour-panel { right: 16px; bottom: 16px; padding: 18px; }
-  .tour-actions { align-items: stretch; flex-direction: column; }
-  .tour-actions > div { display: grid; grid-template-columns: 1fr 1fr; }
-  .tour-actions > div > :only-child { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) {
   .profile-picker { padding: 14px; }
@@ -554,10 +510,6 @@
 }
 @media (max-width: 520px) {
   .month-tabs { grid-template-columns: repeat(4, 1fr); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tour-action-hint,
-  .tour-control-focus { animation: none; }
 }
 
 /* Keep the annual snapshot alongside the whole workflow, not just its last section. */
@@ -591,8 +543,9 @@
 .live-summary-context { margin: 12px 0 6px; color: #526d60; font-size: 10px; line-height: 1.6; }
 .live-summary-note { margin: 0; color: #84938c; font-size: 10px; line-height: 1.65; }
 .live-summary-details { display: block; margin-top: 13px; padding: 9px; border: 1px solid #d4e5dc; border-radius: 7px; text-align: center; text-decoration: none; color: #087b69; font-size: 12px; }
+.live-summary-details { width: 100%; background: #f1f8f4; cursor: pointer; }
+.live-summary-details:disabled { opacity: .55; cursor: wait; }
 .live-summary-toggle { display: none; }
-.tour-dots { grid-template-columns: repeat(6, 1fr); }
 .solar-workspace .v2-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (min-width: 1180px) and (max-width: 1450px) {
   .solar-workspace .config-body, .solar-workspace .annual-layout, .solar-workspace .profile-picker, .solar-workspace .installation-geometry { grid-template-columns: 1fr; }
@@ -609,7 +562,104 @@
   .live-summary-toggle b { flex-shrink: 0; font-size: 11px; color: #b4e6d4; }
   .live-summary-body { display: none; }
   .live-annual-summary.is-expanded .live-summary-body { display: block; max-height: min(70dvh, 620px); overflow: auto; }
+  /* Keep the report action exposed without covering the small-screen tutorial. */
+  .live-annual-summary.is-report-guided .live-summary-body > :not(#solar-report-button) { display: none; }
+  .live-annual-summary.is-report-guided #solar-report-button { margin-top: 0; }
 }
 @media (max-width: 650px) {
   .solar-workspace .v2-summary { grid-template-columns: 1fr; }
+}
+
+/* Single-screen parameter workspace. Explanation and low-frequency settings live in dialogs. */
+.compact-analysis { padding-top: 22px; }
+.compact-analysis .v2-hero { margin-bottom: 18px; align-items: center; }
+.compact-analysis .v2-hero h1 { font-size: 27px; margin: 4px 0; }
+.compact-analysis .v2-hero p:not(.eyebrow) { font-size: 12px; }
+.parameter-card { padding: 20px; scroll-margin-top: 16px; }
+.parameter-card:focus { outline: none; }
+.parameter-title { margin-bottom: 14px; align-items: center; }
+.parameter-title h2 { font-size: 19px; }
+.parameter-card .v2-inputs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; }
+.parameter-card .v2-field { gap: 5px; font-size: 12px; }
+.parameter-card .v2-field input, .parameter-card .v2-field select { min-height: 38px; padding: 7px 9px; font-size: 13px; }
+.parameter-card .v2-field-label > small { font-size: 10px; }
+.compact-help { position: relative; display: inline-block; color: #688375; font-size: 11px; font-weight: 500; cursor: help; }
+.compact-help > [role="tooltip"] { position: absolute; z-index: 25; right: 0; top: calc(100% + 8px); width: min(290px, 75vw); padding: 12px; border-radius: 8px; background: #183e34; color: #fff; line-height: 1.7; font-size: 12px; font-weight: 400; visibility: hidden; opacity: 0; pointer-events: none; box-shadow: 0 8px 20px #123e3226; }
+.compact-help:hover > [role="tooltip"], .compact-help:focus > [role="tooltip"] { visibility: visible; opacity: 1; }
+.tilt-picker .compact-help > [role="tooltip"] { left: 0; right: auto; width: min(290px, calc(100vw - 125px)); }
+.compact-profile { display: flex; align-items: center; gap: 22px; padding: 12px 0; margin-top: 12px; border-top: 1px solid #e6eee9; border-bottom: 1px solid #e6eee9; }
+.compact-profile > .v2-field { flex: 0 0 195px; }
+.profile-thumbnail { display: flex; align-items: center; gap: 12px; padding: 0 10px 0 0; border: 1px solid #dbe9e1; border-radius: 8px; background: #f7fbf8; cursor: pointer; color: #517464; min-width: 0; }
+.profile-thumbnail > span { font-size: 11px; white-space: nowrap; padding-right: 4px; }
+.compact-profile-chart { width: 190px; height: 66px; pointer-events: none; flex-shrink: 0; }
+.compact-installation { margin-top: 14px; }
+.compact-installation .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.compact-installation-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.compact-installation-head h3 { margin: 0; font-size: 14px; white-space: nowrap; }
+.source-settings-button { display: flex; min-width: 0; align-items: center; gap: 10px; max-width: 80%; padding: 7px 9px; border: 1px solid #dce7e0; border-radius: 7px; background: #f8fbf9; color: #668273; font-size: 10px !important; cursor: pointer; }
+.source-settings-button span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.source-settings-button b { flex-shrink: 0; color: #087b69; }
+.compact-installation .installation-geometry { grid-template-columns: minmax(0, 1fr) 210px; padding: 12px; gap: 20px; border-radius: 10px; }
+.compact-installation .installation-geometry legend { margin-bottom: 8px; font-size: 12px; }
+.compact-installation .installation-geometry legend small { display: inline; font-size: 10px; margin-left: 5px; }
+.compact-installation .tilt-options { gap: 7px; }
+.compact-installation .tilt-options button { padding: 4px 2px 10px; border-radius: 8px; }
+.compact-installation .tilt-options button svg { height: 62px; }
+.compact-installation .tilt-options button strong { font-size: 17px; }
+.compact-installation .direction-picker { padding-left: 12px !important; border-left: 1px solid #e2ebe5 !important; }
+.compact-installation .compass-picker { grid-template-columns: 44px 1fr 44px; grid-template-rows: 27px 49px 27px; gap: 3px; }
+.compact-installation .compass-picker button { padding: 4px; font-size: 11px; }
+.compact-installation .compass-face { width: 48px; height: 48px; }
+.compact-installation .compass-face > span { font-size: 8px; margin-top: 1px; }
+.compact-installation .compass-needle { font-size: 20px; }
+.compact-installation .installation-note, .compact-source-warning { margin: 7px 0 0; font-size: 11px; line-height: 1.5; color: #977039; }
+.compact-installation .installation-legacy-note { padding: 12px; font-size: 12px; }
+.analysis-dialog { width: min(820px, calc(100vw - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 24px; border: 1px solid #dce7e2; border-radius: 15px; background: #fff; color: #18283b; overflow: auto; box-shadow: 0 25px 90px #07291f50; }
+.analysis-dialog:not([open]) { display: none; }
+.analysis-dialog::backdrop { background: #061d1acc; }
+.analysis-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 20px; }
+.analysis-dialog-head h2 { margin: 0; font-size: 20px; }
+.analysis-dialog-head button { flex-shrink: 0; width: 32px; height: 32px; border: 0; border-radius: 50%; color: #087b69; background: #e8f4ec; font-size: 23px; cursor: pointer; }
+.analysis-dialog .installation-selects { margin-bottom: 20px; }
+.analysis-dialog .source-context { margin-top: 0; }
+.analysis-dialog .profile-modal-head { padding-right: 0; align-items: end; }
+.analysis-dialog .profile-modal-head > .v2-field { min-width: 180px; }
+.live-configuration { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 10px; margin: 0 0 12px; padding: 10px; background: #f4f8f5; border-radius: 8px; }
+.live-configuration div { min-width: 0; display: grid; gap: 3px; }
+.live-configuration span { font-size: 9px; color: #809389; }
+.live-configuration b { font-size: 11px; color: #365e4b; overflow-wrap: anywhere; }
+.compact-analysis .live-summary-head { padding: 12px 16px; }
+.compact-analysis .live-summary-body { padding: 12px; }
+.compact-analysis .live-summary-status { margin: 7px 0 10px; }
+.compact-analysis .live-annual-summary th, .compact-analysis .live-annual-summary td { padding-top: 7px; padding-bottom: 7px; }
+.compact-analysis .live-saving-rate { margin: 10px 0; padding: 9px 12px; }
+.compact-analysis .live-energy-totals > div { padding: 8px 0; }
+.compact-analysis .live-summary-context { margin-top: 8px; }
+.compact-analysis .live-summary-details { margin-top: 8px; padding: 7px; }
+@media (max-width: 760px) {
+  .parameter-card .v2-inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .compact-installation .installation-geometry { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .compact-installation .direction-picker { padding-left: 0 !important; border-left: 0 !important; }
+  .compact-installation .compass-picker { width: 195px; }
+  .compact-profile { gap: 10px; }
+  .compact-profile > .v2-field { flex: 1; }
+  .profile-thumbnail { display: block; padding: 0 4px 5px; }
+  .compact-profile-chart { width: 140px; height: 55px; }
+}
+@media (max-width: 650px) {
+  .compact-analysis .v2-hero { display: flex; align-items: center; gap: 12px; }
+  .compact-analysis .v2-hero h1 { font-size: 20px; }
+  .compact-analysis .v2-hero p:not(.eyebrow) { display: none; }
+  .compact-analysis .hero-actions { width: auto; flex-shrink: 0; }
+  .compact-analysis .hero-actions > * { padding: 8px; min-height: 34px; font-size: 10px; }
+  .compact-analysis .hero-actions .secondary { display: block; font-size: 0; min-width: 32px; }
+  .compact-analysis .hero-actions .secondary::before { content: "⌂"; font-size: 18px; line-height: 1; }
+  .parameter-card { padding: 14px; }
+  .parameter-title { display: flex; }
+  .parameter-card .v2-field-label { flex-wrap: wrap; gap: 3px; }
+  .compact-installation .tilt-options { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; }
+  .compact-installation .tilt-options button svg { height: 42px; }
+  .compact-installation .tilt-options button strong { font-size: 15px; }
+  .source-settings-button { max-width: 73%; }
+  .analysis-dialog { padding: 18px; }
 }

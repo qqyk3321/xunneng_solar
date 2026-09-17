@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 
 let runtimePromise: Promise<typeof import("echarts/core")> | undefined;
 
-function loadEChartsRuntime() {
+export function loadEChartsRuntime() {
   if (!runtimePromise) {
     runtimePromise = Promise.all([
       import("echarts/core"),

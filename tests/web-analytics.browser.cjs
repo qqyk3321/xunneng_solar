@@ -104,9 +104,8 @@ const script = `(() => {
       await idle();
       await count(10);
       assert.equal(events.at(-1).url, origin + '/solar-analysis');
-      await page.getByRole('button', {name: '确认安装条件，开始分析'}).click();
       await page.locator('#solar-step-config').waitFor();
-      await page.getByRole('button', {name: '夜间用电', exact: true}).click();
+      await page.getByLabel('选择每日用电模型', { exact: true }).selectOption('night');
       await page.getByRole('button', {name: '6月', exact: true}).click();
       await page.waitForTimeout(250);
       await count(10);
@@ -132,8 +131,8 @@ const script = `(() => {
       failScript = true;
       await page.reload();
       await idle();
-      await page.getByRole('button', {name: '白天用电', exact: true}).click();
-      assert.equal(await page.getByRole('button', {name: '白天用电', exact: true}).getAttribute('aria-pressed'), 'true');
+      await page.getByLabel('选择每日用电模型', {exact: true}).selectOption('daytime');
+      assert.equal(await page.getByLabel('选择每日用电模型', {exact: true}).inputValue(), 'daytime');
       await count(13);
       failScript = false;
       await context.clearCookies();

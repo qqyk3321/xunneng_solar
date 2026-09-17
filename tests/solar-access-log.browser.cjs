@@ -34,8 +34,6 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
           throw error;
         }
         await idle();
-        const confirm = page.getByRole('button', { name: '确认安装条件，开始分析' });
-        if (await confirm.isVisible()) await confirm.click();
         await page.locator('#solar-step-config').waitFor();
       };
       const count = async n => {
@@ -67,7 +65,7 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
       await unlocked();
       await count(1);
       assert.ok(attempts[0].cookie.includes(SOLAR_ACCESS_COOKIE + '='), 'cookie Path includes logging endpoint');
-      await page.getByRole('button', { name: '夜间用电', exact: true }).click();
+      await page.getByLabel('选择每日用电模型', { exact: true }).selectOption('night');
       await page.getByRole('button', { name: '6月', exact: true }).click();
       await page.locator('#solar-step-config input[type="number"]').first().fill('650');
       await page.waitForTimeout(400);
@@ -94,7 +92,7 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
         await unlocked();
         const expected = failure === 'error' ? 5 : 6;
         await count(expected);
-        await page.getByRole('button', { name: '白天用电', exact: true }).click();
+        await page.getByLabel('选择每日用电模型', { exact: true }).selectOption('daytime');
         await page.waitForTimeout(500);
         assert.equal(attempts.length, expected, 'logging failure is not retried');
       }
@@ -102,8 +100,8 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
       await page.reload({ waitUntil: 'domcontentloaded' });
       await unlocked();
       await count(7);
-      await page.getByRole('button', { name: '夜间用电', exact: true }).click();
-      assert.equal(await page.getByRole('button', { name: '夜间用电', exact: true }).getAttribute('aria-pressed'), 'true', 'pending log must not block interaction');
+      await page.getByLabel('选择每日用电模型', { exact: true }).selectOption('night');
+      assert.equal(await page.getByLabel('选择每日用电模型', { exact: true }).inputValue(), 'night', 'pending log must not block interaction');
       release();
       await page.waitForTimeout(300);
       assert.equal(attempts.length, 7);

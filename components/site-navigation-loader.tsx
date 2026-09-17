@@ -11,6 +11,8 @@ declare global {
 }
 
 const NAVIGATION_EVENT = "solortide:navigation-start";
+const SOLAR_MINIMUM_LOADING_MS = 1000;
+const isSolarAnalysis = (path: string) => path.replace(/\/$/, "") === "/solar-analysis";
 
 function NavigationEvents() {
   const pathname = usePathname();
@@ -20,8 +22,29 @@ function NavigationEvents() {
   const committedHref = useRef<string | undefined>(undefined);
   const paintFrame = useRef<number | undefined>(undefined);
   const startedAt = useRef(0);
+  const minimumUntil = useRef(0);
+  const minimumTimer = useRef<number | undefined>(undefined);
+  const minimumFrame = useRef<number | undefined>(undefined);
+  const startMinimum = useCallback(() => {
+    minimumUntil.current = performance.now() + SOLAR_MINIMUM_LOADING_MS;
+    window.cancelAnimationFrame(minimumFrame.current ?? 0);
+    minimumFrame.current = window.requestAnimationFrame(() => {
+      minimumFrame.current = window.requestAnimationFrame(() => {
+        minimumUntil.current = performance.now() + SOLAR_MINIMUM_LOADING_MS;
+      });
+    });
+  }, []);
 
-  const finish = useCallback(() => {
+  const finish = useCallback(function finishLoading() {
+    if (isSolarAnalysis(window.location.pathname) && minimumUntil.current === 0 && document.documentElement.dataset.siteLoading) {
+      startMinimum();
+    }
+    const remaining = minimumUntil.current - performance.now();
+    window.clearTimeout(minimumTimer.current);
+    if (remaining > 0) {
+      minimumTimer.current = window.setTimeout(finishLoading, remaining);
+      return;
+    }
     window.clearTimeout(window.__solTideInitialLoader);
     window.clearTimeout(stallTimer.current);
     window.clearTimeout(watchTimer.current);
@@ -39,7 +62,7 @@ function NavigationEvents() {
       delete root.dataset.siteLoading;
       window.dispatchEvent(new Event("solortide:navigation-end"));
     }, 220);
-  }, []);
+  }, [startMinimum]);
 
   const finishWhenReady = useCallback(() => {
     window.clearTimeout(watchTimer.current);
@@ -55,14 +78,19 @@ function NavigationEvents() {
   }, [finish]);
 
   const begin = useCallback(
-    (fromHref = window.location.href, immediate = false) => {
+    (fromHref = window.location.href, immediate = false, destinationPath = window.location.pathname) => {
       const root = document.documentElement;
       window.clearTimeout(exitTimer.current);
       window.clearTimeout(stallTimer.current);
       window.clearTimeout(watchTimer.current);
+      window.clearTimeout(minimumTimer.current);
+      window.cancelAnimationFrame(minimumFrame.current ?? 0);
       window.cancelAnimationFrame(paintFrame.current ?? 0);
       startedAt.current = performance.now();
-      root.dataset.siteLoading = immediate ? "immediate" : "pending";
+      const solar = isSolarAnalysis(destinationPath);
+      minimumUntil.current = 0;
+      if (solar) startMinimum();
+      root.dataset.siteLoading = immediate || solar ? "immediate" : "pending";
 
       // Query-only navigations do not change usePathname. Detect the committed
       // URL without subscribing the root layout to Next's async search state.
@@ -79,7 +107,7 @@ function NavigationEvents() {
       // Never leave the current page permanently covered if a navigation fails.
       stallTimer.current = window.setTimeout(finish, 20_000);
     },
-    [finish, finishWhenReady],
+    [finish, finishWhenReady, startMinimum],
   );
 
   useEffect(() => {
@@ -87,10 +115,16 @@ function NavigationEvents() {
     // not merely until this layout has hydrated ahead of a streamed page.
     committedHref.current = window.location.href;
     paintFrame.current = window.requestAnimationFrame(() => {
+      // Start initial-entry timing after the overlay can actually be painted,
+      // not in the head script before CSS/the streamed body arrive.
+      if (isSolarAnalysis(pathname) && minimumUntil.current === 0) {
+        startMinimum();
+        document.documentElement.dataset.siteLoading = "immediate";
+      }
       paintFrame.current = window.requestAnimationFrame(finishWhenReady);
     });
     return () => window.cancelAnimationFrame(paintFrame.current ?? 0);
-  }, [finishWhenReady, pathname]);
+  }, [finishWhenReady, pathname, startMinimum]);
 
   useEffect(() => {
     function navigate(event: MouseEvent) {
@@ -124,7 +158,7 @@ function NavigationEvents() {
         destination.pathname === current.pathname &&
         destination.search === current.search;
       if (sameDocument || destination.href === current.href) return;
-      begin(current.href);
+      begin(current.href, false, destination.pathname);
     }
     const programmatic = (event: Event) => begin(
       window.location.href,
@@ -141,7 +175,13 @@ function NavigationEvents() {
       }
       begin(previous);
     };
-    const shown = () => finishWhenReady();
+    const shown = (event: PageTransitionEvent) => {
+      if (event.persisted && isSolarAnalysis(window.location.pathname)) {
+        startMinimum();
+        document.documentElement.dataset.siteLoading = "immediate";
+      }
+      finishWhenReady();
+    };
     const cancelled = () => {
       window.cancelAnimationFrame(paintFrame.current ?? 0);
       finish();
@@ -161,9 +201,11 @@ function NavigationEvents() {
       window.clearTimeout(exitTimer.current);
       window.clearTimeout(stallTimer.current);
       window.clearTimeout(watchTimer.current);
+      window.clearTimeout(minimumTimer.current);
+      window.cancelAnimationFrame(minimumFrame.current ?? 0);
       window.cancelAnimationFrame(paintFrame.current ?? 0);
     };
-  }, [begin, finish, finishWhenReady]);
+  }, [begin, finish, finishWhenReady, startMinimum]);
 
   return null;
 }
