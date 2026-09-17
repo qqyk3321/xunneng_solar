@@ -1,0 +1,535 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "started_at": "2026-09-17T03:56:18.066Z",
+  "expected_models": 32,
+  "source_documentation": [
+    "https://developer.nlr.gov/docs/solar/pvwatts/v8/",
+    "https://samrepo.nlr.gov/help/weather_time_convention.html"
+  ],
+  "legacy_hoymiles": {
+    "path": "hoymiles_gooo_Glorida_generation_curve.json",
+    "sha256": "809bfc6f092393cc4b27e25bac7a33ded6794891267584d8851744d1a155e477",
+    "geometry_status": "unknown",
+    "latitude": null,
+    "longitude": null,
+    "tilt_degrees": null,
+    "azimuth_degrees": null,
+    "note": "Original preserved unchanged. No geographical or orientation assumption inferred from project name."
+  },
+  "models": [
+    {
+      "id": "antigua/north/tilt-10",
+      "raw": "antigua/north/tilt-10/raw.sanitized.json",
+      "curve": "antigua/north/tilt-10/curve.json",
+      "raw_sha256": "a3cf633353df6cf9f480d9c55a91b6b34468a7730f93211f71ba9154b29ed56c",
+      "curve_sha256": "1841d9d5fb19c4c5e3f5631d2ccb715d74b071b2c370c5773bf0a3feef23a87c",
+      "annual_generation_kwh": 1553.4992609999997,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000008924649876007607,
+        "annual_ac_difference_kwh": 0.00001184476036542037
+      }
+    },
+    {
+      "id": "antigua/north/tilt-15",
+      "raw": "antigua/north/tilt-15/raw.sanitized.json",
+      "curve": "antigua/north/tilt-15/curve.json",
+      "raw_sha256": "df8754e578c3777178b2b181be3f2d0bb4c5d65dd27f7cb011bb2ef18d37bf91",
+      "curve_sha256": "e17a981cf367dbf8f82d073ab2d5ce6a90122dfe93b1d8aad1a02072fe0c97cc",
+      "annual_generation_kwh": 1494.6236479999998,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001376368786054627,
+        "annual_ac_difference_kwh": 0.00002920072711276589
+      }
+    },
+    {
+      "id": "antigua/north/tilt-20",
+      "raw": "antigua/north/tilt-20/raw.sanitized.json",
+      "curve": "antigua/north/tilt-20/curve.json",
+      "raw_sha256": "14d0f696eda3d3bd1f68aba86e21f2a22fe1f09480eb783d1ebcc35c8c581d6a",
+      "curve_sha256": "c3ef16ed6ff12b8e9215b42430a31024660e88288aa8ff8777e5fc9ae5a89ba8",
+      "annual_generation_kwh": 1424.9842330000001,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000007161167815183944,
+        "annual_ac_difference_kwh": 0.00001460455723645282
+      }
+    },
+    {
+      "id": "antigua/north/tilt-30",
+      "raw": "antigua/north/tilt-30/raw.sanitized.json",
+      "curve": "antigua/north/tilt-30/curve.json",
+      "raw_sha256": "6cff0310fbccf48138eed0517f410bcbc7cf2acd72e97783be94bcf01d1a3920",
+      "curve_sha256": "8fd242d5e59b29a12d2937c186fab151c185fac1b6d6f62799bfc0b5d39028b0",
+      "annual_generation_kwh": 1256.389488,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000008253796067947405,
+        "annual_ac_difference_kwh": 0.000021167582872294588
+      }
+    },
+    {
+      "id": "antigua/east/tilt-10",
+      "raw": "antigua/east/tilt-10/raw.sanitized.json",
+      "curve": "antigua/east/tilt-10/curve.json",
+      "raw_sha256": "7bedb881576b119394f6ecb56005cfc0ce121c9d3471c617633e5f62691f7985",
+      "curve_sha256": "22d518ed022190f26aa40a2c81cc21acece45c0fd3e3092de6c324cdaa95eef9",
+      "annual_generation_kwh": 1632.2384040000002,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000008231061087826674,
+        "annual_ac_difference_kwh": 0.0000011661077223834582
+      }
+    },
+    {
+      "id": "antigua/east/tilt-15",
+      "raw": "antigua/east/tilt-15/raw.sanitized.json",
+      "curve": "antigua/east/tilt-15/curve.json",
+      "raw_sha256": "59b656c5da1ed49aa8ccb50ac64f3074b805316d31c4afd08973c427034f7156",
+      "curve_sha256": "f3de5cd5a57b3b4386005932444a4ca6308f930317a714e5b2884aa4cea8c20d",
+      "annual_generation_kwh": 1615.789215,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000015761885123311004,
+        "annual_ac_difference_kwh": 0.00000523791391060513
+      }
+    },
+    {
+      "id": "antigua/east/tilt-20",
+      "raw": "antigua/east/tilt-20/raw.sanitized.json",
+      "curve": "antigua/east/tilt-20/curve.json",
+      "raw_sha256": "6f430b9e500f5d2890ed0d72840420ad0da9b7b006f5eb719c066af989ab7808",
+      "curve_sha256": "25276bf0cd4db20ab13536b55f13c48268b399561d0fc7e8cd7b9b2bcd73e97f",
+      "annual_generation_kwh": 1592.46233,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000007969986654643435,
+        "annual_ac_difference_kwh": 0.0000024195730929932324
+      }
+    },
+    {
+      "id": "antigua/east/tilt-30",
+      "raw": "antigua/east/tilt-30/raw.sanitized.json",
+      "curve": "antigua/east/tilt-30/curve.json",
+      "raw_sha256": "4922c0d78c9d857cb018ec755f1f897f85d26457fed04910f3f94a62ecc81e2a",
+      "curve_sha256": "b58c03bf2f57ce41347ea1fcf4c7cd2a96c6ab9df2b9e75b062dfbb3933c2456",
+      "annual_generation_kwh": 1526.380708,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000009695336416370992,
+        "annual_ac_difference_kwh": 0.000007426026968460064
+      }
+    },
+    {
+      "id": "antigua/south/tilt-10",
+      "raw": "antigua/south/tilt-10/raw.sanitized.json",
+      "curve": "antigua/south/tilt-10/curve.json",
+      "raw_sha256": "e1112a94a846b2cca873c984865bdcfbde6a09efdff679fbf19f299e2eee9839",
+      "curve_sha256": "07e217aaa5d7403c33bcea369c739b131ade3c61aac7fbf3aed0b95b600c985e",
+      "annual_generation_kwh": 1699.2648529999997,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000006842890186931072,
+        "annual_ac_difference_kwh": 0.000006812761284891167
+      }
+    },
+    {
+      "id": "antigua/south/tilt-15",
+      "raw": "antigua/south/tilt-15/raw.sanitized.json",
+      "curve": "antigua/south/tilt-15/curve.json",
+      "raw_sha256": "042a93602f5e77a73b8140acffe59c7a561f768e8a049bcd187279166170a4d9",
+      "curve_sha256": "bf6bc8a27347722c84888aa21205b48a689340b7ff0167073263b199bada6440",
+      "annual_generation_kwh": 1712.4875550000004,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001442600267864691,
+        "annual_ac_difference_kwh": 0.000035881485700883786
+      }
+    },
+    {
+      "id": "antigua/south/tilt-20",
+      "raw": "antigua/south/tilt-20/raw.sanitized.json",
+      "curve": "antigua/south/tilt-20/curve.json",
+      "raw_sha256": "5c238c5fd24ef68570a5bd229f40a837aabb1c8b5a1d9c0adac081a778bfbadb",
+      "curve_sha256": "52761753e318942151a6e4a93fb8d88389fb45c2a388c4c53548fb988ca4fc2d",
+      "annual_generation_kwh": 1714.2547059999997,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000013045469188455172,
+        "annual_ac_difference_kwh": 0.000034216775247841724
+      }
+    },
+    {
+      "id": "antigua/south/tilt-30",
+      "raw": "antigua/south/tilt-30/raw.sanitized.json",
+      "curve": "antigua/south/tilt-30/curve.json",
+      "raw_sha256": "8cdbaf0515543f671c7187eebdf2faab33b8c4fb32970c69e846e89ab4e44870",
+      "curve_sha256": "171706726aac2742d18a6217b10ad44b2073b314b8ab29aa77f4464347ec70fb",
+      "annual_generation_kwh": 1683.9081800000001,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.0000074863294088345356,
+        "annual_ac_difference_kwh": 0.00001206830802402692
+      }
+    },
+    {
+      "id": "antigua/west/tilt-10",
+      "raw": "antigua/west/tilt-10/raw.sanitized.json",
+      "curve": "antigua/west/tilt-10/curve.json",
+      "raw_sha256": "fc397e5c3d339fe087f7eb05eaa658b0bc9ca276aa8d64b69c4539b4f5116457",
+      "curve_sha256": "49b6568ca0d64c2d333e7fe3ecceb332fa235d7b9eef609813663e4a3c811101",
+      "annual_generation_kwh": 1625.151332,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000011147506086217618,
+        "annual_ac_difference_kwh": 0.000016665785096847685
+      }
+    },
+    {
+      "id": "antigua/west/tilt-15",
+      "raw": "antigua/west/tilt-15/raw.sanitized.json",
+      "curve": "antigua/west/tilt-15/curve.json",
+      "raw_sha256": "6531509877c83e6f15cb78502b624d975077f305ef228fb6221978455b0fd678",
+      "curve_sha256": "a289d97e621679a48860ea9ac34c8a8ea6e09033bce661c13529c940feb52011",
+      "annual_generation_kwh": 1605.540431,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000007973750612677577,
+        "annual_ac_difference_kwh": 0.00001100635199691169
+      }
+    },
+    {
+      "id": "antigua/west/tilt-20",
+      "raw": "antigua/west/tilt-20/raw.sanitized.json",
+      "curve": "antigua/west/tilt-20/curve.json",
+      "raw_sha256": "bd7a93c3129eca7890db675cf4c1e7d434272c0228d2f57382072d07da598aa1",
+      "curve_sha256": "8000537dd924524bc28ffde6fc340a5c7056521a45f899f08036d6add3c0598e",
+      "annual_generation_kwh": 1578.556201,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00000648194502161914,
+        "annual_ac_difference_kwh": 0.0000021652101622748887
+      }
+    },
+    {
+      "id": "antigua/west/tilt-30",
+      "raw": "antigua/west/tilt-30/raw.sanitized.json",
+      "curve": "antigua/west/tilt-30/curve.json",
+      "raw_sha256": "4c5b9f589ee003c2e4a1d3a8dbabc36618ef07fa58d589f663fdee55bfe37815",
+      "curve_sha256": "ee00b2252314cf039ead762104615144c0dc9b887f05ab5326338d6ae7a17b27",
+      "annual_generation_kwh": 1506.9022880000002,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000007625027421909181,
+        "annual_ac_difference_kwh": 0.0000018202438241132768
+      }
+    },
+    {
+      "id": "dominica/north/tilt-10",
+      "raw": "dominica/north/tilt-10/raw.sanitized.json",
+      "curve": "dominica/north/tilt-10/curve.json",
+      "raw_sha256": "6fead07c7ecbd0ca895b47359647d933aea7e1ede11d787fd531478a41d552d1",
+      "curve_sha256": "c96c1ee55db26fc574b0b737c19cc0846ad2da266227d40ca2b4dc3f36902a39",
+      "annual_generation_kwh": 1507.188997,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000009777588530823778,
+        "annual_ac_difference_kwh": 0.00000433878608419036
+      }
+    },
+    {
+      "id": "dominica/north/tilt-15",
+      "raw": "dominica/north/tilt-15/raw.sanitized.json",
+      "curve": "dominica/north/tilt-15/curve.json",
+      "raw_sha256": "944d6da8a5920b6a56446dbd98121bff7108070fea920c0400afdcb780a198dc",
+      "curve_sha256": "4756d32d705b654488ca7b32cac0956867973e2e225aee231233f09da94923b6",
+      "annual_generation_kwh": 1456.305635,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000010637113007305743,
+        "annual_ac_difference_kwh": 0.000004070432169100968
+      }
+    },
+    {
+      "id": "dominica/north/tilt-20",
+      "raw": "dominica/north/tilt-20/raw.sanitized.json",
+      "curve": "dominica/north/tilt-20/curve.json",
+      "raw_sha256": "2f8b6bfca2bd8a0ba3bee6d57872ba54bc4fbd038079ca48b832672a5790e169",
+      "curve_sha256": "88296e900e8b713129ac77f894fa79414491d9a5cd4cbd6145ef4715e80c04e2",
+      "annual_generation_kwh": 1395.201524,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001150670286165223,
+        "annual_ac_difference_kwh": 0.00001546946100461355
+      }
+    },
+    {
+      "id": "dominica/north/tilt-30",
+      "raw": "dominica/north/tilt-30/raw.sanitized.json",
+      "curve": "dominica/north/tilt-30/curve.json",
+      "raw_sha256": "f9a15681197a581f9a87bd0b6f69d24bfe4e23a70af170ee601c85acf6d43ceb",
+      "curve_sha256": "c8fa2b195ffb920cc0d9a4eab1b3fe2d144f9c94b94dba721632469e26a05de8",
+      "annual_generation_kwh": 1243.6635009999998,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000013476304715709375,
+        "annual_ac_difference_kwh": 4.172736680629896e-7
+      }
+    },
+    {
+      "id": "dominica/east/tilt-10",
+      "raw": "dominica/east/tilt-10/raw.sanitized.json",
+      "curve": "dominica/east/tilt-10/curve.json",
+      "raw_sha256": "6b4c1a3ffaaea81edfdae2d0fc3d0f615e053b7f92480f9281bf34c04047114d",
+      "curve_sha256": "b8c017c8f3f3d171b0c2a5e5f5ddf777280d1084f637c2145f1f5c952a9e9c24",
+      "annual_generation_kwh": 1569.797295,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001115649212124481,
+        "annual_ac_difference_kwh": 0.00000808044410405273
+      }
+    },
+    {
+      "id": "dominica/east/tilt-15",
+      "raw": "dominica/east/tilt-15/raw.sanitized.json",
+      "curve": "dominica/east/tilt-15/curve.json",
+      "raw_sha256": "c792ca84210efc27e472982a7cb3f03d225d3d98ca1a74ae7483411556dc011c",
+      "curve_sha256": "b0714fbcce81f79bbd0b60e3ca59130b641dd6799fe635a06a45bbd489c7b159",
+      "annual_generation_kwh": 1552.960627,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001165976421191317,
+        "annual_ac_difference_kwh": 0.0000021938360532658407
+      }
+    },
+    {
+      "id": "dominica/east/tilt-20",
+      "raw": "dominica/east/tilt-20/raw.sanitized.json",
+      "curve": "dominica/east/tilt-20/curve.json",
+      "raw_sha256": "04c1b6a2970772d66ae66653063d84d743f39cef9c6b6da74d7f5476fd83fd13",
+      "curve_sha256": "859c27b25f1682e779e9d53f2b50e12b1a6155f184e39c7cf927a84d2c64b418",
+      "annual_generation_kwh": 1528.9795220000003,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000012127818223461873,
+        "annual_ac_difference_kwh": 0.000017370513205605675
+      }
+    },
+    {
+      "id": "dominica/east/tilt-30",
+      "raw": "dominica/east/tilt-30/raw.sanitized.json",
+      "curve": "dominica/east/tilt-30/curve.json",
+      "raw_sha256": "b8f7bff0402a73e3adaf00ea6c08e8e234e1ac95f7a5cd2d0b261ace7960b7f4",
+      "curve_sha256": "d5524797e1e5eb9a6ff7548fa72692107eaf8fdd62e84f463e3201eb61e90bf9",
+      "annual_generation_kwh": 1462.183293,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000010486221199812462,
+        "annual_ac_difference_kwh": 0.0000022511178485729033
+      }
+    },
+    {
+      "id": "dominica/south/tilt-10",
+      "raw": "dominica/south/tilt-10/raw.sanitized.json",
+      "curve": "dominica/south/tilt-10/curve.json",
+      "raw_sha256": "0b07b1ecc17c7ac1624e8e12484b9b520b508a1ffc1440c2da92ed00ee5072f0",
+      "curve_sha256": "a9bfb92a69d58e650198607b71d665e03fee75c9b6d0b761cfb6306a615e850d",
+      "annual_generation_kwh": 1625.2101860000002,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000015007732457661405,
+        "annual_ac_difference_kwh": 0.00003825081330433022
+      }
+    },
+    {
+      "id": "dominica/south/tilt-15",
+      "raw": "dominica/south/tilt-15/raw.sanitized.json",
+      "curve": "dominica/south/tilt-15/curve.json",
+      "raw_sha256": "0565981ef6117e68a3ed5a6c79026805fb611b5dc3b46e634262347f3e815ccc",
+      "curve_sha256": "212e81faefbbdba80ead2826f37d7ee1d6ae51023f607eae251a9799e37fb779",
+      "annual_generation_kwh": 1632.7554830000001,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000013510199636357356,
+        "annual_ac_difference_kwh": 0.000001860416205090587
+      }
+    },
+    {
+      "id": "dominica/south/tilt-20",
+      "raw": "dominica/south/tilt-20/raw.sanitized.json",
+      "curve": "dominica/south/tilt-20/curve.json",
+      "raw_sha256": "21a82d8da2a3c7c73ee2add7dbb445479d6fc704fddf22f267f3e0cbb2976203",
+      "curve_sha256": "8cbc850fabd89f9832ffefede814eb7da2116cecd8542bc0298ec4fdf7c2cee3",
+      "annual_generation_kwh": 1629.4064910000002,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000006981801789152087,
+        "annual_ac_difference_kwh": 0.000009120214826907613
+      }
+    },
+    {
+      "id": "dominica/south/tilt-30",
+      "raw": "dominica/south/tilt-30/raw.sanitized.json",
+      "curve": "dominica/south/tilt-30/curve.json",
+      "raw_sha256": "e3d1f503b8a76ddf9f72815fa263409fcf94bbd95222e94c0d55e9df9b0e628c",
+      "curve_sha256": "8ec0abed497e94453d56f2df10518c4044a730013860bb85171e12d919e0d8fb",
+      "annual_generation_kwh": 1590.526847,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000008392965995085433,
+        "annual_ac_difference_kwh": 9.412658528162865e-7
+      }
+    },
+    {
+      "id": "dominica/west/tilt-10",
+      "raw": "dominica/west/tilt-10/raw.sanitized.json",
+      "curve": "dominica/west/tilt-10/curve.json",
+      "raw_sha256": "95d9d67b88077bdfd137ce5f3c0cca54cc151433070ff23932abaa63011e9a51",
+      "curve_sha256": "7833e35f0f5b701da16621921b71579c3d91e36d29e050f3fbf0a1d7c000cb4e",
+      "annual_generation_kwh": 1566.2000520000004,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.0000070730583843214845,
+        "annual_ac_difference_kwh": 0.00002811443437167327
+      }
+    },
+    {
+      "id": "dominica/west/tilt-15",
+      "raw": "dominica/west/tilt-15/raw.sanitized.json",
+      "curve": "dominica/west/tilt-15/curve.json",
+      "raw_sha256": "102eda0f45ddaca7bc7a8aad2a3c1da22cc506e5477d1175e39df9f4afc8875d",
+      "curve_sha256": "7e723f8710da8a264c952cf0bd101fb2adfd31c58f2eee3f9447b172bbc959cf",
+      "annual_generation_kwh": 1547.515325,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.0000174306046858419,
+        "annual_ac_difference_kwh": 0.000029529999892474734
+      }
+    },
+    {
+      "id": "dominica/west/tilt-20",
+      "raw": "dominica/west/tilt-20/raw.sanitized.json",
+      "curve": "dominica/west/tilt-20/curve.json",
+      "raw_sha256": "046916951d93ca411a92fb038fc5fbd55469be77410edf322cb879e4d9a0fe01",
+      "curve_sha256": "a54c6603010756de95609e60c93839a210e20c03a1e566438c16072ee811026f",
+      "annual_generation_kwh": 1521.460072,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000012618111696838241,
+        "annual_ac_difference_kwh": 0.00001709437492536381
+      }
+    },
+    {
+      "id": "dominica/west/tilt-30",
+      "raw": "dominica/west/tilt-30/raw.sanitized.json",
+      "curve": "dominica/west/tilt-30/curve.json",
+      "raw_sha256": "32310e3036ccfde5cf3d24657b05ceb69509dbf1d9b62b189f877d644969494a",
+      "curve_sha256": "afe97c8e390a7c38ecf6870b3380e393b3e413c200a984bfcd339d9a92a88662",
+      "annual_generation_kwh": 1451.135217,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.00001016590726976574,
+        "annual_ac_difference_kwh": 0.000023477487047784962
+      }
+    }
+  ],
+  "completed_at": "2026-09-17T03:58:07.492Z"
+}

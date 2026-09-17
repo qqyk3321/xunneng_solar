@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "started_at": "2026-09-17T04:11:54.610Z",
+  "expected_models": 4,
+  "collection_scope": "horizontal_supplement",
+  "source_documentation": [
+    "https://developer.nlr.gov/docs/solar/pvwatts/v8/",
+    "https://samrepo.nlr.gov/help/weather_time_convention.html"
+  ],
+  "legacy_hoymiles": {
+    "path": "hoymiles_gooo_Glorida_generation_curve.json",
+    "sha256": "809bfc6f092393cc4b27e25bac7a33ded6794891267584d8851744d1a155e477",
+    "geometry_status": "unknown",
+    "latitude": null,
+    "longitude": null,
+    "tilt_degrees": null,
+    "azimuth_degrees": null,
+    "note": "Original preserved unchanged. No geographical or orientation assumption inferred from project name."
+  },
+  "models": [
+    {
+      "id": "antigua/horizontal/tilt-0/roof",
+      "raw": "antigua/horizontal/tilt-0/roof/raw.sanitized.json",
+      "curve": "antigua/horizontal/tilt-0/roof/curve.json",
+      "raw_sha256": "91af6bafeb3fe9059c56a317f1a4ce67140fa9c9dbbcdd1c2970d87be70cbf12",
+      "curve_sha256": "f56210d82f099ce8ab4e4a3902dd9d667d449b87212d6407e7f1109fbe7564aa",
+      "annual_generation_kwh": 1637.91813,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000009973737206792066,
+        "annual_ac_difference_kwh": 0.000024202663098549237
+      }
+    },
+    {
+      "id": "antigua/horizontal/tilt-0/open-rack",
+      "raw": "antigua/horizontal/tilt-0/open-rack/raw.sanitized.json",
+      "curve": "antigua/horizontal/tilt-0/open-rack/curve.json",
+      "raw_sha256": "0b02d31ecc51765615de31c68ca8febd4b0052af89b24b591fdd7b36db9599d1",
+      "curve_sha256": "9e8474b12a78a5249f80af3cf451ce2c94d3fd5b95421f3c945f5862139899e7",
+      "annual_generation_kwh": 1648.211085,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000009228524177729014,
+        "annual_ac_difference_kwh": 0.000018000522004513186
+      }
+    },
+    {
+      "id": "dominica/horizontal/tilt-0/roof",
+      "raw": "dominica/horizontal/tilt-0/roof/raw.sanitized.json",
+      "curve": "dominica/horizontal/tilt-0/roof/curve.json",
+      "raw_sha256": "7cc475f009d08819ed04af270abd5310b2453eee2146266a7758daf7753d16bf",
+      "curve_sha256": "ae17f9429073e414f551e0f5ef1783060c44179f42a3d1c4780bc8e2bac8e87a",
+      "annual_generation_kwh": 1576.8631850000002,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000006216867603825449,
+        "annual_ac_difference_kwh": 0.000008562671837353264
+      }
+    },
+    {
+      "id": "dominica/horizontal/tilt-0/open-rack",
+      "raw": "dominica/horizontal/tilt-0/open-rack/raw.sanitized.json",
+      "curve": "dominica/horizontal/tilt-0/open-rack/curve.json",
+      "raw_sha256": "6649c44d1677ed076040f45200bc56d06be962b7008b5aafa44f623c2b41e6c2",
+      "curve_sha256": "7041a6485d90e4f142719d3ed4e48f506858878f13c5274f717050efaab1ba8c",
+      "annual_generation_kwh": 1586.7685670000003,
+      "warnings": [],
+      "validation": {
+        "hourly_count": 8760,
+        "month_count": 12,
+        "hours_per_average_day": 24,
+        "max_monthly_ac_difference_kwh": 0.000010371311617518586,
+        "annual_ac_difference_kwh": 0.000018087427406499046
+      }
+    }
+  ],
+  "completed_at": "2026-09-17T04:12:15.157Z"
+}

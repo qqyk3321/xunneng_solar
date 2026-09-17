@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/solar-analysis/model": ["./data/solar-generation/pvwatts-v8/**/*.json"],
+  },
   async headers() {
     return ["/icon.svg", "/flags/ag.svg", "/flags/dm.svg"].map((source) => ({
       source,

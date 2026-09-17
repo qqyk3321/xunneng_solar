@@ -104,6 +104,8 @@ const script = `(() => {
       await idle();
       await count(10);
       assert.equal(events.at(-1).url, origin + '/solar-analysis');
+      await page.getByRole('button', {name: '确认安装条件，开始分析'}).click();
+      await page.locator('#solar-step-config').waitFor();
       await page.getByRole('button', {name: '夜间用电', exact: true}).click();
       await page.getByRole('button', {name: '6月', exact: true}).click();
       await page.waitForTimeout(250);

@@ -34,6 +34,9 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
           throw error;
         }
         await idle();
+        const confirm = page.getByRole('button', { name: '确认安装条件，开始分析' });
+        if (await confirm.isVisible()) await confirm.click();
+        await page.locator('#solar-step-config').waitFor();
       };
       const count = async n => {
         await page.waitForFunction(() => true);
