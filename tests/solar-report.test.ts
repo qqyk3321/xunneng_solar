@@ -7,14 +7,30 @@ import { DAYS } from "../lib/solar-analysis/simulation";
 
 const basis = (): ReportBasis => ({
   installation: {...DEFAULT_INSTALLATION}, billCountry:"antigua", inputMode:"kwh", inputValue:300,monthlyInputKwh:300,
-  inverterKw:3.8,batteryKwh:5,panelW:350,oversize:1.2,panelCount:14,capacityKwp:4.9,profileKey:"night",profileValues:Array(24).fill(1),
+  inverterKw:3.8,batteryKwh:5.12,reserveSocPercent:10,panelW:350,oversize:1.2,panelCount:14,capacityKwp:4.9,profileKey:"night",profileValues:Array(24).fill(1),
   model:{id:"antigua/south/tilt-30",source:"pvwatts",weatherSource:"NSRDB"},
   months:DAYS.map((days,i)=>({month:i+1,days,consumption:10*days,generation:20*days,grid:2*days,export:11*days,selfUse:8*days,
+    batteryChargeStored:days*4,batteryUtilizationPercent:i === 1 ? 50 : 80,
     antiguaCost:days*2,antiguaBaseline:days*12,dominicaCost:days*1.8,dominicaBaseline:days*10,
     hourly:Array.from({length:24},(_,hour)=>({hour,load:1,generation:2,pvDirect:1,battery:0,batteryCharge:.5,grid:0,export:.5,soc:1})),
   })),
 });
 const customer={name:"张伟 / José",address:"St John's"};
+
+test("reports preserve SOC settings and day-weight monthly battery utilization, including no battery", () => {
+  const input = basis(); input.reserveSocPercent = 20;
+  const report = createSolarReport(input, customer);
+  input.reserveSocPercent = 30;
+  assert.equal(report.reserveSocPercent, 20);
+  assert.equal(report.totals.batteryChargeStored, 365 * 4);
+  assert.ok(Math.abs(report.totals.batteryUtilizationPercent! - (80 * 337 + 50 * 28) / 365) < 1e-8);
+  input.reserveSocPercent = 100;
+  assert.throws(() => createSolarReport(input, customer));
+  input.reserveSocPercent = 10; input.months[0].batteryUtilizationPercent = NaN;
+  assert.throws(() => createSolarReport(input, customer));
+  input.batteryKwh = 0; input.months.forEach(m => { m.batteryChargeStored = 0; m.batteryUtilizationPercent = null; });
+  assert.equal(createSolarReport(input, customer).totals.batteryUtilizationPercent, null);
+});
 
 test("report references work without secure-context randomUUID or the crypto API", t => {
   const source = { getRandomValues: t.mock.fn((bytes: Uint8Array) => { bytes.set([0, 15, 255]); return bytes; }) };

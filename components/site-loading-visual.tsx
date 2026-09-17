@@ -1,15 +1,19 @@
+import type { ReactNode } from "react";
 import styles from "./site-loading.module.css";
 
-export function SiteLoadingVisual({ fallback = false }: { fallback?: boolean }) {
+export function SiteLoadingVisual({ fallback = false, embedded = false, label = "Loading page", caption = "Preparing your energy experience", children }: {
+  fallback?: boolean; embedded?: boolean; label?: string; caption?: string; children?: ReactNode;
+}) {
   return (
     <div
-      className={fallback ? styles.fallback : styles.overlay}
+      className={embedded ? styles.embedded : fallback ? styles.fallback : styles.overlay}
       role="status"
       aria-live="polite"
-      aria-label="Loading page"
+      aria-label={label}
       data-nosnippet
-      data-route-loading={fallback ? "true" : undefined}
-      data-site-loader={!fallback ? "true" : undefined}
+      data-route-loading={fallback && !embedded ? "true" : undefined}
+      data-site-loader={!fallback && !embedded ? "true" : undefined}
+      data-embedded-loader={embedded ? "true" : undefined}
     >
       <div className={styles.ambient} aria-hidden="true" />
       <div className={styles.brand}>
@@ -26,10 +30,11 @@ export function SiteLoadingVisual({ fallback = false }: { fallback?: boolean }) 
         <div className={styles.wordmark} aria-hidden="true">
           Sol<span>&amp;</span>Tide <small>Energy</small>
         </div>
-        <p>Preparing your energy experience</p>
+        <p>{caption}</p>
         <div className={styles.energyLine} aria-hidden="true">
           <span />
         </div>
+        {children}
       </div>
     </div>
   );

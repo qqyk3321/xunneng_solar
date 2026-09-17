@@ -6,12 +6,13 @@ import { REGION_LABELS, type SolarRegion } from "@/lib/solar-analysis/models";
 
 const display = (n: number | null) => n === null ? "—" : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-export default function LiveAnnualSummary({ snapshot: s, country, onCountryChange, status, context, configuration, tutorial, onReport, reportOpening, reportError }: {
+export default function LiveAnnualSummary({ snapshot: s, country, onCountryChange, status, context, configuration, annualUtilization, utilizationNote, tutorial, onReport, reportOpening, reportError }: {
   snapshot: AnnualSnapshot; country: SolarRegion; onCountryChange: (country: SolarRegion) => void;
   status: string; context: string;
   tutorial: "summary" | "report" | "other" | null;
   onReport: () => void; reportOpening: boolean; reportError: string;
-  configuration: { dailyKwh: number; panelCount: number; panelW: number; capacityKwp: number; inverterKw: number; batteryKwh: number };
+  annualUtilization: number | null; utilizationNote: string;
+  configuration: { dailyKwh: number; panelCount: number; panelW: number; capacityKwp: number; inverterKw: number; batteryKwh: number; reserveSocPercent: number; usableKwh: number };
 }) {
   const [expanded, setExpanded] = useState(false);
   const guided = tutorial === "summary" || tutorial === "report";
@@ -25,6 +26,7 @@ export default function LiveAnnualSummary({ snapshot: s, country, onCountryChang
       <label className="live-country"><span>电费参考国家</span><select aria-label="悬浮汇总国家" value={country} onChange={e => onCountryChange(e.target.value as SolarRegion)}>{Object.entries(REGION_LABELS).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>
       <p className="live-summary-status" role="status">{status}</p>
       <div className="live-configuration" aria-label="配置预览"><div><span>组件</span><b>{configuration.panelCount} × {configuration.panelW} W</b></div><div><span>实际装机</span><b data-testid="live-capacity">{display(configuration.capacityKwp)} kWp</b></div><div><span>日均用电</span><b>{display(configuration.dailyKwh)} kWh</b></div><div><span>逆变器 / 电池</span><b>{display(configuration.inverterKw)} kW / {display(configuration.batteryKwh)} kWh</b></div></div>
+      <div className="live-configuration"><div><span>SOC 保留</span><b>{configuration.batteryKwh > 0 ? `${configuration.reserveSocPercent}%` : "—"}</b></div><div><span>电池可用容量</span><b data-testid="live-usable-battery">{display(configuration.usableKwh)} kWh</b></div></div>
       <table><caption>年度电网购电与账单对比</caption><thead><tr><th scope="col">全年</th><th scope="col">电量 kWh</th><th scope="col">电费 EC$</th></tr></thead><tbody>
         <tr><th scope="row">原账单</th><td data-testid="live-baseline-kwh">{display(s.baselineKwh)}</td><td data-testid="live-baseline-cost">{display(s.baselineCost)}</td></tr>
         <tr><th scope="row">现账单</th><td data-testid="live-grid">{display(s.grid)}</td><td data-testid="live-cost">{display(s.cost)}</td></tr>
@@ -32,6 +34,7 @@ export default function LiveAnnualSummary({ snapshot: s, country, onCountryChang
       </tbody></table>
       <div className="live-saving-rate"><span>年度电费节省</span><strong data-testid="live-saving-percent">{display(s.savingPercent)}{s.savingPercent === null ? "" : "%"}</strong></div>
       <dl className="live-energy-totals">
+        <div title={utilizationNote}><dt>年均电池利用率 ⓘ</dt><dd><b data-testid="live-battery-utilization">{display(annualUtilization)}{annualUtilization === null ? "" : "%"}</b>{configuration.batteryKwh === 0 && <small>未配置电池</small>}</dd></div>
         <div><dt>发电总量</dt><dd><b data-testid="live-generation">{display(s.generation)}</b> kWh</dd></div>
         <div><dt>送给电网</dt><dd><b data-testid="live-export">{display(s.export)}</b> kWh<small>占发电 <b data-testid="live-export-percent">{display(s.exportPercent)}{s.exportPercent === null ? "" : "%"}</b></small></dd></div>
       </dl>

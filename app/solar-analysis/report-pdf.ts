@@ -1,5 +1,6 @@
 import { PDFDocument, PDFString, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { SOURCES } from "@/lib/solar-analysis/models";
+import { batteryOperatingWindow } from "@/lib/solar-analysis/simulation";
 import { reportContact, REPORT_PROFILES, REPORT_REGIONS, REPORT_SOURCES, type SolarReport } from "@/lib/solar-analysis/report";
 import { annualReportOption, FLOW_LEGEND, hourlyReportOption, MONTH_NAMES, profileReportOption, reportChartPng } from "./report-charts";
 
@@ -7,6 +8,7 @@ export type ReportProgress = { percent: number; message: string };
 const ink = rgb(15/255,23/255,42/255), muted = rgb(.36,.43,.48), green = rgb(0,122/255,135/255), pale = rgb(.93,.97,.98), line = rgb(.83,.88,.9);
 const number = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const money = (n: number) => `EC$ ${number(n)}`;
+const utilization = (n: number | null) => n === null ? "N/A" : `${number(n)}%`;
 const yieldUi = () => new Promise<void>(resolve => window.setTimeout(resolve, 0));
 
 async function logoPng(signal: AbortSignal) {
@@ -95,6 +97,7 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
     p.node.addAnnot(annotation);
   };
   const t = r.totals;
+  const { reserveKwh, usableKwh } = batteryOperatingWindow(r.batteryKwh, r.reserveSocPercent);
   const p1 = page();
   title(p1,"01 / PROPOSED SYSTEM & SAVINGS","Your home. Your solar plan.",r.customer.project);
   let customerY=183;
@@ -121,6 +124,7 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
     text(p1,String(row[0]),49,y,10,i===2?bold:regular); text(p1,number(Number(row[1])),242,y,10,bold); text(p1,number(Number(row[2])),405,y,10,bold);rule(p1,y+22);
   });
   paragraph(p1,`Estimated PV generation: ${number(t.generation)} kWh/year. Solar self-use: ${number(t.selfUsePercent)}%. Unpaid grid export: ${number(t.export)} kWh/year (${number(t.exportPercent)}% of generation).`,40,699,515,10);
+  text(p1,`Annual battery utilization: ${utilization(t.batteryUtilizationPercent)}${r.batteryKwh ? ` / SOC reserve: ${r.reserveSocPercent}% / Usable: ${number(usableKwh)} kWh` : " / No battery"}`,40,734,9,bold,green);
   paragraph(p1,"Pre-sales estimate only. Final equipment, installation design and pricing are subject to a site review. Figures are not a performance guarantee or a binding quotation.",40,754,515,8);
 
   await stage(15,"正在整理系统配置与用电模型…");
@@ -128,6 +132,7 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
   const specs=[
     ["Solar panels",`${r.panelCount} x ${number(r.panelW)} W`],["Installed DC capacity",`${number(r.capacityKwp)} kWp`],
     ["Inverter AC rating",`${number(r.inverterKw)} kW`],["Battery nominal capacity",`${number(r.batteryKwh)} kWh`],
+    ["SOC reserve / usable capacity",r.batteryKwh ? `${r.reserveSocPercent}% / ${number(usableKwh)} kWh` : "Not applicable (no battery)"],
     ["Requested DC/AC ratio",number(r.oversize)],["Actual DC/AC ratio",number(r.capacityKwp/r.inverterKw)],
     ["Battery charge / discharge limit",`${number(r.batteryKwh*.5)} kW (0.5 C)`],["Demand profile",REPORT_PROFILES[r.profileKey]],
     ["Installation reference",r.installation.source==="hoymiles"?"Unknown (legacy project)":REPORT_REGIONS[r.installation.region]],
@@ -135,7 +140,7 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
     ["Mounting",r.installation.source==="hoymiles"?"Unknown":r.installation.mounting==="roof"?"Fixed roof":"Ventilated open rack"],
     ["Billing country / currency",`${REPORT_REGIONS[r.billCountry]} / EC$ (XCD)`],
   ];
-  specs.forEach(([a,b],i)=>{ const y=177+i*22; if(i%2===0)box(p2,40,y-3,515,22);text(p2,a,50,y,9,regular,muted);text(p2,b,280,y,9,bold); });
+  specs.forEach(([a,b],i)=>{ const y=177+i*20; if(i%2===0)box(p2,40,y-3,515,20);text(p2,a,50,y,9,regular,muted);text(p2,b,280,y,9,bold); });
   const original=r.inputMode===r.billCountry?`${money(r.inputValue)} / month (${REPORT_REGIONS[r.billCountry]} bill)`:`${number(r.monthlyInputKwh)} kWh / month`;
   paragraph(p2,`Demand basis: ${original}. This is converted to ${number(r.monthlyInputKwh/30)} kWh per day, repeated every day. Annual consumption is ${number(t.consumption)} kWh across 365 days.`,40,455,515,10);
   text(p2,"Daily demand distribution",40,517,13,bold);
@@ -152,7 +157,8 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
       const x=40+cell%2*266,y=217+Math.floor(cell/2)*179;
       text(p3,MONTH_NAMES[i],x,y,11,bold,green);
       text(p3,`Month: PV ${number(r.months[i].generation)} / Grid ${number(r.months[i].grid)} kWh`,x,y+17,7,regular,muted);
-      await image(p3,await reportChartPng(hourlyReportOption(r,i),600,330,signal),x,y+31,249,137);
+      text(p3,`Battery utilization: ${utilization(r.months[i].batteryUtilizationPercent)}`,x,y+28,7,regular,muted);
+      await image(p3,await reportChartPng(hourlyReportOption(r,i),600,330,signal),x,y+42,249,126);
     }
     paragraph(p3,"Bars show home supply plus surplus PV sent to storage or the grid. Lines show generation and demand, not extra energy. Each hour is shown once; the 23:00 interval ends at 24:00.",40,765,515,8);
   }
@@ -160,11 +166,11 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
   await stage(59,"正在汇总年度能源与电费对比…");
   const p4=page(); title(p4,"04 / ANNUAL ENERGY & FINANCIAL RESULTS","Your year at a glance",`${REPORT_REGIONS[r.billCountry]} / East Caribbean dollars (EC$, XCD) / export is unpaid.`);
   await image(p4,await reportChartPng(annualReportOption(r),1000,360,signal),40,173,515,185);
-  const widths=[34,65,65,65,65,73,73,75],labels=["Month","Demand","PV","Grid","Export","Before","After","Saved"];
+  const widths=[30,57,57,57,57,66,66,66,59],labels=["Month","Demand","PV","Grid","Export","Before","After","Saved","Batt. use"];
   const row=(values:string[], y:number, isBold=false)=>{ let x=40; values.forEach((v,i)=>{const font=isBold?bold:regular;const size=Math.min(8,(widths[i]-8)/font.widthOfTextAtSize(v,1));text(p4,v,x+4,y,size,font); x+=widths[i];}); };
-  box(p4,40,380,515,32);row(labels,385,true);row(["","kWh","kWh","kWh","kWh","EC$","EC$","EC$"],399);
-  r.months.forEach((m,i)=>{const y=421+i*20; const base=r.billCountry==="antigua"?m.antiguaBaseline:m.dominicaBaseline, cost=r.billCountry==="antigua"?m.antiguaCost:m.dominicaCost;if(i%2===0)box(p4,40,y-3,515,20);row([MONTH_NAMES[i].slice(0,3),number(m.consumption),number(m.generation),number(m.grid),number(m.export),number(base),number(cost),number(base-cost)],y);});
-  rule(p4,665);row(["YEAR",number(t.consumption),number(t.generation),number(t.grid),number(t.export),number(t.baselineCost),number(t.cost),number(t.savedCost)],677,true);
+  box(p4,40,380,515,32);row(labels,385,true);row(["","kWh","kWh","kWh","kWh","EC$","EC$","EC$","%"],399);
+  r.months.forEach((m,i)=>{const y=421+i*20; const base=r.billCountry==="antigua"?m.antiguaBaseline:m.dominicaBaseline, cost=r.billCountry==="antigua"?m.antiguaCost:m.dominicaCost;if(i%2===0)box(p4,40,y-3,515,20);row([MONTH_NAMES[i].slice(0,3),number(m.consumption),number(m.generation),number(m.grid),number(m.export),number(base),number(cost),number(base-cost),m.batteryUtilizationPercent === null ? "N/A" : number(m.batteryUtilizationPercent)],y);});
+  rule(p4,665);row(["YEAR",number(t.consumption),number(t.generation),number(t.grid),number(t.export),number(t.baselineCost),number(t.cost),number(t.savedCost),t.batteryUtilizationPercent === null ? "N/A" : number(t.batteryUtilizationPercent)],677,true);
   box(p4,40,708,515,46);text(p4,`Annual saving: ${money(t.savedCost)}  /  ${number(t.savingPercent)}%`,52,719,12,bold,green);
   text(p4,`Solar self-use: ${number(t.selfUsePercent)}%  /  Export: ${number(t.exportPercent)}% of PV generation`,52,739,8,regular,muted);
   text(p4,"Monthly values are rounded; annual totals are calculated before rounding.",40,775,8,regular,muted);
@@ -180,15 +186,17 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
   };
   const notes=[
     ["Data source",`${REPORT_SOURCES[r.model.source]}. ${sourceNotes[r.model.source]}`],
+    ["Monthly-average-day approximation", "Each model is preprocessed into 12 monthly curves of 24 hourly values, rounded to 0.01 Wh at reference capacity. Each curve repeats daily within its month. Day-to-day weather and extended cloudy spells are not represented. Averaging occurs before inverter clipping and battery dispatch; savings and utilization differ from full hourly weather simulations."],
     ["Installation reference",r.installation.source === "hoymiles" ? "The original project's location and installation geometry are not recorded. The client country selects the reference tariff only; this legacy curve is not a country-specific weather estimate." : `${r.installationText}. Weather represents a reference site near ${r.billCountry==="antigua"?"St John's":"Roseau"}, not a surveyed roof. PVGIS building-integrated mounting and the other sources' roof heat-loss assumptions are not identical. Differences between datasets are not accuracy rankings.`],
     ["Demand and billing", "Monthly demand (or consumption inferred from the entered bill) is divided by 30 to obtain daily demand. A 365-day year uses actual month lengths. Annual cost is the sum of the 12 monthly reference-tariff calculations, not 12 times the entered monthly bill."],
-    ["Battery operation", "Solar serves demand first; surplus charges the battery, then exports. The battery supplies deficits before the grid, without grid charging. Charge and discharge limits are 0.5 kW per kWh of capacity, with 95% efficiency in each direction. A periodic state is settled; midnight is not forced to an empty battery."],
+    ["Battery operation", `Solar serves demand first; surplus charges storage, then exports. No grid charging. ${r.batteryKwh ? `Discharge stops at ${r.reserveSocPercent}% SOC (${number(reserveKwh)} kWh reserved); usable storage is ${number(usableKwh)} kWh before discharge losses. The grid supplies remaining deficits.` : "No battery is included."} Limits are 0.5 kW per nominal kWh, with 95% efficiency each way. A periodic state is settled across the year; midnight is not forced empty. Actual inverter/BMS limits must be verified.`],
+    ["Battery utilization", "Daily net stored charge (after charge loss) / usable capacity, capped at 100% per day. Monthly figures average daily values; the annual figure is weighted by days, not a simple 12-month average. This is charging-capacity coverage, not efficiency, peak SOC or financial return. No battery: N/A."],
     ["Savings and self-use", "Export is assumed unpaid. Solar self-use = (generation - export) / generation; this includes storage losses and differs from the share of home demand supplied without the grid. No investment cost is supplied, so no payback period or return on investment is claimed."],
-    ["Limits of this estimate", "Reference electricity rates are those embedded in the calculator, not a current utility quotation. Site-specific shading, product-specific performance, degradation, battery ageing, outage reserve, future tariff changes and unmodelled fees are not added. Actual generation and bills will vary. Final design requires a site survey and engineering review."],
+    ["Limits of this estimate", "Reference electricity rates are embedded estimates, not a current utility quotation. Site-specific shading, product-specific performance, degradation, battery ageing, outage events, future tariffs and unmodelled fees are not simulated. Actual generation and bills vary. Final design requires a site survey and engineering review."],
   ];
   let y=178;
-  for(const [heading,body] of notes){text(p5,heading,40,y,10,bold,green); y+=18; y+=paragraph(p5,body,40,y,515,9);y+=13;}
-  y+=paragraph(p5,`Model ID: ${r.model.id} | Report method: ${r.version}`,40,y,515,8);
+  for(const [heading,body] of notes){text(p5,heading,40,y,10,bold,green); y+=16; y+=paragraph(p5,body,40,y,515,8.5);y+=10;}
+  y+=paragraph(p5,`Model ID: ${r.model.id} | Report method: ${r.version}${r.dataVersion ? ` | Data: ${r.dataVersion}` : ""}`,40,y,515,8);
   link(p5,"View source documentation",SOURCES[r.model.source].url,40,y+10,8);
   if(y>760)throw new Error("报告说明超出版面，请联系维护人员调整模板。");
 

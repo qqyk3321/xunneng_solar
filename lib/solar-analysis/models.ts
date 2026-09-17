@@ -34,9 +34,11 @@ export type GenerationModel = {
   id: string;
   source: SolarSource;
   referenceCapacityKwp: number;
-  // Only this selected model's series is returned after password verification.
+  // Full hourly fields are retained for offline archive validation only.
   dcPowerW?: number[];
   acPowerW?: number[];
+  timeBasis?: "monthly-average-day";
+  basis?: "DC" | "AC";
   historicalYear?: number;
   averageDayWh?: number[][];
   weatherSource: string;
@@ -47,6 +49,7 @@ export function validGenerationModel(value: unknown): value is GenerationModel {
   const m = value as GenerationModel;
   const numbers = (v: unknown, length: number) => Array.isArray(v) && v.length === length && v.every(n => typeof n === "number" && Number.isFinite(n) && n >= 0);
   if (!Object.hasOwn(SOURCES, m.source) || typeof m.id !== "string" || !Number.isFinite(m.referenceCapacityKwp) || m.referenceCapacityKwp <= 0) return false;
+  if (m.timeBasis === "monthly-average-day") return m.basis === (m.source === "pvwatts" || m.source === "nasa-power" ? "DC" : "AC") && Array.isArray(m.averageDayWh) && m.averageDayWh.length === 12 && m.averageDayWh.every(h => numbers(h, 24));
   if (m.source === "hoymiles") return Array.isArray(m.averageDayWh) && m.averageDayWh.length === 12 && m.averageDayWh.every(h => numbers(h, 24));
   if (m.source === "pvgis-era5" || m.source === "pvgis-nsrdb") return numbers(m.acPowerW, 8760);
   return numbers(m.dcPowerW, 8760);

@@ -9,14 +9,20 @@ import InstallationPicker from "./installation-picker";
 import LiveAnnualSummary from "./annual-snapshot";
 import { annualSnapshot } from "@/lib/solar-analysis/annual-summary";
 import type { ReportBasis } from "@/lib/solar-analysis/report";
-import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId, validGenerationModel, type GenerationModel } from "@/lib/solar-analysis/models";
-import { BATTERY_POWER_PER_KWH, DAYS, generationSeries, simulateYear } from "@/lib/solar-analysis/simulation";
+import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId } from "@/lib/solar-analysis/models";
+import { createModelTableLoader } from "@/lib/solar-analysis/model-table-cache";
+import type { ModelTable } from "@/lib/solar-analysis/model-table";
+import tableManifest from "@/lib/solar-analysis/model-table-manifest.json";
+import { BATTERY_POWER_PER_KWH, DEFAULT_RESERVE_SOC_PERCENT, RESERVE_SOC_OPTIONS, DAYS, annualBatteryUtilization, batteryOperatingWindow, generationSeries, simulateYear } from "@/lib/solar-analysis/simulation";
 
 const AnalysisTour = dynamic(() => import("./analysis-tour"), { ssr: false });
+// No storage access or download until this password-authorized component mounts.
+const loadModelTable = createModelTableLoader({ ...tableManifest, schemaVersion: 1 });
 
 const INVERTERS = [3.8, 4.8, 6, 7.6, 9.6, 11.5];
-const BATTERIES = [0, 5, 10, 15, 20];
-const EMPTY_MONTH = { hourly: [], generation: 0, consumption: 0, grid: 0, export: 0 };
+const BATTERIES = [0, 5.12, 10.24, 15.36, 20.48];
+const EMPTY_MONTH = { hourly: [], generation: 0, consumption: 0, grid: 0, export: 0, batteryUtilizationPercent: null };
+const UTILIZATION_NOTE = "每天净充入电池的电量 ÷ 可用容量，单日最高计 100%；本月取每日平均，全年按天数加权。可用容量已扣除 SOC 保留。这不是充放电效率，也不代表比例越高节省越多。";
 const HOURS = Array.from({ length: 24 }, (_, hour) =>
   `${String(hour).padStart(2, "0")}:00`,
 );
@@ -30,7 +36,7 @@ const TOUR_STEPS = [
   {
     target: "solar-input-fields",
     title: "输入用电与系统参数",
-    description: "输入月用电量或月账单，再选择逆变器、电池、组件功率和超配比。右侧会实时计算组件数量与实际装机容量。",
+    description: "输入月用电量或月账单，再选择逆变器、电池、SOC 保留、组件功率和超配比。SOC 默认保留 10%，可改为 20% 或 30%；低于保留量不再放电。右侧实时更新配置和结果。",
   },
   {
     target: "solar-step-profile",
@@ -45,17 +51,17 @@ const TOUR_STEPS = [
   {
     target: "solar-live-summary",
     title: "右侧年度速览浮窗",
-    description: "这里随参数实时更新：原账单、现账单、节省电量与电费，以及发电和送网占比。国家下拉框只切换电价，不改变安装地区；手机上可展开或收起，详细数据仍在页面下方。",
+    description: "这里随参数实时更新：原账单、现账单、节省电费、发电和送网占比，以及年均电池利用率、SOC 保留和可用容量。国家下拉框只切换电价；手机上可展开或收起。",
   },
   {
     target: "solar-month-tabs",
     title: "选择月份查看逐时信息",
-    description: "在 02 逐时能源来源中点击 1–12 月按钮，切换查看不同月份的逐时发电、用电、电池充放电与电网流向。",
+    description: "在 02 逐时能源来源中点击 1–12 月按钮，切换查看逐时发电、用电、电池充放电与电网流向。图下统计同时显示所选月份的电池利用率。",
   },
   {
     target: "solar-monthly-heading",
     title: "查看每个月预估使用量",
-    description: "查看 12 个月的光伏发电、家庭用电、电网供电与送电量，并结合系统技术参数理解全年变化。",
+    description: "查看 12 个月的光伏发电、家庭用电、电网供电与送电量。下方独立百分比图对比每月电池利用率，并显示按天数加权的年平均值。",
   },
   {
     target: "solar-self-use-metric",
@@ -124,16 +130,17 @@ function Field({
 
 export default function SolarAnalysis() {
   const [installation, setInstallation] = useState(DEFAULT_INSTALLATION);
-  const [loaded, setLoaded] = useState<GenerationModel | null>(null);
-  const [loadError, setLoadError] = useState<{ id: string; message: string } | null>(null);
+  const [table, setTable] = useState<ModelTable | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
   const selectedModelId = modelId(installation);
-  const model = loaded?.id === selectedModelId ? loaded : null;
+  const model = useMemo(() => table?.models.find(item => item.id === selectedModelId) ?? null, [table, selectedModelId]);
   const ready = model !== null;
   const [inputMode, setInputMode] = useState<InputMode>("kwh");
   const [inputValue, setInputValue] = useState(300);
   const [inverterKw, setInverterKw] = useState(3.8);
-  const [batteryKwh, setBatteryKwh] = useState(5);
+  const [batteryKwh, setBatteryKwh] = useState(5.12);
+  const [reserveSocPercent, setReserveSocPercent] = useState(DEFAULT_RESERVE_SOC_PERCENT);
   const [panelW, setPanelW] = useState(350);
   const [oversize, setOversize] = useState(1.2);
   const [profileKey, setProfileKey] = useState<ProfileKey>("night");
@@ -169,21 +176,14 @@ export default function SolarAnalysis() {
   }, []);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 20000);
     let active = true;
-    void fetch(`/solar-analysis/model?id=${encodeURIComponent(selectedModelId)}`, {
-      credentials: "same-origin", cache: "no-store", signal: controller.signal,
-    }).then(async response => {
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "模型加载失败");
-      if (!validGenerationModel(data) || data.id !== selectedModelId) throw new Error("模型数据不完整，请重试");
-      if (active) { setLoaded(data); setLoadError(null); }
+    void loadModelTable().then(data => {
+      if (active) { setTable(data); setLoadError(null); }
     }).catch(error => {
-      if (active) setLoadError({ id: selectedModelId, message: error.name === "AbortError" ? "模型加载超时，请重试。" : error.message });
-    }).finally(() => window.clearTimeout(timeout));
-    return () => { active = false; window.clearTimeout(timeout); controller.abort(); };
-  }, [selectedModelId, retry]);
+      if (active) setLoadError(error instanceof Error ? error.message : "模型表加载失败，请重试。");
+    });
+    return () => { active = false; };
+  }, [retry]);
 
 
   const monthlyInputKwh = inputMode === "kwh"
@@ -197,9 +197,11 @@ export default function SolarAnalysis() {
     Math.ceil(inverterKw * oversize * 1000 / Math.max(panelW, 1)),
   );
   const capacityKwp = panelCount * panelW / 1000;
+  const { reserveKwh, usableKwh } = batteryOperatingWindow(batteryKwh, reserveSocPercent);
+  const generation = useMemo(() => model ? generationSeries(model, capacityKwp, inverterKw) : null, [model, capacityKwp, inverterKw]);
   const months = useMemo(() => {
-    if (!model) return [];
-    return simulateYear(generationSeries(model, capacityKwp, inverterKw), dailyKwh, PROFILES[profileKey].values, batteryKwh).map(item => {
+    if (!generation) return [];
+    return simulateYear(generation, dailyKwh, PROFILES[profileKey].values, batteryKwh, reserveSocPercent).map(item => {
     const { consumption, grid } = item;
     return {
       ...item,
@@ -209,7 +211,8 @@ export default function SolarAnalysis() {
       dominicaBaseline: dominicaBill(consumption),
     };
     });
-  }, [model, capacityKwp, inverterKw, dailyKwh, profileKey, batteryKwh]);
+  }, [generation, dailyKwh, profileKey, batteryKwh, reserveSocPercent]);
+  const annualUtilization = annualBatteryUtilization(months);
 
   const annual = useMemo(() => months.reduce((total, item) => ({
     consumption: total.consumption + item.consumption,
@@ -248,8 +251,9 @@ export default function SolarAnalysis() {
   async function openReport() {
     if (!model || reportOpening) return;
     setReportOpening(true); setReportError(""); setTourStep(null);
-    const basis: ReportBasis = { installation, billCountry, inputMode, inputValue, monthlyInputKwh, inverterKw, batteryKwh, panelW, oversize, panelCount, capacityKwp, profileKey, profileValues: [...PROFILES[profileKey].values], months,
-      model: { id: model.id, source: model.source, weatherSource: model.weatherSource, historicalYear: model.historicalYear } };
+    const basis: ReportBasis = { installation, billCountry, inputMode, inputValue, monthlyInputKwh, inverterKw, batteryKwh, reserveSocPercent, panelW, oversize, panelCount, capacityKwp, profileKey, profileValues: [...PROFILES[profileKey].values], months,
+      dataVersion: tableManifest.version.slice(0, 16),
+      model: { id: model.id, source: model.source, weatherSource: model.weatherSource, historicalYear: model.historicalYear, timeBasis: model.timeBasis } };
     try {
       const { default: Component } = await import("./report-dialog");
       setReportComponent(() => Component); setReportBasis(structuredClone(basis));
@@ -294,6 +298,15 @@ export default function SolarAnalysis() {
       { name: "家庭用电", type: "line", smooth: true, data: months.map((item) => item.consumption), lineStyle: { color: "#172d45", width: 3 } },
       { name: "电网供电", type: "bar", barMaxWidth: 34, data: months.map((item) => item.grid), itemStyle: { color: "#6684b5" } },
     ],
+  }), [months]);
+
+  const utilizationOption = useMemo(() => ({
+    animation: false,
+    tooltip: { trigger: "axis", valueFormatter: (value: number) => `${format(Number(value))}%` },
+    grid: { left: 54, right: 20, top: 28, bottom: 30 },
+    xAxis: { type: "category", data: months.map(item => `${item.month}月`), axisLabel: { interval: 0, fontSize: 10 } },
+    yAxis: { type: "value", min: 0, max: 100, axisLabel: { formatter: "{value}%" } },
+    series: [{ name: "电池利用率", type: "bar", barMaxWidth: 28, data: months.map(item => item.batteryUtilizationPercent), itemStyle: { color: "#c38a2e", borderRadius: [4, 4, 0, 0] }, label: { show: true, position: "top", fontSize: 10, formatter: (params: { value: number }) => `${format(params.value)}%` }, labelLayout: { hideOverlap: true } }],
   }), [months]);
 
   const profileOption = (key: ProfileKey, detailed = false) => ({
@@ -345,7 +358,7 @@ export default function SolarAnalysis() {
               <Field label="输入项目"><select value={inputMode} onChange={(event) => { const mode = event.target.value as InputMode; setInputMode(mode); if (mode !== "kwh") setBillCountry(mode); }}><option value="kwh">月用电量（kWh）</option><option value="antigua">安提瓜月电费（EC$）</option><option value="dominica">多米尼克月电费（EC$）</option></select></Field>
               <Field label={inputMode === "kwh" ? "月用电量" : "月电费"} note={inputMode === "kwh" ? "按 30 天换算" : "东加勒比元 EC$"}><input type="number" min="0" max="1000000" value={inputValue} onChange={(event) => setInputValue(Math.max(0, Math.min(1000000, Number(event.target.value))))} /></Field>
               <Field label="逆变器"><select value={inverterKw} onChange={(event) => setInverterKw(Number(event.target.value))}>{INVERTERS.map((value) => <option key={value} value={value}>{value} kW</option>)}</select></Field>
-              <Field label="电池"><select value={batteryKwh} onChange={(event) => setBatteryKwh(Number(event.target.value))}>{BATTERIES.map((value) => <option key={value} value={value}>{value === 0 ? "无电池" : `${value} kWh`}</option>)}</select></Field>
+              <div className="v2-field"><div className="v2-field-label"><span>电池 / SOC 保留</span><span className="compact-help" tabIndex={0}>ⓘ<span role="tooltip">达到 SOC 保留量后停止放电，由市电补足缺口。10% 是基于 90% 放电深度的估算下限，实际以逆变器和 BMS 设置为准。容量按 5.12 kWh 单位计算，不代表不同型号可混接。</span></span></div><div className="battery-controls"><select aria-label="电池容量" value={batteryKwh} onChange={(event) => setBatteryKwh(Number(event.target.value))}>{BATTERIES.map(value => <option key={value} value={value}>{value === 0 ? "无电池" : `${value} kWh`}</option>)}</select><select aria-label="SOC 保留" value={reserveSocPercent} disabled={batteryKwh === 0} onChange={event => setReserveSocPercent(Number(event.target.value))}>{RESERVE_SOC_OPTIONS.map(value => <option key={value} value={value}>{value}%</option>)}</select></div></div>
               <Field label="组件功率（W）"><input type="number" min="100" max="1000" step="5" value={panelW} onChange={(event) => setPanelW(Math.max(100, Math.min(1000, Number(event.target.value))))} /></Field>
               <Field label="超配比（DC/AC）"><input type="number" min=".5" max="2" step=".01" value={oversize} onChange={(event) => setOversize(Math.max(0.5, Math.min(2, Number(event.target.value))))} /></Field>
         </div></div>
@@ -356,20 +369,20 @@ export default function SolarAnalysis() {
         <InstallationPicker value={installation} onChange={setInstallation} />
         <p className="parameter-auto-note">参数自动计算，修改后实时更新。</p>
       </section>
-      {!ready && <section className="v2-card model-loading" aria-live="polite">{loadError?.id === selectedModelId ? <><p role="alert">{loadError.message}</p><button type="button" onClick={() => { setLoadError(null); setRetry(n => n + 1); }}>重新加载模型</button></> : <p role="status">正在加载所选安装条件的数据…</p>}<small>不会用其他朝向、地区或旧模型的结果代替当前选择。</small></section>}
+      {!ready && <section className="v2-card model-loading" aria-live="polite">{loadError ? <><p role="alert">{loadError}</p><button type="button" onClick={() => { setLoadError(null); setRetry(n => n + 1); }}>重新加载模型</button></> : <p role="status">正在加载发电模型表…</p>}<small>优先使用本地缓存；首次访问或版本更新时下载。不会使用旧版本代替当前模型。</small></section>}
       {ready && <>
-      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>{model.source !== "hoymiles" ? "全年 8,760 小时模拟 · 当地 UTC−4 · " : ""}{SOURCES[model.source].note}</span></div>
+      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>12 个月 × 24 小时月平均日模型 · 当地 UTC−4 · {SOURCES[model.source].note}</span><span>同月每天使用相同发电曲线，不模拟逐日阴晴变化；电池利用率、削顶和电费节省为简化估算。</span></div>
       <section id="solar-step-hourly" className="v2-card hourly-card">
-        <div className="section-title"><div><span>02</span><h2>逐时能源来源</h2></div><p>展示所选月份的平均日流向；年度统计先逐时计算，再汇总</p></div>
+        <div className="section-title"><div><span>02</span><h2>逐时能源来源</h2></div><p>基于月平均日曲线模拟，保持跨日电池电量连续后汇总</p></div>
         <div className="month-choice-area"><div id="solar-month-tabs" className="month-tabs" role="group" aria-label="选择月份">{months.map((item) => <button key={item.month} type="button" className={selectedMonth === item.month ? "active" : ""} onClick={() => setSelectedMonth(item.month)}>{item.month}月</button>)}</div></div>
         <p className="chart-explain">每小时只有一根堆叠柱，依次表示光伏直供、电池供电、电网供电、电池充电和送给电网，不重复计算光伏直供。电池充电与放电功率均限制为每 1 kWh 容量最多 0.5 kW。绿色与橙色拟合曲线分别表示光伏发电和家庭用电，均位于 X 轴上方。</p>
         <EChart option={hourlyOption} className="v2-hourly-chart" />
-        <div className="month-strip"><span>本月发电 <b>{format(month.generation)} kWh</b></span><span>本月用电 <b>{format(month.consumption)} kWh</b></span><span>电网供电 <b>{format(month.grid)} kWh</b></span><span>送给电网 <b>{format(month.export)} kWh</b></span></div>
+        <div className="month-strip"><span>本月发电 <b>{format(month.generation)} kWh</b></span><span>本月用电 <b>{format(month.consumption)} kWh</b></span><span>电网供电 <b>{format(month.grid)} kWh</b></span><span>送给电网 <b>{format(month.export)} kWh</b></span><span title={UTILIZATION_NOTE}>电池利用率 ⓘ <b data-testid="month-battery-utilization">{month.batteryUtilizationPercent === null ? "—（无电池）" : `${format(month.batteryUtilizationPercent)}%`}</b></span></div>
       </section>
 
       <section id="solar-step-monthly" className="annual-layout">
-        <section className="v2-card annual-chart-card"><div id="solar-monthly-heading" className="section-title"><div><span>03</span><h2>12 个月发电与用电</h2></div><p>光伏柱 = 光伏自用 + 送给电网</p></div><EChart option={annualOption} className="v2-annual-chart" /></section>
-        <aside className="v2-card technical"><h2>系统技术统计</h2><dl><div><dt>逆变器 AC 功率</dt><dd>{format(inverterKw)} kW</dd></div><div><dt>组件数量 / 功率</dt><dd>{panelCount} × {panelW} W</dd></div><div><dt>光伏 DC 容量</dt><dd>{format(capacityKwp)} kWp</dd></div><div><dt>实际 DC/AC 比</dt><dd>{format(capacityKwp / inverterKw)}</dd></div><div><dt>电池容量</dt><dd>{format(batteryKwh)} kWh</dd></div><div><dt>电池充/放电功率上限</dt><dd>{format(batteryKwh * BATTERY_POWER_PER_KWH)} kW</dd></div><div><dt>日均用电</dt><dd>{format(dailyKwh)} kWh</dd></div><div><dt>单位装机年发电</dt><dd>{format(annual.generation / capacityKwp)} kWh/kWp</dd></div></dl></aside>
+        <section className="v2-card annual-chart-card"><div id="solar-monthly-heading" className="section-title"><div><span>03</span><h2>12 个月发电与用电</h2></div><p>光伏柱 = 光伏自用 + 送给电网</p></div><EChart option={annualOption} className="v2-annual-chart" /><div className="battery-utilization-heading"><h3>每月电池利用率</h3><span>年均 <b data-testid="annual-battery-utilization">{annualUtilization === null ? "—" : `${format(annualUtilization)}%`}</b></span></div>{batteryKwh > 0 ? <EChart option={utilizationOption} className="v2-utilization-chart" /> : <p className="chart-explain">未配置电池，不计算电池利用率。</p>}<p className="chart-explain">{UTILIZATION_NOTE}</p></section>
+        <aside className="v2-card technical"><h2>系统技术统计</h2><dl><div><dt>逆变器 AC 功率</dt><dd>{format(inverterKw)} kW</dd></div><div><dt>组件数量 / 功率</dt><dd>{panelCount} × {panelW} W</dd></div><div><dt>光伏 DC 容量</dt><dd>{format(capacityKwp)} kWp</dd></div><div><dt>实际 DC/AC 比</dt><dd>{format(capacityKwp / inverterKw)}</dd></div><div><dt>电池标称容量</dt><dd>{format(batteryKwh)} kWh</dd></div><div><dt>SOC 保留 / 电量</dt><dd>{batteryKwh > 0 ? `${reserveSocPercent}% / ${format(reserveKwh)} kWh` : "—"}</dd></div><div><dt>电池可用容量</dt><dd>{format(usableKwh)} kWh</dd></div><div><dt>电池充/放电功率上限</dt><dd>{format(batteryKwh * BATTERY_POWER_PER_KWH)} kW</dd></div><div><dt>日均用电</dt><dd>{format(dailyKwh)} kWh</dd></div><div><dt>单位装机年发电</dt><dd>{format(annual.generation / capacityKwp)} kWh/kWp</dd></div></dl></aside>
       </section>
 
       <section id="solar-step-summary" className="summary-section">
@@ -379,13 +392,15 @@ export default function SolarAnalysis() {
           <article id="solar-saving-metric"><span>年度电费节省</span><div><p>安提瓜 <b>EC$ {format(antiguaSaving)}</b><em>{format(annual.antiguaBaseline > 0 ? antiguaSaving / annual.antiguaBaseline * 100 : 0)}%</em></p><p>多米尼克 <b>EC$ {format(dominicaSaving)}</b><em>{format(annual.dominicaBaseline > 0 ? dominicaSaving / annual.dominicaBaseline * 100 : 0)}%</em></p></div><small>原年度账单与采用光伏后的电网购电账单之差</small></article>
         </section>
         <section className="v2-summary"><article className="primary"><span>年度光伏发电</span><strong>{format(annual.generation)} kWh</strong></article><article><span>年度家庭用电</span><strong>{format(annual.consumption)} kWh</strong></article><article><span>年度电网供电</span><strong>{format(annual.grid)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaCost)}<br />多米尼克 EC$ {format(annual.dominicaCost)}</small></article><article><span>年度送给电网</span><strong>{format(annual.export)} kWh</strong><small>占总发电 {format(annual.generation > 0 ? annual.export / annual.generation * 100 : 0)}% · 免费送网</small></article><article><span>减少电网购电</span><strong>{format(annual.selfUse)} kWh</strong><small>占年度用电 {format(annual.consumption > 0 ? annual.selfUse / annual.consumption * 100 : 0)}%</small></article><article><span>原年度电网账单</span><strong>{format(annual.consumption)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaBaseline)}<br />多米尼克 EC$ {format(annual.dominicaBaseline)}</small></article></section>
+        <div className="annual-battery-summary"><div><span>年均电池利用率</span><strong data-testid="summary-battery-utilization">{annualUtilization === null ? "—（无电池）" : `${format(annualUtilization)}%`}</strong></div><p>{UTILIZATION_NOTE}</p></div>
       </section>
 
       </>}
       </div>
       <LiveAnnualSummary tutorial={tourStep === null ? null : TOUR_STEPS[tourStep].target === "solar-report-button" ? "report" : tourStep === 3 ? "summary" : "other"} snapshot={snapshot} country={billCountry} onCountryChange={setBillCountry} onReport={openReport} reportOpening={reportOpening} reportError={reportError}
-        status={!ready ? (loadError?.id === selectedModelId ? "模型加载失败，暂不展示方案结果" : "正在计算所选模型…") : "参数修改后实时更新"}
-        configuration={{ dailyKwh, panelCount, panelW, capacityKwp, inverterKw, batteryKwh }}
+        status={!ready ? (loadError ? "模型加载失败，暂不展示方案结果" : "正在加载模型表…") : "月平均日估算 · 参数修改后实时更新"}
+        annualUtilization={annualUtilization} utilizationNote={UTILIZATION_NOTE}
+        configuration={{ dailyKwh, panelCount, panelW, capacityKwp, inverterKw, batteryKwh, reserveSocPercent, usableKwh }}
         context={`${PROFILES[profileKey].name} · ${installationLabel(installation)}`} />
       </div>
       {detailProfile && <AnalysisDialog title="每日用电模型详情" onClose={() => setDetailProfile(null)}>

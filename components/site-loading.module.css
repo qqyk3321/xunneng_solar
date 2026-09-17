@@ -1,5 +1,6 @@
 .overlay,
-.fallback {
+.fallback,
+.embedded {
   position: fixed;
   inset: 0;
   z-index: 2147483000;
@@ -10,6 +11,23 @@
     radial-gradient(circle at 50% 42%, #11788355 0, transparent 34%),
     linear-gradient(145deg, #092e36 0%, #0b4046 55%, #102f38 100%);
 }
+.embedded {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  display: grid;
+  width: 100%;
+  border-radius: 14px;
+  isolation: isolate;
+}
+.embedded .brand {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 28px 18px;
+}
+.embedded .logoShell { margin-bottom: 18px; }
+.embedded .ambient { pointer-events: none; }
 .overlay {
   display: none;
 }

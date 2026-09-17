@@ -1,8 +1,8 @@
 import { isApproximateNorth, modelId, type GenerationModel, type Installation, type SolarRegion } from "./models";
-import type { EnergyMonth } from "./simulation";
+import { annualBatteryUtilization, batteryOperatingWindow, DAYS, type EnergyMonth } from "./simulation";
 import { SUPPORT_EMAILS } from "../site-contact";
 
-export const REPORT_VERSION = "Solar proposal / 2.0";
+export const REPORT_VERSION = "Solar proposal / 3.0 (monthly-average-day)";
 export const REPORT_ADVISOR = "Sol & Tide Energy | Solar & Storage Advisory Team";
 export const REPORT_PAGES = ["方案与年度节省", "系统配置", "1–6 月逐时图", "7–12 月逐时图", "年度能源与账单", "估算依据", "后续服务与落款"];
 export const REPORT_TITLES = ["", "Mr.", "Ms.", "Mrs.", "Dr."] as const;
@@ -33,16 +33,17 @@ export type ReportMonth = EnergyMonth & { antiguaCost: number; dominicaCost: num
 export type ReportBasis = {
   installation: Installation; billCountry: SolarRegion;
   inputMode: "kwh" | SolarRegion; inputValue: number; monthlyInputKwh: number;
-  inverterKw: number; batteryKwh: number; panelW: number; oversize: number; panelCount: number; capacityKwp: number;
+  inverterKw: number; batteryKwh: number; reserveSocPercent: number; panelW: number; oversize: number; panelCount: number; capacityKwp: number;
   profileKey: keyof typeof REPORT_PROFILES; profileValues: number[];
-  model: Pick<GenerationModel, "id" | "source" | "weatherSource" | "historicalYear">;
+  model: Pick<GenerationModel, "id" | "source" | "weatherSource" | "historicalYear" | "timeBasis">;
+  dataVersion?: string;
   months: ReportMonth[];
 };
 export type ReportCustomer = { name: string; address: string; title?: typeof REPORT_TITLES[number] };
 export type SolarReport = ReportBasis & {
   customer: ReportCustomer & { project: string; preparedBy: string; salutation: string }; id: string; generatedAt: string; version: string;
   installationText: string; regionMismatch: boolean;
-  totals: { consumption: number; generation: number; grid: number; export: number; baselineCost: number; cost: number; savedKwh: number; savedCost: number; savingPercent: number; selfUsePercent: number; exportPercent: number };
+  totals: { consumption: number; generation: number; grid: number; export: number; baselineCost: number; cost: number; savedKwh: number; savedCost: number; savingPercent: number; selfUsePercent: number; exportPercent: number; batteryChargeStored: number; batteryUtilizationPercent: number | null };
 };
 
 export function reportInstallation(i: Installation) {
@@ -55,8 +56,11 @@ export function createSolarReport(basis: ReportBasis, customer: ReportCustomer, 
   if (basis.installation.source !== "hoymiles" && basis.installation.region !== basis.billCountry) throw new Error("客户国家与安装参考地区不一致，请先更新方案后再生成报告。");
   if (basis.model.id !== modelId(basis.installation) || basis.model.source !== basis.installation.source) throw new Error("当前模型尚未就绪，请等待计算完成后重试。");
   const finite = (n: number) => Number.isFinite(n) && n >= 0;
-  if (basis.months.length !== 12 || basis.months.some((m, index) => m.month !== index + 1 || m.hourly.length !== 24 ||
-      ![m.consumption, m.generation, m.grid, m.export, m.antiguaCost, m.dominicaCost, m.antiguaBaseline, m.dominicaBaseline].every(finite) ||
+  batteryOperatingWindow(basis.batteryKwh, basis.reserveSocPercent);
+  if (!finite(basis.reserveSocPercent)) throw new Error("报告 SOC 参数无效。");
+  if (basis.months.length !== 12 || basis.months.some((m, index) => m.month !== index + 1 || m.days !== DAYS[index] || m.hourly.length !== 24 ||
+      ![m.consumption, m.generation, m.grid, m.export, m.antiguaCost, m.dominicaCost, m.antiguaBaseline, m.dominicaBaseline, m.batteryChargeStored].every(finite) ||
+      (basis.batteryKwh === 0 ? m.batteryUtilizationPercent !== null : m.batteryUtilizationPercent === null || !finite(m.batteryUtilizationPercent) || m.batteryUtilizationPercent > 100 + 1e-8) ||
       m.hourly.some(h => ![h.load, h.generation, h.pvDirect, h.battery, h.batteryCharge, h.grid, h.export].every(finite)))) throw new Error("报告数据不完整，请重新加载模型。");
   if (![basis.inputValue, basis.monthlyInputKwh, basis.inverterKw, basis.batteryKwh, basis.panelW, basis.oversize, basis.panelCount, basis.capacityKwp].every(finite) || basis.profileValues.length !== 24 || !basis.profileValues.every(finite) || basis.profileValues.reduce((a,b) => a+b,0) <= 0) throw new Error("报告参数无效。");
   if (![basis.inverterKw, basis.panelW, basis.oversize, basis.panelCount, basis.capacityKwp].every(n => n > 0) || !Number.isInteger(basis.panelCount)) throw new Error("报告设备参数无效。");
@@ -77,6 +81,7 @@ export function createSolarReport(basis: ReportBasis, customer: ReportCustomer, 
       savingPercent: baselineCost > 0 ? (baselineCost - cost) / baselineCost * 100 : 0,
       selfUsePercent: generation > 0 ? (generation - exported) / generation * 100 : 0,
       exportPercent: generation > 0 ? exported / generation * 100 : 0,
+      batteryChargeStored: sum("batteryChargeStored"), batteryUtilizationPercent: annualBatteryUtilization(basis.months),
     },
   };
 }

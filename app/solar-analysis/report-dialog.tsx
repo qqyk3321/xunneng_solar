@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import AnalysisDialog from "./analysis-dialog";
+import { SiteLoadingVisual } from "@/components/site-loading-visual";
 import { createReportIdSuffix, createSolarReport, reportProject, REPORT_ADVISOR, REPORT_PAGES, REPORT_TITLES, REPORT_REGIONS, type ReportBasis, type ReportCustomer, type SolarReport } from "@/lib/solar-analysis/report";
 import type { SolarRegion } from "@/lib/solar-analysis/models";
+import { batteryOperatingWindow } from "@/lib/solar-analysis/simulation";
 import type { ReportProgress } from "./report-pdf";
 import "./report.css";
 
@@ -43,6 +45,7 @@ export default function ReportDialog({ basis, onClose, onApplyCountry }: { basis
       const url=URL.createObjectURL(blob);ownedUrls.current.push(url);
       let previews:string[]=[];let previewError:string|undefined;
       try {
+        setProgress({percent:71,message:"PDF 已生成，正在准备预览…"});
         const {renderReportPreview}=await import("./report-preview");
         previews=await renderReportPreview(bytes,setProgress,abort.signal);
         ownedUrls.current.push(...previews);
@@ -68,14 +71,20 @@ export default function ReportDialog({ basis, onClose, onApplyCountry }: { basis
         <label className="v2-field report-wide"><span>安装地址 / 项目地点<small>（选填）</small></span><input maxLength={180} value={customer.address} onChange={e=>setCustomer({...customer,address:e.target.value})}/></label>
       </div>
       <div className="report-correspondence"><span>称呼预览：{customer.name.trim()?`Dear ${customer.title?customer.title+" ":""}${customer.name.trim()},`:"Dear Valued Customer,"}</span><span>项目：{reportProject(country)}</span><span>方案顾问 / 落款：{REPORT_ADVISOR}</span></div>
-      <div className="report-snapshot"><strong>本次方案</strong><span>逆变器 {basis.inverterKw} kW · 电池 {basis.batteryKwh} kWh · 光伏 {basis.panelCount} × {basis.panelW} W（{basis.capacityKwp.toFixed(2)} kWp）</span><span>客户国家 / 电费参考：{REPORT_REGIONS[country]} · EC$（东加勒比元）</span><small>全部 A4 竖版；月份图分两页，每页 2 列 × 3 行。不包含右侧浮窗、教程与操作按钮。</small></div>
+      <div className="report-snapshot"><strong>本次方案</strong><span>逆变器 {basis.inverterKw} kW · 电池 {basis.batteryKwh} kWh · 光伏 {basis.panelCount} × {basis.panelW} W（{basis.capacityKwp.toFixed(2)} kWp）</span>{basis.batteryKwh > 0 && <span>SOC 保留 {basis.reserveSocPercent}% · 可用容量 {batteryOperatingWindow(basis.batteryKwh, basis.reserveSocPercent).usableKwh.toFixed(2)} kWh；报告包含每月及年均电池利用率。</span>}<span>客户国家 / 电费参考：{REPORT_REGIONS[country]} · EC$（东加勒比元）</span><small>全部 A4 竖版；月份图分两页，每页 2 列 × 3 行。不包含右侧浮窗、教程与操作按钮。</small></div>
       {mismatch&&<div className="report-warning" role="alert"><span>该客户国家与当前气象参考地区不同。请先更新方案，避免混用两地数据。</span><button type="button" className="report-secondary" onClick={()=>onApplyCountry(country)}>应用客户国家并返回更新方案</button></div>}
       {error&&<p role="alert" className="report-error">{error}</p>}
       <div className="report-actions"><button type="button" className="report-secondary" onClick={onClose}>取消</button><button type="submit" className="report-primary" disabled={mismatch}>生成并预览 PDF</button></div>
     </form>}
-    {busy&&<section className="report-generating" role="status" aria-live="polite">
-      <div className="report-spinner" aria-hidden="true"/><h3>正在生成客户方案报告</h3><p>{progress.message}</p><progress max={100} value={progress.percent} aria-label="报告生成进度"/><strong>{progress.percent}%</strong>
-      <p className="report-generation-warning">请勿关闭或刷新页面。生成在本机完成，不会上传客户资料。</p><button type="button" className="report-secondary" onClick={()=>controller.current?.abort()}>取消生成</button>
+    {busy&&<section className="report-generating" data-testid="report-brand-loading">
+      <SiteLoadingVisual embedded label="正在生成客户方案报告" caption="Your personal energy proposal">
+        <div className="report-generation-details">
+          <h3>正在生成客户方案报告</h3><p className="report-generation-stage">{progress.message}</p>
+          <div className="report-progress-row"><progress max={100} value={progress.percent} aria-label="报告生成进度"/><strong>{progress.percent}%</strong></div>
+          <p className="report-generation-warning">请勿关闭或刷新页面。<br />生成在本机完成，不会上传客户资料。</p>
+          <button type="button" className="report-secondary" onClick={()=>controller.current?.abort()}>取消生成</button>
+        </div>
+      </SiteLoadingVisual>
     </section>}
     {output&&!busy&&<>
       <div className="report-preview-toolbar"><div><strong>{output.report.id}</strong><small>{new Date(output.report.generatedAt).toLocaleString()} · 点击生成时的参数快照</small></div><div className="report-actions"><button type="button" className="report-secondary" onClick={()=>{disposeUrls();setOutput(null);}}>修改报告信息</button><a className="report-primary" href={output.url} download={output.filename}>下载 PDF</a></div></div>

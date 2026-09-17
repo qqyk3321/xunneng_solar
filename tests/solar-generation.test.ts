@@ -3,8 +3,7 @@ import test from "node:test";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { gunzipSync } from "node:zlib";
-import { accessCookieValue } from "../app/solar-analysis/access";
-import { handleModelRequest, loadGenerationModel } from "../lib/solar-analysis/model-server";
+import { loadGenerationModel } from "../scripts/solar/archive-reader";
 import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId, validGenerationModel, type SolarSource } from "../lib/solar-analysis/models";
 import { generationSeries, inverterAcKw, simulateYear } from "../lib/solar-analysis/simulation";
 
@@ -136,24 +135,6 @@ test("new source scaling respects AC output and reports the PVGIS north exceptio
     }
     assert.equal(validGenerationModel({ ...model, acPowerW: [NaN], dcPowerW: [Infinity] }), false);
   }
-});
-test("model endpoint is authorized-only, no-store, allowlisted and does not return credentials/weather payloads", async () => {
-  const req = (id: string) => new Request(`https://example.test/solar-analysis/model?id=${encodeURIComponent(id)}`);
-  let loads = 0;
-  const loader = async () => { loads++; return null; };
-  for (const cookie of [undefined, "incorrect"]) assert.equal((await handleModelRequest(req("hoymiles"), cookie, loader)).status, 401);
-  assert.equal(loads, 0);
-  const cookie = accessCookieValue();
-  assert.equal((await handleModelRequest(req("../../.env"), cookie)).status, 404);
-  assert.equal((await handleModelRequest(req("antigua/south/tilt-0"), cookie)).status, 404);
-  assert.equal((await handleModelRequest(req(""), cookie)).status, 400);
-  assert.equal((await handleModelRequest(req("hoymiles"), cookie, async () => { throw new Error("private error"); })).status, 503);
-  const response = await handleModelRequest(req("antigua/horizontal/tilt-0/roof"), cookie);
-  assert.equal(response.status, 200);
-  assert.equal(response.headers.get("cache-control"), "private, no-store");
-  assert.equal(response.headers.get("vary"), "Cookie");
-  const body = await response.json();
-  assert.deepEqual(Object.keys(body).sort(), ["dcPowerW", "id", "referenceCapacityKwp", "source", "weatherSource"]);
 });
 test("inverter follows selected AC rating rather than blindly scaling clipped AC", () => {
   near(inverterAcKw(0, 3.8), 0);
