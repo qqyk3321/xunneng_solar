@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import EChart from "./echart";
 import InstallationPicker from "./installation-picker";
+import LiveAnnualSummary from "./annual-snapshot";
+import { annualSnapshot } from "@/lib/solar-analysis/annual-summary";
 import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId, validGenerationModel, type GenerationModel } from "@/lib/solar-analysis/models";
-import { BATTERY_POWER_PER_KWH, generationSeries, simulateYear } from "@/lib/solar-analysis/simulation";
+import { BATTERY_POWER_PER_KWH, DAYS, generationSeries, simulateYear } from "@/lib/solar-analysis/simulation";
 
 const INVERTERS = [3.8, 4.8, 6, 7.6, 9.6, 11.5];
 const BATTERIES = [0, 5, 10, 15, 20];
@@ -21,11 +23,6 @@ const PROFILES = {
 };
 const TOUR_STEPS = [
   {
-    target: "solar-step-installation",
-    title: "选择数据源与安装条件",
-    description: "先选择发电数据源，并查看其年份与模型说明。除禾迈外均可选参考地区，点击面板侧视图选择倾角、点击方位按钮选择朝向；0° 无需朝向。然后点击“确认安装条件，开始分析”。禾迈的安装参数未知，不支持调整。",
-  },
-  {
     target: "solar-step-config",
     title: "输入用电与系统参数",
     description: "输入月用电量或月账单，再选择逆变器、电池、组件功率和超配比。右侧会实时计算组件数量与实际装机容量。",
@@ -34,6 +31,11 @@ const TOUR_STEPS = [
     target: "solar-step-profile",
     title: "选择每日用电模型",
     description: "点击上方“白天用电、白天高峰、傍晚高峰、夜间用电”4 个按钮，选择最符合用户习惯的具体模式。下方缩略图用于放大查看 24 小时占比。",
+  },
+  {
+    target: "solar-step-installation",
+    title: "选择数据源与安装条件",
+    description: "最后选择发电数据源、参考地区和安装方式，再点击倾角与方位按钮。0° 无需朝向；禾迈安装参数未知。确认后开始分析，右侧年度速览会随参数实时更新，可单独切换电费国家。",
   },
   {
     target: "solar-step-hourly",
@@ -119,6 +121,7 @@ export default function SolarAnalysis() {
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [detailProfile, setDetailProfile] = useState<ProfileKey | null>(null);
   const [tourStep, setTourStep] = useState<number | null>(null);
+  const [billCountry, setBillCountry] = useState<"antigua" | "dominica">("antigua");
 
   useEffect(() => {
     if (!confirmed) return;
@@ -195,6 +198,12 @@ export default function SolarAnalysis() {
     : 0;
   const antiguaSaving = annual.antiguaBaseline - annual.antiguaCost;
   const dominicaSaving = annual.dominicaBaseline - annual.dominicaCost;
+  const baselineKwh = dailyKwh * 365;
+  const baselineCost = DAYS.reduce((total, days) => total + (billCountry === "antigua" ? antiguaBill : dominicaBill)(dailyKwh * days), 0);
+  const snapshot = annualSnapshot(baselineKwh, baselineCost, ready ? {
+    grid: annual.grid, cost: billCountry === "antigua" ? annual.antiguaCost : annual.dominicaCost,
+    generation: annual.generation, export: annual.export,
+  } : null);
   const month = months[selectedMonth - 1] ?? EMPTY_MONTH;
 
   const hourlyOption = useMemo(() => ({
@@ -302,20 +311,17 @@ export default function SolarAnalysis() {
         <div className="hero-actions"><button type="button" className="tour-launch" onClick={() => setTourStep(0)}>使用教程</button><Link href="/" className="secondary">返回首页</Link></div>
       </header>
 
-      <InstallationPicker value={installation} onChange={setInstallation} confirmed={confirmed} guided={tourStep === 0} onConfirm={() => { setConfirmed(true); if (tourStep === 0) setTourStep(1); }} />
-      {confirmed && !ready && <section className="v2-card model-loading" aria-live="polite">{loadError?.id === selectedModelId ? <><p role="alert">{loadError.message}</p><button type="button" onClick={() => { setLoadError(null); setRetry(n => n + 1); }}>重新加载模型</button></> : <p role="status">正在加载所选安装条件的数据…</p>}<small>不会用其他朝向、地区或旧模型的结果代替当前选择。</small></section>}
-      {ready && <>
-      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>{model.source !== "hoymiles" ? "全年 8,760 小时模拟 · 当地 UTC−4 · " : ""}{SOURCES[model.source].note}</span></div>
-      <section id="solar-step-config" className={`v2-card input-card ${tourStep === 1 ? "tour-target" : ""}`}>
+      <div className="solar-workspace"><div className="solar-workspace-main">
+      <section id="solar-step-config" className={`v2-card input-card ${tourStep === 0 ? "tour-target" : ""}`}>
         <div className="section-title config-title">
-          <div><span>02</span><div><h2>输入与系统配置</h2><small>设置用电基准、逆变器、储能和光伏组件</small></div></div>
+          <div><span>01</span><div><h2>用电与系统规格</h2><small>先设置用电基准、逆变器、储能和光伏组件</small></div></div>
           <span className="config-help" tabIndex={0}><b>?</b> 计算说明<span role="tooltip">月度用电量或电费统一按 30 天换算为每日用电量；全年每天使用相同的每日用电总量。组件数量按“逆变器功率 × 超配比 ÷ 单块组件功率”向上取整。</span></span>
         </div>
         <div className="config-body">
           <div className="config-input-panel">
             <p className="config-panel-label">参数输入</p>
             <div className="v2-inputs">
-              <Field label="输入项目"><select value={inputMode} onChange={(event) => setInputMode(event.target.value as InputMode)}><option value="kwh">月用电量（kWh）</option><option value="antigua">安提瓜月电费（EC$）</option><option value="dominica">多米尼克月电费（EC$）</option></select></Field>
+              <Field label="输入项目"><select value={inputMode} onChange={(event) => { const mode = event.target.value as InputMode; setInputMode(mode); if (mode !== "kwh") setBillCountry(mode); }}><option value="kwh">月用电量（kWh）</option><option value="antigua">安提瓜月电费（EC$）</option><option value="dominica">多米尼克月电费（EC$）</option></select></Field>
               <Field label={inputMode === "kwh" ? "月用电量" : "月电费"} note={inputMode === "kwh" ? "按 30 天换算" : "东加勒比元 EC$"}><input type="number" min="0" max="1000000" value={inputValue} onChange={(event) => setInputValue(Math.max(0, Math.min(1000000, Number(event.target.value))))} /></Field>
               <Field label="逆变器"><select value={inverterKw} onChange={(event) => setInverterKw(Number(event.target.value))}>{INVERTERS.map((value) => <option key={value} value={value}>{value} kW</option>)}</select></Field>
               <Field label="电池"><select value={batteryKwh} onChange={(event) => setBatteryKwh(Number(event.target.value))}>{BATTERIES.map((value) => <option key={value} value={value}>{value === 0 ? "无电池" : `${value} kWh`}</option>)}</select></Field>
@@ -331,12 +337,16 @@ export default function SolarAnalysis() {
         </div>
       </section>
 
-      <section id="solar-step-profile" className={`v2-card profile-card ${tourStep === 2 ? "tour-target" : ""}`}>
-        <div className="section-title"><div><span>03</span><h2>每日用电模型</h2></div><p>先选择最符合用户习惯的 24 小时用电分布</p></div>
-        <div className="profile-picker"><div><strong>选择每日用电模型</strong><small>选择后，逐时图和全年结果会立即重新计算</small></div><div className="profile-choice-area">{tourStep === 2 && <div className="tour-action-hint"><b>↓</b><span>点击下面 4 个按钮，选择具体用电模式</span></div>}<div className={`profile-choices ${tourStep === 2 ? "tour-control-focus" : ""}`} role="group" aria-label="选择每日用电模型">{(Object.keys(PROFILES) as ProfileKey[]).map((key) => <button key={key} type="button" className={profileKey === key ? "active" : ""} aria-pressed={profileKey === key} onClick={() => setProfileKey(key)}>{PROFILES[key].name}</button>)}</div></div></div>
+      <section id="solar-step-profile" className={`v2-card profile-card ${tourStep === 1 ? "tour-target" : ""}`}>
+        <div className="section-title"><div><span>02</span><h2>每日用电模型</h2></div><p>再选择最符合用户习惯的 24 小时用电分布</p></div>
+        <div className="profile-picker"><div><strong>选择每日用电模型</strong><small>{confirmed ? "选择后，逐时图和全年结果会立即重新计算" : "先选择用电习惯，再到 03 确认安装条件"}</small></div><div className="profile-choice-area">{tourStep === 1 && <div className="tour-action-hint"><b>↓</b><span>点击下面 4 个按钮，选择具体用电模式</span></div>}<div className={`profile-choices ${tourStep === 1 ? "tour-control-focus" : ""}`} role="group" aria-label="选择每日用电模型">{(Object.keys(PROFILES) as ProfileKey[]).map((key) => <button key={key} type="button" className={profileKey === key ? "active" : ""} aria-pressed={profileKey === key} onClick={() => setProfileKey(key)}>{PROFILES[key].name}</button>)}</div></div></div>
         {profileGallery}
       </section>
 
+      <InstallationPicker value={installation} onChange={setInstallation} confirmed={confirmed} guided={tourStep === 2} onConfirm={() => { setConfirmed(true); if (tourStep === 2) setTourStep(3); }} />
+      {confirmed && !ready && <section className="v2-card model-loading" aria-live="polite">{loadError?.id === selectedModelId ? <><p role="alert">{loadError.message}</p><button type="button" onClick={() => { setLoadError(null); setRetry(n => n + 1); }}>重新加载模型</button></> : <p role="status">正在加载所选安装条件的数据…</p>}<small>不会用其他朝向、地区或旧模型的结果代替当前选择。</small></section>}
+      {ready && <>
+      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>{model.source !== "hoymiles" ? "全年 8,760 小时模拟 · 当地 UTC−4 · " : ""}{SOURCES[model.source].note}</span></div>
       <section id="solar-step-hourly" className={`v2-card hourly-card ${tourStep === 3 ? "tour-target" : ""}`}>
         <div className="section-title"><div><span>04</span><h2>逐时能源来源</h2></div><p>展示所选月份的平均日流向；年度统计先逐时计算，再汇总</p></div>
         <div className="month-choice-area">{tourStep === 3 && <div className="tour-action-hint month-hint"><b>↓</b><span>点击月份按钮，切换查看该月的逐时信息</span></div>}<div className={`month-tabs ${tourStep === 3 ? "tour-control-focus" : ""}`} role="group" aria-label="选择月份">{months.map((item) => <button key={item.month} type="button" className={selectedMonth === item.month ? "active" : ""} onClick={() => setSelectedMonth(item.month)}>{item.month}月</button>)}</div></div>
@@ -356,12 +366,17 @@ export default function SolarAnalysis() {
           <article><span>光伏发电自用率</span><strong>{format(solarSelfUseRatio * 100)}%</strong><small>（年度光伏发电 − 年度送电网）÷ 年度光伏发电</small></article>
           <article><span>年度电费节省</span><div><p>安提瓜 <b>EC$ {format(antiguaSaving)}</b><em>{format(annual.antiguaBaseline > 0 ? antiguaSaving / annual.antiguaBaseline * 100 : 0)}%</em></p><p>多米尼克 <b>EC$ {format(dominicaSaving)}</b><em>{format(annual.dominicaBaseline > 0 ? dominicaSaving / annual.dominicaBaseline * 100 : 0)}%</em></p></div><small>原年度账单与采用光伏后的电网购电账单之差</small></article>
         </section>
-        <section className="v2-summary"><article className="primary"><span>年度光伏发电</span><strong>{format(annual.generation)} kWh</strong></article><article><span>年度家庭用电</span><strong>{format(annual.consumption)} kWh</strong></article><article><span>年度电网供电</span><strong>{format(annual.grid)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaCost)}<br />多米尼克 EC$ {format(annual.dominicaCost)}</small></article><article><span>年度送给电网</span><strong>{format(annual.export)} kWh</strong></article><article><span>减少电网购电</span><strong>{format(annual.selfUse)} kWh</strong><small>占年度用电 {format(annual.selfUse / annual.consumption * 100)}%</small></article></section>
+        <section className="v2-summary"><article className="primary"><span>年度光伏发电</span><strong>{format(annual.generation)} kWh</strong></article><article><span>年度家庭用电</span><strong>{format(annual.consumption)} kWh</strong></article><article><span>年度电网供电</span><strong>{format(annual.grid)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaCost)}<br />多米尼克 EC$ {format(annual.dominicaCost)}</small></article><article><span>年度送给电网</span><strong>{format(annual.export)} kWh</strong><small>占总发电 {format(annual.generation > 0 ? annual.export / annual.generation * 100 : 0)}% · 免费送网</small></article><article><span>减少电网购电</span><strong>{format(annual.selfUse)} kWh</strong><small>占年度用电 {format(annual.consumption > 0 ? annual.selfUse / annual.consumption * 100 : 0)}%</small></article><article><span>原年度电网账单</span><strong>{format(annual.consumption)} kWh</strong><small>安提瓜 EC$ {format(annual.antiguaBaseline)}<br />多米尼克 EC$ {format(annual.dominicaBaseline)}</small></article></section>
       </section>
 
-      {detailProfile && <div className="v2-modal" role="dialog" aria-modal="true" onMouseDown={(event) => { if (event.currentTarget === event.target) setDetailProfile(null); }}><section><button type="button" aria-label="关闭" onClick={() => setDetailProfile(null)}>×</button><div className="profile-modal-head"><div><small>每日用电模型详情</small><h2>{PROFILES[detailProfile].name} · 00:00–24:00</h2></div><button type="button" className={profileKey === detailProfile ? "selected" : ""} disabled={profileKey === detailProfile} onClick={() => setProfileKey(detailProfile)}>{profileKey === detailProfile ? "该模式已选中" : "切换为该模式"}</button></div><EChart option={profileOption(detailProfile, true)} className="v2-detail-chart" /><div className="v2-percent-grid">{PROFILES[detailProfile].values.map((value, hour) => <span key={hour}>{String(hour).padStart(2, "0")}:00–{String(hour + 1).padStart(2, "0")}:00 <b>{format(value)}%</b></span>)}</div></section></div>}
       </>}
-      {tourStep !== null && <><div className="tour-backdrop" aria-hidden="true" /><aside className="tour-panel" role="dialog" aria-modal="true" aria-labelledby="tour-title"><div className="tour-progress"><span>使用教程</span><b>STEP {tourStep + 1} / {TOUR_STEPS.length}</b></div><div className="tour-dots" aria-hidden="true">{TOUR_STEPS.map((_, index) => <i key={index} className={index === tourStep ? "active" : index < tourStep ? "done" : ""} />)}</div><h2 id="tour-title">{TOUR_STEPS[tourStep].title}</h2><p>{TOUR_STEPS[tourStep].description}</p><div className="tour-actions"><button type="button" className="tour-exit" onClick={() => setTourStep(null)}>退出教程</button><div>{tourStep > 0 && <button type="button" className="tour-prev" onClick={() => setTourStep(tourStep - 1)}>上一步</button>}<button type="button" className="tour-next" disabled={tourStep > 0 && !ready} onClick={() => { if (tourStep === 0 && !confirmed) setConfirmed(true); if (tourStep === TOUR_STEPS.length - 1) setTourStep(null); else setTourStep(tourStep + 1); }}>{tourStep === 0 && !confirmed ? "确认条件并继续" : tourStep === TOUR_STEPS.length - 1 ? "完成" : "下一步"}</button></div></div></aside></>}
+      </div>
+      <LiveAnnualSummary snapshot={snapshot} country={billCountry} onCountryChange={setBillCountry}
+        status={!confirmed ? "完成 03 安装条件后显示光伏方案" : !ready ? (loadError?.id === selectedModelId ? "模型加载失败，暂不展示方案结果" : "正在计算所选模型…") : "参数修改后实时更新"}
+        context={`${PROFILES[profileKey].name} · ${installationLabel(installation)}`} />
+      </div>
+      {detailProfile && <div className="v2-modal" role="dialog" aria-modal="true" onMouseDown={(event) => { if (event.currentTarget === event.target) setDetailProfile(null); }}><section><button type="button" aria-label="关闭" onClick={() => setDetailProfile(null)}>×</button><div className="profile-modal-head"><div><small>每日用电模型详情</small><h2>{PROFILES[detailProfile].name} · 00:00–24:00</h2></div><button type="button" className={profileKey === detailProfile ? "selected" : ""} disabled={profileKey === detailProfile} onClick={() => setProfileKey(detailProfile)}>{profileKey === detailProfile ? "该模式已选中" : "切换为该模式"}</button></div><EChart option={profileOption(detailProfile, true)} className="v2-detail-chart" /><div className="v2-percent-grid">{PROFILES[detailProfile].values.map((value, hour) => <span key={hour}>{String(hour).padStart(2, "0")}:00–{String(hour + 1).padStart(2, "0")}:00 <b>{format(value)}%</b></span>)}</div></section></div>}
+      {tourStep !== null && <><div className="tour-backdrop" aria-hidden="true" /><aside className="tour-panel" role="dialog" aria-modal="true" aria-labelledby="tour-title"><div className="tour-progress"><span>使用教程</span><b>STEP {tourStep + 1} / {TOUR_STEPS.length}</b></div><div className="tour-dots" aria-hidden="true">{TOUR_STEPS.map((_, index) => <i key={index} className={index === tourStep ? "active" : index < tourStep ? "done" : ""} />)}</div><h2 id="tour-title">{TOUR_STEPS[tourStep].title}</h2><p>{TOUR_STEPS[tourStep].description}</p><div className="tour-actions"><button type="button" className="tour-exit" onClick={() => setTourStep(null)}>退出教程</button><div>{tourStep > 0 && <button type="button" className="tour-prev" onClick={() => setTourStep(tourStep - 1)}>上一步</button>}<button type="button" className="tour-next" disabled={tourStep >= 3 && !ready} onClick={() => { if (tourStep === 2 && !confirmed) setConfirmed(true); if (tourStep === TOUR_STEPS.length - 1) setTourStep(null); else setTourStep(tourStep + 1); }}>{tourStep === 2 && !confirmed ? "确认条件并继续" : tourStep === TOUR_STEPS.length - 1 ? "完成" : "下一步"}</button></div></div></aside></>}
     </main>
   );
 }

@@ -8,7 +8,7 @@ export default function InstallationPicker({ value, onChange, confirmed, onConfi
   const pv = value.source !== "hoymiles";
   const setTilt = (tilt: Tilt) => onChange({ ...value, tilt, mounting: tilt === 0 ? value.mounting : "roof" });
   return <section id="solar-step-installation" className={`v2-card installation-card ${guided ? "tour-target" : ""}`}>
-    <div className="section-title"><div><span>01</span><div><h2>数据源与安装条件</h2><p className="installation-subtitle">先确认面板怎么安装，再开始系统分析</p></div></div><span className="installation-badge">{confirmed ? "修改后自动重新计算" : "从这里开始"}</span></div>
+    <div className="section-title"><div><span>03</span><div><h2>数据源与安装条件</h2><p className="installation-subtitle">完成用电设置后，选择面板安装方式与发电数据源</p></div></div><span className="installation-badge">{confirmed ? "修改后自动重新计算" : "确认后开始分析"}</span></div>
     <div className="installation-selects">
       <label className="v2-field"><span>发电数据源</span><select aria-label="发电数据源" value={value.source} onChange={e => onChange({ ...value, source: e.target.value as Installation["source"] })}>{Object.entries(SOURCES).map(([id, source]) => <option key={id} value={id}>{source.label}</option>)}</select></label>
       <label className="v2-field"><span>参考地区</span><select aria-label="参考地区" disabled={!pv} value={pv ? value.region : "unknown"} onChange={e => onChange({ ...value, region: e.target.value as Installation["region"] })}>{pv ? Object.entries(REGION_LABELS).map(([id, name]) => <option key={id} value={id}>{name}</option>) : <option value="unknown">原项目地点未知</option>}</select></label>
