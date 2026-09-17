@@ -14,11 +14,16 @@ export function isAnalyticsPath(pathname: string | null): boolean {
 }
 
 /** Page views only, on explicitly approved routes. Never send query data. */
-export function beforeSendAnalytics(event: BeforeSendEvent): BeforeSendEvent | null {
+export function beforeSendAnalytics(
+  event: BeforeSendEvent,
+  solarAuthorized = false,
+): BeforeSendEvent | null {
   try {
     if (event.type !== "pageview") return null;
     const url = new URL(event.url);
-    if (!isAnalyticsPath(url.pathname) || !["http:", "https:"].includes(url.protocol)) return null;
+    const allowed = isAnalyticsPath(url.pathname) ||
+      (solarAuthorized && url.pathname === "/solar-analysis");
+    if (!allowed || !["http:", "https:"].includes(url.protocol)) return null;
     url.search = "";
     url.hash = "";
     url.username = "";

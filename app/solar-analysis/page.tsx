@@ -4,6 +4,7 @@ import { accessCookieIsValid, SOLAR_ACCESS_COOKIE } from "./access";
 import { unlockSolarAnalysis } from "./actions";
 import SolarAnalysis from "./solar-analysis-client";
 import { SolarVisitTracker } from "./visit-tracker";
+import { AuthorizedSolarAnalytics } from "@/components/site-analytics";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,11 @@ export default async function SolarAnalysisPage({
     cookieStore.get(SOLAR_ACCESS_COOKIE)?.value,
   );
 
-  if (unlocked) return <><SolarVisitTracker /><SolarAnalysis /></>;
+  if (unlocked) return <>
+    <SolarVisitTracker />
+    <SolarAnalysis />
+    {process.env.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics />}
+  </>;
 
   const { error } = await searchParams;
   return (
