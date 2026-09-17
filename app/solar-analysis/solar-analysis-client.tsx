@@ -7,6 +7,7 @@ import EChart from "./echart";
 import AnalysisDialog from "./analysis-dialog";
 import InstallationPicker from "./installation-picker";
 import LiveAnnualSummary from "./annual-snapshot";
+import OfflineTools from "./offline-tools";
 import { annualSnapshot } from "@/lib/solar-analysis/annual-summary";
 import type { ReportBasis } from "@/lib/solar-analysis/report";
 import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId } from "@/lib/solar-analysis/models";
@@ -341,14 +342,14 @@ export default function SolarAnalysis() {
   });
 
   return (
-    <main className="v2-shell compact-analysis">
+    <main className="v2-shell compact-analysis" data-solar-authorized="true">
       <header className="v2-hero">
         <div>
           <p className="eyebrow">内部 · 专属估算</p>
           <h1>光伏与储能系统分析</h1>
           <p>从月账单、设备配置到全年逐时能量流，一页完成估算。</p>
         </div>
-        <div className="hero-actions"><button type="button" className="tour-launch" onClick={() => setTourStep(0)}>使用教程</button><Link href="/" className="secondary" aria-label="返回首页">返回首页</Link></div>
+        <div className="hero-actions"><OfflineTools /><button type="button" className="tour-launch" onClick={() => setTourStep(0)}>使用教程</button><Link href="/" className="secondary" aria-label="返回首页" prefetch={false}>返回首页</Link></div>
       </header>
 
       <div className="solar-workspace"><div className="solar-workspace-main">

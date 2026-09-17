@@ -1,0 +1,20 @@
+.offline-dialog { width: min(640px, calc(100vw - 24px)); text-align: left; }
+.offline-intro .eyebrow { color: #087b69; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.offline-intro { margin: 20px 0; }
+.offline-intro h3 { margin: 8px 0; font-size: 1.3rem; color: #073c3e; }
+.offline-intro p, .offline-notes { color: #526367; font-size: 14px; line-height: 1.8; }
+.offline-status { display: grid; gap: 8px; border: 1px solid #bcded3; border-radius: 14px; padding: 16px; background: #edf8f3; color: #155a49; }
+.offline-status small { font-size: 12px; overflow-wrap: anywhere; }
+.offline-status p { margin: 0; font-size: 13px; }
+.offline-status progress { width: 100%; height: 10px; accent-color: #087b69; }
+.offline-notes { padding-left: 20px; margin: 18px 0; }
+.offline-notes li { margin: 8px 0; }
+.offline-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 8px; }
+.offline-actions button { padding: 10px 14px; border-radius: 10px; background: #087b69; color: white; border: 1px solid #087b69; font-size: 14px; cursor: pointer; }
+.offline-actions button.secondary { color: #155a49; background: white; border-color: #bcded3; }
+.offline-actions button.offline-clear { color: #59656a; background: transparent; border-color: #d7dfdf; }
+.offline-actions button:disabled { opacity: .5; cursor: not-allowed; }
+.offline-error { color: #a23522; font-size: 14px; }
+.offline-installed { color: #087b69; font-size: 13px; }
+.offline-launch { white-space: nowrap; min-height: 40px; padding: 10px 14px; border: 1px solid #bcded3; border-radius: 8px; background: #edf8f3; color: #155a49; cursor: pointer; }
+@media (max-width: 600px) { .v2-hero .hero-actions { flex-wrap: wrap; } }

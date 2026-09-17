@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 type SolarAnalysisPageProps = {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; "offline-shell"?: string }>;
 };
 
 export default async function SolarAnalysisPage({
@@ -25,13 +25,15 @@ export default async function SolarAnalysisPage({
     cookieStore.get(SOLAR_ACCESS_COOKIE)?.value,
   );
 
+  const params = await searchParams;
+  const offlineShell = params["offline-shell"] === "1";
   if (unlocked) return <>
-    <SolarVisitTracker />
+    {!offlineShell && <SolarVisitTracker />}
     <SolarAnalysis />
-    {process.env.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics />}
+    {!offlineShell && process.env.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics />}
   </>;
 
-  const { error } = await searchParams;
+  const { error } = params;
   return (
     <main className="solar-lock-page">
       <section className="solar-lock-card" aria-labelledby="solar-lock-title">

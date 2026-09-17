@@ -21,3 +21,6 @@ supabase/functions/tally-webhook/*
 ticket-query-local/
 tsconfig.tsbuildinfo
 .vercel
+public/solar-analysis/offline-assets.json
+public/solar-analysis/icon-192.png
+public/solar-analysis/icon-512.png

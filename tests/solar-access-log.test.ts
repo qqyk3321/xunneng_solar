@@ -135,7 +135,8 @@ test("separate entries get fresh reporters; inactive/preloaded pages do not reco
 
 test("tracker is authorized-only and migration grants no browser access", () => {
   const page = readFileSync("app/solar-analysis/page.tsx", "utf8");
-  assert.match(page, /if \(unlocked\) return <>\s*<SolarVisitTracker \/>/);
+  assert.match(page, /if \(unlocked\) return <>\s*\{!offlineShell && <SolarVisitTracker \/>\}/);
+  assert.match(page, /const offlineShell = params\["offline-shell"\] === "1"/);
   assert.doesNotMatch(readFileSync("app/solar-analysis/actions.ts", "utf8"), /saveSolarVisit|handleSolarVisit/);
   assert.doesNotMatch(readFileSync("lib/solar-analysis/visit-client.ts", "utf8"), /supabase|SERVICE_ROLE|password/i);
   const migration = readFileSync("supabase/migrations/20260916161424_add_solar_analysis_access_logs.sql", "utf8");

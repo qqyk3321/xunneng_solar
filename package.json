@@ -8,6 +8,8 @@
     "test": "node scripts/test-unit.mjs",
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
+    "postbuild": "node scripts/solar/build-offline-assets.mjs",
+    "solar:offline": "node scripts/solar/build-offline-assets.mjs",
     "lint": "eslint app components hooks lib middleware.ts next.config.ts",
     "test:auth": "node --conditions=react-server --import tsx --test tests/auth-protection.test.ts",
     "test:auth:redis": "node --env-file=.env --conditions=react-server --import tsx --test tests/auth-protection.redis.test.ts"
@@ -53,6 +55,7 @@
     "eslint-config-next": "^15.5.2",
     "postcss": "^8.5.28",
     "sass": "^1.104.0",
+    "sharp": "0.35.4",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.23.13",
     "typescript": "^5.9.2"
