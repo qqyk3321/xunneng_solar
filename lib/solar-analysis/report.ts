@@ -1,6 +1,7 @@
 import { isApproximateNorth, modelId, type GenerationModel, type Installation, type SolarRegion } from "./models";
 import { annualBatteryUtilization, batteryOperatingWindow, DAYS, type EnergyMonth } from "./simulation";
 import { SUPPORT_EMAILS } from "../site-contact";
+import { normalizeReportText, reportCustomerTextError } from "./report-text";
 
 export const REPORT_VERSION = "Solar proposal / 3.0 (monthly-average-day)";
 export const REPORT_ADVISOR = "Sol & Tide Energy | Solar & Storage Advisory Team";
@@ -53,6 +54,8 @@ export function reportInstallation(i: Installation) {
 }
 
 export function createSolarReport(basis: ReportBasis, customer: ReportCustomer, generatedAt = new Date(), idSuffix = "") : SolarReport {
+  const textError = reportCustomerTextError(customer);
+  if (textError) throw new Error(textError);
   if (basis.installation.source !== "hoymiles" && basis.installation.region !== basis.billCountry) throw new Error("客户国家与安装参考地区不一致，请先更新方案后再生成报告。");
   if (basis.model.id !== modelId(basis.installation) || basis.model.source !== basis.installation.source) throw new Error("当前模型尚未就绪，请等待计算完成后重试。");
   const finite = (n: number) => Number.isFinite(n) && n >= 0;
@@ -64,7 +67,7 @@ export function createSolarReport(basis: ReportBasis, customer: ReportCustomer, 
       m.hourly.some(h => ![h.load, h.generation, h.pvDirect, h.battery, h.batteryCharge, h.grid, h.export].every(finite)))) throw new Error("报告数据不完整，请重新加载模型。");
   if (![basis.inputValue, basis.monthlyInputKwh, basis.inverterKw, basis.batteryKwh, basis.panelW, basis.oversize, basis.panelCount, basis.capacityKwp].every(finite) || basis.profileValues.length !== 24 || !basis.profileValues.every(finite) || basis.profileValues.reduce((a,b) => a+b,0) <= 0) throw new Error("报告参数无效。");
   if (![basis.inverterKw, basis.panelW, basis.oversize, basis.panelCount, basis.capacityKwp].every(n => n > 0) || !Number.isInteger(basis.panelCount)) throw new Error("报告设备参数无效。");
-  const clean = (s: string, max: number) => s.replace(/[\u0000-\u001f\u007f-\u009f]/g, " ").trim().slice(0, max);
+  const clean = (s: string, max: number) => normalizeReportText(s).slice(0, max);
   const frozen = structuredClone(basis);
   const sum = (key: keyof ReportMonth) => basis.months.reduce((a, m) => a + Number(m[key]), 0);
   const consumption = sum("consumption"), generation = sum("generation"), grid = sum("grid"), exported = sum("export");

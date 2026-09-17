@@ -8,8 +8,11 @@ The calculator and PDF code are shared with the online page.
 
 1. Open the page online and pass the existing server-side password check.
 2. Choose **离线使用 → 启用离线使用**. Read the trusted-device notice.
-3. Wait for **离线资源完整**. The initial pack is about 15 MB uncompressed,
-   including the CJK report font, charts, PDF renderer/worker, tour, and models.
+3. Wait for **离线资源完整**. The English-report pack is under 5 MiB uncompressed,
+   including the small brand font, charts, PDF renderer/worker, tour, and models.
+   Customer names/addresses support English and Helvetica's common Latin
+   characters (e.g. José, Renée); unsupported characters are rejected before
+   loading the PDF tools. The Chinese font and fontkit dependency are removed.
 4. Optionally choose **安装到桌面**. Installation UI depends on the browser;
    a bookmark also works. Installing alone does not download the offline pack.
 5. Reopen the same origin offline, adjust parameters and generate/download PDFs.
@@ -91,9 +94,17 @@ SOLAR_LOG_TEST_ORIGIN=http://localhost:3017 \
 
 The browser test uses a temporary persistent profile, intercepts logging, clears
 HTTP/model caches, restarts Chromium offline, then checks charts, parameters,
-tutorial, a Chinese-named 7-page A4 report, scoped control and online revocation.
+tutorial, an English/Latin-named 7-page A4 report, scoped control and online revocation.
 Unit tests cover authorization, partial/corrupt downloads, atomic replacement,
 cache eviction, invalid manifests and unrelated-cache preservation.
 
 Native installation dialogs and iOS/Safari behavior still need device testing;
 Chromium's automated offline tests cannot prove every platform's install UX.
+
+## Updating an older offline installation
+
+An already-installed 15 MiB pack is not silently removed while offline. After
+deployment, open the site online and use **检查更新并重新下载**. One prior pack is
+normally retained for open tabs. To reclaim the old Chinese font immediately,
+use **清除离线资源** and then enable offline use again. Downloaded customer PDFs
+are unaffected. The removed font can be recovered from Git history if needed.

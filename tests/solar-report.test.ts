@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { PDFDocument, StandardFonts } from "pdf-lib";
+import { isReportTextSupported, normalizeReportText, reportCustomerTextError } from "../lib/solar-analysis/report-text";
 import { createReportIdSuffix, createSolarReport, reportContact, reportInstallation, REPORT_ADVISOR, type ReportBasis } from "../lib/solar-analysis/report";
 import { DEFAULT_INSTALLATION } from "../lib/solar-analysis/models";
 import { DAYS } from "../lib/solar-analysis/simulation";
@@ -15,7 +17,7 @@ const basis = (): ReportBasis => ({
     hourly:Array.from({length:24},(_,hour)=>({hour,load:1,generation:2,pvDirect:1,battery:0,batteryCharge:.5,grid:0,export:.5,soc:1})),
   })),
 });
-const customer={name:"张伟 / José",address:"St John's"};
+const customer={name:"Jane / José",address:"St John's"};
 
 test("reports preserve SOC settings and day-weight monthly battery utilization, including no battery", () => {
   const input = basis(); input.reserveSocPercent = 20;
@@ -42,7 +44,7 @@ test("report references work without secure-context randomUUID or the crypto API
 test("report is a detached snapshot and uses the selected country's already-computed monthly bills",()=>{
   const input=basis();const report=createSolarReport(input,customer,new Date("2026-09-17T12:00:00Z"),"abc123");
   assert.equal(report.id,"ST-20260917120000-ABC123");assert.equal(report.totals.consumption,3650);assert.equal(report.totals.savedCost,3650);assert.equal(report.totals.baselineCost,4380);
-  assert.equal(report.customer.name,"张伟 / José");assert.equal(report.totals.selfUsePercent,45);assert.ok(Math.abs(report.totals.exportPercent-55)<1e-8);
+  assert.equal(report.customer.name,"Jane / José");assert.equal(report.totals.selfUsePercent,45);assert.ok(Math.abs(report.totals.exportPercent-55)<1e-8);
   input.months[0].hourly[0].load=999;input.installation.tilt=0;input.profileValues[0]=999;
   assert.equal(report.months[0].hourly[0].load,1);assert.equal(report.installation.tilt,30);assert.equal(report.profileValues[0],1);
   const other=basis();other.billCountry="dominica";other.installation.region="dominica";other.model.id="dominica/south/tilt-30";const regional=createSolarReport(other,customer);
@@ -50,7 +52,7 @@ test("report is a detached snapshot and uses the selected country's already-comp
 });
 test("customer proposals use one country, respectful salutations, fixed regional projects and company sign-off",()=>{
   const report=createSolarReport(basis(),{...customer,title:"Dr."});
-  assert.equal(report.customer.salutation,"Dear Dr. 张伟 / José,");
+  assert.equal(report.customer.salutation,"Dear Dr. Jane / José,");
   assert.equal(report.customer.project,"Antigua Residential Solar PV Project");
   assert.equal(report.customer.preparedBy,REPORT_ADVISOR);
   assert.equal(createSolarReport(basis(),{name:"",address:""}).customer.salutation,"Dear Valued Customer,");
@@ -71,14 +73,34 @@ test("report descriptions preserve unknown legacy geometry and near-north PVGIS 
   assert.match(reportInstallation({...DEFAULT_INSTALLATION,tilt:0}),/orientation not applicable/);
   assert.match(reportInstallation({...DEFAULT_INSTALLATION,source:"pvgis-era5",orientation:"north"}),/1 degree east/);
 });
-test("PDF, preview and CJK font code are loaded only inside report actions, with no server report endpoint",()=>{
+test("PDF and preview remain on-demand, without CJK font code or assets",()=>{
   const client=readFileSync("app/solar-analysis/solar-analysis-client.tsx","utf8");
   assert.match(client,/await import\("\.\/report-dialog"\)/);assert.doesNotMatch(client,/^import .*from ["'].*report-dialog/m);
   const dialog=readFileSync("app/solar-analysis/report-dialog.tsx","utf8");
   assert.match(dialog,/await import\("\.\/report-pdf"\)/);assert.match(dialog,/await import\("\.\/report-preview"\)/);assert.match(dialog,/beforeunload/);
   assert.doesNotMatch(dialog,/fetch\(/);
   const pdf=readFileSync("app/solar-analysis/report-pdf.ts","utf8");
-  assert.match(pdf,/subset: false/,"Keep full CJK glyphs: subset output can extract correctly yet render incorrectly");
+  assert.doesNotMatch(pdf,/fontkit|report-noto|registerFontkit/);
+  assert.equal(existsSync("public/fonts/report-noto-sans-sc-v1.ttf"),false);
+  assert.equal(JSON.parse(readFileSync("package.json","utf8")).dependencies["@pdf-lib/fontkit"],undefined);
+  for(const file of ["scripts/solar/build-offline-assets.mjs","public/solar-analysis/sw.js","next.config.ts"])assert.doesNotMatch(readFileSync(file,"utf8"),/report-noto/);
   assert.match(pdf,/report-space-grotesk-v1\.ttf/);
   assert.match(pdf,/width = 595\.28, height = 841\.89/,"One fixed A4 portrait page factory");
+});
+
+test("English report form validation matches Helvetica and keeps accented Latin names",async()=>{
+  const pdf=await PDFDocument.create();const font=await pdf.embedFont(StandardFonts.Helvetica);
+  const supported=new Set(font.getCharacterSet());
+  for(let code=0x20;code<0x2200;code++){
+    const value=String.fromCodePoint(code);
+    const expected=Array.from(normalizeReportText(value)).every(c=>supported.has(c.codePointAt(0)!));
+    assert.equal(isReportTextSupported(value),expected,`Character U+${code.toString(16)}`);
+  }
+  assert.equal(reportCustomerTextError({name:"José / Renée O’Connor",address:"12 Queen’s Road – St John’s"}),"");
+  const report=createSolarReport(basis(),{name:"Jose\u0301",address:"  St John's\nAntigua  "});
+  assert.equal(report.customer.name,"José");assert.equal(report.customer.address,"St John's Antigua");
+  for(const text of ["张伟","😀","Ж","ع","Ā"]){
+    assert.throws(()=>createSolarReport(basis(),{name:text,address:""}),/报告仅支持英文/);
+    assert.throws(()=>createSolarReport(basis(),{name:"Jane",address:text}),/报告仅支持英文/);
+  }
 });

@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
     ] }, { source: "/solar-analysis/offline-assets.json", headers: [
       { key: "Cache-Control", value: "no-store" },
       { key: "X-Robots-Tag", value: "noindex" },
-    ] }, ...brandHeaders, ...["/fonts/report-noto-sans-sc-v1.ttf", "/fonts/report-space-grotesk-v1.ttf"].map(source=>({
+    ] }, ...brandHeaders, ...["/fonts/report-space-grotesk-v1.ttf"].map(source=>({
       source,
       headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
     }))];

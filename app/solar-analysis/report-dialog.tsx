@@ -6,6 +6,7 @@ import { SiteLoadingVisual } from "@/components/site-loading-visual";
 import { createReportIdSuffix, createSolarReport, reportProject, REPORT_ADVISOR, REPORT_PAGES, REPORT_TITLES, REPORT_REGIONS, type ReportBasis, type ReportCustomer, type SolarReport } from "@/lib/solar-analysis/report";
 import type { SolarRegion } from "@/lib/solar-analysis/models";
 import { batteryOperatingWindow } from "@/lib/solar-analysis/simulation";
+import { isReportTextSupported, reportCustomerTextError } from "@/lib/solar-analysis/report-text";
 import type { ReportProgress } from "./report-pdf";
 import "./report.css";
 
@@ -22,6 +23,7 @@ export default function ReportDialog({ basis, onClose, onApplyCountry }: { basis
   const controller = useRef<AbortController | null>(null);
   const ownedUrls = useRef<string[]>([]);
   const mismatch = basis.installation.source !== "hoymiles" && basis.installation.region !== country;
+  const customerError = reportCustomerTextError(customer);
   const disposeUrls = () => { ownedUrls.current.forEach(url=>URL.revokeObjectURL(url)); ownedUrls.current=[]; };
   useEffect(() => () => {controller.current?.abort();disposeUrls();}, []);
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function ReportDialog({ basis, onClose, onApplyCountry }: { basis
   },[busy]);
 
   async function generate() {
-    if(controller.current || mismatch)return;
+    if(controller.current || mismatch || customerError)return;
     const abort=new AbortController();controller.current=abort;setBusy(true);setError("");disposeUrls();setOutput(null);
     setProgress({percent:0,message:"正在加载报告工具…"});
     const timer=window.setTimeout(()=>abort.abort(new Error("生成时间过长，请检查网络后重试。")),180000);
@@ -64,17 +66,19 @@ export default function ReportDialog({ basis, onClose, onApplyCountry }: { basis
   return <AnalysisDialog title={output?"客户方案报告预览":"生成客户方案报告"} onClose={onClose} closeDisabled={busy} className={`report-dialog ${output?"report-preview-dialog":""}`}>
     {!output && !busy && <form className="report-form" onSubmit={event=>{event.preventDefault();void generate();}}>
       <p className="report-intro">正式英文售前方案 · 7 页 A4 · 先展示设备方案与年度节省，再展开配置、逐月分析及客户服务。客户信息仅用于本次文件，不上传服务器。</p>
+      <p id="report-language-note" className="report-intro">客户姓名与地址请使用英文；支持 José、Renée 等常见拉丁字母姓名。不再加载中文字库。</p>
       <fieldset className="report-country"><legend>客户所属国家（单选）</legend>{(["antigua","dominica"] as const).map(value=><label key={value}><input type="radio" name="report-country" value={value} checked={country===value} onChange={()=>setCountry(value)}/>{value==="antigua"?"安提瓜 · Antigua":"多米尼克 · Dominica"}</label>)}</fieldset>
       <div className="report-fields">
         <label className="v2-field"><span>客户称谓</span><select aria-label="客户称谓" value={customer.title} onChange={e=>setCustomer({...customer,title:e.target.value as ReportCustomer["title"]})}>{REPORT_TITLES.map(value=><option key={value} value={value}>{value||"中性称呼（不指定头衔）"}</option>)}</select></label>
-        <label className="v2-field"><span>客户名称<small>（选填）</small></span><input maxLength={80} value={customer.name} onChange={e=>setCustomer({...customer,name:e.target.value})} placeholder="例如 Jane Morris（不重复填写称谓）"/></label>
-        <label className="v2-field report-wide"><span>安装地址 / 项目地点<small>（选填）</small></span><input maxLength={180} value={customer.address} onChange={e=>setCustomer({...customer,address:e.target.value})}/></label>
+        <label className="v2-field"><span>客户名称<small>（选填）</small></span><input maxLength={80} value={customer.name} onChange={e=>setCustomer({...customer,name:e.target.value})} placeholder="例如 Jane Morris（不重复填写称谓）" aria-invalid={!isReportTextSupported(customer.name) || undefined} aria-describedby={customerError ? "report-character-error" : "report-language-note"}/></label>
+        <label className="v2-field report-wide"><span>安装地址 / 项目地点<small>（选填）</small></span><input maxLength={180} value={customer.address} onChange={e=>setCustomer({...customer,address:e.target.value})} placeholder="例如 St John's, Antigua" aria-invalid={!isReportTextSupported(customer.address) || undefined} aria-describedby={customerError ? "report-character-error" : "report-language-note"}/></label>
       </div>
       <div className="report-correspondence"><span>称呼预览：{customer.name.trim()?`Dear ${customer.title?customer.title+" ":""}${customer.name.trim()},`:"Dear Valued Customer,"}</span><span>项目：{reportProject(country)}</span><span>方案顾问 / 落款：{REPORT_ADVISOR}</span></div>
       <div className="report-snapshot"><strong>本次方案</strong><span>逆变器 {basis.inverterKw} kW · 电池 {basis.batteryKwh} kWh · 光伏 {basis.panelCount} × {basis.panelW} W（{basis.capacityKwp.toFixed(2)} kWp）</span>{basis.batteryKwh > 0 && <span>SOC 保留 {basis.reserveSocPercent}% · 可用容量 {batteryOperatingWindow(basis.batteryKwh, basis.reserveSocPercent).usableKwh.toFixed(2)} kWh；报告包含每月及年均电池利用率。</span>}<span>客户国家 / 电费参考：{REPORT_REGIONS[country]} · EC$（东加勒比元）</span><small>全部 A4 竖版；月份图分两页，每页 2 列 × 3 行。不包含右侧浮窗、教程与操作按钮。</small></div>
       {mismatch&&<div className="report-warning" role="alert"><span>该客户国家与当前气象参考地区不同。请先更新方案，避免混用两地数据。</span><button type="button" className="report-secondary" onClick={()=>onApplyCountry(country)}>应用客户国家并返回更新方案</button></div>}
       {error&&<p role="alert" className="report-error">{error}</p>}
-      <div className="report-actions"><button type="button" className="report-secondary" onClick={onClose}>取消</button><button type="submit" className="report-primary" disabled={mismatch}>生成并预览 PDF</button></div>
+      {customerError&&<p id="report-character-error" role="alert" className="report-error">{customerError}</p>}
+      <div className="report-actions"><button type="button" className="report-secondary" onClick={onClose}>取消</button><button type="submit" className="report-primary" disabled={mismatch || Boolean(customerError)}>生成并预览 PDF</button></div>
     </form>}
     {busy&&<section className="report-generating" data-testid="report-brand-loading">
       <SiteLoadingVisual embedded label="正在生成客户方案报告" caption="Your personal energy proposal">

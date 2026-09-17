@@ -12,7 +12,7 @@ self.addEventListener('activate', event => event.waitUntil(self.clients.claim())
 const isHome = url => url.origin === self.location.origin && (url.pathname === HOME || url.pathname === HOME + '/');
 const allowedAsset = path => /^\/_next\/static\/(?:chunks|css|media)\/[\w./-]+$/.test(path)
   || /^\/solar-data\/models\.[a-f0-9]+\.json$/.test(path)
-  || ['/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/fonts/report-noto-sans-sc-v1.ttf', '/solar-analysis/icon-192.png', '/solar-analysis/icon-512.png', '/solar-analysis/manifest.webmanifest'].includes(path);
+  || ['/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/solar-analysis/icon-192.png', '/solar-analysis/icon-512.png', '/solar-analysis/manifest.webmanifest'].includes(path);
 
 async function state() {
   const response = await (await caches.open(CONTROL)).match(STATE);

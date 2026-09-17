@@ -1,6 +1,7 @@
 import { PDFDocument, PDFString, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { SOURCES } from "@/lib/solar-analysis/models";
 import { batteryOperatingWindow } from "@/lib/solar-analysis/simulation";
+import { REPORT_TEXT_MESSAGE } from "@/lib/solar-analysis/report-text";
 import { reportContact, REPORT_PROFILES, REPORT_REGIONS, REPORT_SOURCES, type SolarReport } from "@/lib/solar-analysis/report";
 import { annualReportOption, FLOW_LEGEND, hourlyReportOption, MONTH_NAMES, profileReportOption, reportChartPng } from "./report-charts";
 
@@ -43,19 +44,11 @@ export async function generateReportPdf(r: SolarReport, progress: (p: ReportProg
   pdf.setSubject(`Solar and storage estimate ${r.id}`); pdf.setCreator(r.version); pdf.setLanguage("en");
   pdf.setCreationDate(new Date(r.generatedAt)); pdf.setModificationDate(new Date(r.generatedAt));
   const regular = await pdf.embedFont(StandardFonts.Helvetica), bold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  let customerFont = regular;
+  const customerFont = regular;
   const customerText = Object.values(r.customer).join(" ");
   const supported = new Set(regular.getCharacterSet());
   if (Array.from(customerText).some(c => !supported.has(c.codePointAt(0)!))) {
-    await stage(7, "正在加载客户名称所需的中文字体（首次可能较慢）…");
-    const [fontkit, fontResponse] = await Promise.all([import("@pdf-lib/fontkit"), fetch("/fonts/report-noto-sans-sc-v1.ttf", { signal })]);
-    if (!fontResponse.ok) throw new Error("报告字体加载失败，请重试。");
-    pdf.registerFontkit(fontkit.default);
-    // Keep the complete CJK font: fontkit's subsetter drops composite glyphs in
-    // this font, even when text extraction still appears correct.
-    customerFont = await pdf.embedFont(await fontResponse.arrayBuffer(), { subset: false });
-    const chars = new Set(customerFont.getCharacterSet());
-    if (Array.from(customerText).some(c => !chars.has(c.codePointAt(0)!))) throw new Error("客户信息包含字体不支持的字符（如 emoji），请改用文字后重试。");
+    throw new Error(REPORT_TEXT_MESSAGE);
   }
   const logo = await pdf.embedPng(await logoPng(signal));
   const date = new Intl.DateTimeFormat("en-GB", { timeZone: "America/Antigua", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(r.generatedAt)) + " UTC-04:00";

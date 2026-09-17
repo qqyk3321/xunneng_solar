@@ -31,7 +31,7 @@ const workers = media.filter(file => /^pdf\.worker\..*\.mjs$/.test(file));
 if (workers.length !== 1) throw new Error('Expected one PDF preview worker');
 workers.forEach(file => files.add(`static/media/${file}`));
 const table = await readJson('lib/solar-analysis/model-table-manifest.json');
-const publicPaths = [table.url, '/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/fonts/report-noto-sans-sc-v1.ttf', '/solar-analysis/icon-192.png', '/solar-analysis/icon-512.png', '/solar-analysis/manifest.webmanifest'];
+const publicPaths = [table.url, '/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/solar-analysis/icon-192.png', '/solar-analysis/icon-512.png', '/solar-analysis/manifest.webmanifest'];
 const assets = [];
 for (const [url, file] of [
   ...[...files].map(file => [`/_next/${file}`, `.next/${file}`]),
