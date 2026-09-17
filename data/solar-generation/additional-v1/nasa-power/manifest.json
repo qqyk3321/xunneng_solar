@@ -1,0 +1,443 @@
+{
+  "schema_version": 2,
+  "source": "nasa-power",
+  "status": "complete",
+  "expected_models": 36,
+  "year": 2022,
+  "started_at": "2026-09-17T04:55:30.978305+00:00",
+  "models": [
+    {
+      "id": "nasa-power/antigua/north/tilt-10",
+      "runtime": "antigua/north/tilt-10/hourly.json.gz",
+      "runtime_sha256": "01cce996122ffb5ec1a9121b44b6fc4177b13e31699f4717e9284c454281e4d6",
+      "curve": "antigua/north/tilt-10/curve.json",
+      "curve_sha256": "d69fc9730706871f67f467b8b486f907434ec77ac3bb1bb46493830ba640d345",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1439.9408047245877
+    },
+    {
+      "id": "nasa-power/antigua/north/tilt-15",
+      "runtime": "antigua/north/tilt-15/hourly.json.gz",
+      "runtime_sha256": "e40c8c0d055460b221c1c79f5b0b7557f3514ee2514c524eaf69f6d8e1adcb80",
+      "curve": "antigua/north/tilt-15/curve.json",
+      "curve_sha256": "f51a7e1fba8f22ffe40734d63f20c1268edc1b5ff419c9e9a3c6779a25f12bb8",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1392.6683860348585
+    },
+    {
+      "id": "nasa-power/antigua/north/tilt-20",
+      "runtime": "antigua/north/tilt-20/hourly.json.gz",
+      "runtime_sha256": "a279d5a33a10828bd8aaa1e247f0fd7a0f1589eced691986374a73cf84fe679e",
+      "curve": "antigua/north/tilt-20/curve.json",
+      "curve_sha256": "210521bd4c74083128558666607c92c39c53b3008b40808cb5908f536c0b903e",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1338.0125828832627
+    },
+    {
+      "id": "nasa-power/antigua/north/tilt-30",
+      "runtime": "antigua/north/tilt-30/hourly.json.gz",
+      "runtime_sha256": "c4e415be3ab246cf622a531bf3c55d60a3a20526804f37ff8135275cc7d8e6b9",
+      "curve": "antigua/north/tilt-30/curve.json",
+      "curve_sha256": "1f976b64320c51356412e508d5e563fe04359233ec8682c0e04a7f098c6d537f",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1209.4122985545118
+    },
+    {
+      "id": "nasa-power/antigua/east/tilt-10",
+      "runtime": "antigua/east/tilt-10/hourly.json.gz",
+      "runtime_sha256": "73d68b3a7b64467616e21a16a91b6dd7843501817feeb6b8611ad47a56ae4d70",
+      "curve": "antigua/east/tilt-10/curve.json",
+      "curve_sha256": "30a34d63bc44ddb71b280730c09c08ca5ab18925e7ee1f6e181e684c31f45fb6",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1496.7379608966935
+    },
+    {
+      "id": "nasa-power/antigua/east/tilt-15",
+      "runtime": "antigua/east/tilt-15/hourly.json.gz",
+      "runtime_sha256": "0fc7870475cd0eb7912fa9db893e1d4ddea57446c341900532d51de2e14bd8a9",
+      "curve": "antigua/east/tilt-15/curve.json",
+      "curve_sha256": "a721ee4e9aaefc53912cc09caf620ebe0df3e93ad71d7bb0e028b58ac8f6f4e9",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1480.475918853018
+    },
+    {
+      "id": "nasa-power/antigua/east/tilt-20",
+      "runtime": "antigua/east/tilt-20/hourly.json.gz",
+      "runtime_sha256": "6468c647e226e4c075b192f1945409ba76da9211125493bb94129caedfae7a45",
+      "curve": "antigua/east/tilt-20/curve.json",
+      "curve_sha256": "c77f586b5645a18c17697772739b6f8f59d8d8e6c49d6b9de1a1e9aa5e40162b",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1458.3230875746526
+    },
+    {
+      "id": "nasa-power/antigua/east/tilt-30",
+      "runtime": "antigua/east/tilt-30/hourly.json.gz",
+      "runtime_sha256": "ae3ab80e7107b03d2fb5b720325d30d2ce175cc82d4e72c79ac9da93d6680d1e",
+      "curve": "antigua/east/tilt-30/curve.json",
+      "curve_sha256": "e0e2ea63da36a0941e10c466329dd33a2c3a608c5264a0b7b9828378c40f865a",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1400.1835145116086
+    },
+    {
+      "id": "nasa-power/antigua/south/tilt-10",
+      "runtime": "antigua/south/tilt-10/hourly.json.gz",
+      "runtime_sha256": "cd707d965f6e6000d1d7c522a9a8e7ca7d6a34cfd84269ec24441150beb56d41",
+      "curve": "antigua/south/tilt-10/curve.json",
+      "curve_sha256": "6be91117073ef40131c8b080440ecc0f2eea3adfd164e9641a049811a7cf6653",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1548.5735126994516
+    },
+    {
+      "id": "nasa-power/antigua/south/tilt-15",
+      "runtime": "antigua/south/tilt-15/hourly.json.gz",
+      "runtime_sha256": "dc3f030ccf424ab0b20a6f6fd845aa85050ecd034a44b39377e57d8f2c92011f",
+      "curve": "antigua/south/tilt-15/curve.json",
+      "curve_sha256": "60538df2f26e9a46fdeaa6cb396bf228b1ff1f195a8843a2b2c93475188afe07",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1555.0625843587666
+    },
+    {
+      "id": "nasa-power/antigua/south/tilt-20",
+      "runtime": "antigua/south/tilt-20/hourly.json.gz",
+      "runtime_sha256": "b431655e9345f1fcdcaf1c5aa2d67c244c064fde85eedad9f52573e511f5e012",
+      "curve": "antigua/south/tilt-20/curve.json",
+      "curve_sha256": "2a4afa3b7b03128514715bdfa6afd37a92562fa4f56c38cb87692bea4c0706ab",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1553.1632378810393
+    },
+    {
+      "id": "nasa-power/antigua/south/tilt-30",
+      "runtime": "antigua/south/tilt-30/hourly.json.gz",
+      "runtime_sha256": "d2b778955d7137a596851aaaaaaf9206e699b0789dd7f0ffdaee7f87256f91ee",
+      "curve": "antigua/south/tilt-30/curve.json",
+      "curve_sha256": "e9a3827f730c655623283ce2fc7630a0684e3e8e189682a0cac362c43d0c684e",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1524.7865852497116
+    },
+    {
+      "id": "nasa-power/antigua/west/tilt-10",
+      "runtime": "antigua/west/tilt-10/hourly.json.gz",
+      "runtime_sha256": "b7e2962d9e08869a0843f4d3c1795d36c903499323d155e29e76db92ba8ecb79",
+      "curve": "antigua/west/tilt-10/curve.json",
+      "curve_sha256": "50679ee0784d57ab3c96c3b003157cd38c7392065e2ff037f3defec855c66437",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1494.4145997206506
+    },
+    {
+      "id": "nasa-power/antigua/west/tilt-15",
+      "runtime": "antigua/west/tilt-15/hourly.json.gz",
+      "runtime_sha256": "7eaba0eba3425848c57ddafd68bce1eea5c7938b3c1886daef28e8a11c10384c",
+      "curve": "antigua/west/tilt-15/curve.json",
+      "curve_sha256": "bac4bd5371f5370ba02fe85766476c4c70cbcff10ed202bfe47aac7b8589ff21",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1477.0623552524326
+    },
+    {
+      "id": "nasa-power/antigua/west/tilt-20",
+      "runtime": "antigua/west/tilt-20/hourly.json.gz",
+      "runtime_sha256": "f519da00d2abf33161a4e83fd1363c6b84fda323e802b23e43ef8d9e9d18a22e",
+      "curve": "antigua/west/tilt-20/curve.json",
+      "curve_sha256": "a71d90ab9ccaf494458ede17051600b3d22694a8076ede7f7e1f5d06783f9731",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1453.373017998531
+    },
+    {
+      "id": "nasa-power/antigua/west/tilt-30",
+      "runtime": "antigua/west/tilt-30/hourly.json.gz",
+      "runtime_sha256": "ca73525de0ef0a94b8bd55bf009c8bfe1e12873549f0e8cc8711c1e48fc7fb3b",
+      "curve": "antigua/west/tilt-30/curve.json",
+      "curve_sha256": "01d20b0b7f3e65c70345413a85f26aa4b1fb4e7f0b3f522db7f781906e7eacb6",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1394.1324487370114
+    },
+    {
+      "id": "nasa-power/antigua/horizontal/tilt-0/roof",
+      "runtime": "antigua/horizontal/tilt-0/roof/hourly.json.gz",
+      "runtime_sha256": "1cb77ad6c99a3362edb98b01223081a313ac087dc61d236fd26115ff53bae2e5",
+      "curve": "antigua/horizontal/tilt-0/roof/curve.json",
+      "curve_sha256": "378db85f334c85bb5ca7b63ba847e94f83f25b2361db4b2ccdf48df9ae888ab5",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1510.5758062817733
+    },
+    {
+      "id": "nasa-power/antigua/horizontal/tilt-0/open-rack",
+      "runtime": "antigua/horizontal/tilt-0/open-rack/hourly.json.gz",
+      "runtime_sha256": "bfe659b485ccd8e39d80628ec18033daae6336365d656ebfee03e19fdfe4c8b2",
+      "curve": "antigua/horizontal/tilt-0/open-rack/curve.json",
+      "curve_sha256": "7d21f895a1208f8e9ead2ae861a9777e82a0ceca0edfd2d6c654f5cefd52024f",
+      "raw_sha256": {
+        "weather/antigua/20220101-20221231.json.gz": "03a7630dc4fee23104019b9bae4ecfccd877cbe2735998d88ec6308ce4fbb680",
+        "weather/antigua/20230101-20230101.json.gz": "1244eb9759acfbaaabbff7e821b735f4c0175fb834bfd66b9c68a36354786fb6"
+      },
+      "annual_generation_kwh": 1572.7447703721234
+    },
+    {
+      "id": "nasa-power/dominica/north/tilt-10",
+      "runtime": "dominica/north/tilt-10/hourly.json.gz",
+      "runtime_sha256": "5f60dd6bdffde9d669dcf259a828189517f494e77ebd99249b7a2f7cd5911886",
+      "curve": "dominica/north/tilt-10/curve.json",
+      "curve_sha256": "f4ec222014918bcf3890965c237314c6ee9b3afc48f171be61db6947410159d2",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1405.7456383587812
+    },
+    {
+      "id": "nasa-power/dominica/north/tilt-15",
+      "runtime": "dominica/north/tilt-15/hourly.json.gz",
+      "runtime_sha256": "95c9768076d8e0e347048323828bdc55871dc7b0e7768ba766ad19ed76e15be8",
+      "curve": "dominica/north/tilt-15/curve.json",
+      "curve_sha256": "672a063be2b3fd9d42bf279b51c75211fc05ae76338a57ccb9edd796e28ffeda",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1362.371257545088
+    },
+    {
+      "id": "nasa-power/dominica/north/tilt-20",
+      "runtime": "dominica/north/tilt-20/hourly.json.gz",
+      "runtime_sha256": "20af840b5c17b1da0247505a1791a74f44b70eda33b08afdbc1f77b697c9a9cc",
+      "curve": "dominica/north/tilt-20/curve.json",
+      "curve_sha256": "38507fc0acaa5cf874b5922131e29f56a97bc71d74240047591153eeb2bc1d11",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1311.6860023623728
+    },
+    {
+      "id": "nasa-power/dominica/north/tilt-30",
+      "runtime": "dominica/north/tilt-30/hourly.json.gz",
+      "runtime_sha256": "63fb515594640f0b5ae1724feed4cc28e5abd99afad9a91003924f45d48fcd0d",
+      "curve": "dominica/north/tilt-30/curve.json",
+      "curve_sha256": "e40a37d1bc712aa7a0e5683a8a82db615e073e682ad48718ad58547c5a13d301",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1191.872146168997
+    },
+    {
+      "id": "nasa-power/dominica/east/tilt-10",
+      "runtime": "dominica/east/tilt-10/hourly.json.gz",
+      "runtime_sha256": "a66d8ad68bcbdfaf5ebfd2c819283afe38aa9ec2ee22137cb1b43351c1edeff0",
+      "curve": "dominica/east/tilt-10/curve.json",
+      "curve_sha256": "048d7be65546f15c35ce5230218433ab7a62bd71668f7a254c929a001f1b27a2",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1456.4149824949757
+    },
+    {
+      "id": "nasa-power/dominica/east/tilt-15",
+      "runtime": "dominica/east/tilt-15/hourly.json.gz",
+      "runtime_sha256": "c762cff9adadf4cce40b84a016234f527937aea2cb580bf26248b42f7421d775",
+      "curve": "dominica/east/tilt-15/curve.json",
+      "curve_sha256": "9b17334d706e044712b71a19bbbbfb17d43d0c5d392d80bc2a44d9e57fde4ba3",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1440.6315023392183
+    },
+    {
+      "id": "nasa-power/dominica/east/tilt-20",
+      "runtime": "dominica/east/tilt-20/hourly.json.gz",
+      "runtime_sha256": "72c0257cd68fcdab67e233d4f344e2277cb4304934d633258d6ccd4d775fcf92",
+      "curve": "dominica/east/tilt-20/curve.json",
+      "curve_sha256": "b71abe8112cfc07663376c2f163676254e380797b5e898547e9c8b00101d2175",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1418.9027375005692
+    },
+    {
+      "id": "nasa-power/dominica/east/tilt-30",
+      "runtime": "dominica/east/tilt-30/hourly.json.gz",
+      "runtime_sha256": "3dd0d872b265a48b71a8338f44a02e1f9ba7f77a6cd689e2a9da4a7b8c8f186c",
+      "curve": "dominica/east/tilt-30/curve.json",
+      "curve_sha256": "6897d443589bf1a48801fe30383c23846060edb1e4b87512afe655f5157fac3b",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1362.3129154463527
+    },
+    {
+      "id": "nasa-power/dominica/south/tilt-10",
+      "runtime": "dominica/south/tilt-10/hourly.json.gz",
+      "runtime_sha256": "f077f5a1e85637c4ead16bd6ed9d80896ba64e5b426f1f295eca3cb9359cf7da",
+      "curve": "dominica/south/tilt-10/curve.json",
+      "curve_sha256": "80d53236c5f174bc66b15340cf4d13182266af215e251c66948597737abc4a41",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1502.648277829391
+    },
+    {
+      "id": "nasa-power/dominica/south/tilt-15",
+      "runtime": "dominica/south/tilt-15/hourly.json.gz",
+      "runtime_sha256": "34ddf131b533096b8d70b15010dc9bef62dfc677d37926940e73568f7bacfda5",
+      "curve": "dominica/south/tilt-15/curve.json",
+      "curve_sha256": "bfc7f34f026cf8a124d3b1d98ececdaf0c252498cb24db3d1d0ccbc48b591103",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1507.2150336974037
+    },
+    {
+      "id": "nasa-power/dominica/south/tilt-20",
+      "runtime": "dominica/south/tilt-20/hourly.json.gz",
+      "runtime_sha256": "ead3d91a4b015527962fccb7a74283bea8983fb6e7a2f6f4cf13282b4fb219e3",
+      "curve": "dominica/south/tilt-20/curve.json",
+      "curve_sha256": "1097c191e91744c21f1556f3637706eec82ca73959ce47d72fe6ebc3dfae394f",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1503.7979844270433
+    },
+    {
+      "id": "nasa-power/dominica/south/tilt-30",
+      "runtime": "dominica/south/tilt-30/hourly.json.gz",
+      "runtime_sha256": "d3917fe74682f70f01d42deb371f187e43d40da4cb1ba75d3f77d9caebdcc235",
+      "curve": "dominica/south/tilt-30/curve.json",
+      "curve_sha256": "9d6305efdf5b7a9309c4cfb42df9a13fdf5333269dde7a505a270eb234c4e993",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1473.5890481308386
+    },
+    {
+      "id": "nasa-power/dominica/west/tilt-10",
+      "runtime": "dominica/west/tilt-10/hourly.json.gz",
+      "runtime_sha256": "710854329ad87f8071e31a4db9f5701532513adf1fb3c0a3778ac8abcb65aee4",
+      "curve": "dominica/west/tilt-10/curve.json",
+      "curve_sha256": "ba859d9ddc0ba13dd982b166f7cc715a8ae2e62ac09190dd5986c18042d2991d",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1454.3804678854533
+    },
+    {
+      "id": "nasa-power/dominica/west/tilt-15",
+      "runtime": "dominica/west/tilt-15/hourly.json.gz",
+      "runtime_sha256": "244fd3de5e79725f9a422ea44b05fad4cef5aa34fcfaea06f884f6caf4c9442b",
+      "curve": "dominica/west/tilt-15/curve.json",
+      "curve_sha256": "bc9d2d85ef3eaf51f2d92d832594aa31083b6a93731b61ffab10f412f2d46d99",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1437.4630227712275
+    },
+    {
+      "id": "nasa-power/dominica/west/tilt-20",
+      "runtime": "dominica/west/tilt-20/hourly.json.gz",
+      "runtime_sha256": "cb6eaa2b272a47a0d87cc13d0741bcb8427c7698f019266826d214a14855e795",
+      "curve": "dominica/west/tilt-20/curve.json",
+      "curve_sha256": "a9b719184c34559cfec6d379dc51688884f617356ed80b402b32149c1c1fef72",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1414.5573756952613
+    },
+    {
+      "id": "nasa-power/dominica/west/tilt-30",
+      "runtime": "dominica/west/tilt-30/hourly.json.gz",
+      "runtime_sha256": "8f2f7a09ddd1e1f9b658fc2975b73ca1df0b88fdd273c879b8ddacc431ef64cd",
+      "curve": "dominica/west/tilt-30/curve.json",
+      "curve_sha256": "86bba423a014403b99810ca10d0cc67939ff353023c80023366d923f835a4e30",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1356.7702702126358
+    },
+    {
+      "id": "nasa-power/dominica/horizontal/tilt-0/roof",
+      "runtime": "dominica/horizontal/tilt-0/roof/hourly.json.gz",
+      "runtime_sha256": "0eb97a3d37146ccc5391f82c618b010b33b68d666e55bd548fe2dc1ec78ab0f9",
+      "curve": "dominica/horizontal/tilt-0/roof/curve.json",
+      "curve_sha256": "f5c027ac3390e4bd2e0d77929bfbfe89f632938db54cb69cb2266f3e33bb3a3d",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1469.7453549475154
+    },
+    {
+      "id": "nasa-power/dominica/horizontal/tilt-0/open-rack",
+      "runtime": "dominica/horizontal/tilt-0/open-rack/hourly.json.gz",
+      "runtime_sha256": "fdc516c8516795ee882602a1fee1797ffed0aa4600c6a5801efe2e5e7b5cfca1",
+      "curve": "dominica/horizontal/tilt-0/open-rack/curve.json",
+      "curve_sha256": "978e626ccc914a22895c9126ecbb280b309e2a96fe943d20bb33dc86ad8a1383",
+      "raw_sha256": {
+        "weather/dominica/20220101-20221231.json.gz": "1836a2c21b90a97731b3f0d6a00383ddbbc069d0b1cb06e161234259a4659e9b",
+        "weather/dominica/20230101-20230101.json.gz": "b9f0af9cae584423933963bb93d938e5f259cfaeed70f228ea1ded41d44c9eda"
+      },
+      "annual_generation_kwh": 1527.953927955882
+    }
+  ],
+  "completed_at": "2026-09-17T04:55:35.274599+00:00"
+}

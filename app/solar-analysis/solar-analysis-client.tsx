@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import EChart from "./echart";
 import InstallationPicker from "./installation-picker";
-import { DEFAULT_INSTALLATION, installationLabel, modelId, type GenerationModel } from "@/lib/solar-analysis/models";
+import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId, validGenerationModel, type GenerationModel } from "@/lib/solar-analysis/models";
 import { BATTERY_POWER_PER_KWH, generationSeries, simulateYear } from "@/lib/solar-analysis/simulation";
 
 const INVERTERS = [3.8, 4.8, 6, 7.6, 9.6, 11.5];
@@ -23,7 +23,7 @@ const TOUR_STEPS = [
   {
     target: "solar-step-installation",
     title: "选择数据源与安装条件",
-    description: "先选择 PVWatts 或禾迈数据源。PVWatts 可选参考地区，点击面板侧视图选择倾角、点击方位按钮选择朝向；0° 无需朝向。然后点击“确认安装条件，开始分析”。禾迈的安装参数未知，不支持调整。",
+    description: "先选择发电数据源，并查看其年份与模型说明。除禾迈外均可选参考地区，点击面板侧视图选择倾角、点击方位按钮选择朝向；0° 无需朝向。然后点击“确认安装条件，开始分析”。禾迈的安装参数未知，不支持调整。",
   },
   {
     target: "solar-step-config",
@@ -130,9 +130,7 @@ export default function SolarAnalysis() {
     }).then(async response => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "模型加载失败");
-      if (data.id !== selectedModelId || !["pvwatts", "hoymiles"].includes(data.source) || !(data.referenceCapacityKwp > 0)
-        || (data.source === "pvwatts" && (!Array.isArray(data.dcPowerW) || data.dcPowerW.length !== 8760 || data.dcPowerW.some((v: unknown) => typeof v !== "number" || !Number.isFinite(v) || v < 0)))
-        || (data.source === "hoymiles" && (!Array.isArray(data.averageDayWh) || data.averageDayWh.length !== 12))) throw new Error("模型数据不完整，请重试");
+      if (!validGenerationModel(data) || data.id !== selectedModelId) throw new Error("模型数据不完整，请重试");
       if (active) { setLoaded(data); setLoadError(null); }
     }).catch(error => {
       if (active) setLoadError({ id: selectedModelId, message: error.name === "AbortError" ? "模型加载超时，请重试。" : error.message });
@@ -307,7 +305,7 @@ export default function SolarAnalysis() {
       <InstallationPicker value={installation} onChange={setInstallation} confirmed={confirmed} guided={tourStep === 0} onConfirm={() => { setConfirmed(true); if (tourStep === 0) setTourStep(1); }} />
       {confirmed && !ready && <section className="v2-card model-loading" aria-live="polite">{loadError?.id === selectedModelId ? <><p role="alert">{loadError.message}</p><button type="button" onClick={() => { setLoadError(null); setRetry(n => n + 1); }}>重新加载模型</button></> : <p role="status">正在加载所选安装条件的数据…</p>}<small>不会用其他朝向、地区或旧模型的结果代替当前选择。</small></section>}
       {ready && <>
-      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>{model.source === "pvwatts" ? "全年 8,760 小时模拟 · 当地 UTC−4 · 通用逆变器 96% 参考曲线与 AC 功率限幅" : "月平均日重复模拟 · AC 容量缩放与限幅，无法恢复原逆变器削顶损失"}</span></div>
+      <div className="model-context"><strong>{installationLabel(installation)}</strong><span>{model.source !== "hoymiles" ? "全年 8,760 小时模拟 · 当地 UTC−4 · " : ""}{SOURCES[model.source].note}</span></div>
       <section id="solar-step-config" className={`v2-card input-card ${tourStep === 1 ? "tour-target" : ""}`}>
         <div className="section-title config-title">
           <div><span>02</span><div><h2>输入与系统配置</h2><small>设置用电基准、逆变器、储能和光伏组件</small></div></div>

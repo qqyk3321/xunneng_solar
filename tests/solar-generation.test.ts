@@ -2,19 +2,21 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { gunzipSync } from "node:zlib";
 import { accessCookieValue } from "../app/solar-analysis/access";
 import { handleModelRequest, loadGenerationModel } from "../lib/solar-analysis/model-server";
-import { DEFAULT_INSTALLATION, modelId } from "../lib/solar-analysis/models";
+import { DEFAULT_INSTALLATION, SOURCES, installationLabel, modelId, validGenerationModel, type SolarSource } from "../lib/solar-analysis/models";
 import { generationSeries, inverterAcKw, simulateYear } from "../lib/solar-analysis/simulation";
 
 const base = "data/solar-generation";
 const read = (p: string) => JSON.parse(readFileSync(p, "utf8"));
 const catalog = read(`${base}/catalog.json`);
-const modelEntries = catalog.batches.flatMap((batch: { path: string; model_count: number }) => {
+const modelEntries = catalog.batches.filter((b: { path: string }) => b.path.startsWith("pvwatts-v8/")).flatMap((batch: { path: string; model_count: number }) => {
   const m = read(`${base}/${batch.path}/manifest.json`);
   assert.equal(m.status, "complete"); assert.equal(m.models.length, batch.model_count);
   return m.models.map((entry: { id: string; raw: string; raw_sha256: string }) => ({ ...entry, path: `${base}/${batch.path}/${entry.raw}` }));
 });
+const additionalBatches = catalog.batches.filter((b: { path: string }) => b.path.startsWith("additional-v1/"));
 const near = (a: number, b: number, tolerance = 1e-7) => assert.ok(Math.abs(a - b) < tolerance, `${a} != ${b}`);
 
 test("catalog contains all 32 original combinations and 4 horizontal variants with intact hashes", async () => {
@@ -36,6 +38,104 @@ test("horizontal uses one orientation-independent model per location and mountin
   assert.equal(modelId({ ...DEFAULT_INSTALLATION, tilt: 0, mounting: "open-rack" }), "antigua/horizontal/tilt-0/open-rack");
   assert.throws(() => modelId({ ...DEFAULT_INSTALLATION, mounting: "open-rack" }));
   assert.equal(modelId({ ...DEFAULT_INSTALLATION, source: "hoymiles" }), "hoymiles");
+});
+test("all additional archives are complete, reproducible, correctly aggregated and loadable", async () => {
+  assert.equal(catalog.model_count, 144);
+  assert.equal(additionalBatches.length, 3);
+  const ids = new Set(modelEntries.map((e: { id: string }) => e.id));
+  for (const batch of additionalBatches) {
+    const folder = `${base}/${batch.path}`;
+    const manifest = read(`${folder}/manifest.json`);
+    assert.equal(manifest.status, "complete");
+    assert.equal(manifest.models.length, 36);
+    assert.equal(manifest.models.length, batch.model_count);
+    assert.ok(Object.hasOwn(SOURCES, manifest.source));
+    const checkedRaw = new Set<string>();
+    for (const entry of manifest.models) {
+      assert.equal(ids.has(entry.id), false); ids.add(entry.id);
+      for (const [file, hash] of Object.entries({ [entry.runtime]: entry.runtime_sha256, [entry.curve]: entry.curve_sha256, ...entry.raw_sha256 })) {
+        assert.equal(createHash("sha256").update(readFileSync(`${folder}/${file}`)).digest("hex"), hash);
+      }
+      const archived = JSON.parse(gunzipSync(readFileSync(`${folder}/${entry.runtime}`)).toString());
+      const curve = read(`${folder}/${entry.curve}`);
+      const model = (await loadGenerationModel(entry.id))!;
+      assert.equal(validGenerationModel(model), true);
+      assert.equal(model.source, manifest.source);
+      assert.equal(model.referenceCapacityKwp, 1);
+      assert.equal(model.historicalYear, manifest.year);
+      assert.equal(archived.localUtcOffsetHours, -4);
+      assert.equal(curve.time_basis.kind, "historical_year");
+      assert.equal(curve.time_basis.year, manifest.year);
+      assert.equal(curve.months.length, 12);
+      assert.equal("provenance" in model, false, "archive metadata stays server-side");
+      const generation = generationSeries(model, 1, 1 / 1.2);
+      const archivedGeneration = model.acPowerW ? model.acPowerW.map(w => w / 1000) : generation;
+      let offset = 0;
+      for (const month of curve.months) {
+        assert.equal(month.average_day_hourly_generation_wh.length, 24);
+        const chunk = archivedGeneration.slice(offset, offset + month.days * 24);
+        near(chunk.reduce((a, b) => a + b, 0), month.monthly_energy_kwh);
+        for (let h = 0; h < 24; h++) near(chunk.filter((_, i) => i % 24 === h).reduce((a, b) => a + b, 0) * 1000 / month.days, month.average_day_hourly_generation_wh[h]);
+        offset += month.days * 24;
+      }
+      near(archivedGeneration.reduce((a, b) => a + b, 0), entry.annual_generation_kwh);
+      assert.equal(offset, 8760);
+      const geometry = curve.geometry;
+      assert.equal(modelId({ source: model.source, region: curve.site.id, tilt: geometry.tilt_degrees_from_horizontal, orientation: geometry.orientation, mounting: geometry.mounting }), entry.id);
+      for (const rawPath of Object.keys(entry.raw_sha256)) {
+        if (checkedRaw.has(rawPath)) continue;
+        checkedRaw.add(rawPath);
+        const raw = JSON.parse(gunzipSync(readFileSync(`${folder}/${rawPath}`)).toString());
+        const receipt = read(`${folder}/${rawPath.replace(/\.gz$/, ".request.json")}`);
+        assert.equal(receipt.raw_sha256, entry.raw_sha256[rawPath]);
+        assert.ok(receipt.url.startsWith("https://"));
+        assert.equal(new URL(receipt.url).searchParams.has("api_key"), false);
+        if (manifest.source.startsWith("pvgis-")) {
+          const byTime = new Map(raw.outputs.hourly.map((r: { time: string; P: number }) => [r.time.slice(0, 11), r.P]));
+          const first = Date.UTC(manifest.year, 0, 1, 4);
+          for (let i = 0; i < 8760; i++) {
+            const t = new Date(first + i * 3600000).toISOString();
+            const key = t.slice(0, 10).replaceAll("-", "") + ":" + t.slice(11, 13);
+            assert.equal(model.acPowerW![i], byTime.get(key), "UTC-4 local hour must match raw P");
+          }
+          assert.equal(raw.inputs.meteo_data.radiation_db, model.weatherSource);
+          assert.equal(raw.meta.outputs.hourly.variables.P.units, "W");
+          assert.equal(raw.inputs.location.latitude, curve.site.latitude);
+          assert.equal(raw.inputs.location.longitude, curve.site.longitude);
+          assert.equal(raw.inputs.pv_module.peak_power, 1);
+          assert.equal(raw.inputs.pv_module.system_loss, 14);
+          assert.equal(raw.inputs.mounting_system.fixed.slope.value, geometry.tilt_degrees_from_horizontal);
+          const angle = raw.inputs.mounting_system.fixed.azimuth.value;
+          const expected = { north: -179, east: -90, south: 0, west: 90, horizontal: -179 }[geometry.orientation as string];
+          assert.equal(angle, expected);
+        } else {
+          assert.equal(raw.header.time_standard, "UTC");
+          assert.equal(raw.parameters.ALLSKY_SFC_SW_DWN.units, "Wh/m^2");
+        }
+      }
+    }
+  }
+  assert.equal(ids.size, catalog.model_count);
+});
+test("new source scaling respects AC output and reports the PVGIS north exception", async () => {
+  for (const source of ["pvgis-era5", "pvgis-nsrdb", "nasa-power"] as SolarSource[]) {
+    const config = { ...DEFAULT_INSTALLATION, source };
+    const model = (await loadGenerationModel(modelId(config)))!;
+    const series = generationSeries(model, 7.84, 3.8);
+    assert.ok(series.every(v => v >= 0 && v <= 3.8));
+    if (source.startsWith("pvgis-")) {
+      near(generationSeries(model, 1, 10).reduce((a, b) => a + b, 0), model.acPowerW!.reduce((a, b) => a + b, 0) / 1000);
+      assert.match(installationLabel({ ...config, orientation: "north" }), /接口回显 1°/);
+      assert.doesNotMatch(installationLabel({ ...config, orientation: "north", tilt: 0 }), /接口回显/);
+    }
+    const result = simulateYear(series, 500 / 30, Array(24).fill(1), 10);
+    for (const m of result) for (const h of m.hourly) {
+      near(h.generation, h.pvDirect + h.batteryCharge + h.export);
+      near(h.load, h.pvDirect + h.battery + h.grid);
+      assert.ok(h.batteryCharge <= 5 + 1e-9 && h.battery <= 5 + 1e-9);
+    }
+    assert.equal(validGenerationModel({ ...model, acPowerW: [NaN], dcPowerW: [Infinity] }), false);
+  }
 });
 test("model endpoint is authorized-only, no-store, allowlisted and does not return credentials/weather payloads", async () => {
   const req = (id: string) => new Request(`https://example.test/solar-analysis/model?id=${encodeURIComponent(id)}`);

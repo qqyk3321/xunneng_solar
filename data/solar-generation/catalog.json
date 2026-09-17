@@ -1,8 +1,11 @@
 {
   "schema_version": 1,
-  "model_count": 36,
+  "model_count": 144,
   "batches": [
     { "path": "pvwatts-v8/2026-09-17T03-56-18.062Z", "model_count": 32, "scope": "tilted_roof" },
-    { "path": "pvwatts-v8/2026-09-17T04-11-54.607Z", "model_count": 4, "scope": "horizontal_roof_and_open_rack" }
+    { "path": "pvwatts-v8/2026-09-17T04-11-54.607Z", "model_count": 4, "scope": "horizontal_roof_and_open_rack" },
+    { "path": "additional-v1/pvgis-era5", "model_count": 36, "scope": "all_geometries_historical_2022" },
+    { "path": "additional-v1/pvgis-nsrdb", "model_count": 36, "scope": "all_geometries_historical_2014" },
+    { "path": "additional-v1/nasa-power", "model_count": 36, "scope": "all_geometries_historical_2022" }
   ]
 }

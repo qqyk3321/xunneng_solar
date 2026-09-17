@@ -18,9 +18,14 @@ export function inverterAcKw(dcKw: number, inverterKw: number) {
 
 export function generationSeries(model: GenerationModel, capacityKwp: number, inverterKw: number) {
   const scale = capacityKwp / model.referenceCapacityKwp;
-  if (model.source === "pvwatts") {
+  if (model.source === "pvwatts" || model.source === "nasa-power") {
     if (model.dcPowerW?.length !== 8760) throw new Error("逐时数据不完整");
     return model.dcPowerW.map(w => inverterAcKw(w * scale / 1000, inverterKw));
+  }
+  if (model.source === "pvgis-era5" || model.source === "pvgis-nsrdb") {
+    if (model.acPowerW?.length !== 8760) throw new Error("逐时系统输出不完整");
+    // PVGIS P already includes its model/system losses. Do not apply DC->AC twice.
+    return model.acPowerW.map(w => Math.max(0, Math.min(inverterKw, w * scale / 1000)));
   }
   if (model.averageDayWh?.length !== 12 || model.averageDayWh.some(m => m.length !== 24)) throw new Error("月平均日数据不完整");
   // Legacy contains AC only: original clipping cannot be undone. Additional AC limit is approximate.

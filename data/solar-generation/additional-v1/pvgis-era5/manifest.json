@@ -1,0 +1,407 @@
+{
+  "schema_version": 2,
+  "source": "pvgis-era5",
+  "status": "complete",
+  "expected_models": 36,
+  "year": 2022,
+  "started_at": "2026-09-17T04:55:28.461448+00:00",
+  "models": [
+    {
+      "id": "pvgis-era5/antigua/north/tilt-10",
+      "runtime": "antigua/north/tilt-10/hourly.json.gz",
+      "runtime_sha256": "d2cd379cb4148d031f4cd8d31c17668d4d549627c73a091b3a50f1026deea2d1",
+      "curve": "antigua/north/tilt-10/curve.json",
+      "curve_sha256": "0f166bad46df3512e94c4553965594c2c344609e2990ec01e5d910844dbe8fe1",
+      "raw_sha256": {
+        "antigua/north/tilt-10/raw.json.gz": "c63ff4e904e33e86036eef0cc3da0bb36e0dfe4d7a4f6f75951ac7ccaea634c1"
+      },
+      "annual_generation_kwh": 1512.7403199999999
+    },
+    {
+      "id": "pvgis-era5/antigua/north/tilt-15",
+      "runtime": "antigua/north/tilt-15/hourly.json.gz",
+      "runtime_sha256": "3f24eea30c254fc37270249a954cb5ee7ef72e63412b8503fd9593fe5eb775a2",
+      "curve": "antigua/north/tilt-15/curve.json",
+      "curve_sha256": "b303798120572eb1e7e0763e8d9ddaba6a95881a7c9258f0970552979d25609e",
+      "raw_sha256": {
+        "antigua/north/tilt-15/raw.json.gz": "4ddc5a02e04beb02f5eaada17a88b76b564e53d950cc6f4f3fed898724f2a505"
+      },
+      "annual_generation_kwh": 1453.53561
+    },
+    {
+      "id": "pvgis-era5/antigua/north/tilt-20",
+      "runtime": "antigua/north/tilt-20/hourly.json.gz",
+      "runtime_sha256": "6e5d383eeded4e6209aefa12fa2557c7d940ede0dc803ec2316ff0550b20595a",
+      "curve": "antigua/north/tilt-20/curve.json",
+      "curve_sha256": "1ac064f80f9ca8c8be9754ba79d07d5344fad30fde4efcc8bd14a1a0bcf2733b",
+      "raw_sha256": {
+        "antigua/north/tilt-20/raw.json.gz": "c1f400432582645c5927e5e42d4249258980e723953a6bcbf6fcbb9e866a0883"
+      },
+      "annual_generation_kwh": 1385.3179700000003
+    },
+    {
+      "id": "pvgis-era5/antigua/north/tilt-30",
+      "runtime": "antigua/north/tilt-30/hourly.json.gz",
+      "runtime_sha256": "b7e3dc0f389e1d3e99d0442f909910487ed049064d05d687db389862a80a9ee5",
+      "curve": "antigua/north/tilt-30/curve.json",
+      "curve_sha256": "dd9a7e5ffb1575df01fe4b865b715f41b687ec197151aaab39992d3aeca20c33",
+      "raw_sha256": {
+        "antigua/north/tilt-30/raw.json.gz": "e4657a0a961cd3da8efaa57fc9ae8917c27cbc6d5076d0caa8ba1488049e993e"
+      },
+      "annual_generation_kwh": 1225.12856
+    },
+    {
+      "id": "pvgis-era5/antigua/east/tilt-10",
+      "runtime": "antigua/east/tilt-10/hourly.json.gz",
+      "runtime_sha256": "98dccbbe719656fe7ffd98edde2f154097951a1a1b72721b4386533c90461bd4",
+      "curve": "antigua/east/tilt-10/curve.json",
+      "curve_sha256": "a7f25aa6a8af8d34c3ddc2b955ccc9fca6ea23b313209e8a337fc2fe00d1fa48",
+      "raw_sha256": {
+        "antigua/east/tilt-10/raw.json.gz": "194211a68b4c0bff38227c60469956d4fbb72a2be70649e26f661b625172eef7"
+      },
+      "annual_generation_kwh": 1589.20363
+    },
+    {
+      "id": "pvgis-era5/antigua/east/tilt-15",
+      "runtime": "antigua/east/tilt-15/hourly.json.gz",
+      "runtime_sha256": "55fe26ac0ee2eee5ea9a9189e824de50a80f5a096d00356487d6bce5eff15343",
+      "curve": "antigua/east/tilt-15/curve.json",
+      "curve_sha256": "79fbb69021d4efcd44d354b6b5f67f76c0cd13d8a7c7e86b82b7f9e950744c74",
+      "raw_sha256": {
+        "antigua/east/tilt-15/raw.json.gz": "ad997b4772bd1fdfe2494c6173f2a581e30b996373fe5c0b1f5711dbf0e21157"
+      },
+      "annual_generation_kwh": 1573.32277
+    },
+    {
+      "id": "pvgis-era5/antigua/east/tilt-20",
+      "runtime": "antigua/east/tilt-20/hourly.json.gz",
+      "runtime_sha256": "119f7b8ca71b011758470978c94bfb7f2d4b372e89fc343732e70b580f3703d3",
+      "curve": "antigua/east/tilt-20/curve.json",
+      "curve_sha256": "12e657220cddb9925c6fdea24b15320e0937fee95cf5b2609bc7ee89dfd58bd5",
+      "raw_sha256": {
+        "antigua/east/tilt-20/raw.json.gz": "3ba870252403ab7acd6897e46dceea35cc286d48ef9bd66520ae83e0228d3b95"
+      },
+      "annual_generation_kwh": 1551.58367
+    },
+    {
+      "id": "pvgis-era5/antigua/east/tilt-30",
+      "runtime": "antigua/east/tilt-30/hourly.json.gz",
+      "runtime_sha256": "56f30a1b5e5028bb2903aa29c1d3454e8945788e439fb2fcc72468da12ad98cd",
+      "curve": "antigua/east/tilt-30/curve.json",
+      "curve_sha256": "acca2057bbfc80a9b863437aaf35c7135b95bcd0cd1f40f33f98d88859b9b47e",
+      "raw_sha256": {
+        "antigua/east/tilt-30/raw.json.gz": "2cad54e26c729568650b1415908bb3c5d54ed16e04f26a76c6fa1adfeae3393c"
+      },
+      "annual_generation_kwh": 1492.81079
+    },
+    {
+      "id": "pvgis-era5/antigua/south/tilt-10",
+      "runtime": "antigua/south/tilt-10/hourly.json.gz",
+      "runtime_sha256": "08ff0b8abc5978cc0c654dee8f9e182fd83d7cd3bff6de3fe7f32a11fb7e373f",
+      "curve": "antigua/south/tilt-10/curve.json",
+      "curve_sha256": "f210663f4cdde1c6a8d199c6891be87ae904ba5e727b3c1ff49be37179287dd9",
+      "raw_sha256": {
+        "antigua/south/tilt-10/raw.json.gz": "54e1c3b678e9aee2103c4ad414ce538aa0c0375c1ab77a479b9ecbbb7ae9b7c6"
+      },
+      "annual_generation_kwh": 1652.8925800000002
+    },
+    {
+      "id": "pvgis-era5/antigua/south/tilt-15",
+      "runtime": "antigua/south/tilt-15/hourly.json.gz",
+      "runtime_sha256": "f1f7f61d8dd1599d461b285aa7937120dcc635030ff021feb2f593d3470160fa",
+      "curve": "antigua/south/tilt-15/curve.json",
+      "curve_sha256": "a6a4627f66fe9d0e8f26e6588e88fac9bc2e48070e1e866f0a2f791adb9c8ca9",
+      "raw_sha256": {
+        "antigua/south/tilt-15/raw.json.gz": "f1a0beedcaadb1c6c698e6fb874afcb2d5d8ca0379386e35b82bf025655f0790"
+      },
+      "annual_generation_kwh": 1663.16277
+    },
+    {
+      "id": "pvgis-era5/antigua/south/tilt-20",
+      "runtime": "antigua/south/tilt-20/hourly.json.gz",
+      "runtime_sha256": "fed3b890b1c542bd8b1c465c25bc8218683150fa640015f8fb2f1340bc96468e",
+      "curve": "antigua/south/tilt-20/curve.json",
+      "curve_sha256": "d4acf44d37b121f6c4ccdfbf485e3a10fa956ed55e5f19c1d2d4d03e904ddb13",
+      "raw_sha256": {
+        "antigua/south/tilt-20/raw.json.gz": "a5963d67efa9edc33b33bc7da61e0b534bd47485d00bd6c3b63b23707c1e57a6"
+      },
+      "annual_generation_kwh": 1663.71244
+    },
+    {
+      "id": "pvgis-era5/antigua/south/tilt-30",
+      "runtime": "antigua/south/tilt-30/hourly.json.gz",
+      "runtime_sha256": "4b447fa9482e98a95c90431d1e42bf993507e0f5f1c7cb782824a15c277cb79a",
+      "curve": "antigua/south/tilt-30/curve.json",
+      "curve_sha256": "bd555869f51b4081cfa9a5c1e13bd1bb668ea13b7cb5839ddfae58ec59153e7a",
+      "raw_sha256": {
+        "antigua/south/tilt-30/raw.json.gz": "f9252dcbb974cf781e71ef264b36f5be6406aa9e42ddccea2581ba223f96b628"
+      },
+      "annual_generation_kwh": 1635.8144
+    },
+    {
+      "id": "pvgis-era5/antigua/west/tilt-10",
+      "runtime": "antigua/west/tilt-10/hourly.json.gz",
+      "runtime_sha256": "1a16994d805d1eea8df105f7d836455d793611a1e8445deb339f3d15bac1adce",
+      "curve": "antigua/west/tilt-10/curve.json",
+      "curve_sha256": "1954461fe27adc2c95872b8dbcd7bab8afea51923582fd4c0388ee0ee6a2fcd2",
+      "raw_sha256": {
+        "antigua/west/tilt-10/raw.json.gz": "837be56cbaf4dce14acb63144579e63541682cc20c676cc1c6bbf017ed989190"
+      },
+      "annual_generation_kwh": 1586.31848
+    },
+    {
+      "id": "pvgis-era5/antigua/west/tilt-15",
+      "runtime": "antigua/west/tilt-15/hourly.json.gz",
+      "runtime_sha256": "9003016c17d8e91369828f548da7df875f508a7966db540c032828b5a97045b2",
+      "curve": "antigua/west/tilt-15/curve.json",
+      "curve_sha256": "24be7e539566c9d19e5ef05352a0750f1283723962f2fbb319ba0235853dbe8d",
+      "raw_sha256": {
+        "antigua/west/tilt-15/raw.json.gz": "3dd4f866f0386701a84b8a7b7628c904f207bbdb1bcc2e486ccc35081891b0ee"
+      },
+      "annual_generation_kwh": 1569.06354
+    },
+    {
+      "id": "pvgis-era5/antigua/west/tilt-20",
+      "runtime": "antigua/west/tilt-20/hourly.json.gz",
+      "runtime_sha256": "fb756c64e8ed018b9daedeaec0db5bbc3c374c86eecfc46ee3eb93cbe1236ec5",
+      "curve": "antigua/west/tilt-20/curve.json",
+      "curve_sha256": "92e2c9f756a37d820cd5514c4b91434590983f35483b53e006dbb5e25ccb6406",
+      "raw_sha256": {
+        "antigua/west/tilt-20/raw.json.gz": "ce3353f3af07113ddd00b1a20be37e1faa3a1db7d02ec1825d977d2d3ede8712"
+      },
+      "annual_generation_kwh": 1544.5827199999997
+    },
+    {
+      "id": "pvgis-era5/antigua/west/tilt-30",
+      "runtime": "antigua/west/tilt-30/hourly.json.gz",
+      "runtime_sha256": "55393fe3db61cc8f4e175a6f98618ff7ac11e315916b1d33095fa49e08d86ec7",
+      "curve": "antigua/west/tilt-30/curve.json",
+      "curve_sha256": "8e1ec2d3c12617b8a32d8bc8b843949e61ec5fefe5d3d65ee1bc4ccf25e3cec3",
+      "raw_sha256": {
+        "antigua/west/tilt-30/raw.json.gz": "f8bb77bd49d7213d731bd63a91dadb97e6c165fe84dc0968d232939ad08f2a00"
+      },
+      "annual_generation_kwh": 1484.4020899999998
+    },
+    {
+      "id": "pvgis-era5/antigua/horizontal/tilt-0/roof",
+      "runtime": "antigua/horizontal/tilt-0/roof/hourly.json.gz",
+      "runtime_sha256": "bd4fd6045f75c72270c96cc5b7e5e1133dc3dfeb59c8d289b6e15d6a265b3d13",
+      "curve": "antigua/horizontal/tilt-0/roof/curve.json",
+      "curve_sha256": "d3311cdb5fb06768281640c059598b042fa365d335df9c73b913d62b10bf3845",
+      "raw_sha256": {
+        "antigua/horizontal/tilt-0/roof/raw.json.gz": "a9ea5f69785a648629255a96ff0c345ecb38f4cbc9bae96c85c0780154de9f6f"
+      },
+      "annual_generation_kwh": 1602.8367700000001
+    },
+    {
+      "id": "pvgis-era5/antigua/horizontal/tilt-0/open-rack",
+      "runtime": "antigua/horizontal/tilt-0/open-rack/hourly.json.gz",
+      "runtime_sha256": "d0ef1ef72903ad4da1b9a76dfbfd42845ed40006c3354e0f8687c3ffe2ade3a9",
+      "curve": "antigua/horizontal/tilt-0/open-rack/curve.json",
+      "curve_sha256": "08faf4ec2747ac96bb711fc1514417845e097cf72d997e1cab81ac469f94f8c1",
+      "raw_sha256": {
+        "antigua/horizontal/tilt-0/open-rack/raw.json.gz": "a1b557850fc9ba8fe6d3406983faf3ef2d25eb38ce5580ce3fa3e755f205dea4"
+      },
+      "annual_generation_kwh": 1657.11249
+    },
+    {
+      "id": "pvgis-era5/dominica/north/tilt-10",
+      "runtime": "dominica/north/tilt-10/hourly.json.gz",
+      "runtime_sha256": "6f14c31ece89a732c2f67aaf6d5af33d0d5d666e627aca9b83fa16ab0f91106e",
+      "curve": "dominica/north/tilt-10/curve.json",
+      "curve_sha256": "638fd5b1fa0cd067feec3f38157707e9bb92de20a80cad8b7822b707012e0a24",
+      "raw_sha256": {
+        "dominica/north/tilt-10/raw.json.gz": "56e0d0935aaa24f5f7db5a9e995a45fe5c4a3ae449d23f7ecd0264d8e77aabf3"
+      },
+      "annual_generation_kwh": 1549.5867000000003
+    },
+    {
+      "id": "pvgis-era5/dominica/north/tilt-15",
+      "runtime": "dominica/north/tilt-15/hourly.json.gz",
+      "runtime_sha256": "9f9bc41f1486d347a662c70961e20b86600bc103020012958716ce9c75cc08de",
+      "curve": "dominica/north/tilt-15/curve.json",
+      "curve_sha256": "29ce3fbd2e25bcd95aa8ee631f9e0c5a754149c55b097a00c370298ec5d957c5",
+      "raw_sha256": {
+        "dominica/north/tilt-15/raw.json.gz": "ba2bc2861f827d58fd992050feaba5c0e0603bec740ffaba19e9df38aabee817"
+      },
+      "annual_generation_kwh": 1492.31936
+    },
+    {
+      "id": "pvgis-era5/dominica/north/tilt-20",
+      "runtime": "dominica/north/tilt-20/hourly.json.gz",
+      "runtime_sha256": "6abf17abb486ffb0b7ff4af28146fca62eb58ff606cb35c1ca8e4cef4252ded3",
+      "curve": "dominica/north/tilt-20/curve.json",
+      "curve_sha256": "c004c792503a5a19378bbb51513dbc276fdf6eff31187087de37f209fb7a91f9",
+      "raw_sha256": {
+        "dominica/north/tilt-20/raw.json.gz": "ef4e188eed59be4bb10110c2413cdc04178f8f8bc41f119d46cb7f46ea399493"
+      },
+      "annual_generation_kwh": 1425.72233
+    },
+    {
+      "id": "pvgis-era5/dominica/north/tilt-30",
+      "runtime": "dominica/north/tilt-30/hourly.json.gz",
+      "runtime_sha256": "9599759b8333ac70b0d37d24632faba0cef3a908869af93ebe22183c88ff7a02",
+      "curve": "dominica/north/tilt-30/curve.json",
+      "curve_sha256": "cd0e7c3300866257ab74a0c9c354ea4dae7e2aebe77a68a448e2fa776e673fd3",
+      "raw_sha256": {
+        "dominica/north/tilt-30/raw.json.gz": "b709154cedb849dfdc136aca3e8505c205c49ec60b38ef9d49f5a16330878607"
+      },
+      "annual_generation_kwh": 1267.58701
+    },
+    {
+      "id": "pvgis-era5/dominica/east/tilt-10",
+      "runtime": "dominica/east/tilt-10/hourly.json.gz",
+      "runtime_sha256": "856247106b8549815c3d08d790da7981782aef410e1bfcc1330878008650ba1c",
+      "curve": "dominica/east/tilt-10/curve.json",
+      "curve_sha256": "d78d68eb756518b86c6984a561da32102a21b80ae12799fdb7c09b3e7cbc6eb1",
+      "raw_sha256": {
+        "dominica/east/tilt-10/raw.json.gz": "724cdffac8229e9abc1827444508c47afec55fe9efa26b3bd9dac6fec64d7b7e"
+      },
+      "annual_generation_kwh": 1614.31193
+    },
+    {
+      "id": "pvgis-era5/dominica/east/tilt-15",
+      "runtime": "dominica/east/tilt-15/hourly.json.gz",
+      "runtime_sha256": "37297e4453a629e765c0ac131e76efbfe8aac53d5f8546832fc1e9b3cde1ec38",
+      "curve": "dominica/east/tilt-15/curve.json",
+      "curve_sha256": "862ca3cd03567e12ab958bfcc4e604b99a29f43eed5123729b72764422d5c84f",
+      "raw_sha256": {
+        "dominica/east/tilt-15/raw.json.gz": "dcbe5ed0629bb1e18f923c7df4d58611f99afcedb42b47551e5fac6a00ba2983"
+      },
+      "annual_generation_kwh": 1594.54127
+    },
+    {
+      "id": "pvgis-era5/dominica/east/tilt-20",
+      "runtime": "dominica/east/tilt-20/hourly.json.gz",
+      "runtime_sha256": "7001af1ded0bef451b6b8c30b57702987ed4155cd74af317bca8fdb5e5fc4b3a",
+      "curve": "dominica/east/tilt-20/curve.json",
+      "curve_sha256": "53f3f327caee563bddf0274769b002549e82b89d7edf3c24da729ee585593f1f",
+      "raw_sha256": {
+        "dominica/east/tilt-20/raw.json.gz": "e81364d8dfcb0627117e36854f175fb56df09d785685c0431e3c648be6d4c49f"
+      },
+      "annual_generation_kwh": 1568.27154
+    },
+    {
+      "id": "pvgis-era5/dominica/east/tilt-30",
+      "runtime": "dominica/east/tilt-30/hourly.json.gz",
+      "runtime_sha256": "e297f33a308ca4477310bdadb8aa3f3f20953809df7cf9ff74159fbfc91c14be",
+      "curve": "dominica/east/tilt-30/curve.json",
+      "curve_sha256": "57ff4833a4ac142fd37487d67cc307503c257d16f96f5b750a8a366ddfb1b774",
+      "raw_sha256": {
+        "dominica/east/tilt-30/raw.json.gz": "ae321887a50bed5b81b764afcc3af4dea11a3c36910d5680fb1222bed00ab583"
+      },
+      "annual_generation_kwh": 1502.4011699999999
+    },
+    {
+      "id": "pvgis-era5/dominica/south/tilt-10",
+      "runtime": "dominica/south/tilt-10/hourly.json.gz",
+      "runtime_sha256": "f78e2b502da07a724683c3e88a4b0bcf78606ea91ea69e2329c14e4ebc67eaa3",
+      "curve": "dominica/south/tilt-10/curve.json",
+      "curve_sha256": "40399dca0d17e3f6ac891bce4b78d5a778309c739dc9be813549a06cc9cf030d",
+      "raw_sha256": {
+        "dominica/south/tilt-10/raw.json.gz": "fe236c94b880f061beed5983b703aa76f4d442eec9de4d4121503fceefe11e99"
+      },
+      "annual_generation_kwh": 1679.0656999999999
+    },
+    {
+      "id": "pvgis-era5/dominica/south/tilt-15",
+      "runtime": "dominica/south/tilt-15/hourly.json.gz",
+      "runtime_sha256": "dfb953c1d4fe2d002829b1ce17b6a6720fcced50e55cf01b54f8104f8a31b270",
+      "curve": "dominica/south/tilt-15/curve.json",
+      "curve_sha256": "b12cb0f65bfca6169dc75abdc77116e7939ba521cb5096683054935d50dc726e",
+      "raw_sha256": {
+        "dominica/south/tilt-15/raw.json.gz": "200457357709f1e845c464156e71ce61ea51aa5d1514bd1db11c4c63f74eee9b"
+      },
+      "annual_generation_kwh": 1686.0956400000002
+    },
+    {
+      "id": "pvgis-era5/dominica/south/tilt-20",
+      "runtime": "dominica/south/tilt-20/hourly.json.gz",
+      "runtime_sha256": "45ad8622bd7c9e592f2f55ec806e26de1b3c449d7283b92bace117d358d21fb0",
+      "curve": "dominica/south/tilt-20/curve.json",
+      "curve_sha256": "c2a32e7ae680a43022c4598879d1993ada485697183b71fa6258345225ffc190",
+      "raw_sha256": {
+        "dominica/south/tilt-20/raw.json.gz": "126ff2a327293062a2268a66ae722121abf04f3ced2091a1e48efc3438ccf774"
+      },
+      "annual_generation_kwh": 1683.2557
+    },
+    {
+      "id": "pvgis-era5/dominica/south/tilt-30",
+      "runtime": "dominica/south/tilt-30/hourly.json.gz",
+      "runtime_sha256": "b744805d93409f32725acebc394dc83dc07f7876f00323fb2ea918cb7f44efa7",
+      "curve": "dominica/south/tilt-30/curve.json",
+      "curve_sha256": "dde4bb2aa4af431a120deb044775e5093df369a38678216625e46c1b0936f716",
+      "raw_sha256": {
+        "dominica/south/tilt-30/raw.json.gz": "274eb0aebcdd2e4e9ee98a3d419a1be7e99c2ab19096dfbc511f48b144f0bad6"
+      },
+      "annual_generation_kwh": 1648.22331
+    },
+    {
+      "id": "pvgis-era5/dominica/west/tilt-10",
+      "runtime": "dominica/west/tilt-10/hourly.json.gz",
+      "runtime_sha256": "0ce06fd92d8cec810f9218e7efaf3e598fa38e6f094b3be02813467f78e5fe01",
+      "curve": "dominica/west/tilt-10/curve.json",
+      "curve_sha256": "1dd81f22b140f053964bb3a692fcdc5d661e0161970c0a6f4e9bd29af37ace2d",
+      "raw_sha256": {
+        "dominica/west/tilt-10/raw.json.gz": "1a77e9f723917e301a58d86633be41169c31d8ade964443f789e6a036e8ceb2f"
+      },
+      "annual_generation_kwh": 1621.6430299999997
+    },
+    {
+      "id": "pvgis-era5/dominica/west/tilt-15",
+      "runtime": "dominica/west/tilt-15/hourly.json.gz",
+      "runtime_sha256": "aec304bf5b6daf0f1d0f497b83950d7ee633cc9a5afc956ae0a63e2ae41bc14b",
+      "curve": "dominica/west/tilt-15/curve.json",
+      "curve_sha256": "9ed7cd323e9f46f101c30693085e3fefd95d6a70f3685204942531a7f1cf804e",
+      "raw_sha256": {
+        "dominica/west/tilt-15/raw.json.gz": "a7617c3eaedaab5404a784e6b661981a47b82edab8dab4609202587b23612184"
+      },
+      "annual_generation_kwh": 1605.05806
+    },
+    {
+      "id": "pvgis-era5/dominica/west/tilt-20",
+      "runtime": "dominica/west/tilt-20/hourly.json.gz",
+      "runtime_sha256": "6b6e3723110b23a6ec6d7b2dd219fdea4fdbdd6942809975e4427b59441a57e8",
+      "curve": "dominica/west/tilt-20/curve.json",
+      "curve_sha256": "6a3ede1bf58829010770847e5f72f5b8937fd503ec5150f1e8cfc3e7b2eec50b",
+      "raw_sha256": {
+        "dominica/west/tilt-20/raw.json.gz": "7189cfc1f134d48de0b7bb5fa362a815ea2eb1af77c25eb6dddf1b29fc6739a4"
+      },
+      "annual_generation_kwh": 1581.2439700000002
+    },
+    {
+      "id": "pvgis-era5/dominica/west/tilt-30",
+      "runtime": "dominica/west/tilt-30/hourly.json.gz",
+      "runtime_sha256": "b230d9db71e645012b7147b42e34769e5c4c7c8191e336f477fd60dc18d0a86c",
+      "curve": "dominica/west/tilt-30/curve.json",
+      "curve_sha256": "18ddc64d62ddd73f1dd75a8bf5641b736c6f23738706d2f0a825561eab645bb7",
+      "raw_sha256": {
+        "dominica/west/tilt-30/raw.json.gz": "5669aca45b8ed044d95ba288495b599542892816b9d8582872cb29f89257cf22"
+      },
+      "annual_generation_kwh": 1521.01047
+    },
+    {
+      "id": "pvgis-era5/dominica/horizontal/tilt-0/roof",
+      "runtime": "dominica/horizontal/tilt-0/roof/hourly.json.gz",
+      "runtime_sha256": "35810baee629262761378eba24b1925cf04283ed742b83eafa0859956b46ee53",
+      "curve": "dominica/horizontal/tilt-0/roof/curve.json",
+      "curve_sha256": "40e00183016c78f3ab57e94b67a9fc3cad4cba919cdc5e16fb2183f240ba9a37",
+      "raw_sha256": {
+        "dominica/horizontal/tilt-0/roof/raw.json.gz": "7d3a94c1b1255d3a9bba2ac18f8fd9da4bdd5b67cca7d30d7dac30a8d8b114cf"
+      },
+      "annual_generation_kwh": 1634.9360800000002
+    },
+    {
+      "id": "pvgis-era5/dominica/horizontal/tilt-0/open-rack",
+      "runtime": "dominica/horizontal/tilt-0/open-rack/hourly.json.gz",
+      "runtime_sha256": "62cf7efb799e6c6e92d1854d1eca2ac2a75ec6b93a5fdaba3e50c41c6a25ff79",
+      "curve": "dominica/horizontal/tilt-0/open-rack/curve.json",
+      "curve_sha256": "976c7d66da79fa4a24b43c1807f4722909443cb3d92627eda9978fc7b6c4606d",
+      "raw_sha256": {
+        "dominica/horizontal/tilt-0/open-rack/raw.json.gz": "ff4a5e1d018611edd4c549f1f8a618224b9ebdfd23deb2235057709276f2b74d"
+      },
+      "annual_generation_kwh": 1688.48258
+    }
+  ],
+  "completed_at": "2026-09-17T04:58:09.221620+00:00"
+}

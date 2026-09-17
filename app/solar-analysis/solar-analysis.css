@@ -80,6 +80,8 @@
 .installation-badge { padding: 6px 10px; border-radius: 20px; background: #e1f2ea; color: #087b69; font-size: 11px; white-space: nowrap; }
 .installation-selects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
 .installation-selects select:disabled { opacity: .65; cursor: not-allowed; }
+.source-context { margin: -8px 0 24px; padding: 15px 18px; border-left: 3px solid #82baa4; border-radius: 0 8px 8px 0; background: #edf5f1; color: #46685a; font-size: 12px; line-height: 1.65; }
+.source-context p { margin: 5px 0; }.source-context small { display: block; color: #73857c; }.source-context a { display: inline-block; margin-top: 7px; color: #087b69; text-decoration: underline; }
 .installation-geometry { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 28px; padding: 20px; background: #fff; border: 1px solid #dfebe5; border-radius: 14px; }
 .installation-geometry fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .installation-geometry legend { margin-bottom: 20px; font-size: 14px; font-weight: 700; }

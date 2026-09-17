@@ -1,11 +1,13 @@
 # 光伏发电模型档案
 
-本目录为**离线采集档案**，不在 `public/` 内。已在本地 `solar-analysis` 页面接入模型选择；是否上线以部署状态为准。密码验证通过、确认安装条件后，页面仅从受保护的 `/solar-analysis/model` 接口获取所选模型，不直接调用 PVWatts。API Key 不写入文件、不进入前端、不提交 Git。
+本目录为**离线采集档案**，不在 `public/` 内。`solar-analysis` 页面在密码验证通过、确认安装条件后，仅从受保护的 `/solar-analysis/model` 接口获取所选模型，不直接调用外部气象服务。API Key 不写入文件、不进入前端、不提交 Git。
+
+当前有 **144 套安装模型 + 1 套原禾迈模型**：PVWatts、PVGIS–ERA5、PVGIS–NSRDB、NASA POWER + pvlib，各 36 套。新增数据的年份、转换方法、使用条件、北向参数差异和未接入候选详见 [SOURCE_RESEARCH.md](SOURCE_RESEARCH.md)。以下 PVWatts 专属假设不应套用到其他来源。
 
 ## 来源分离
 
 - 原禾迈模型：仓库根目录 `hoymiles_gooo_Glorida_generation_curve.json`，7.84 kWp。保留原样。原文件未提供坐标、倾角、朝向，全部标记为未知，不能通过项目名称推断地点。
-- 新模型：`catalog.json` 为跨批次索引，`pvwatts-v8/<采集时间>/manifest.json` 为单批次索引。仅 `status: complete` 的批次可供使用。首批 32 套：2 个参考地点 × 4 个朝向 × 4 个倾角；补充批次 4 套：2 个参考地点 × 0° × 2 种安装方式。共 36 套。
+- `catalog.json` 为跨来源/批次索引；仅 `status: complete` 的批次可供使用。`pvwatts-v8/<采集时间>/manifest.json` 为 PVWatts 单批次索引，首批 32 套、水平补充 4 套。`additional-v1/<source>/manifest.json` 为三个新增来源索引，各 36 套。
 - 当前只采集发电模型；不修改每日用电模型。
 
 ## 参考地点与系统假设
@@ -57,7 +59,7 @@ antigua/horizontal/tilt-0/open-rack/curve.json
 
 1. 页面按实际 DC 装机容量缩放**逐时 DC 数据**，再按用户的逆变器 AC 额定功率限幅。采用归档 SSC 280 数据匹配的简化 Sandia 参考曲线：效率参数 96%、启动功率 `Pso = 0.004931 × Paco`、`Pdco = Paco / 0.96`、`AC = clamp(Paco × (DC − Pso) / (Pdco − Pso), 0, Paco)`；已对全部 36 套基准 AC 数据校验，逐点误差小于 0.002 W。此为通用参考逆变器，不是用户所选品牌设备的精确曲线，也不模拟 DC 耦合储能回收削顶电量。依据：[SSC PVWatts V8 inverter calculations](https://github.com/NatLabRockies/ssc/blob/develop/ssc/cmod_pvwattsv8.cpp)。
 2. PVWatts 的电池调度在完整 8,760 小时序列上进行后汇总；图表展示每月 24 小时的**平均流向**，因此同一个小时段的月平均图可能同时出现充电与放电，表示不同日期的情况，不是同一真实时刻同时充放电。电池跨日、跨月连续，使用周期稳定的年初电量，0 点不强制清零；充放电各按 95% 效率、0.5 kW/kWh 功率上限。以光伏直供、余电充电、剩余免费送网为顺序，不从电网充电。
-3. 这些是历史典型气象条件下的估算，不是未来天气预报或发电保证。未建模储能，电池功率及效率仍由业务计算器负责。
+3. 这些是历史或典型气象条件下的估算，不是未来天气预报或发电保证。发电档案本身不含储能，储能调度、功率与效率由页面业务计算器负责。
 4. 当前五档倾角（含水平）、四个正方向只是离散模型。其他角度不能伪装成已采集值；可另行请求 API，或明确标记插值及误差。
 5. 禾迈仅有月平均日 AC 曲线，页面重复该月平均日进行全年模拟并限制 AC 上限，无法还原实际逐日天气和原逆变器已削掉的电量。原始归档不修改。不同来源不能当作同条件下的精确对照。
 

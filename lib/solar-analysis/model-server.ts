@@ -2,12 +2,13 @@ import "server-only";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
+import { gunzipSync } from "node:zlib";
 import catalog from "@/data/solar-generation/catalog.json";
 import legacy from "@/hoymiles_gooo_Glorida_generation_curve.json";
-import type { GenerationModel } from "./models";
+import { validGenerationModel, type GenerationModel } from "./models";
 import { accessCookieIsValid } from "@/app/solar-analysis/access";
 
-type Entry = { id: string; raw: string; raw_sha256: string };
+type Entry = { id: string; raw: string; raw_sha256: string; runtime?: string; runtime_sha256?: string };
 const base = path.join(process.cwd(), "data/solar-generation");
 export async function loadGenerationModel(id: string): Promise<GenerationModel | null> {
   if (id === "hoymiles") return { id, source: "hoymiles", referenceCapacityKwp: legacy.system.dc_capacity_kwp,
@@ -18,6 +19,15 @@ export async function loadGenerationModel(id: string): Promise<GenerationModel |
     if (manifest.status !== "complete") throw new Error("Archive incomplete");
     const entry = (manifest.models as Entry[]).find(e => e.id === id);
     if (!entry) continue;
+    if (entry.runtime) {
+      const bytes = await readFile(path.join(base, batch.path, entry.runtime));
+      if (createHash("sha256").update(bytes).digest("hex") !== entry.runtime_sha256) throw new Error("Archive hash mismatch");
+      const data = JSON.parse(gunzipSync(bytes).toString());
+      if (data.id !== id || !validGenerationModel(data)) throw new Error("Invalid archived model");
+      return { id, source: data.source, referenceCapacityKwp: data.referenceCapacityKwp,
+        weatherSource: data.weatherSource, historicalYear: data.historicalYear,
+        ...(data.dcPowerW ? { dcPowerW: data.dcPowerW } : { acPowerW: data.acPowerW }) };
+    }
     const bytes = await readFile(path.join(base, batch.path, entry.raw));
     if (createHash("sha256").update(bytes).digest("hex") !== entry.raw_sha256) throw new Error("Archive hash mismatch");
     const raw = JSON.parse(bytes.toString());

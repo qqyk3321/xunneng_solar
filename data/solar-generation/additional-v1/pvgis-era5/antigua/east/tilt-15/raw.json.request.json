@@ -1,0 +1,5 @@
+{
+  "url": "https://re.jrc.ec.europa.eu/api/v5_3/seriescalc?lat=17.1274&lon=-61.8468&startyear=2022&endyear=2023&raddatabase=PVGIS-ERA5&pvcalculation=1&peakpower=1&loss=14&angle=15&aspect=-90&pvtechchoice=crystSi&mountingplace=building&usehorizon=1&outputformat=json",
+  "retrieved_at": "2026-09-17T04:55:50.002765+00:00",
+  "raw_sha256": "ad997b4772bd1fdfe2494c6173f2a581e30b996373fe5c0b1f5711dbf0e21157"
+}

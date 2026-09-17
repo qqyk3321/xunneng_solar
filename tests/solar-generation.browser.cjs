@@ -12,7 +12,8 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
   try {
     const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     await context.route('**/solar-analysis/visit', route => route.fulfill({ status: 204 }));
-    await context.route('https://**/*', route => route.abort());
+    await context.route('https://**/*', route => new URL(route.request().url()).origin === new URL(origin).origin ? route.fallback() : route.abort());
+    await context.route('**/_vercel/**', route => route.fulfill({ status: 204 }));
     const page = await context.newPage();
     const errors = [], requests = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -62,6 +63,16 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
     assert.equal(await total(), annualBeforeMonth);
     await page.getByRole('button', { name: '夜间用电', exact: true }).click();
     assert.equal(await page.getByRole('button', { name: '夜间用电', exact: true }).getAttribute('aria-pressed'), 'true');
+    for (const source of ['pvgis-era5', 'pvgis-nsrdb', 'nasa-power']) {
+      const loaded = page.waitForResponse(r => r.url().includes('/solar-analysis/model?') && r.url().includes(source) && r.status() === 200);
+      await page.getByLabel('发电数据源', { exact: true }).selectOption(source);
+      const payload = await (await loaded).json();
+      assert.equal(payload.source, source);
+      assert.equal((payload.dcPowerW || payload.acPowerW).length, 8760);
+      await page.locator('#solar-step-config').waitFor();
+      assert.match(await page.locator('.source-context').innerText(), source === 'pvgis-nsrdb' ? /2014/ : /2022/);
+      assert.match(await total(), /\d/);
+    }
     await page.getByLabel('发电数据源', { exact: true }).selectOption('hoymiles');
     await page.locator('#solar-step-config').waitFor();
     assert.equal(await page.getByRole('button', { name: '倾角 15°', exact: true }).count(), 0);
@@ -89,7 +100,7 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://127.0.0.1:3003';
       await page.locator('#solar-step-installation').screenshot({ path: join(artifacts, `${width}.png`) });
     }
     assert.deepEqual(errors, []);
-    console.log(JSON.stringify({ ok: true, guardedData: true, installationConfirmation: true, tutorialSteps: 6, selectionUpdatesResults: true, horizontal: true, legacy: true, errorRecovery: true, artifacts }, null, 2));
+    console.log(JSON.stringify({ ok: true, guardedData: true, sources: 5, installationConfirmation: true, tutorialSteps: 6, selectionUpdatesResults: true, horizontal: true, legacy: true, errorRecovery: true, artifacts }, null, 2));
     await context.close();
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

@@ -1,0 +1,499 @@
+{
+  "schema_version": 2,
+  "id": "pvgis-nsrdb/antigua/south/tilt-20",
+  "source": "pvgis-nsrdb",
+  "site": {
+    "id": "antigua",
+    "latitude": 17.1274,
+    "longitude": -61.8468
+  },
+  "geometry": {
+    "orientation": "south",
+    "tilt_degrees_from_horizontal": 20,
+    "azimuth_degrees_clockwise_from_north": 180,
+    "mounting": "roof"
+  },
+  "system": {
+    "dc_capacity_kwp": 1
+  },
+  "time_basis": {
+    "kind": "historical_year",
+    "year": 2014,
+    "utc_offset_hours": -4,
+    "interval_hours": 1,
+    "days": 365
+  },
+  "units": {
+    "average_day_hourly_generation_wh": "Wh AC per hourly interval on average day",
+    "monthly_energy_kwh": "kWh AC"
+  },
+  "annual_generation_kwh": 1683.30394,
+  "months": [
+    {
+      "month": 1,
+      "days": 31,
+      "monthly_energy_kwh": 154.93182000000002,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        27.82677419354838,
+        237.1487096774193,
+        453.02354838709675,
+        601.071935483871,
+        644.2641935483872,
+        711.6945161290322,
+        644.8548387096774,
+        643.5358064516129,
+        518.8983870967742,
+        357.5048387096773,
+        157.97709677419354,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 2,
+      "days": 28,
+      "monthly_energy_kwh": 138.32962,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        33.99964285714286,
+        238.61178571428565,
+        441.11285714285714,
+        595.5389285714284,
+        603.3689285714287,
+        647.22,
+        684.6999999999999,
+        628.9628571428573,
+        523.5796428571429,
+        369.48285714285703,
+        173.76607142857142,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 3,
+      "days": 31,
+      "monthly_energy_kwh": 152.28108,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        67.64,
+        261.25516129032263,
+        460.9903225806451,
+        592.9432258064517,
+        663.1390322580644,
+        632.4296774193548,
+        645.653870967742,
+        590.3499999999997,
+        490.08322580645165,
+        345.1422580645161,
+        162.66612903225806,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 4,
+      "days": 30,
+      "monthly_energy_kwh": 142.92009,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1586666666666667,
+        90.54933333333334,
+        288.49266666666676,
+        443.0019999999999,
+        573.2010000000002,
+        599.6466666666668,
+        620.0730000000001,
+        630.8230000000001,
+        576.4443333333332,
+        457.97799999999995,
+        324.6103333333333,
+        139.71333333333334,
+        18.310666666666666,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 5,
+      "days": 31,
+      "monthly_energy_kwh": 134.94437,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        7.614838709677419,
+        98.95903225806452,
+        259.82322580645166,
+        410.5809677419354,
+        501.4322580645162,
+        549.8383870967741,
+        556.9100000000001,
+        572.1541935483872,
+        521.2161290322581,
+        429.34354838709675,
+        293.8641935483871,
+        126.49935483870966,
+        24.80806451612904,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 6,
+      "days": 30,
+      "monthly_energy_kwh": 128.08214,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        9.841333333333333,
+        90.98333333333333,
+        246.1566666666666,
+        377.601,
+        471.80866666666674,
+        552.286,
+        592.9676666666667,
+        568.6446666666667,
+        505.8556666666666,
+        412.8393333333334,
+        272.57866666666666,
+        136.35733333333337,
+        31.48433333333333,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 7,
+      "days": 31,
+      "monthly_energy_kwh": 139.69142,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.542903225806451,
+        85.5858064516129,
+        237.05548387096775,
+        399.61645161290323,
+        502.62032258064517,
+        579.4467741935485,
+        576.5561290322579,
+        621.4306451612904,
+        530.6512903225807,
+        459.16032258064513,
+        318.13354838709677,
+        154.27709677419352,
+        37.09806451612903,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 8,
+      "days": 31,
+      "monthly_energy_kwh": 133.97702,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2645161290322581,
+        76.70387096774192,
+        224.12419354838713,
+        394.1338709677419,
+        507.2206451612903,
+        578.6593548387098,
+        615.8761290322582,
+        551.9154838709678,
+        497.6338709677419,
+        419.10193548387105,
+        296.3109677419355,
+        136.36709677419356,
+        23.52741935483871,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 9,
+      "days": 30,
+      "monthly_energy_kwh": 133.31431,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        107.648,
+        303.02400000000006,
+        458.3263333333333,
+        571.8693333333333,
+        600.4976666666668,
+        610.1669999999999,
+        536.7956666666668,
+        497.39700000000005,
+        385.093,
+        272.4026666666667,
+        100.58966666666669,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 10,
+      "days": 31,
+      "monthly_energy_kwh": 145.30332,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        125.49967741935482,
+        316.03709677419357,
+        465.58064516129036,
+        564.6754838709678,
+        624.3887096774193,
+        651.8525806451613,
+        631.1167741935485,
+        542.0932258064516,
+        425.57193548387096,
+        256.8290322580645,
+        83.55870967741936,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 11,
+      "days": 30,
+      "monthly_energy_kwh": 133.05564,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        101.50666666666666,
+        281.374,
+        445.18000000000006,
+        537.237,
+        603.2343333333333,
+        656.9509999999999,
+        599.9630000000001,
+        504.5170000000001,
+        406.1840000000001,
+        232.31199999999995,
+        66.729,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "month": 12,
+      "days": 31,
+      "monthly_energy_kwh": 146.47311,
+      "average_day_hourly_generation_wh": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        58.12935483870968,
+        283.4551612903226,
+        469.11322580645157,
+        544.9338709677419,
+        671.4706451612903,
+        655.2751612903227,
+        639.832258064516,
+        555.832258064516,
+        460.7900000000001,
+        295.79451612903233,
+        90.31258064516128,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "provenance": {
+    "parameters": {
+      "lat": 17.1274,
+      "lon": -61.8468,
+      "startyear": 2014,
+      "endyear": 2015,
+      "raddatabase": "PVGIS-NSRDB",
+      "pvcalculation": 1,
+      "peakpower": 1,
+      "loss": 14,
+      "angle": 20,
+      "aspect": 0,
+      "pvtechchoice": "crystSi",
+      "mountingplace": "building",
+      "usehorizon": 1,
+      "outputformat": "json"
+    },
+    "api_inputs": {
+      "location": {
+        "latitude": 17.1274,
+        "longitude": -61.8468,
+        "elevation": 6.0
+      },
+      "meteo_data": {
+        "radiation_db": "PVGIS-NSRDB",
+        "meteo_db": "ERA5",
+        "year_min": 2014,
+        "year_max": 2015,
+        "use_horizon": true,
+        "horizon_db": null,
+        "horizon_data": "DEM-calculated"
+      },
+      "mounting_system": {
+        "fixed": {
+          "slope": {
+            "value": 20,
+            "optimal": false
+          },
+          "azimuth": {
+            "value": 0,
+            "optimal": false
+          },
+          "type": "building-integrated"
+        }
+      },
+      "pv_module": {
+        "technology": "c-Si",
+        "peak_power": 1.0,
+        "system_loss": 14.0
+      }
+    },
+    "api_output_metadata": {
+      "hourly": {
+        "type": "time series",
+        "timestamp": "hourly averages",
+        "variables": {
+          "P": {
+            "description": "PV system power",
+            "units": "W"
+          },
+          "G(i)": {
+            "description": "Global irradiance on the inclined plane (plane of the array)",
+            "units": "W/m2"
+          },
+          "H_sun": {
+            "description": "Sun height",
+            "units": "degree"
+          },
+          "T2m": {
+            "description": "2-m air temperature",
+            "units": "degree Celsius"
+          },
+          "WS10m": {
+            "description": "10-m total wind speed",
+            "units": "m/s"
+          },
+          "Int": {
+            "description": "1 means solar radiation values are reconstructed"
+          }
+        }
+      }
+    },
+    "input_timestamp_minutes": [
+      0
+    ],
+    "raw": [
+      "antigua/south/tilt-20/raw.json.gz"
+    ],
+    "conversion": "PVGIS P: system electrical output W. Linear capacity scaling + AC cap only; no second inverter efficiency applied.",
+    "mounting_note": "PVGIS building means building-integrated without rear airflow; not identical to PVWatts fixed roof.",
+    "requested_azimuth_clockwise_from_north": 180,
+    "api_reported_azimuth_clockwise_from_north": 180.0,
+    "orientation_note": "North requests return -179 in PVGIS convention (1 degree clockwise from north); treated as approximate north, not claimed exact. Horizontal azimuth is irrelevant."
+  }
+}
