@@ -13,7 +13,7 @@ const assert = require('node:assert/strict');
         const url = new URL(route.request().url());
         if (url.origin === 'https://tally.so' && url.pathname.startsWith('/embed/')) {
           const formId = url.pathname.split('/').pop();
-          return route.fulfill({ contentType: 'text/html', body: `<button id="finish">Simulate successful submission</button><script>document.querySelector('#finish').onclick=()=>parent.postMessage(JSON.stringify({event:'Tally.FormSubmitted',payload:{formId:${JSON.stringify(formId)}}}),'*')</script>` });
+          return route.fulfill({ contentType: 'text/html', body: `<button id="finish">Simulate successful submission</button><script>document.querySelector('#finish').onclick=()=>parent.postMessage(JSON.stringify({event:'Tally.FormSubmitted',payload:{id:'TEST-${code}-123',formId:${JSON.stringify(formId)}}}),'*')</script>` });
         }
         return route.abort();
       });
@@ -36,6 +36,8 @@ const assert = require('node:assert/strict');
       await page.frameLocator('iframe').locator('#finish').click();
       const complete = page.getByRole('heading', { name: 'Your enquiry has been submitted.' });
       await complete.waitFor();
+      await page.getByText(`TEST-${code}-123`, { exact: true }).waitFor();
+      assert.equal(await page.getByRole('button', { name: 'Copy', exact: true }).count(), 1);
       const intro = page.getByText('Thank you for sharing your plans with us.', { exact: false });
       const centered = await intro.evaluate(el => {
         const card = el.getBoundingClientRect();

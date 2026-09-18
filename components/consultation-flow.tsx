@@ -7,11 +7,13 @@ import { RegionFlag } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { SUPPORT_EMAILS } from "@/lib/site-contact";
 import { BrandMark } from "./brand-mark";
+import { SubmissionReference } from "./submission-reference";
 import { DeferredFloatingContact } from "./deferred-floating-contact";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   buildTallyIntakeUrl,
   isTallySubmissionMessage,
+  tallySubmissionId,
   isTallyFormEvent,
 } from "@/lib/tally-intake";
 import styles from "./consultation-flow.module.css";
@@ -42,6 +44,7 @@ export function ConsultationFlow({ country }: { country: ServiceCountry }) {
 function ConsultationForRegion({ country }: { country: ServiceCountry }) {
   const [step, setStep] = useState<Step>("intake");
   const [accepted, setAccepted] = useState(false);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
   const currentStepIndex = STEPS.findIndex(([id]) => id === step);
   useEffect(() => {
     if (step !== "form") return;
@@ -202,16 +205,30 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
             </form>
           )}
           {step === "form" && (
-            <FormStep country={country} onSubmitted={() => setStep("thanks")} />
+            <FormStep
+              country={country}
+              onSubmitted={(id) => {
+                setSubmissionId(id);
+                setStep("thanks");
+              }}
+            />
           )}
-          {step === "thanks" && <SubmissionComplete country={country} />}
+          {step === "thanks" && (
+            <SubmissionComplete country={country} submissionId={submissionId} />
+          )}
         </main>
       </div>
     </div>
   );
 }
 
-function SubmissionComplete({ country }: { country: ServiceCountry }) {
+function SubmissionComplete({
+  country,
+  submissionId,
+}: {
+  country: ServiceCountry;
+  submissionId: string | null;
+}) {
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
@@ -244,6 +261,7 @@ function SubmissionComplete({ country }: { country: ServiceCountry }) {
           confirmation email will arrive shortly — please check your spam folder
           if you don’t see it.
         </p>
+        <SubmissionReference id={submissionId} />
         <Link className={styles.successHome} href={regionPath(country)}>
           Back to home <span aria-hidden="true">↗</span>
         </Link>
@@ -270,7 +288,7 @@ function FormStep({
   onSubmitted,
 }: {
   country: ServiceCountry;
-  onSubmitted: () => void;
+  onSubmitted: (id: string | null) => void;
 }) {
   const frame = useRef<HTMLIFrameElement>(null);
   const [loading, setLoading] = useState(true);
@@ -300,7 +318,7 @@ function FormStep({
         event.source === frame.current?.contentWindow &&
         isTallySubmissionMessage(event.origin, event.data, FORM_ID)
       )
-        onSubmitted();
+        onSubmitted(tallySubmissionId(event.origin, event.data, FORM_ID));
     };
     window.addEventListener("message", receive);
     return () => window.removeEventListener("message", receive);

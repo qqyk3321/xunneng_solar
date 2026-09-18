@@ -26,6 +26,19 @@ export function isTallySubmissionMessage(
   return isTallyFormEvent(origin, data, formId, "Tally.FormSubmitted");
 }
 
+/** Display metadata only; never authorizes access to a submission. */
+export function tallySubmissionId(
+  origin: string,
+  data: unknown,
+  formId: string,
+): string | null {
+  if (!isTallySubmissionMessage(origin, data, formId)) return null;
+  const id = JSON.parse(data as string)?.payload?.id;
+  return typeof id === "string" && /^[A-Za-z0-9_-]{1,200}$/.test(id)
+    ? id
+    : null;
+}
+
 export function isTallyFormEvent(
   origin: string,
   data: unknown,
@@ -35,10 +48,7 @@ export function isTallyFormEvent(
   if (origin !== "https://tally.so" || typeof data !== "string") return false;
   try {
     const message = JSON.parse(data);
-    return (
-      message?.event === event &&
-      message?.payload?.formId === formId
-    );
+    return message?.event === event && message?.payload?.formId === formId;
   } catch {
     return false;
   }

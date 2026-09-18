@@ -1,4 +1,4 @@
-// Read-only: verifies an existing unexpired preview. No submissions or DB writes.
+// Read-only: verifies an existing permanent preview. No submissions or DB writes.
 // Run with node --env-file=.env; never log the private URL, token or email.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const { createClient } = require('@supabase/supabase-js');
@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 (async () => {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const client = createClient(process.env.SUPABASE_URL, key);
-  const {data, error} = await client.from('consultation_preview_tokens').select('token_hash,tally_submission_row_id,tally_form_submissions(country_code,email,preview_url:payload->data->>submissionPreviewUrl)').gt('expires_at',new Date().toISOString()).limit(1);
+  const {data, error} = await client.from('consultation_preview_tokens').select('token_hash,tally_submission_row_id,tally_form_submissions(country_code,email,preview_url:payload->data->>submissionPreviewUrl)').limit(1);
   assert.equal(error, null);
   assert.ok(data?.length, 'Requires an existing valid preview');
   const row = data[0], submission = row.tally_form_submissions;

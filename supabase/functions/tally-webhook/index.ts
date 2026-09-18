@@ -51,9 +51,8 @@ async function createPreviewUrl(args: {
       {
         tally_submission_row_id: args.submission.id,
         token_hash: await hash(token),
-        expires_at: new Date(
-          new Date(args.receivedAt).getTime() + 30 * 24 * 60 * 60 * 1000,
-        ).toISOString(),
+        // Keep old readers compatible without imposing a preview deadline.
+        expires_at: "infinity",
       },
       { onConflict: "tally_submission_row_id" },
     );
@@ -152,6 +151,7 @@ async function sendConfirmationEmail(args: {
         template: {
           id: templateId,
           variables: {
+            SUBMISSION_ID: args.row.submission_id,
             RECIPIENT_NAME: args.row.name,
             RECIPIENT_EMAIL: args.row.email,
             PREVIEW_URL: args.previewUrl,
@@ -238,7 +238,6 @@ Deno.serve((req: Request) =>
           client,
           row,
           submission: data,
-          receivedAt: data.received_at,
           serviceKey: key,
           siteUrl: Deno.env.get("SITE_URL") ?? "https://www.solortide.com",
         });
@@ -266,7 +265,6 @@ Deno.serve((req: Request) =>
             client,
             row,
             submission: existing.data,
-            receivedAt: existing.data.received_at,
             serviceKey: key,
             siteUrl: Deno.env.get("SITE_URL") ?? "https://www.solortide.com",
           });

@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 
 export type ConsultationPreview = {
+  submission_id: string;
   country_code: "AG" | "DM";
   name: string;
   email: string;
@@ -25,10 +26,9 @@ export async function loadConsultationPreview(token: string) {
   const { data } = await client
     .from("consultation_preview_tokens")
     .select(
-      "expires_at, tally_form_submissions(country_code, name, email, phone, address, submitted_at, preview_url:payload->data->>submissionPreviewUrl)",
+      "tally_form_submissions(submission_id, country_code, name, email, phone, address, submitted_at, preview_url:payload->data->>submissionPreviewUrl)",
     )
     .eq("token_hash", tokenHash)
-    .gt("expires_at", new Date().toISOString())
     .maybeSingle();
   const submission = data?.tally_form_submissions as
     ConsultationPreview | null | undefined;

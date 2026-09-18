@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
+import { SubmissionReference } from "@/components/submission-reference";
 import { tallyPreviewUrl } from "@/lib/tally-preview-url";
 import { submissionTiming } from "@/lib/submission-timing";
 import { DeferredFloatingContact } from "@/components/deferred-floating-contact";
@@ -60,6 +61,7 @@ export default async function ConsultationPreviewPage({
               </p>
             </div>
             <div className={styles.timeline}>
+              <SubmissionReference id={submission.submission_id} />
               <dl>
                 <div>
                   <dt>Submitted</dt>
