@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SiteFooter } from "./site-footer";
-import { RegionFlag } from "./site-region";
+import { RegionFlag, useSiteRegion } from "./site-region";
 import { SiteHeader } from "./site-header";
 import { SectionAnchor } from "./section-anchor";
 import styles from "./caribbean-homepage.module.css";
@@ -12,10 +12,10 @@ import styles from "./caribbean-homepage.module.css";
 const steps = [
   {
     image: "enquiry",
-    label: "Your enquiry",
-    title: "First, we listen.",
-    copy: "Lower bills? Backup for the essentials? Tell us about your home and what you want your energy system to do.",
-    outcome: "A clear picture of your priorities.",
+    label: "Your free assessment",
+    title: "Get your free assessment.",
+    copy: "Choose your country, then tell us about your home, electricity use and what you’d like solar to do for you. It’s the first step towards a solution designed around your needs.",
+    outcome: "Your needs shared with our team, ready for an initial review.",
     alt: "Illustration of a Caribbean homeowner making an online solar enquiry",
   },
   {
@@ -98,6 +98,7 @@ const faqs = [
 ];
 
 export function CaribbeanHomepage() {
+  const { choose } = useSiteRegion();
   const [step, setStep] = useState(0);
   const [slide, setSlide] = useState(0);
   const [wishlistStatus, setWishlistStatus] = useState<
@@ -180,15 +181,6 @@ export function CaribbeanHomepage() {
       document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
-
-  useEffect(() => {
-    if (!rotating) return;
-    const timer = window.setTimeout(
-      () => setSlide((current) => (current + 1) % scenarios.length),
-      4000,
-    );
-    return () => window.clearTimeout(timer);
-  }, [rotating, slide]);
 
   useEffect(() => {
     const nodes = stepNodes.current;
@@ -276,7 +268,6 @@ export function CaribbeanHomepage() {
             <div>
               <h2 id="countries-title">Choose your island.</h2>
             </div>
-            <p>Your local solar solutions, savings and support start here.</p>
           </div>
           <div className={styles.countryGrid}>
             {(
@@ -342,12 +333,12 @@ export function CaribbeanHomepage() {
                 <span className={styles.wishlistCheck} aria-hidden="true">
                   ✓
                 </span>
-                <h4>Your wish is on our list.</h4>
+                <h4>Your wish is<br />on our list.</h4>
                 <p>
                   We’ve received your request. You’ll be among the first to hear
                   when we launch in your area.
                 </p>
-                <p>Thank you for helping shape our next chapter.</p>
+                <p className={styles.wishlistThanks}>Thank you for helping shape our next chapter.</p>
               </div>
             ) : (
               <form
@@ -516,6 +507,16 @@ export function CaribbeanHomepage() {
                     <span>WHAT YOU TAKE AWAY</span>
                     <p>{item.outcome}</p>
                   </div>
+                  {index === 0 && (
+                    <button
+                      type="button"
+                      className={`${styles.primary} ${styles.stepAssessment}`}
+                      aria-haspopup="dialog"
+                      onClick={() => choose("assessment")}
+                    >
+                      Get Your Free Assessment <span aria-hidden="true">→</span>
+                    </button>
+                  )}
                 </article>
               ))}
             </div>
@@ -598,6 +599,18 @@ export function CaribbeanHomepage() {
                       <h3>{item.title}</h3>
                       <p>{item.copy}</p>
                     </div>
+                    {position === 0 && (
+                      <span className={styles.carouselProgress} aria-hidden="true">
+                        <span
+                          key={slide}
+                          className={styles.carouselProgressFill}
+                          style={{ animationPlayState: rotating ? "running" : "paused" }}
+                          onAnimationEnd={() => {
+                            if (rotating) moveSlide(1);
+                          }}
+                        />
+                      </span>
+                    )}
                   </article>
                 );
               })}
@@ -681,9 +694,14 @@ export function CaribbeanHomepage() {
               <br />
               before you talk to us.
             </p>
-            <Link href="/faq" prefetch={false} className={styles.faqLink}>
+            <button
+              type="button"
+              onClick={() => choose("faq")}
+              aria-haspopup="dialog"
+              className={styles.faqLink}
+            >
               Explore all FAQs <span aria-hidden="true">→</span>
-            </Link>
+            </button>
           </div>
           <div>
             {faqs.map(([question, answer]) => (

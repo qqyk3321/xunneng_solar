@@ -45,7 +45,7 @@
   margin: 0 3px;
 }
 .brand > small {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.1px;
   font-weight: 500;
   margin-left: 4px;
@@ -53,7 +53,7 @@
 .nav {
   display: flex;
   gap: 24px;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
   color: #475569;
 }
@@ -74,7 +74,7 @@
     align-items: center;
     min-height: 44px;
     color: #007a87;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
     padding: 0 8px;
   }
@@ -89,7 +89,7 @@
   color: #fff;
   background: #007a87;
   font:
-    600 12px/1.5 "Space Grotesk",
+    600 14px/1.5 "Space Grotesk",
     sans-serif;
 }
 .main {
@@ -136,7 +136,7 @@
 }
 .homepage .heroEyebrow {
   color: #a8e8e8;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 2px;
   margin-bottom: 24px;
@@ -172,7 +172,7 @@
   min-height: 52px;
   border-radius: 8px;
   font:
-    600 14px/1.5 "Space Grotesk",
+    600 16px/1.5 "Space Grotesk",
     sans-serif;
   transition: background 150ms ease;
 }
@@ -196,7 +196,7 @@
   gap: 12px 28px;
   margin-top: 48px;
   color: #d1e2e4;
-  font-size: 12px;
+  font-size: 14px;
 }
 .heroNotes span {
   padding-left: 12px;
@@ -227,7 +227,7 @@
 .sectionIntro .context {
   max-width: 350px;
   color: #64748b;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
 }
 @media (max-width: 1150px) {
@@ -284,7 +284,7 @@
     letter-spacing: -1.5px;
   }
   .homepage .heroCopy {
-    font-size: 15px;
+    font-size: 17px;
   }
   .sectionIntro h2 {
     font-size: 30px;
@@ -324,7 +324,7 @@
   .heroNotes {
     gap: 12px 20px;
     margin-top: 32px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .container {
     padding-left: 12px;
@@ -356,7 +356,7 @@
   align-items: center;
   gap: 16px;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   padding: 8px 0;
 }
@@ -410,7 +410,7 @@
   background: #ffb321;
   color: #16383c;
   box-shadow: 0 4px 14px #e99a2026;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
@@ -567,7 +567,7 @@
   padding-top: 18px;
   position: relative;
   color: #e3eded;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -595,7 +595,7 @@
 .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroCopy {
   max-width: 470px;
   margin-top: 18px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.7;
 }
 .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroActions {
@@ -647,7 +647,7 @@
     letter-spacing: -1px;
   }
   .islandHeading p {
-    font-size: 9px;
+    font-size: 13px;
     letter-spacing: 0.14em;
   }
   .islandPromise {

@@ -77,9 +77,19 @@ export function SiteFooter({
           <div className={styles.middle}>
             <h2 className={styles.sectionTitle}>Explore</h2>
             <nav className={styles.links} aria-label="Footer navigation">
-              <Link href={regionPath(country, "/faq")} prefetch={false}>
-                FAQ
-              </Link>
+              {caribbean ? (
+                <button
+                  type="button"
+                  onClick={() => choose("faq")}
+                  aria-haspopup="dialog"
+                >
+                  FAQ
+                </button>
+              ) : (
+                <Link href={regionPath(country, "/faq")} prefetch={false}>
+                  FAQ
+                </Link>
+              )}
               {caribbean ? (
                 <button
                   type="button"

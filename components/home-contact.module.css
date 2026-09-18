@@ -110,7 +110,7 @@
   align-items: center;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   color: #087c86;
@@ -129,7 +129,7 @@
   margin-top: 15px;
 }
 .intro > p {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.85;
   color: #617779;
   max-width: 430px;
@@ -146,17 +146,17 @@
   display: block;
 }
 .promise strong {
-  font-size: 14px;
+  font-size: 16px;
   color: #23494e;
   margin-bottom: 4px;
 }
 .promise span {
-  font-size: 13px;
+  font-size: 15px;
   color: #617779;
 }
 .intro > .supportEmail {
   margin-top: 24px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .supportEmail a {
   color: #087c86;
@@ -184,7 +184,7 @@
 }
 .field label {
   display: block;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 9px;
   color: #23494e;
@@ -202,7 +202,7 @@
   color: #183c43;
   background: #fbfcfa;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.7;
 }
 .field textarea {
@@ -226,7 +226,7 @@
 .count {
   display: block;
   text-align: right;
-  font-size: 10px;
+  font-size: 13px;
   margin-top: 6px;
   color: #859792;
 }
@@ -249,7 +249,7 @@
   justify-content: center;
   border-radius: 8px;
   padding: 12px 17px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   line-height: 1.5;
@@ -279,7 +279,7 @@
   outline-offset: 3px;
 }
 .privacy {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   color: #526b65;
   margin: 20px 0;
@@ -304,7 +304,7 @@
 .privacyError {
   color: #963e2c;
   margin: 6px 0 0 27px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .privacy a {
   color: #006975;
@@ -317,7 +317,7 @@
   border: 1px solid #efcbbf;
   border-radius: 8px;
   padding: 12px;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
   margin: 14px 0;
 }
@@ -330,6 +330,18 @@
 }
 .fileInput {
   display: none;
+}
+.editorLoading {
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  color: #39767c;
+  background: #f5faf8;
+  border-radius: 10px;
+  font-size: 15px;
 }
 .dialog {
   position: fixed;
@@ -368,7 +380,7 @@
 }
 .modalHeader p {
   color: #617779;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.6;
 }
 .close {
@@ -391,7 +403,7 @@
   overflow: hidden;
 }
 .hint {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   color: #748a83;
   margin-top: 12px;
@@ -428,7 +440,7 @@
 }
 .photos span {
   display: block;
-  font-size: 10px;
+  font-size: 13px;
   text-align: center;
   padding: 4px;
   color: #617779;
@@ -446,7 +458,7 @@
   background: #f8faf9;
 }
 .draft strong {
-  font-size: 14px;
+  font-size: 16px;
 }
 .draft p {
   white-space: pre-wrap;
@@ -456,13 +468,13 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 9px 0;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
   color: #617779;
 }
 .draft span {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   color: #617779;
   margin-bottom: 14px;
 }
@@ -491,7 +503,7 @@
   margin-bottom: 15px;
 }
 .success p {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.85;
   color: #617779;
 }
@@ -509,7 +521,7 @@
   gap: 8px;
   align-items: center;
   color: #087c86;
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 15px;
 }
 .spin {

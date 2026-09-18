@@ -14,7 +14,7 @@
   min-width: 32px;
   min-height: 32px;
   padding: 5px 8px;
-  font-size: 13px;
+  font-size: 15px;
   border: 1px solid transparent;
   border-radius: 5px;
   background: white;
@@ -29,7 +29,7 @@
 .prose {
   padding: 16px;
   min-height: 210px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.8;
   text-align: left;
   overflow-wrap: anywhere;

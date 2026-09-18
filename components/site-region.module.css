@@ -19,7 +19,7 @@
 .dialog .eyebrow {
   margin: 0 0 14px;
   color: #007a87;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
 }
@@ -31,7 +31,7 @@
 }
 .description,
 .coming {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.8;
   color: #526b70;
 }
@@ -65,7 +65,7 @@
 .options small {
   display: block;
   margin-top: 10px;
-  font-size: 11px;
+  font-size: 13px;
   color: #526b70;
 }
 .coming {
@@ -82,7 +82,7 @@
   background: #ffa500;
   color: #102f36;
   font:
-    700 14px "Plus Jakarta Sans",
+    700 16px "Plus Jakarta Sans",
     sans-serif;
   cursor: pointer;
 }
@@ -93,7 +93,7 @@
 }
 .hint {
   color: #657b80;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.7;
   text-align: center;
   margin: 16px 0 0;
@@ -101,7 +101,7 @@
 .warning {
   padding: 12px;
   background: #fff2df;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.6;
 }
 .close {
@@ -125,7 +125,7 @@
   background: transparent;
   color: inherit;
   font:
-    600 12px/1.4 "Plus Jakarta Sans",
+    600 14px/1.4 "Plus Jakarta Sans",
     sans-serif;
   cursor: pointer;
   white-space: nowrap;
@@ -166,6 +166,6 @@
   }
   .switcher {
     padding: 7px 9px;
-    font-size: 11px;
+    font-size: 13px;
   }
 }

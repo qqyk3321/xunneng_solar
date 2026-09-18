@@ -25,7 +25,7 @@ const RegionContext = createContext<{
   country: ServiceCountry | null;
   ready: boolean;
   open: boolean;
-  choose: (intent?: "savings" | "assessment") => void;
+  choose: (intent?: "savings" | "assessment" | "faq") => void;
 }>({ country: null, ready: false, open: false, choose: () => {} });
 export const useSiteRegion = () => useContext(RegionContext);
 
@@ -45,7 +45,9 @@ function RegionForPath({
   const country = countryFromPath(pathname);
   const ready = true;
   const [manual, setManual] = useState(false);
-  const [intent, setIntent] = useState<"savings" | "assessment" | undefined>();
+  const [intent, setIntent] = useState<
+    "savings" | "assessment" | "faq" | undefined
+  >();
   // A focused option must not look selected while Continue is disabled.
   // Only the dialog draft defaults; the URL country changes after confirmation.
   const [draft, setDraft] = useState<ServiceCountry>(country ?? "AG");
@@ -85,7 +87,7 @@ function RegionForPath({
       document.body.style.overflow = previous;
     };
   }, [open]);
-  function choose(nextIntent?: "savings" | "assessment") {
+  function choose(nextIntent?: "savings" | "assessment" | "faq") {
     opener.current = document.activeElement as HTMLElement;
     setIntent(nextIntent);
     setDraft(country ?? "AG");
@@ -111,9 +113,11 @@ function RegionForPath({
     const destination =
       intent === "assessment"
         ? regionPath(draft, "/consultation")
-        : intent === "savings"
-          ? regionPath(draft)
-          : switchedRegionPath(pathname, draft);
+        : intent === "faq"
+          ? regionPath(draft, "/faq")
+          : intent === "savings"
+            ? regionPath(draft)
+            : switchedRegionPath(pathname, draft);
     const hash =
       intent === "savings" ? "#calculator" : intent ? "" : window.location.hash;
     if (destination === pathname) return;
@@ -140,7 +144,13 @@ function RegionForPath({
         onClose={() => {
           if (navigating || !opener.current?.isConnected) return;
           if (opener.current.getClientRects().length) opener.current.focus();
-          else opener.current.closest("header")?.querySelector<HTMLButtonElement>('button[aria-controls="regional-main-nav"]')?.focus();
+          else
+            opener.current
+              .closest("header")
+              ?.querySelector<HTMLButtonElement>(
+                'button[aria-controls="regional-main-nav"]',
+              )
+              ?.focus();
         }}
         onCancel={(event) => {
           event.preventDefault();

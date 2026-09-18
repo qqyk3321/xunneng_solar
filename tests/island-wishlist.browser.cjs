@@ -32,6 +32,16 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
       responseStatus = 200;
       await form.getByRole('button').click();
       await page.getByRole('heading', { name: 'Your wish is on our list.' }).waitFor();
+      const receipt = page.getByRole('status').filter({ has: page.getByRole('heading', { name: 'Your wish is on our list.' }) });
+      const typography = await receipt.evaluate(el => ({
+        alignment: getComputedStyle(el).textAlign,
+        titleSize: parseFloat(getComputedStyle(el.querySelector('h4')).fontSize),
+        bodySize: parseFloat(getComputedStyle(el.querySelector('p')).fontSize),
+      }));
+      assert.equal(typography.alignment, 'center');
+      assert.ok(typography.titleSize >= 30);
+      assert.ok(typography.bodySize >= 16);
+      await receipt.screenshot({ path: `/tmp/wishlist-receipt-${width}.png` });
       assert.equal(await form.count(), 0, 'success replaces form inline');
       assert.equal(await page.locator('dialog[open]').count(), 0);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);

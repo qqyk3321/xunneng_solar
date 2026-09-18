@@ -53,7 +53,7 @@ test("software monitoring is searchable and explains free access and connectivit
 });
 
 test("FAQ reuses the guarded contact module and links to its own inquiry section", () => {
-  const page = readFileSync("app/faq/page.tsx", "utf8");
+  const page = readFileSync("components/regional-faq-page.tsx", "utf8");
   const directory = readFileSync("app/faq/faq-directory.tsx", "utf8");
   const deferredContact = readFileSync(
     "components/deferred-homepage-contact.tsx",

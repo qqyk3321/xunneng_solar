@@ -21,7 +21,7 @@
   letter-spacing: -1.2px;
 }
 .heading p {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.8;
   color: #64748b;
 }
@@ -98,14 +98,14 @@
   display: inline-block;
   margin: 16px 0;
   color: #007a87;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.6;
 }
 .card p {
   margin: 0;
   color: #617779;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.85;
 }
 .step[data-revealed="true"] .card {
@@ -140,7 +140,7 @@
 }
 .actions p {
   margin: 14px 0 0;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   color: #64748b;
 }
@@ -199,7 +199,7 @@
     font-size: 30px;
   }
   .heading p {
-    font-size: 14px;
+    font-size: 16px;
   }
   .step {
     grid-template-columns: 40px minmax(0, 1fr);

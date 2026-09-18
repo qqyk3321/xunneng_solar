@@ -67,15 +67,22 @@ export function socialMetadata(
     },
   };
 }
-export function faqMetadata(): Metadata {
-  const title = "Solar & Battery FAQs | Sol & Tide Energy";
+export function faqMetadata(country: ServiceCountry): Metadata {
+  const path = regionPath(country, "/faq");
+  const title = `Solar & Battery FAQs — ${COUNTRY_NAMES[country]} | Sol & Tide Energy`;
   const description =
     "Answers about solar, LiFePO4 batteries, equipment certification, warranties and installation support for homes in Antigua and Dominica.";
   return {
     title,
     description,
-    alternates: { canonical: siteUrl("/faq"), languages: {} },
-    ...socialMetadata(title, description, "/faq"),
+    alternates: {
+      canonical: siteUrl(path),
+      languages: {
+        "en-AG": siteUrl("/antigua/faq"),
+        "en-DM": siteUrl("/dominica/faq"),
+      },
+    },
+    ...socialMetadata(title, description, path),
   };
 }
 export function regionAlternates(suffix = "") {
@@ -96,7 +103,7 @@ export function countryMetadata(
   country: ServiceCountry,
   page: "home" | "faq" | "consultation",
 ): Metadata {
-  if (page === "faq") return faqMetadata();
+  if (page === "faq") return faqMetadata(country);
   const suffix = page === "home" ? "" : `/${page}`;
   const title =
     page === "home"

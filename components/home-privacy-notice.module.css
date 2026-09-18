@@ -72,7 +72,7 @@
   background: white;
   color: #006975;
   font:
-    600 13px/1.4 "Space Grotesk",
+    600 15px/1.4 "Space Grotesk",
     sans-serif;
   cursor: pointer;
 }
@@ -81,7 +81,7 @@
 }
 .notice .disclosure,
 .dialog .disclosure {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.6;
   color: #617779;
   margin-top: 10px;
@@ -113,7 +113,7 @@
   margin: 0 26px 16px 0;
 }
 .dialog p {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
 }
 .option {
@@ -130,7 +130,7 @@
 }
 .option > span {
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 13px;
   color: #526b70;
 }
 .option input {
@@ -185,7 +185,7 @@
 .notice p {
   margin: 0;
   font:
-    400 13px/1.7 "Plus Jakarta Sans",
+    400 15px/1.7 "Plus Jakarta Sans",
     sans-serif;
   color: #d9e9eb;
 }
@@ -203,7 +203,7 @@
   background: #ffa500;
   color: #102f36;
   font:
-    600 14px/1.4 "Space Grotesk",
+    600 16px/1.4 "Space Grotesk",
     sans-serif;
   cursor: pointer;
 }
@@ -258,7 +258,7 @@
     padding-right: 26px;
   }
   .notice p {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

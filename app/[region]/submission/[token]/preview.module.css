@@ -31,7 +31,7 @@
   align-items: center;
   list-style: none;
   color: #27615a;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 .stepCheck {
@@ -51,7 +51,7 @@
   padding: 38px 36px;
 }
 .completeLabel {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1.8px;
   color: #897044;
@@ -70,7 +70,7 @@
   max-width: 390px;
   margin: 0;
   color: #58716c;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.85;
 }
 .timeline {
@@ -83,7 +83,7 @@
   gap: 24px;
 }
 .timeline dt {
-  font-size: 12px;
+  font-size: 14px;
   color: #58716c;
   margin-bottom: 8px;
 }
@@ -97,7 +97,7 @@
 .timeline time span {
   display: block;
   font:
-    500 12px/1.8 "Plus Jakarta Sans",
+    500 14px/1.8 "Plus Jakarta Sans",
     sans-serif;
   color: #617873;
   margin-top: 3px;
@@ -112,7 +112,7 @@
 }
 .timeline > p {
   margin: 16px 0 0;
-  font-size: 11px;
+  font-size: 13px;
   color: #6b7e75;
   line-height: 1.7;
 }
@@ -147,7 +147,7 @@
     padding: 18px;
   }
   .steps li {
-    font-size: 10px;
+    font-size: 13px;
     gap: 5px;
   }
   .stepCheck {

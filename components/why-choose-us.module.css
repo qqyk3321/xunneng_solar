@@ -55,7 +55,7 @@
   border-radius: 4px;
   background: #edf7f7;
   color: #006975;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.5;
   letter-spacing: 0.35px;
@@ -74,7 +74,7 @@
 }
 .reasons p {
   margin: 8px 0 0;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.85;
   color: #617779;
 }
@@ -112,7 +112,7 @@
 .stat dt {
   order: 2;
   font:
-    600 14px/1.5 "Space Grotesk",
+    600 16px/1.5 "Space Grotesk",
     sans-serif;
   color: #23494e;
   margin-top: 14px;
@@ -127,7 +127,7 @@
   display: block;
   min-height: 20px;
   margin-bottom: 10px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 20px;
   color: #64748b;
 }
@@ -147,13 +147,13 @@
   order: 3;
   margin-top: 9px;
   color: #64748b;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.7;
 }
 .results .disclaimer {
   margin: 20px 4px 0;
   color: #64748b;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.8;
   text-align: center;
 }
@@ -221,7 +221,7 @@
     font-size: 44px;
   }
   .stat dt {
-    font-size: 13px;
+    font-size: 15px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

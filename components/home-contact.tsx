@@ -1,7 +1,14 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element -- Local compressed photo thumbnails. */
-import { lazy, useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import Link from "next/link";
 import { FloatingQuestionButton } from "./floating-question-button";
 import { ScrollQuestionButton } from "./scroll-question-button";
@@ -713,27 +720,41 @@ export function HomeContact({
                 </label>
                 <div className={styles.editor}>
                   {rich && (
-                    <InquiryRichEditor
-                      variant="contact"
-                      initialContent={content}
-                      ref={editor}
-                      disabled={busy || !ready || !editorReady}
-                      invalid={invalid === "message"}
-                      onChange={(value) => {
-                        setContent(value);
-                        edited();
-                      }}
-                      onReady={setEditorReady}
-                      resolveImage={(id) =>
-                        retainedPhotos.current.find((photo) => photo.id === id)
-                          ?.url
+                    <Suspense
+                      fallback={
+                        <div className={styles.editorLoading} role="status">
+                          <LoaderCircle
+                            className={styles.spin}
+                            size={22}
+                            aria-hidden="true"
+                          />
+                          <span>Preparing your message editor…</span>
+                        </div>
                       }
-                      onPickImages={() => files.current?.click()}
-                      canAddImage={activePhotos.length < MAX_IMAGES}
-                      onFiles={(selected) => {
-                        void addPhotos(selected);
-                      }}
-                    />
+                    >
+                      <InquiryRichEditor
+                        variant="contact"
+                        initialContent={content}
+                        ref={editor}
+                        disabled={busy || !ready || !editorReady}
+                        invalid={invalid === "message"}
+                        onChange={(value) => {
+                          setContent(value);
+                          edited();
+                        }}
+                        onReady={setEditorReady}
+                        resolveImage={(id) =>
+                          retainedPhotos.current.find(
+                            (photo) => photo.id === id,
+                          )?.url
+                        }
+                        onPickImages={() => files.current?.click()}
+                        canAddImage={activePhotos.length < MAX_IMAGES}
+                        onFiles={(selected) => {
+                          void addPhotos(selected);
+                        }}
+                      />
+                    </Suspense>
                   )}
                 </div>
                 <span className={styles.count}>

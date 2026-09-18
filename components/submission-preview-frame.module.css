@@ -22,7 +22,7 @@
 }
 .toolbar a {
   color: #006975;
-  font-size: 12px;
+  font-size: 14px;
   text-underline-offset: 4px;
 }
 .frameWrap {
@@ -52,7 +52,7 @@
 }
 .loading p {
   color: #58716c;
-  font-size: 14px;
+  font-size: 16px;
 }
 .spinner {
   display: inline-block;
@@ -84,7 +84,7 @@
 .slow {
   padding: 20px 28px;
   background: #f1f6f2;
-  font-size: 14px;
+  font-size: 16px;
   color: #315653;
 }
 .slow button {

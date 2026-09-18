@@ -24,7 +24,7 @@ test("SEO uses configured origin or the official production fallback", () => {
   }
 });
 
-test("regional homes have independent metadata and shared FAQ has a single canonical", async () => {
+test("regional homes and FAQs have country-specific canonical URLs", async () => {
   for (const region of ["antigua", "dominica"]) {
     const params = Promise.resolve({ region });
     const home = await regionMetadata(params, "home");
@@ -32,11 +32,13 @@ test("regional homes have independent metadata and shared FAQ has a single canon
     assert.match(String(home.title), new RegExp(region, "i"));
     assert.ok(home.openGraph?.images);
     assert.ok(home.twitter);
-    assert.deepEqual(await regionMetadata(params, "faq"), faqMetadata());
+    assert.deepEqual(await regionMetadata(params, "faq"), faqMetadata(region === "antigua" ? "AG" : "DM"));
+    assert.equal((await regionMetadata(params, "faq")).alternates?.canonical, siteUrl(`/${region}/faq`));
   }
   const urls = sitemap().map((entry) => entry.url);
-  assert.ok(urls.includes(siteUrl("/faq")));
-  assert.ok(!urls.includes(siteUrl("/antigua/faq")));
+  assert.ok(!urls.includes(siteUrl("/faq")));
+  assert.ok(urls.includes(siteUrl("/antigua/faq")));
+  assert.ok(urls.includes(siteUrl("/dominica/faq")));
   assert.ok(!urls.some((url) => url.includes("preview")));
 });
 

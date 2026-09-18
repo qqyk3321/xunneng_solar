@@ -105,9 +105,19 @@ export function SiteHeader({
                 {homeLink("contact-us", "Contact us")}
               </>
             )}
-            <Link href={regionPath(country, "/faq")} prefetch={false}>
-              FAQ
-            </Link>
+            {caribbean ? (
+              <button
+                className={styles.navAction}
+                onClick={() => choose("faq")}
+                aria-haspopup="dialog"
+              >
+                FAQ
+              </button>
+            ) : (
+              <Link href={regionPath(country, "/faq")} prefetch={false}>
+                FAQ
+              </Link>
+            )}
             {caribbean && (
               <button
                 className={styles.mobileAssessment}
@@ -119,13 +129,15 @@ export function SiteHeader({
             )}
           </nav>
           <div className={styles.headerActions}>
-            <Link
-              href={regionPath(country, "/faq")}
-              prefetch={false}
-              className={styles.mobileFaq}
-            >
-              FAQ
-            </Link>
+            {!caribbean && (
+              <Link
+                href={regionPath(country, "/faq")}
+                prefetch={false}
+                className={styles.mobileFaq}
+              >
+                FAQ
+              </Link>
+            )}
             {caribbean ? (
               <button
                 className={`${styles.headerCta} ${styles.tailoredCta}`}

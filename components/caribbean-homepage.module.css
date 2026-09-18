@@ -66,7 +66,7 @@
   color: #00828a;
 }
 .brand small {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
   margin-left: 3px;
@@ -102,7 +102,7 @@
   padding: 112px 0 60px;
 }
 .page .kicker {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.17em;
   font-weight: 600;
   margin-bottom: 24px;
@@ -122,7 +122,7 @@
 }
 .heroContent > p:not(.kicker) {
   max-width: 500px;
-  font-size: 15px;
+  font-size: 17px;
   color: #e2eeef;
   margin-top: 28px;
 }
@@ -141,7 +141,7 @@
   justify-content: center;
   align-items: center;
   gap: 28px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   transition:
     background 0.2s,
@@ -152,7 +152,7 @@
   transform: translateY(-2px);
 }
 .heroLink {
-  font-size: 13px;
+  font-size: 15px;
   display: flex;
   gap: 18px;
   padding: 12px 0;
@@ -166,13 +166,13 @@
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.8;
   color: #c6d9da;
 }
 .heroBottom strong {
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .section {
@@ -187,7 +187,7 @@
 }
 .sectionHeading > p {
   max-width: 355px;
-  font-size: 14px;
+  font-size: 16px;
   color: #617378;
 }
 .countries {
@@ -255,7 +255,7 @@
   letter-spacing: -0.6px;
 }
 .page .countryCard p {
-  font-size: 13px;
+  font-size: 16px;
   color: #637773;
   margin-top: 8px;
   max-width: 340px;
@@ -268,7 +268,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #176d70;
 }
 .arrow {
@@ -303,7 +303,7 @@
   border: 1px solid #bce8d6;
   border-radius: 30px;
   background: #dcf5e9;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.1em;
   color: #176f5d;
@@ -321,7 +321,7 @@
 }
 .expansionCopy > p {
   margin-top: 18px;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.85;
   color: #536e68;
   max-width: 450px;
@@ -341,7 +341,7 @@
   border: 1px solid #dce6df;
   background: #ffffffaa;
   color: #526d65;
-  font-size: 9px;
+  font-size: 13px;
 }
 .futureIslands > span:first-child {
   padding-left: 0;
@@ -366,7 +366,7 @@
 }
 .wishlistHeading h4 {
   margin: 0;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.4;
   color: #15383d;
@@ -378,18 +378,18 @@
   border-radius: 4px;
   background: #fff8e3;
   color: #906a19;
-  font-size: 8px;
+  font-size: 13px;
 }
 .wishlist > p {
   margin-top: 5px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.6;
   color: #647a7e;
 }
 .wishlist label {
   display: block;
   margin: 16px 0 6px;
-  font-size: 9px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -406,7 +406,7 @@
   background: #f6f8fa;
   color: #243f48;
   font: inherit;
-  font-size: 12px;
+  font-size: 16px;
 }
 .page .wishlist button {
   display: flex;
@@ -421,7 +421,7 @@
   border-radius: 8px;
   background: #ffd028;
   color: #253b35;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   transition: background 0.2s;
 }
@@ -430,7 +430,7 @@
 }
 .wishlist > .wishlistDisclaimer {
   margin-top: 12px;
-  font-size: 10px;
+  font-size: 13px;
   color: #72817e;
 }
 .wishlist > .wishlistFeedback {
@@ -449,31 +449,51 @@
   text-underline-offset: 3px;
 }
 .wishlistSuccess {
-  min-height: 280px;
+  min-height: 360px;
+  padding: 36px 28px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(155deg, #ffffff, #f0faf5);
+  border-color: #cce5db;
+  box-shadow: 0 12px 32px #25494b0a;
 }
 .wishlistSuccess h4 {
-  margin: 20px 0 10px;
+  margin: 22px 0 16px;
   color: #15383d;
-  font-size: 25px;
-  line-height: 1.2;
+  font-size: clamp(30px, 2.5vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
 }
 .wishlistSuccess > p {
-  font-size: 13px;
-  line-height: 1.8;
+  margin: 0;
+  max-width: 32ch;
+  color: #456760;
+  font-size: 16px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.wishlistSuccess > .wishlistThanks {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #d7e8e0;
+  color: #53716a;
+  font-size: 16px;
+  line-height: 1.6;
 }
 .wishlistCheck {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: #e1f4e9;
-  color: #157c5a;
-  font-size: 24px;
+  background: #147d68;
+  color: #fff;
+  box-shadow: 0 0 0 8px #e7f4ed;
+  font-size: 28px;
 }
 .page .faqLink {
   display: inline-flex;
@@ -484,7 +504,7 @@
   background: #007a87;
   color: white;
   border-radius: 5px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   transition: background 0.2s;
 }
@@ -493,6 +513,10 @@
 }
 .journey {
   background: #edf3f0;
+}
+.journey .sectionHeading > p {
+  font-size: 17px;
+  line-height: 1.8;
 }
 .journeyGrid {
   display: grid;
@@ -530,7 +554,7 @@
   color: white;
   background: #15383dcc;
   padding: 4px 8px;
-  font-size: 9px;
+  font-size: 13px;
   border-radius: 3px;
 }
 .stepCount {
@@ -544,7 +568,7 @@
   text-shadow: 0 1px 12px #0008;
 }
 .stepCount small {
-  font-size: 12px;
+  font-size: 14px;
 }
 .stepNav {
   display: flex;
@@ -555,7 +579,7 @@
   flex: 1;
   border-top: 2px solid #c8d7d2;
   padding-top: 12px;
-  font-size: 11px;
+  font-size: 15px;
   color: #6e8580;
   transition: border-color 0.3s;
 }
@@ -585,7 +609,7 @@
 }
 .stepLabel span {
   font:
-    600 10px "Plus Jakarta Sans",
+    600 14px "Plus Jakarta Sans",
     sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -595,7 +619,8 @@
   line-height: 1.14;
 }
 .step > p:not(.stepLabel) {
-  font-size: 14px;
+  font-size: 17px;
+  line-height: 1.8;
   color: #617378;
   margin-top: 22px;
 }
@@ -605,16 +630,22 @@
   padding: 0 0 0 18px;
 }
 .outcome > span {
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   color: #6b7e79;
 }
 .outcome p {
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 1.7;
   margin-top: 7px;
 }
 .mobileStepImage {
   display: none;
+}
+.stepAssessment {
+  align-self: flex-start;
+  margin-top: 28px;
+  border: 0;
 }
 .standardGrid {
   display: grid;
@@ -628,7 +659,7 @@
 }
 .standardGrid article > span {
   font:
-    500 12px "Space Grotesk",
+    500 14px "Space Grotesk",
     sans-serif;
   color: #00828a;
 }
@@ -639,13 +670,13 @@
   max-width: 280px;
 }
 .standardGrid p {
-  font-size: 13px;
+  font-size: 15px;
   color: #617378;
 }
 .textLink {
   display: inline-flex;
   gap: 25px;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 45px;
   padding-bottom: 10px;
   border-bottom: 1px solid #007a87;
@@ -666,13 +697,13 @@
 .scenarioHeading > p:last-child {
   color: #b7cecf;
   margin-top: 22px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .scenarioHeading > p:not(.kicker) {
   max-width: 660px;
   margin: 24px auto 0;
   color: #c7dddd;
-  font-size: 15px;
+  font-size: 17px;
 }
 .systemParts {
   display: flex;
@@ -684,7 +715,7 @@
   list-style: none;
 }
 .systemParts li {
-  font-size: 11px;
+  font-size: 13px;
   color: #dfebeb;
   padding-left: 13px;
   border-left: 2px solid #fbb549;
@@ -712,7 +743,7 @@
   line-height: 1.15;
 }
 .hybridControlHeading > p {
-  font-size: 14px;
+  font-size: 16px;
   color: #c7dddd;
 }
 .hybridModes {
@@ -734,12 +765,12 @@
 }
 .hybridModes p {
   color: #c7dddd;
-  font-size: 12px;
+  font-size: 14px;
 }
 .page .hybridCaveat {
   margin-top: 26px;
   color: #a6bfc1;
-  font-size: 11px;
+  font-size: 13px;
 }
 .hybridLink {
   display: inline-flex;
@@ -747,7 +778,7 @@
   padding-bottom: 10px;
   margin-top: 26px;
   border-bottom: 1px solid #ffc667;
-  font-size: 13px;
+  font-size: 15px;
 }
 @media (max-width: 1250px) {
   .hybridControl {
@@ -824,7 +855,7 @@
 }
 .scenarioCard > div > span {
   color: #ffc667;
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -836,8 +867,27 @@
 }
 .scenarioCard p {
   color: #dfebeb;
-  font-size: 13px;
+  font-size: 16px;
   max-width: 480px;
+}
+.carouselProgress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: #ffffff1f;
+  pointer-events: none;
+}
+.carouselProgressFill {
+  display: block;
+  height: 100%;
+  background: #e8c790a6;
+  transform: scaleX(0);
+  transform-origin: left;
+  /* The same animation advances the slide, keeping the indicator in sync. */
+  animation: solarSlideCountdown 6s linear forwards;
+}
+@keyframes solarSlideCountdown {
+  to { transform: scaleX(1); }
 }
 .page .carouselHitArea {
   position: absolute;
@@ -858,7 +908,7 @@
 .page .scenarioNote {
   text-align: center;
   color: #a6bfc1;
-  font-size: 10px;
+  font-size: 13px;
   margin: 25px 20px 0;
 }
 .faq {
@@ -868,7 +918,7 @@
 }
 .faq > div:first-child > p:not(.kicker) {
   color: #617378;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 25px;
 }
 .faq details {
@@ -885,7 +935,7 @@
   justify-content: space-between;
   gap: 24px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 .faq summary::-webkit-details-marker {
@@ -901,7 +951,7 @@
 }
 .faq details p {
   color: #617378;
-  font-size: 13px;
+  font-size: 15px;
   padding: 0 30px 25px 0;
 }
 .closing {
@@ -910,7 +960,7 @@
   background: #e8efeb;
 }
 .closing > p {
-  font-size: 10px;
+  font-size: 13px;
   color: #537370;
   letter-spacing: 0.15em;
   margin-bottom: 20px;
@@ -925,17 +975,43 @@
   margin-top: 32px;
 }
 .closing a {
-  display: flex;
+  display: grid;
+  grid-template-columns: 32px 1fr 20px;
+  min-width: 330px;
   gap: 14px;
   align-items: center;
+  text-align: left;
   background: #fff;
-  border-radius: 5px;
-  padding: 18px 24px;
-  font-size: 13px;
+  border-radius: 12px;
+  padding: 24px 28px;
+  font-size: 17px;
+  font-weight: 600;
   border: 1px solid #d4e0dc;
+  box-shadow: 0 4px 12px #15383d05;
+  transition: transform 220ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+.closing a img {
+  width: 32px;
+  height: 24px;
+}
+.closing a:hover,
+.closing a:focus-visible {
+  transform: translateY(-4px);
+  background: #f5fcf9;
+  border-color: #64a89a;
+  box-shadow: 0 12px 28px #15383d12;
 }
 .closing a > span {
-  margin-left: 24px;
+  margin-left: 0;
+  color: #007a87;
+  transition: transform 220ms ease;
+}
+.closing a:hover > span,
+.closing a:focus-visible > span {
+  transform: translate(2px, -2px);
+}
+.closing a:active {
+  transform: translateY(-1px);
 }
 .footer {
   background: #f8faf9;
@@ -948,7 +1024,7 @@
 }
 .footerTop p {
   color: #647c7d;
-  font-size: 12px;
+  font-size: 14px;
   margin: 20px 0;
 }
 .footerTop nav {
@@ -956,7 +1032,7 @@
   flex-direction: column;
   align-items: start;
   gap: 16px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .footerTop > div:last-child {
   text-align: right;
@@ -975,7 +1051,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 10px;
+  font-size: 13px;
   color: #6b8180;
 }
 .srOnly {
@@ -1073,7 +1149,7 @@
     background: #15383dcc;
     color: white;
     padding: 4px 8px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .step h3 {
     max-width: 500px;
@@ -1109,7 +1185,7 @@
     gap: 2px;
   }
   .heroContent > p:not(.kicker) {
-    font-size: 13px;
+    font-size: 15px;
   }
   .hero h1 {
     font-size: 47px;
@@ -1119,10 +1195,10 @@
     flex-wrap: wrap;
   }
   .heroBottom {
-    font-size: 9px;
+    font-size: 13px;
   }
   .heroBottom strong {
-    font-size: 10px;
+    font-size: 13px;
   }
   .heroBottom > span {
     max-width: 48%;
@@ -1162,7 +1238,9 @@
     margin-right: auto;
   }
   .closing a {
-    justify-content: space-between;
+    min-width: 0;
+    padding: 22px 18px;
+    font-size: 16px;
   }
   .footerTop {
     grid-template-columns: 1fr;

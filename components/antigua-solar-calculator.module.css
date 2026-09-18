@@ -47,7 +47,7 @@
   border-bottom: 1px solid #e2e8f0;
 }
 .header > a {
-  font-size: 12px;
+  font-size: 14px;
 }
 .brand {
   font:
@@ -69,7 +69,7 @@
 }
 .eyebrow {
   color: var(--teal);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 1.5px;
 }
@@ -82,7 +82,7 @@
 }
 .intro > p:last-child {
   color: #64748b;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.8;
 }
 .workspace {
@@ -108,7 +108,7 @@
   background: #fff;
   color: #475569;
   font:
-    600 12px/1.5 "Plus Jakarta Sans",
+    600 14px/1.5 "Plus Jakarta Sans",
     sans-serif;
   cursor: pointer;
 }
@@ -163,7 +163,7 @@
   right: auto;
 }
 .labelRow label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.6;
 }
@@ -179,7 +179,7 @@
   border-radius: 50%;
   background: white;
   color: #475569;
-  font-size: 14px;
+  font-size: 16px;
 }
 .helpButton:hover,
 .helpButton[aria-expanded="true"] {
@@ -201,7 +201,7 @@
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 8px 24px #0f172a26;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   font-weight: 400;
 }
@@ -228,7 +228,7 @@
 }
 .systemPreview > p:first-child {
   color: #475569;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 .systemSize {
@@ -257,11 +257,11 @@
 }
 .systemCaption {
   color: #64748b;
-  font-size: 12px;
+  font-size: 14px;
 }
 .help {
   color: #64748b;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
   margin-top: 12px !important;
 }
@@ -276,7 +276,7 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-size: 12px;
+  font-size: 14px;
   color: #64748b;
 }
 .results {
@@ -297,7 +297,7 @@
 }
 .row dt {
   color: #334155;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 1.6;
   max-width: 48%;
@@ -305,7 +305,7 @@
 .row dt small {
   display: block;
   color: #64748b;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
   margin-top: 4px;
 }
@@ -357,12 +357,12 @@
 }
 .empty p {
   color: #64748b;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.8;
 }
 .footer {
   padding-top: 24px;
-  font-size: 11px;
+  font-size: 13px;
   color: #64748b;
 }
 @media (max-width: 1100px) {
@@ -380,7 +380,7 @@
     gap: 12px;
   }
   .row dt {
-    font-size: 14px;
+    font-size: 16px;
   }
   .row dd {
     font-size: 34px;
@@ -412,7 +412,7 @@
     font-size: 21px;
   }
   .header > a {
-    font-size: 11px;
+    font-size: 13px;
   }
   .main {
     padding: 32px 16px 24px;
@@ -422,7 +422,7 @@
     letter-spacing: -1px;
   }
   .intro > p:last-child {
-    font-size: 13px;
+    font-size: 15px;
   }
   .module {
     padding: 20px 16px;
@@ -443,14 +443,14 @@
     min-height: 76px;
   }
   .row dt {
-    font-size: 13px;
+    font-size: 15px;
     max-width: 43%;
   }
   .row dd {
     font-size: 30px;
   }
   .row dd > span {
-    font-size: 15px;
+    font-size: 17px;
   }
   .highlight dd {
     font-size: 38px;
@@ -458,7 +458,7 @@
 }
 @media (max-width: 360px) {
   .row dt {
-    font-size: 12px;
+    font-size: 14px;
   }
   .row dd {
     font-size: 27px;
@@ -478,7 +478,7 @@
   margin-top: 24px;
 }
 .contact > p {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.7;
   color: #475569;
   margin-bottom: 12px;
@@ -504,7 +504,7 @@
     padding-right: 12px;
   }
   .row dt {
-    font-size: 11px;
+    font-size: 13px;
     max-width: 42%;
   }
   .row dd {
