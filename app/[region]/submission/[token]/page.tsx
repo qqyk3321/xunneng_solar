@@ -29,34 +29,24 @@ export default async function ConsultationPreviewPage({
       <SiteHeader />
       <main className={styles.content}>
         <section className={styles.summary} aria-labelledby="preview-title">
-          <ol className={styles.steps} aria-label="Submission progress">
-            {["Privacy", "Your details", "Complete"].map((label, index) => (
-              <li key={label}>
-                <span className={styles.stepCheck} aria-hidden="true">
-                  ✓
-                </span>
-                <span>
-                  {index + 1}. {label}
-                  <span className={styles.srOnly}> — completed</span>
-                </span>
-              </li>
-            ))}
-          </ol>
           <div className={styles.summaryBody}>
             <div className={styles.message}>
-              <span className={styles.completeLabel}>ALL STEPS COMPLETE</span>
-              <h1 id="preview-title">
-                Your submission
-                <br />
-                is complete<span className={styles.dot}>.</span>
+              <h1 id="preview-title" className={styles.completeLabel}>
+                ALL STEPS COMPLETE
               </h1>
-              <p>
-                Thank you for sharing your plans. Our engineering team will
-                review your home’s energy needs and prepare your next steps.
-              </p>
-              <p className={styles.replyNote}>
-                We aim to get back to you within 48 hours.
-              </p>
+              <ol className={styles.steps} aria-label="Submission progress">
+                {["Privacy", "Your details", "Complete"].map((label, index) => (
+                  <li key={label}>
+                    <span className={styles.stepCheck} aria-hidden="true">
+                      ✓
+                    </span>
+                    <span>
+                      {index + 1}. {label}
+                      <span className={styles.srOnly}> — completed</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
             <div className={styles.timeline}>
               <dl>
@@ -91,10 +81,6 @@ export default async function ConsultationPreviewPage({
                   </dd>
                 </div>
               </dl>
-              <p>
-                {country === "AG" ? "Antigua & Barbuda" : "Dominica"} local time
-                · AST (UTC−4)
-              </p>
             </div>
           </div>
         </section>

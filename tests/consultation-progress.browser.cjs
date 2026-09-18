@@ -37,7 +37,8 @@ const assert = require('node:assert/strict');
       const complete = page.getByRole('heading', { name: 'Your enquiry has been submitted.' });
       await complete.waitFor();
       await page.getByText(`TEST-${code}-123`, { exact: true }).waitFor();
-      assert.equal(await page.getByRole('button', { name: 'Copy', exact: true }).count(), 1);
+      assert.equal(await page.getByRole('button', { name: 'Copy', exact: true }).count(), 0);
+      assert.equal(await page.getByText('Please include this ID when contacting our team.', { exact: true }).count(), 0);
       const intro = page.getByText('Thank you for sharing your plans with us.', { exact: false });
       const centered = await intro.evaluate(el => {
         const card = el.getBoundingClientRect();
