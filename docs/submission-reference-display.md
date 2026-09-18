@@ -10,7 +10,13 @@ One ID is used across the consultation flow:
 The success screen uses `SubmissionReference`, with selectable text and no Copy
 button or contact hint. The preview uses a single details panel with the yellow
 ID above two single-line timestamps and no Copy control or time-zone caption.
-The left side shows only ALL STEPS COMPLETE and the three completed steps.
+On desktop, a compact 320px left sidebar contains ALL STEPS COMPLETE, the three
+completed steps, the ID and timestamps. The wider right column contains the
+Tally preview, aligned at the top. Below 960px the panels stack. The iframe
+fills the available viewport height with a 640px minimum; internal scrolling
+remains enabled so remote content is never clipped. This is not a promise of
+content-driven height: Tally submission previews do not use the form embed
+runtime here. Header, footer and the loading indicator are retained.
 Missing embed metadata does not block
 the success screen: users are directed to their confirmation email for the ID.
 No ID is fabricated and the ID is not an access credential. No new DB column is

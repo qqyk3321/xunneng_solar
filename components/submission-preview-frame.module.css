@@ -1,4 +1,5 @@
 .record {
+  min-width: 0;
   border: 1px solid #dce7df;
   border-radius: 20px;
   overflow: hidden;
@@ -10,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  padding: 24px 28px;
+  padding: 22px 28px;
   border-bottom: 1px solid #e3ebe5;
 }
 .toolbar h2 {
@@ -20,18 +21,14 @@
     sans-serif;
   color: #183c43;
 }
-.toolbar a {
-  color: #006975;
-  font-size: 14px;
-  text-underline-offset: 4px;
-}
 .frameWrap {
   position: relative;
-  min-height: 720px;
+  min-height: max(640px, calc(100svh - 220px));
 }
 .frame {
   display: block;
   width: 100%;
+  height: max(640px, calc(100svh - 220px));
   border: 0;
 }
 .frame[data-pending] {
