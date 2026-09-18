@@ -17,7 +17,8 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://localhost:3019';
   let visits = 0, analytics = 0;
   const setup = async () => {
     await context.route('**/solar-analysis/visit', r => { visits++; return r.fulfill({ status: 204 }); });
-    await context.route('**/_vercel/**', r => { analytics++; return r.fulfill({ contentType: 'text/javascript', body: '' }); });
+    // Production Vercel may proxy Analytics behind a randomized 16-hex prefix.
+    await context.route(/(?:\/_vercel\/|\/[a-f0-9]{16}\/)/, r => { analytics++; return r.fulfill({ contentType: 'text/javascript', body: '' }); });
     await context.route('https://**/*', r => r.abort());
   };
   const cookie = (name, value, path) => ({ name, value, domain: new URL(origin).hostname, path, httpOnly: true, sameSite: 'Strict', expires: Date.now() / 1000 + 43200 });
@@ -54,7 +55,7 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://localhost:3019';
     for (const asset of manifest.assets.filter(a => a.url.endsWith('.js'))) {
       const code = await (await context.request.get(origin + asset.url)).text();
       assert.doesNotMatch(code, /solar_analysis_access|solar_pwa_download_access|solortide2026|qqyk3321/);
-      assert.doesNotMatch(code, /_vercel\/insights\/script\.js|solar-analysis\/visit/);
+      assert.doesNotMatch(code, /@vercel\/analytics|_vercel\/insights\/script\.js|solar-analysis\/visit/);
     }
     await page.getByRole('button', { name: '启用离线使用', exact: true }).click();
     await page.getByText('✓ 离线资源完整', { exact: true }).waitFor({ timeout: 120000 }).catch(async e => { console.error(await page.locator('main').innerText()); throw e; });
