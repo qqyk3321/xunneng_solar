@@ -7,8 +7,9 @@ One ID is used across the consultation flow:
 - Resend hosted template: `SUBMISSION_ID`, populated from the stored intake row.
 - Website preview: reads `submission_id` only after validating its private token.
 
-The success screen and preview use `SubmissionReference`, with selectable text,
-a Copy button and a manual-copy fallback. Missing embed metadata does not block
+The success screen uses `SubmissionReference`, with selectable text,
+a Copy button and a manual-copy fallback. The preview uses a single details panel
+with the ID above the two timestamps and no Copy control. Missing embed metadata does not block
 the success screen: users are directed to their confirmation email for the ID.
 No ID is fabricated and the ID is not an access credential. No new DB column is
 needed. Existing records appear automatically; historical emails do not change.
@@ -41,3 +42,11 @@ customer emails as a deployment test. Use Resend's `delivered@resend.dev` sink.
 
 Website changes still require the usual Git/Vercel release independently of
 Resend template publishing and Supabase Edge Function deployment.
+
+## Time formatting
+
+The website and Edge Function share `submission-time.ts`. They use the actual
+Tally `submitted_at` instant and format it in `America/Antigua` or
+`America/Dominica`, never the viewer's browser time zone. Display format:
+`18 Sep 2026 · 2:41 AM AST` (no seconds, unambiguous month name).
+The website separates date and time visually and labels AST (UTC−4) once.

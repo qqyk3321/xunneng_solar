@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { receiveSubmission, type SubmissionRow } from "./intake.ts";
+import { regionalTime } from "./submission-time.ts";
 
 type Environment = (name: string) => string | undefined;
 type StoredSubmission = { id: number; received_at: string };
@@ -65,20 +66,7 @@ function formatRegionalTimestamp(
   date: Date,
   countryCode: SubmissionRow["country_code"],
 ): string {
-  const timezone =
-    countryCode === "AG" ? "America/Antigua" : "America/Dominica";
-  return (
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: timezone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    }).format(date) + " AST"
-  );
+  return regionalTime(date, countryCode).display;
 }
 
 function regionalSupportEmail(
@@ -109,7 +97,7 @@ async function sendConfirmationEmail(args: {
   const replyWindowHours = Number(
     args.env("CONSULTATION_REPLY_WINDOW_HOURS") ?? "48",
   );
-  const submittedAt = new Date(args.receivedAt);
+  const submittedAt = new Date(args.row.submitted_at);
   const replyDeadline = new Date(
     submittedAt.getTime() +
       (Number.isFinite(replyWindowHours) ? replyWindowHours : 48) *
@@ -147,7 +135,7 @@ async function sendConfirmationEmail(args: {
         from,
         to: [args.row.email],
         reply_to: [supportEmail],
-        subject: "Sol & Tide Energy has received your consultation",
+        subject: `Your consultation · ${args.row.submission_id} | Sol & Tide Energy`,
         template: {
           id: templateId,
           variables: {

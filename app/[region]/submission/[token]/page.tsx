@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
-import { SubmissionReference } from "@/components/submission-reference";
 import { tallyPreviewUrl } from "@/lib/tally-preview-url";
 import { submissionTiming } from "@/lib/submission-timing";
 import { DeferredFloatingContact } from "@/components/deferred-floating-contact";
@@ -24,7 +23,7 @@ export default async function ConsultationPreviewPage({
   if (!country || !submission || submission.country_code !== country)
     notFound();
   const previewUrl = tallyPreviewUrl(submission.preview_url);
-  const timing = submissionTiming(submission.submitted_at);
+  const timing = submissionTiming(submission.submitted_at, country);
   return (
     <div className={styles.page}>
       <SiteHeader />
@@ -52,24 +51,26 @@ export default async function ConsultationPreviewPage({
                 is complete<span className={styles.dot}>.</span>
               </h1>
               <p>
-                Thank you for trusting us with your project. Your submission is
-                now in our engineering review process. Our engineers will use
-                professional planning tools and a structured assessment process
-                to carefully evaluate your needs and prepare a considered
-                recommendation. Please allow us a little time to give your
-                project the attention it deserves.
+                Thank you for sharing your plans. Our engineering team will
+                review your home’s energy needs and prepare your next steps.
+              </p>
+              <p className={styles.replyNote}>
+                We aim to get back to you within 48 hours.
               </p>
             </div>
             <div className={styles.timeline}>
-              <SubmissionReference id={submission.submission_id} />
               <dl>
+                <div className={styles.reference}>
+                  <dt>Submission ID</dt>
+                  <dd>{submission.submission_id}</dd>
+                </div>
                 <div>
                   <dt>Submitted</dt>
                   <dd>
                     {timing ? (
                       <time dateTime={timing.submitted.iso}>
-                        {timing.submitted.date}
-                        <span>{timing.submitted.time} AST</span>
+                        {timing.submitted.date}{" "}
+                        <span>{timing.submitted.time}</span>
                       </time>
                     ) : (
                       "Time unavailable"
@@ -77,12 +78,12 @@ export default async function ConsultationPreviewPage({
                   </dd>
                 </div>
                 <div className={styles.response}>
-                  <dt>Target response by</dt>
+                  <dt>Expected reply by</dt>
                   <dd>
                     {timing ? (
                       <time dateTime={timing.response.iso}>
-                        {timing.response.date}
-                        <span>{timing.response.time} AST</span>
+                        {timing.response.date}{" "}
+                        <span>{timing.response.time}</span>
                       </time>
                     ) : (
                       "Within 48 hours of submission"
@@ -91,8 +92,8 @@ export default async function ConsultationPreviewPage({
                 </div>
               </dl>
               <p>
-                We aim to reply within 48 hours. Times shown in Atlantic
-                Standard Time (UTC−4).
+                {country === "AG" ? "Antigua & Barbuda" : "Dominica"} local time
+                · AST (UTC−4)
               </p>
             </div>
           </div>

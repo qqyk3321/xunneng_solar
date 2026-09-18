@@ -44,6 +44,9 @@ test("mail and token-protected preview use the stored submission ID", () => {
   );
   assert.match(
     readFileSync("app/[region]/submission/[token]/page.tsx", "utf8"),
-    /<SubmissionReference id=\{submission.submission_id\}/,
+    /<dd>\{submission.submission_id\}<\/dd>/,
   );
+  assert.match(edge, /new Date\(args.row.submitted_at\)/);
+  assert.match(edge, /return regionalTime\(date, countryCode\).display/);
+  assert.doesNotMatch(readFileSync("app/[region]/submission/[token]/page.tsx", "utf8"), /SubmissionReference/);
 });

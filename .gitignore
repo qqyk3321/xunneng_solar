@@ -17,6 +17,7 @@ supabase/functions/*
 supabase/functions/tally-webhook/*
 !supabase/functions/tally-webhook/index.ts
 !supabase/functions/tally-webhook/intake.ts
+!supabase/functions/tally-webhook/submission-time.ts
 !supabase/functions/tally-webhook/deno.json
 ticket-query-local/
 tsconfig.tsbuildinfo
