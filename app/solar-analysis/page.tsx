@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import { accessCookieIsValid, SOLAR_ACCESS_COOKIE } from "./access";
+import { accessCookieMode, SOLAR_ACCESS_COOKIE } from "./access";
 import { unlockSolarAnalysis } from "./actions";
 import SolarAnalysis from "./solar-analysis-client";
 import { SolarVisitTracker } from "./visit-tracker";
@@ -14,23 +14,22 @@ export const metadata: Metadata = {
 };
 
 type SolarAnalysisPageProps = {
-  searchParams: Promise<{ error?: string; "offline-shell"?: string }>;
+  searchParams: Promise<{ error?: string }>;
 };
 
 export default async function SolarAnalysisPage({
   searchParams,
 }: SolarAnalysisPageProps) {
   const cookieStore = await cookies();
-  const unlocked = accessCookieIsValid(
+  const mode = accessCookieMode(
     cookieStore.get(SOLAR_ACCESS_COOKIE)?.value,
   );
 
   const params = await searchParams;
-  const offlineShell = params["offline-shell"] === "1";
-  if (unlocked) return <>
-    {!offlineShell && <SolarVisitTracker />}
+  if (mode) return <>
+    {mode === "audited" && <SolarVisitTracker />}
     <SolarAnalysis />
-    {!offlineShell && process.env.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics />}
+    {process.env.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics />}
   </>;
 
   const { error } = params;

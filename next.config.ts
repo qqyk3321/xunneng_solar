@@ -21,7 +21,11 @@ const nextConfig: NextConfig = {
       { key: "Cache-Control", value: "no-store" },
       { key: "Service-Worker-Allowed", value: "/solar-analysis" },
       { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self'; connect-src 'self'" },
-    ] }, { source: "/solar-analysis/offline-assets.json", headers: [
+    ] }, { source: "/pwa/sw.js", headers: [
+      { key: "Cache-Control", value: "no-store" },
+      { key: "Service-Worker-Allowed", value: "/pwa" },
+      { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self'; connect-src 'self'" },
+    ] }, { source: "/pwa/offline-assets.json", headers: [
       { key: "Cache-Control", value: "no-store" },
       { key: "X-Robots-Tag", value: "noindex" },
     ] }, ...brandHeaders, ...["/fonts/report-space-grotesk-v1.ttf"].map(source=>({

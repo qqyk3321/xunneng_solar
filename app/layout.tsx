@@ -3,7 +3,7 @@ import "./globals.css";
 import { SiteRegionProvider } from "@/components/site-region";
 import { SiteNavigationLoader } from "@/components/site-navigation-loader";
 import { siteUrl } from "@/lib/region-seo";
-import { SiteAnalytics } from "@/components/site-analytics";
+import { SiteAnalytics } from "@/components/site-analytics-gate";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

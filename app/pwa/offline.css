@@ -18,3 +18,8 @@
 .offline-installed { color: #087b69; font-size: 13px; }
 .offline-launch { white-space: nowrap; min-height: 40px; padding: 10px 14px; border: 1px solid #bcded3; border-radius: 8px; background: #edf8f3; color: #155a49; cursor: pointer; }
 @media (max-width: 600px) { .v2-hero .hero-actions { flex-wrap: wrap; } }
+
+.pwa-download-page { min-height: 100vh; padding: 48px 16px; background: #f4faf8; }
+.pwa-download-card { max-width: 720px; margin: auto; padding: clamp(20px, 4vw, 40px); background: white; border: 1px solid #d7e8e0; border-radius: 24px; box-shadow: 0 12px 48px #073c3e0d; }
+.pwa-download-card h1 { color: #073c3e; font-size: clamp(22px, 4vw, 30px); font-weight: 700; }
+.offline-open { padding: 10px 14px; border-radius: 10px; background: #073c3e; color: white; text-decoration: none; font-size: 14px; }

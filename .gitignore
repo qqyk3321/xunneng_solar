@@ -24,3 +24,6 @@ tsconfig.tsbuildinfo
 public/solar-analysis/offline-assets.json
 public/solar-analysis/icon-192.png
 public/solar-analysis/icon-512.png
+public/pwa/offline-assets.json
+public/pwa/icon-192.png
+public/pwa/icon-512.png

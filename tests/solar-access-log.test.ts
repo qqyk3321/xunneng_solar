@@ -135,8 +135,8 @@ test("separate entries get fresh reporters; inactive/preloaded pages do not reco
 
 test("tracker is authorized-only and migration grants no browser access", () => {
   const page = readFileSync("app/solar-analysis/page.tsx", "utf8");
-  assert.match(page, /if \(unlocked\) return <>\s*\{!offlineShell && <SolarVisitTracker \/>\}/);
-  assert.match(page, /const offlineShell = params\["offline-shell"\] === "1"/);
+  assert.match(page, /if \(mode\) return <>\s*\{mode === "audited" && <SolarVisitTracker \/>\}/);
+  assert.doesNotMatch(page, /offline-shell|offlineShell/);
   assert.doesNotMatch(readFileSync("app/solar-analysis/actions.ts", "utf8"), /saveSolarVisit|handleSolarVisit/);
   assert.doesNotMatch(readFileSync("lib/solar-analysis/visit-client.ts", "utf8"), /supabase|SERVICE_ROLE|password/i);
   const migration = readFileSync("supabase/migrations/20260916161424_add_solar_analysis_access_logs.sql", "utf8");
@@ -144,4 +144,15 @@ test("tracker is authorized-only and migration grants no browser access", () => 
   assert.match(migration, /revoke all .* from public, anon, authenticated, service_role/);
   assert.match(migration, /grant select, insert .* to service_role/);
   assert.doesNotMatch(migration, /create policy|grant.*to (anon|authenticated)/i);
+});
+
+test("private password visits are a server-side no-op, even from stale clients", async () => {
+  let writes = 0;
+  for (const body of [{ id }, { id: "invalid" }]) {
+    const response = await handleSolarVisit(request(body), accessCookieValue("private"), {
+      env, save: async () => { writes++; },
+    });
+    assert.equal(response.status, 204);
+  }
+  assert.equal(writes, 0);
 });

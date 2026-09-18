@@ -4,19 +4,20 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   accessCookieValue,
-  passwordIsValid,
+  passwordAccessMode,
   SOLAR_ACCESS_COOKIE,
 } from "./access";
 
 export async function unlockSolarAnalysis(formData: FormData) {
   const password = formData.get("password");
+  const mode = typeof password === "string" ? passwordAccessMode(password) : null;
 
-  if (typeof password !== "string" || !passwordIsValid(password)) {
+  if (!mode) {
     redirect("/solar-analysis?error=invalid_password");
   }
 
   const cookieStore = await cookies();
-  cookieStore.set(SOLAR_ACCESS_COOKIE, accessCookieValue(), {
+  cookieStore.set(SOLAR_ACCESS_COOKIE, accessCookieValue(mode), {
     httpOnly: true,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",

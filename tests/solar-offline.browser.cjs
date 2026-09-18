@@ -1,63 +1,89 @@
+// Isolated production build only. No database writes or live analytics.
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const { accessCookieValue, SOLAR_ACCESS_COOKIE } = require('../app/solar-analysis/access.ts');
+const { accessCookieValue, SOLAR_ACCESS_COOKIE, PWA_ACCESS_COOKIE, pwaCookieValue } = require('../app/solar-analysis/access.ts');
 const { PDFDocument } = require('pdf-lib');
 const { mkdtemp, readFile } = require('node:fs/promises');
 const { tmpdir } = require('node:os');
 const { join } = require('node:path');
 const assert = require('node:assert/strict');
-const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://localhost:3017';
+const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://localhost:3019';
 
 (async () => {
-  if (!['localhost', '127.0.0.1'].includes(new URL(origin).hostname)) throw new Error('Local production build only');
-  const artifacts = await mkdtemp(join(tmpdir(), 'solar-offline-browser-'));
+  assert.ok(['localhost', '127.0.0.1'].includes(new URL(origin).hostname));
+  const artifacts = await mkdtemp(join(tmpdir(), 'solar-pwa-split-'));
   const profile = join(artifacts, 'profile');
   const options = { viewport: { width: 1440, height: 1000 }, acceptDownloads: true };
   let context = await chromium.launchPersistentContext(profile, options);
+  let visits = 0, analytics = 0;
   const setup = async () => {
-    await context.route('**/solar-analysis/visit', r => r.fulfill({ status: 204 }));
-    await context.route('**/_vercel/**', r => r.fulfill({ status: 204 }));
+    await context.route('**/solar-analysis/visit', r => { visits++; return r.fulfill({ status: 204 }); });
+    await context.route('**/_vercel/**', r => { analytics++; return r.fulfill({ contentType: 'text/javascript', body: '' }); });
     await context.route('https://**/*', r => r.abort());
   };
+  const cookie = (name, value, path) => ({ name, value, domain: new URL(origin).hostname, path, httpOnly: true, sameSite: 'Strict', expires: Date.now() / 1000 + 43200 });
+  const idle = page => page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
   try {
     await setup(); let page = await context.newPage();
     await page.goto(origin + '/solar-analysis'); await page.locator('#solar-password').waitFor();
+    assert.equal((await context.request.get(origin + '/pwa/offline-permission')).status(), 401);
+    await page.locator('#solar-password').fill(process.env.SOLAR_PRIVATE_PASSWORD || 'qqyk3321');
+    await page.getByRole('button', { name: '进入分析页面', exact: true }).click();
+    await page.locator('#solar-step-hourly').waitFor(); await idle(page);
+    assert.equal(visits, 0); assert.ok(analytics > 0, 'private online login still loads Analytics');
+    assert.equal(await page.locator('a[href="/pwa"], .offline-launch').count(), 0);
+    await page.reload(); await page.locator('#solar-step-hourly').waitFor(); await idle(page); assert.equal(visits, 0);
+    assert.equal((await context.request.get(origin + '/pwa/offline-permission')).status(), 401, 'web cookie is not a download cookie');
+    await context.addCookies([cookie(SOLAR_ACCESS_COOKIE, accessCookieValue(), '/solar-analysis')]);
+    await page.goto(origin + '/solar-analysis?offline-shell=1'); await page.locator('#solar-step-hourly').waitFor(); await idle(page);
+    assert.equal(visits, 1, 'old query cannot bypass audited access');
+    await page.reload(); await page.locator('#solar-step-hourly').waitFor(); await idle(page); assert.equal(visits, 2);
+    await context.clearCookies(); const before = { visits, analytics };
+    await page.goto(origin + '/pwa'); await page.locator('#pwa-password').waitFor(); await idle(page);
+    await page.locator('#pwa-password').fill('solortide2026');
+    await page.getByRole('button', { name: '进入下载页面', exact: true }).click();
+    await page.getByRole('alert').waitFor(); await idle(page);
     assert.equal(await page.getByRole('button', { name: '启用离线使用', exact: true }).count(), 0);
-    assert.equal((await context.request.get(origin + '/solar-analysis/offline-permission')).status(), 401);
-    assert.equal(await page.evaluate(async () => (await navigator.serviceWorker.getRegistrations()).length), 0);
-    await context.addCookies([{ name: SOLAR_ACCESS_COOKIE, value: accessCookieValue(), domain: new URL(origin).hostname, path: '/solar-analysis', httpOnly: true, sameSite: 'Strict' }]);
-    await page.reload(); await page.locator('#solar-step-hourly').waitFor();
-    const manifest = await (await context.request.get(origin + '/solar-analysis/offline-assets.json')).json();
-    assert.ok(manifest.assets.some(a => a.url.includes('pdf.worker')));
-    assert.ok(!manifest.assets.some(a => a.url.includes('report-noto')));
-    assert.ok(manifest.bytes < 5 * 1048576, 'English-only pack stays below 5 MiB');
-    assert.equal((await context.request.get(origin + '/fonts/report-noto-sans-sc-v1.ttf')).status(), 404);
-    assert.ok(!manifest.assets.some(a => /supabase|\/api\//.test(a.url)));
-    await page.getByRole('button', { name: '离线使用', exact: true }).click();
+    await page.goto(origin + '/pwa'); await idle(page);
+    await page.locator('#pwa-password').fill(process.env.SOLAR_PRIVATE_PASSWORD || 'qqyk3321');
+    await page.getByRole('button', { name: '进入下载页面', exact: true }).click();
+    await page.getByRole('button', { name: '启用离线使用', exact: true }).waitFor();
+    assert.ok((await context.cookies()).some(c => c.name === PWA_ACCESS_COOKIE && c.path === '/pwa'));
+    const manifest = await (await context.request.get(origin + '/pwa/offline-assets.json')).json();
+    assert.ok(manifest.bytes < 5 * 1048576);
+    assert.ok(!manifest.assets.some(a => /report-noto|app\/solar-analysis\/page|app\/pwa\/page-/.test(a.url)));
+    for (const asset of manifest.assets.filter(a => a.url.endsWith('.js'))) {
+      const code = await (await context.request.get(origin + asset.url)).text();
+      assert.doesNotMatch(code, /solar_analysis_access|solar_pwa_download_access|solortide2026|qqyk3321/);
+      assert.doesNotMatch(code, /_vercel\/insights\/script\.js|solar-analysis\/visit/);
+    }
     await page.getByRole('button', { name: '启用离线使用', exact: true }).click();
-    await page.getByText('✓ 离线资源完整', { exact: true }).waitFor({ timeout: 120000 }).catch(async e => { console.error(await page.getByRole('dialog').innerText()); throw e; });
-    console.log('Offline pack ready; checking restart and PDF');
-    await page.screenshot({ path: join(artifacts, 'ready-desktop.png') });
-    const cdp = await context.newCDPSession(page);
-    const appManifest = await cdp.send('Page.getAppManifest');
-    assert.deepEqual(appManifest.errors, []);
-    assert.equal(JSON.parse(appManifest.data).scope, '/solar-analysis');
-    console.log('Installability', JSON.stringify(await cdp.send('Page.getInstallabilityErrors')));
+    await page.getByText('✓ 离线资源完整', { exact: true }).waitFor({ timeout: 120000 }).catch(async e => { console.error(await page.locator('main').innerText()); throw e; });
+    await page.screenshot({ path: join(artifacts, 'download-desktop.png') });
     for (const width of [390, 320]) {
       await page.setViewportSize({ width, height: 844 });
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-      assert.equal(await page.getByRole('button', { name: '安装到桌面', exact: true }).isVisible(), true);
-      assert.equal(await page.getByText('下载本页面、模型、图表和报告资源后，断网也能重新打开、调整方案并生成 PDF。无需运行本地服务器。', { exact: true }).isVisible(), true);
-      await page.screenshot({ path: join(artifacts, `ready-mobile-${width}.png`) });
+      assert.ok(await page.getByRole('button', { name: '安装到桌面', exact: true }).isVisible());
+      await page.screenshot({ path: join(artifacts, `download-${width}.png`) });
     }
-    await page.getByRole('button', { name: '关闭弹窗', exact: true }).click();
-    // Clear both HTTP and model localStorage caches: only the offline pack remains.
-    await page.evaluate(() => localStorage.clear());
-    await cdp.send('Network.clearBrowserCache');
+    await context.clearCookies();
+    await page.goto(origin + '/pwa'); await page.locator('#pwa-password').waitFor();
+    const onlineApp = await page.goto(origin + '/pwa/app');
+    assert.equal(onlineApp.headers()['x-solar-offline'], '1', 'installed app ignores expired login even online');
+    assert.doesNotMatch(await onlineApp.text(), /id="pwa-password"|id="solar-password"|solortide2026|qqyk3321|SolarVisitTracker|AuthorizedSolarAnalytics/);
+    await page.locator('#solar-step-hourly').waitFor(); await idle(page);
+    const cdp = await context.newCDPSession(page);
+    const appManifest = await cdp.send('Page.getAppManifest');
+    assert.deepEqual(appManifest.errors, []);
+    assert.equal(JSON.parse(appManifest.data).start_url, '/pwa/app');
+    assert.equal(JSON.parse(appManifest.data).scope, '/pwa');
+    assert.equal(await page.locator('input[type="password"], .offline-launch').count(), 0);
+    assert.deepEqual({ visits, analytics }, before);
+    await page.evaluate(() => localStorage.clear()); await cdp.send('Network.clearBrowserCache');
     await context.close();
     context = await chromium.launchPersistentContext(profile, { ...options, offline: true });
     await setup(); page = await context.newPage(); const errors = [];
     page.on('pageerror', e => errors.push(e.message));
-    const response = await page.goto(origin + '/solar-analysis', { waitUntil: 'domcontentloaded' });
+    const response = await page.goto(origin + '/pwa/app', { waitUntil: 'domcontentloaded' });
     assert.equal(response.headers()['x-solar-offline'], '1');
     await page.locator('#solar-step-hourly').waitFor({ timeout: 60000 });
     await page.locator('.v2-hourly-chart canvas').first().waitFor();
@@ -79,15 +105,16 @@ const origin = process.env.SOLAR_LOG_TEST_ORIGIN || 'http://localhost:3017';
     const pdf = await PDFDocument.load(await readFile(file)); assert.equal(pdf.getPageCount(), 7);
     for (const p of pdf.getPages()) { assert.ok(Math.abs(p.getWidth() - 595.28) < .1); assert.ok(Math.abs(p.getHeight() - 841.89) < .1); }
     await page.screenshot({ path: join(artifacts, 'offline-pdf-preview.png') });
-    await page.getByRole('button', { name: '关闭弹窗', exact: true }).click();
-    assert.deepEqual(errors, []);
-    // No control of the homepage. The online lock screen invalidates the pack.
-    await context.setOffline(false); await page.goto(origin + '/');
+    assert.deepEqual(errors, []); assert.deepEqual({ visits, analytics }, before);
+    await context.setOffline(false); await page.goto(origin + '/solar-analysis'); await page.locator('#solar-password').waitFor();
     assert.equal(await page.evaluate(() => navigator.serviceWorker.controller), null);
-    await context.clearCookies(); await page.goto(origin + '/solar-analysis'); await page.locator('#solar-password').waitFor();
-    assert.equal(await page.evaluate(async () => (await caches.keys()).some(k => k.startsWith('solortide-solar-offline-v1-data-'))), false);
-    await context.setOffline(true); const missing = await page.reload(); assert.equal(missing.status(), 503);
-    await page.getByText('暂时无法离线打开', { exact: true }).waitFor();
-    console.log(JSON.stringify({ ok: true, artifacts, resources: manifest.assets.length, megabytes: (manifest.bytes / 1048576).toFixed(2), coldOfflineRestart: true, noHttpOrModelCache: true, offlineChartsAndTour: true, offlineEnglishPdf: true, unsupportedTextBlocked: true, pages: 7, passwordRevocation: true, homepageUnchanged: true }));
+    await page.goto(origin + '/'); assert.equal(await page.evaluate(() => navigator.serviceWorker.controller), null);
+    await context.addCookies([cookie(PWA_ACCESS_COOKIE, pwaCookieValue(), '/pwa')]);
+    await page.goto(origin + '/pwa'); await page.getByText('✓ 离线资源完整', { exact: true }).waitFor();
+    page.once('dialog', dialog => dialog.accept());
+    await page.getByRole('button', { name: '清除离线资源', exact: true }).click();
+    await page.getByText('尚未准备离线资源', { exact: true }).waitFor();
+    assert.equal(await page.evaluate(async () => (await caches.keys()).some(k => k.startsWith('solortide-pwa-offline-v2-'))), false);
+    console.log(JSON.stringify({ ok: true, artifacts, resources: manifest.assets.length, megabytes: (manifest.bytes / 1048576).toFixed(2), privateNoAudit: true, dedicatedPasswordDownload: true, noCookiesColdOfflineRestart: true, offlinePdfPages: 7, noAnalyticsOrAuditInPwa: true, homepageAndWebUncontrolled: true }));
   } finally { await context.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

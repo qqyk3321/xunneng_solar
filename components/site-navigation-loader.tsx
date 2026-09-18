@@ -12,7 +12,7 @@ declare global {
 
 const NAVIGATION_EVENT = "solortide:navigation-start";
 const SOLAR_MINIMUM_LOADING_MS = 1000;
-const isSolarAnalysis = (path: string) => path.replace(/\/$/, "") === "/solar-analysis";
+const isSolarAnalysis = (path: string) => ["/solar-analysis", "/pwa/app"].includes(path.replace(/\/$/, ""));
 
 function NavigationEvents() {
   const pathname = usePathname();

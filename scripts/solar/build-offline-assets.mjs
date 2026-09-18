@@ -6,7 +6,7 @@ import sharp from 'sharp';
 // Run after next build. Only this page's entries and its dynamic imports, NOT
 // every JS chunk on the website. No server bundles, credentials or API responses.
 const root = process.cwd();
-const output = join(root, 'public/solar-analysis');
+const output = join(root, 'public/pwa');
 await mkdir(output, { recursive: true });
 for (const size of [192, 512]) {
   await sharp(join(root, 'app/icon.svg')).resize(Math.round(size * .72), Math.round(size * .72))
@@ -19,7 +19,7 @@ const lazy = await readJson('.next/react-loadable-manifest.json');
 const files = new Set();
 const build = await readJson('.next/build-manifest.json');
 (build.polyfillFiles || []).forEach(file => files.add(file));
-for (const route of ['/layout', '/solar-analysis/layout', '/solar-analysis/page']) {
+for (const route of ['/layout', '/pwa/layout', '/pwa/app/page']) {
   if (!app.pages[route]?.length) throw new Error(`Missing offline entry: ${route}`);
   app.pages[route].forEach(file => files.add(file));
 }
@@ -31,7 +31,7 @@ const workers = media.filter(file => /^pdf\.worker\..*\.mjs$/.test(file));
 if (workers.length !== 1) throw new Error('Expected one PDF preview worker');
 workers.forEach(file => files.add(`static/media/${file}`));
 const table = await readJson('lib/solar-analysis/model-table-manifest.json');
-const publicPaths = [table.url, '/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/solar-analysis/icon-192.png', '/solar-analysis/icon-512.png', '/solar-analysis/manifest.webmanifest'];
+const publicPaths = [table.url, '/icon.svg', '/fonts/report-space-grotesk-v1.ttf', '/pwa/icon-192.png', '/pwa/icon-512.png', '/pwa/manifest.webmanifest'];
 const assets = [];
 for (const [url, file] of [
   ...[...files].map(file => [`/_next/${file}`, `.next/${file}`]),

@@ -1,7 +1,7 @@
 import "server-only";
 
 import { isIP } from "node:net";
-import { accessCookieIsValid } from "@/app/solar-analysis/access";
+import { accessCookieMode } from "@/app/solar-analysis/access";
 import { isContactOrigin } from "@/lib/anonymous-inquiry/origin";
 
 type Environment = Record<string, string | undefined>;
@@ -106,7 +106,11 @@ export async function handleSolarVisit(
     headers: { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" },
   });
   if (request.method !== "POST") return respond(405);
-  if (!accessCookieIsValid(cookie)) return respond(401);
+  const mode = accessCookieMode(cookie);
+  if (!mode) return respond(401);
+  // Enforce on the server too: private sessions must never reach the insert,
+  // even if an old tab or a manually constructed request posts to this endpoint.
+  if (mode === "private") return respond(204);
   const localOrigin = env.NODE_ENV === "development" &&
     request.headers.get("origin") === new URL(request.url).origin;
   const originEnv = { ...env, SITE_URL: env.SITE_URL || "https://www.solortide.com" };

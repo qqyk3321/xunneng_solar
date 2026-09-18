@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { webcrypto, createHash } from "node:crypto";
 import vm from "node:vm";
 
-const script = readFileSync("public/solar-analysis/sw.js", "utf8");
+const script = readFileSync("public/pwa/sw.js", "utf8");
 const origin = "https://solar.example";
 const asset = "/_next/static/chunks/webpack-012abc.js";
 const bytes = Buffer.from("window.offlineTest = true;");
@@ -32,17 +32,17 @@ function harness() {
     if (path.endsWith("offline-permission")) return Response.json(controls.authorized ? { authorized: true } : { error: "denied" }, { status: controls.authorized ? 200 : 401 });
     if (path.endsWith("offline-assets.json")) return Response.json({ schema: 1, version: controls.version, assets: [{ url: controls.malformed ? "/api/private" : asset, bytes: bytes.length, sha256: digest }] });
     if (path === asset) { controls.onAsset?.(); return new Response((controls.broken ? "wrong" : bytes.toString()) + controls.suffix); }
-    if (path === "/solar-analysis") return new Response(controls.locked ? '<input id="solar-password" />' : '<main data-solar-authorized="true">Analysis</main>' + (controls.shellAsset ? `<script src="${controls.shellAsset}"></script>` : ""));
+    if (path === "/pwa/app") return new Response(controls.locked ? '<input id="pwa-password" />' : '<main data-solar-offline-app="true">Analysis</main>' + (controls.shellAsset ? `<script src="${controls.shellAsset}"></script>` : ""));
     return new Response("network only");
   };
   const self = {
     location: { origin },
     addEventListener(name: string, fn: (e: any) => void) { listeners[name] = fn; },
     skipWaiting() {},
-    clients: { async claim() {}, async get() { return { url: origin + (controls.outside ? "/antigua" : "/solar-analysis") }; } },
+    clients: { async claim() {}, async get() { return { url: origin + (controls.outside ? "/antigua" : "/pwa/app") }; } },
   };
   vm.runInNewContext(script, { self, caches, fetch, Response, URL, AbortSignal, AbortController, TextDecoder, crypto: webcrypto, console, Date });
-  const message = async (type: string, path = "/solar-analysis") => {
+  const message = async (type: string, path = "/pwa") => {
     const replies: any[] = []; let work: Promise<void> | undefined;
     listeners.message({ source: { url: origin + path }, data: { type }, ports: [{ postMessage(value: any) { replies.push(value); } }], waitUntil(p: Promise<void>) { work = p; } });
     await work;
@@ -74,26 +74,28 @@ test("offline pack validates every asset, commits atomically, survives failed up
   assert.equal((await h.message("STATUS")).version, before.version);
   assert.equal([...h.stores.keys()].filter(n => n.includes("data-")).length, 1);
   h.controls.fail = true;
-  assert.match(await (await h.request("/solar-analysis"))!.text(), /Analysis/);
+  assert.match(await (await h.request("/pwa/app"))!.text(), /Analysis/);
   assert.equal(await (await h.request(asset, "cors"))!.text(), bytes.toString());
   assert.equal(await (await h.request(asset + "?dpl=deployment-id", "cors"))!.text(), bytes.toString());
 });
 
 test("only exact solar navigations and explicit assets are intercepted", async () => {
   const h = harness(); await h.message("PREPARE");
-  for (const path of ["/", "/antigua", "/faq", "/solar-analysis-extra", "/solar-analysis/visit", "/api/private"]) assert.equal(await h.request(path), null);
-  assert.equal(await h.request("/solar-analysis?_rsc=foo", "cors"), null);
-  assert.equal(await h.request("/solar-analysis", "navigate", "POST"), null);
+  for (const path of ["/pwa", "/solar-analysis", "/", "/antigua", "/faq", "/solar-analysis-extra", "/pwa/offline-permission", "/api/private"]) assert.equal(await h.request(path), null);
+  assert.equal(await h.request("/pwa/app?_rsc=foo", "cors"), null);
+  assert.equal(await h.request("/pwa/app", "navigate", "POST"), null);
   assert.equal(await h.message("CLEAR", "/antigua"), undefined);
   h.controls.outside = true; h.controls.fail = true;
   await assert.rejects(h.request(asset, "cors"), /offline/);
 });
 
-test("lock screen online revokes offline access, never replaced with cached content", async () => {
+test("installed application survives expired download login, with no navigation requests", async () => {
   const h = harness(); await h.message("PREPARE"); h.controls.locked = true;
-  assert.match(await (await h.request("/solar-analysis"))!.text(), /solar-password/);
+  h.requests.length = 0;
+  assert.match(await (await h.request("/pwa/app"))!.text(), /Analysis/);
+  assert.deepEqual(h.requests, []);
   h.controls.fail = true;
-  assert.equal((await h.request("/solar-analysis"))!.status, 503);
+  assert.equal((await h.request("/pwa/app"))!.status, 200);
 });
 
 test("eviction is detected; clear preserves unrelated caches", async () => {
@@ -101,7 +103,7 @@ test("eviction is detected; clear preserves unrelated caches", async () => {
   const name = [...h.stores.keys()].find(n => n.includes("data-"))!;
   h.stores.get(name)!.delete(origin + asset);
   assert.equal((await h.message("STATUS")).ready, false);
-  h.controls.fail = true; assert.equal((await h.request("/solar-analysis"))!.status, 503);
+  h.controls.fail = true; assert.equal((await h.request("/pwa/app"))!.status, 503);
   await h.message("CLEAR"); assert.deepEqual([...h.stores.keys()], ["unrelated"]);
 });
 
@@ -114,9 +116,8 @@ test("invalid asset manifests cannot cache API or unrelated content", async () =
 test("storage failure cannot break online navigation or asset downloads", async () => {
   const h = harness();
   h.caches.open = async () => { throw new Error("storage unavailable"); };
-  assert.match(await (await h.request("/solar-analysis"))!.text(), /Analysis/);
-  h.controls.locked = true;
-  assert.match(await (await h.request("/solar-analysis"))!.text(), /solar-password/);
+  assert.equal((await h.request("/pwa/app"))!.status, 503);
+  assert.equal(await h.request("/pwa"), null);
   assert.equal(await (await h.request(asset, "cors"))!.text(), bytes.toString());
 });
 
@@ -150,11 +151,11 @@ test("Vercel toolbar suffix is removed, but original runtime must pass its exact
 });
 
 test("manifest is solar-scoped and offline preparation is production-only", () => {
-  const manifest = JSON.parse(readFileSync("public/solar-analysis/manifest.webmanifest", "utf8"));
-  assert.equal(manifest.scope, "/solar-analysis"); assert.equal(manifest.start_url, "/solar-analysis");
+  const manifest = JSON.parse(readFileSync("public/pwa/manifest.webmanifest", "utf8"));
+  assert.equal(manifest.scope, "/pwa"); assert.equal(manifest.start_url, "/pwa/app");
   assert.equal(manifest.display, "standalone");
-  const route = readFileSync("app/solar-analysis/offline-permission/route.ts", "utf8");
-  assert.match(route, /accessCookieIsValid/); assert.match(route, /private, no-store/);
+  const route = readFileSync("app/pwa/offline-permission/route.ts", "utf8");
+  assert.match(route, /pwaCookieIsValid/); assert.match(route, /private, no-store/);
   assert.match(route, /NODE_ENV !== "production"/);
   const builder = readFileSync("scripts/solar/build-offline-assets.mjs", "utf8");
   assert.match(builder, /key.startsWith\('app\/solar-analysis\/'\)/);

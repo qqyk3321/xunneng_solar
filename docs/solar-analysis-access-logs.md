@@ -2,7 +2,9 @@
 
 ## 行为
 
-- 仅 `/solar-analysis` 密码/Cookie 校验通过、分析页面在浏览器实际挂载后尝试记录。
+- 仅 `/solar-analysis` 的普通密码（audited 模式）/Cookie 校验通过、分析页面在浏览器实际挂载后尝试记录。
+- 专用密码（private 模式）不挂载审计组件；后台接口也直接返回 204，绝不尝试数据库写入。网页版两种密码的 Vercel Analytics 均保持开启。
+- `/pwa` 下载页和 `/pwa/app` 离线应用均不记录审计，也不发送 Vercel Analytics。旧 `offline-shell` 查询参数不再影响网页版审计。
 - 正确密码首次进入、已有 Cookie 再次打开、F5 刷新、离开后返回都算新访问。
 - `pageshow.persisted` 表示从浏览器 BFCache 恢复，算新访问；普通 `pageshow` 不重复记。
 - 密码错误、密码输入页、Next.js 预加载、其他页面不记；修改参数、月份、模型不记。
@@ -66,4 +68,4 @@ SOLAR_ACCESS_LOG_LIVE_TEST=1 node --env-file=.env --env-file=.env.local \
 本次通过 migration 应用至既有 linked 项目。本地/云端迁移历史一致，security advisors 无 warn/error；RLS 开启，公开读写均拒绝，后台只具备 SELECT/INSERT。
 自动化测试共 179 项通过，独立生产构建通过；开发/生产模式均完成手机（390px）和桌面（1440px）浏览器回归，生产模式还验证了正确密码表单首次进入。测试服务已停止，未重启现有开发服务。
 真实数据库验证通过授权写入、同 UUID 去重、错误 Cookie 不入库、anon REST 读写拒绝。
-保留合成记录：`9ef5b5d4-3816-4823-a9df-4b822c2827ee`（environment=development）。网页按既有 main 分支发布流程上线；数据库迁移与网页发布分别验收。
+2026-09-18 按用户要求清理上述表的 36 条历史记录（含合成记录），删除后核验为 0 条；没有改表结构、权限、其他业务数据或 Vercel Analytics。通过管理端仅删除已核对时间范围内的数据，没有放宽 service_role 的 DELETE 权限，也没有创建会在其他环境自动删日志的 migration。网页按既有 main 分支发布流程上线。

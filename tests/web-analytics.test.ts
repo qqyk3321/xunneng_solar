@@ -51,7 +51,7 @@ test("integration is production-only, server-gated and never reads auth cookies 
   assert.match(component, /window\.location\.pathname === "\/solar-analysis"/);
   assert.match(component, /document\.querySelector\('\[data-solar-analytics="authorized"\]'\)/);
   const page = readFileSync("app/solar-analysis/page.tsx", "utf8");
-  const authorizedBranch = page.slice(page.indexOf("if (unlocked)"), page.indexOf("const { error }"));
+  const authorizedBranch = page.slice(page.indexOf("if (mode)"), page.indexOf("const { error }"));
   assert.match(authorizedBranch, /process\.env\.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics \/>/);
   assert.doesNotMatch(page.slice(page.indexOf("const { error }")), /AuthorizedSolarAnalytics/);
   assert.doesNotMatch(component, /document\.cookie|localStorage|sessionStorage|supabase|accessCookie/);
