@@ -148,6 +148,9 @@
   letter-spacing: -2px;
   max-width: 820px;
 }
+.heroDetails {
+  display: contents;
+}
 .homepage .heroCopy {
   max-width: 550px;
   font-size: 17px;
@@ -264,6 +267,9 @@
   }
 }
 @media (max-width: 700px) {
+  .heroMedia img.antiguaHero {
+    object-position: 54% center;
+  }
   .headerInner,
   .container {
     padding-left: 20px;
@@ -386,6 +392,80 @@
 .menuToggle {
   display: none;
 }
+.navAction {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.mobileAssessment {
+  display: none;
+}
+.homepage .headerCta.tailoredCta {
+  min-height: 48px;
+  padding: 14px 24px;
+  border: 1px solid #f2a015;
+  border-radius: 9px;
+  background: #ffb321;
+  color: #16383c;
+  box-shadow: 0 4px 14px #e99a2026;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+.homepage .headerCta.tailoredCta:hover,
+.homepage .headerCta.tailoredCta:focus-visible {
+  background: #ffc044;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px #e99a2045;
+}
+.homepage .headerCta.tailoredCta:active {
+  transform: translateY(0) scale(.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .homepage .headerCta.tailoredCta { transition: none; }
+  .homepage .headerCta.tailoredCta:hover,
+  .homepage .headerCta.tailoredCta:focus-visible,
+  .homepage .headerCta.tailoredCta:active { transform: none; }
+}
+@media (max-width: 1000px) {
+  .header[data-caribbean-header] .headerCta,
+  .header[data-caribbean-header] .mobileFaq {
+    display: none;
+  }
+  .header[data-caribbean-header] .brand {
+    margin-right: auto;
+  }
+  .header[data-caribbean-header] .menuToggle {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 1px solid #0f766e33;
+    border-radius: 50%;
+    background: #ffffffb3;
+    color: #134e4a;
+    cursor: pointer;
+    font-size: 21px;
+  }
+  .header[data-caribbean-header] .nav button {
+    padding: 14px 8px;
+    text-align: left;
+  }
+  .header[data-caribbean-header] .mobileAssessment {
+    display: block;
+    background: #ffb321;
+    color: #16383c;
+    border-radius: 9px;
+    font: inherit;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
 @media (max-width: 1000px) {
   .headerRevealZone {
     display: none;
@@ -466,6 +546,114 @@
     bottom: 24px;
   }
 }
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroContent {
+  min-height: max(850px, 100svh);
+  padding-top: 136px;
+  padding-bottom: 92px;
+  justify-content: space-between;
+  gap: 240px;
+}
+.islandHeading h1 {
+  max-width: none;
+  font:
+    400 clamp(46px, 5.4vw, 78px)/1.08 Georgia,
+    "Times New Roman",
+    serif;
+  letter-spacing: -2px;
+  text-shadow: 0 2px 24px #082c3640;
+}
+.islandHeading p {
+  margin-top: 20px;
+  padding-top: 18px;
+  position: relative;
+  color: #e3eded;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.islandHeading p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 76px;
+  height: 3px;
+  background: #efa820;
+}
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroDetails {
+  display: block;
+  width: 100%;
+}
+.islandPromise {
+  font:
+    400 clamp(34px, 3.4vw, 48px)/1.12 Georgia,
+    "Times New Roman",
+    serif;
+  letter-spacing: -0.8px;
+  color: #fff;
+}
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroCopy {
+  max-width: 470px;
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroActions {
+  margin-top: 24px;
+}
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroNotes {
+  margin-top: 30px;
+}
+.homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroMedia::after {
+  background:
+    linear-gradient(
+      180deg,
+      #082c3655 0%,
+      #082c3618 32%,
+      #082c362e 50%,
+      #082c36b8 100%
+    ),
+    linear-gradient(90deg, #082c3670, #082c3626 65%);
+}
+@media (max-width: 800px) {
+  .homepage .hero:is([data-country="AG"], [data-country="DM"]) {
+    background: #123940;
+  }
+  .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroMedia {
+    height: 630px;
+  }
+  .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroMedia img {
+    object-position: 53% center;
+  }
+  .homepage
+    .hero:is([data-country="AG"], [data-country="DM"])
+    .heroMedia::after {
+    background: linear-gradient(
+      180deg,
+      #082c3680 0%,
+      #082c3638 40%,
+      #123940 100%
+    );
+  }
+  .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroContent {
+    padding-top: 108px;
+    justify-content: flex-start;
+    gap: 240px;
+    min-height: 100svh;
+  }
+  .homepage .islandHeading h1 {
+    font-size: clamp(40px, 7vw, 58px);
+    max-width: 560px;
+    letter-spacing: -1px;
+  }
+  .islandHeading p {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+  }
+  .islandPromise {
+    font-size: 34px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .header[data-immersive-header] {
     transition: none;
@@ -475,5 +663,52 @@
   }
   .homepage a {
     transition: none;
+  }
+}
+
+.homepage .hero[data-country="DM"] .heroContent {
+  align-items: flex-end;
+  text-align: right;
+}
+.hero[data-country="DM"] .islandHeading p::before {
+  left: auto;
+  right: 0;
+}
+.homepage .hero[data-country="DM"] .heroCopy {
+  margin-left: auto;
+}
+.homepage .hero[data-country="DM"] .heroActions,
+.homepage .hero[data-country="DM"] .heroNotes {
+  justify-content: flex-end;
+}
+.homepage .hero[data-country="DM"] .exploreCue {
+  left: auto;
+  right: max(48px, calc((100% - 1264px) / 2));
+}
+.homepage .hero[data-country="DM"] .heroMedia::after {
+  background:
+    linear-gradient(
+      180deg,
+      #082c3655 0%,
+      #082c3618 32%,
+      #082c362e 50%,
+      #082c36b8 100%
+    ),
+    linear-gradient(270deg, #082c3670, #082c3626 65%);
+}
+@media (max-width: 800px) {
+  .homepage .hero[data-country="DM"] .heroMedia img {
+    object-position: 61% center;
+  }
+  .homepage .hero[data-country="DM"] .heroMedia::after {
+    background: linear-gradient(
+      180deg,
+      #082c3680 0%,
+      #082c3638 40%,
+      #123940 100%
+    );
+  }
+  .homepage .hero[data-country="DM"] .exploreCue {
+    right: 20px;
   }
 }

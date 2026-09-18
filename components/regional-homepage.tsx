@@ -3,7 +3,7 @@ import { regionOrganization } from "@/lib/region-seo";
 import { DemoHomepage } from "./demo-homepage";
 import { HomepageContact } from "./homepage-contact";
 
-/** Shared server-rendered content for regional homes and the Antigua root alias. */
+/** Shared server-rendered content for the two regional homes. */
 export function RegionalHomepage({ country }: { country: ServiceCountry }) {
   return (
     <>

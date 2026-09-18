@@ -48,6 +48,13 @@ export default function PrivacyPage() {
             selected service country. The introductory privacy acknowledgement
             is not a marketing subscription.
           </p>
+          <p>
+            If you request island launch updates, we store your email address,
+            chosen island or territory and request date so we can notify you
+            when service becomes available there. This does not subscribe you
+            to unrelated marketing. You can contact our regional support team
+            to withdraw the request or ask for deletion.
+          </p>
         </section>
         <section>
           <h2>3. Services involved in your visit</h2>

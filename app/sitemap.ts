@@ -4,7 +4,7 @@ import { regionAlternates, siteUrl } from "@/lib/region-seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = ["", "/consultation"].flatMap(
     (suffix) =>
-      (suffix ? ["", "/antigua", "/dominica"] : ["/antigua", "/dominica"]).map((prefix) => ({
+      ["", "/antigua", "/dominica"].map((prefix) => ({
         url: siteUrl(prefix + suffix || "/"),
         alternates: { languages: regionAlternates(suffix) },
       })),

@@ -12,7 +12,7 @@ export function RegionalSupportLink() {
   ) : (
     <button
       type="button"
-      onClick={choose}
+      onClick={() => choose()}
       style={{
         color: "inherit",
         font: "inherit",

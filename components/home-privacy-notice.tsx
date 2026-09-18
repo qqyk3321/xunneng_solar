@@ -9,8 +9,29 @@ import { useSiteRegion } from "./site-region";
 import styles from "./home-privacy-notice.module.css";
 
 const STORAGE_KEY = "sol-tide:cookie-ui:dismissed:v2";
-// In-memory fallback if the browser blocks sessionStorage.
+const PREFERENCES_KEY = "sol-tide:cookie-preferences:v1";
+type Preferences = { analytics: boolean; marketing: boolean };
+// Fallback for browsers where persistent storage is unavailable.
 let acknowledged = false;
+let remembered: Preferences | null = null;
+
+function readPreferences(): Preferences | null {
+  try {
+    const raw = localStorage.getItem(PREFERENCES_KEY);
+    if (!raw) return null;
+    const value = JSON.parse(raw);
+    if (
+      value?.version === 1 &&
+      typeof value.analytics === "boolean" &&
+      typeof value.marketing === "boolean"
+    ) {
+      return { analytics: value.analytics, marketing: value.marketing };
+    }
+  } catch {
+    /* Malformed or unavailable storage must not break the page. */
+  }
+  return null;
+}
 
 export function HomePrivacyNotice() {
   const pathname = usePathname();
@@ -22,6 +43,23 @@ export function HomePrivacyNotice() {
   const dialog = useRef<HTMLDialogElement>(null);
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
+  useEffect(() => {
+    const sync = (event: StorageEvent) => {
+      if (event.key !== PREFERENCES_KEY) return;
+      const saved = readPreferences();
+      remembered = saved;
+      acknowledged = Boolean(saved);
+      dismissed.current = Boolean(saved);
+      if (saved) {
+        setAnalytics(saved.analytics);
+        setMarketing(saved.marketing);
+        setVisible(false);
+        dialog.current?.close();
+      }
+    };
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
+  }, []);
   useEffect(() => {
     window.dispatchEvent(
       new CustomEvent("sol-tide:cookie-notice", { detail: visible }),
@@ -36,6 +74,14 @@ export function HomePrivacyNotice() {
   useEffect(() => {
     setVisible(false);
     dismissed.current = acknowledged;
+    const saved = readPreferences() ?? remembered;
+    if (saved) {
+      remembered = saved;
+      acknowledged = true;
+      dismissed.current = true;
+      setAnalytics(saved.analytics);
+      setMarketing(saved.marketing);
+    }
     try {
       dismissed.current ||= sessionStorage.getItem(STORAGE_KEY) === "1";
     } catch {
@@ -44,7 +90,7 @@ export function HomePrivacyNotice() {
     if (
       !["/", "/antigua", "/dominica"].includes(pathname) ||
       dismissed.current ||
-      !country ||
+      (!country && pathname !== "/") ||
       regionOpen
     )
       return;
@@ -67,11 +113,20 @@ export function HomePrivacyNotice() {
     };
   }, [pathname, country, regionOpen]);
 
-  function close() {
+  function close(selection?: Preferences) {
     dialog.current?.close();
     dismissed.current = true;
     acknowledged = true;
+    remembered = selection ??
+      remembered ?? { analytics: false, marketing: false };
+    setAnalytics(remembered.analytics);
+    setMarketing(remembered.marketing);
     try {
+      // No expiry: only a UI preference, not a tracking/service consent integration.
+      localStorage.setItem(
+        PREFERENCES_KEY,
+        JSON.stringify({ version: 1, ...remembered }),
+      );
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
       /* Keep the in-memory dismissal. */
@@ -81,10 +136,7 @@ export function HomePrivacyNotice() {
     manuallyOpened.current = false;
   }
   function chooseAll(enabled: boolean) {
-    // UI draft only: never persist a consent record or change service loading.
-    setAnalytics(enabled);
-    setMarketing(enabled);
-    close();
+    close({ analytics: enabled, marketing: enabled });
   }
 
   return (
@@ -95,6 +147,9 @@ export function HomePrivacyNotice() {
         className={styles.trigger}
         aria-expanded={visible}
         onClick={() => {
+          const saved = readPreferences() ?? remembered;
+          setAnalytics(saved?.analytics ?? false);
+          setMarketing(saved?.marketing ?? false);
           manuallyOpened.current = true;
           setVisible(true);
         }}
@@ -119,8 +174,8 @@ export function HomePrivacyNotice() {
                 .
               </p>
               <p className={styles.disclosure}>
-                Interface preview: preference controls are not connected yet.
-                These buttons do not change cookies or website services.
+                Your choices are remembered in this browser. These preview
+                controls do not yet change cookies or website services.
               </p>
             </div>
             <div className={styles.actions}>
@@ -150,7 +205,7 @@ export function HomePrivacyNotice() {
               type="button"
               className={styles.close}
               aria-label="Close cookie notice"
-              onClick={close}
+              onClick={() => close()}
             >
               ×
             </button>
@@ -220,7 +275,11 @@ export function HomePrivacyNotice() {
           >
             Reject optional
           </button>
-          <button type="button" className={styles.secondary} onClick={close}>
+          <button
+            type="button"
+            className={styles.secondary}
+            onClick={() => close({ analytics, marketing })}
+          >
             Confirm selection
           </button>
           <button
@@ -232,8 +291,10 @@ export function HomePrivacyNotice() {
           </button>
         </div>
         <p className={styles.disclosure}>
-          Only dismissal of this notice is remembered for this tab. No consent
-          preferences are saved or applied.
+          Choices are saved in this browser without an expiry date. You can
+          change them through Cookie preferences in the footer. Clearing browser
+          data removes your saved choices; service controls are not connected
+          yet.
         </p>
       </dialog>
     </>

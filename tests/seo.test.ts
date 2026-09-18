@@ -40,13 +40,14 @@ test("regional homes have independent metadata and shared FAQ has a single canon
   assert.ok(!urls.some((url) => url.includes("preview")));
 });
 
-test("homepage is the Antigua alias with voluntary selection and shared server content", async () => {
+test("Caribbean homepage has its own canonical with voluntary country selection", async () => {
   const provider = readFileSync("components/site-region.tsx", "utf8");
   assert.match(provider, /const open = !navigating && manual/);
   assert.doesNotMatch(provider, /requiresSelection/);
   const homepage = readFileSync("app/page.tsx", "utf8");
-  assert.match(homepage, /<RegionalHomepage country="AG"/);
-  assert.match(homepage, /countryMetadata\("AG", "home"\)/);
+  assert.match(homepage, /<CaribbeanHomepage/);
+  assert.match(homepage, /canonical: siteUrl\("\/"\)/);
+  assert.match(homepage, /Solar Energy for Caribbean Homes/);
   assert.match(readFileSync("app/[region]/page.tsx", "utf8"), /<RegionalHomepage country=\{country\}/);
   const shared = readFileSync("components/regional-homepage.tsx", "utf8");
   assert.match(shared, /application\/ld\+json/);
@@ -58,10 +59,10 @@ test("homepage is the Antigua alias with voluntary selection and shared server c
   const links = readFileSync("components/region-links.tsx", "utf8");
   assert.match(links, /<Link[^>]+href=\{regionPath/);
   assert.deepEqual(countryMetadata("AG", "home"), await regionMetadata(Promise.resolve({ region: "antigua" }), "home"));
-  assert.equal(regionAlternates()["x-default"], siteUrl("/antigua"));
+  assert.equal(regionAlternates()["x-default"], siteUrl("/"));
   assert.equal(regionAlternates("/consultation")["x-default"], siteUrl("/consultation"));
   const urls = sitemap().map(entry => entry.url);
-  assert.ok(!urls.includes(siteUrl("/")), "non-canonical root alias is not listed separately");
+  assert.ok(urls.includes(siteUrl("/")), "independent Caribbean root is listed");
   for (const path of ["/antigua", "/dominica", "/consultation", "/antigua/consultation", "/dominica/consultation"])
     assert.ok(urls.includes(siteUrl(path)));
 });

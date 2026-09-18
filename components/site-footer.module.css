@@ -138,7 +138,8 @@
   align-items: flex-start;
   gap: 0;
 }
-.links a {
+.links a,
+.links button {
   display: inline-flex;
   align-items: center;
   min-height: 36px;
@@ -148,7 +149,16 @@
   text-decoration: none;
   text-underline-offset: 5px;
 }
-.links a:hover {
+.links button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.links a:hover,
+.links button:hover {
   color: #f4b578;
   text-decoration: underline;
 }
@@ -183,7 +193,7 @@
 }
 .footer .invitation h2 {
   margin: -5px 0 0;
-  color: #fff;
+  color: #f4c75b;
   font:
     500 clamp(32px, 3.2vw, 44px)/1.13 "Space Grotesk",
     sans-serif;
@@ -196,6 +206,7 @@
   margin: 18px 0 24px;
 }
 .footer .assessment {
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -240,6 +251,30 @@
 .signature {
   font-size: 11px;
   line-height: 1.7;
+}
+.countryLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.countryLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  color: #edf5f4;
+  font-size: 12px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.countryLinks a:hover {
+  color: #f4b578;
+}
+.countryRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 @media (max-width: 1100px) {
   .container {

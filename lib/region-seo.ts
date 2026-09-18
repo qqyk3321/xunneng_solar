@@ -82,7 +82,7 @@ export function regionAlternates(suffix = "") {
   return {
     "en-AG": siteUrl(regionPath("AG", suffix)),
     "en-DM": siteUrl(regionPath("DM", suffix)),
-    "x-default": siteUrl(suffix || regionPath("AG")),
+    "x-default": siteUrl(suffix || "/"),
   };
 }
 export async function regionMetadata(

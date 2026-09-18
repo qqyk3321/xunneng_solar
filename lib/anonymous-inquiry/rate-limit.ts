@@ -16,10 +16,7 @@ type LimitResult = {
 export async function requireContactLimit(result: LimitResult) {
   if (result.reason === "timeout") {
     void result.pending.catch(() => undefined);
-    throw new InquiryError(
-      503,
-      "Contact protection timed out.",
-    );
+    throw new InquiryError(503, "Contact protection timed out.");
   }
   await result.pending;
   if (!result.success)
@@ -33,8 +30,10 @@ export async function requireContactLimit(result: LimitResult) {
     );
 }
 
-let configured:
-  { source: Ratelimit; total: Ratelimit; secret: string } | undefined;
+const configurations = new Map<
+  string,
+  { source: Ratelimit; total: Ratelimit; secret: string }
+>();
 
 export function contactUpstashEnabled(
   env: Record<string, string | undefined> = process.env,
@@ -43,13 +42,18 @@ export function contactUpstashEnabled(
   if (value === "false") return false;
   if (value === "true") return true;
   // Preserve the existing default; typos must not silently disable protection.
-  if (value) throw new ContactFailure("upstash.config", "missing_configuration");
+  if (value)
+    throw new ContactFailure("upstash.config", "missing_configuration");
   return env.NODE_ENV !== "development";
 }
 
-export async function checkContactLimit(request: Request) {
+export async function checkContactLimit(
+  request: Request,
+  scope: "contact" | "wishlist" = "contact",
+) {
   // This switch only controls Redis-backed limits, not other request validation.
   if (!contactUpstashEnabled()) return;
+  let configured = configurations.get(scope);
   if (!configured) {
     const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
     const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
@@ -61,7 +65,7 @@ export async function checkContactLimit(request: Request) {
       retry: false,
       signal: () => AbortSignal.timeout(3500),
     });
-    const prefix = `xunneng:contact:v1:${process.env.VERCEL_ENV ?? "production"}`;
+    const prefix = `xunneng:${scope}:v1:${process.env.VERCEL_ENV ?? "production"}`;
     const options = {
       redis,
       timeout: 2500,
@@ -81,6 +85,7 @@ export async function checkContactLimit(request: Request) {
         limiter: Ratelimit.slidingWindow(100, "1 h"),
       }),
     };
+    configurations.set(scope, configured);
   }
   // Vercel overwrites x-forwarded-for. Other hosts use a shared conservative
   // quota until their trusted proxy configuration is explicitly implemented.

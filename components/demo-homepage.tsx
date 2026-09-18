@@ -60,49 +60,77 @@ export function DemoHomepage({
           className={styles.hero}
           aria-labelledby="hero-title"
           data-testid="home-hero"
+          data-country={country ?? undefined}
         >
           <div className={styles.heroMedia}>
             <Image
               src={
-                country === "DM"
-                  ? "/images/dominica-solar-hero.png"
-                  : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
+                country === "AG"
+                  ? "/images/antigua-solar-map-hero.webp"
+                  : country === "DM"
+                    ? "/images/dominica-solar-map-hero.webp"
+                    : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
               }
               fill
               priority
               quality={78}
               sizes="100vw"
+              className={country === "AG" ? styles.antiguaHero : undefined}
               alt={
-                country === "DM"
-                  ? "Illustrative solar-powered coastal homes inspired by Dominica"
-                  : "Solar-equipped coastal homes"
+                country === "AG"
+                  ? "Antigua-inspired solar home and turquoise bay with Antigua and Barbuda island silhouettes blended into the sea; artistic illustration"
+                  : country === "DM"
+                    ? "Dominica-inspired rainforest coast and solar home with the island silhouette blended into the background; artistic illustration"
+                    : "Solar-equipped coastal homes"
               }
             />
           </div>
           <div className={styles.heroContent}>
-            <p className={styles.heroEyebrow}>{hero.eyebrow}</p>
-            <h1 id="hero-title">{hero.title}</h1>
-            <p className={styles.heroCopy}>{hero.description}</p>
-            <div className={styles.heroActions}>
-              <AssessmentLink country={country} className={styles.primary} />
-              <SectionAnchor href="#calculator" className={styles.solarButton}>
-                Get an Estimate
-              </SectionAnchor>
-            </div>
-            <div className={styles.heroNotes}>
-              <span>150+ MPH Rated</span>
-              <span>
-                {country === "AG"
-                  ? "UL"
-                  : country === "DM"
-                    ? "CE"
-                    : "UL/CE"}{" "}
-                Certified Equipment
-              </span>
-              <span>{hero.support}</span>
-              <span>8-Year Inverter Warranty</span>
-              <span>LiFePO4 Battery · 4,000 Cycles</span>
-              <span>15-Year Solar Panel Warranty</span>
+            {country ? (
+              <div className={styles.islandHeading}>
+                <h1 id="hero-title">
+                  {country === "AG" ? "Antigua & Barbuda" : "Dominica"}
+                </h1>
+                <p>Brighter homes. A cleaner tomorrow.</p>
+              </div>
+            ) : (
+              <>
+                <p className={styles.heroEyebrow}>{hero.eyebrow}</p>
+                <h1 id="hero-title">{hero.title}</h1>
+              </>
+            )}
+            <div className={styles.heroDetails}>
+              {country && (
+                <h2 className={styles.islandPromise}>
+                  Clean energy.
+                  <br />A brighter island home.
+                </h2>
+              )}
+              <p className={styles.heroCopy}>
+                {country
+                  ? "Solar and battery storage for lower bills and smarter backup. Locally supported, from planning to installation and beyond."
+                  : hero.description}
+              </p>
+              <div className={styles.heroActions}>
+                <AssessmentLink country={country} className={styles.primary} />
+                <SectionAnchor
+                  href="#calculator"
+                  className={styles.solarButton}
+                >
+                  Get an Estimate
+                </SectionAnchor>
+              </div>
+              <div className={styles.heroNotes}>
+                <span>150+ MPH Rated</span>
+                <span>
+                  {country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE"}{" "}
+                  Certified Equipment
+                </span>
+                <span>{hero.support}</span>
+                <span>8-Year Inverter Warranty</span>
+                <span>LiFePO4 Battery · 4,000 Cycles</span>
+                <span>15-Year Solar Panel Warranty</span>
+              </div>
             </div>
           </div>
           {immersive && (

@@ -13,12 +13,14 @@ export function SiteHeader({
   homeSectionsLocal = false,
   accountSlot,
   immersive = false,
+  caribbean = false,
 }: {
   homeSectionsLocal?: boolean;
   accountSlot?: ReactNode;
   immersive?: boolean;
+  caribbean?: boolean;
 }) {
-  const { country } = useSiteRegion();
+  const { country, choose } = useSiteRegion();
   const [revealed, setRevealed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -27,8 +29,12 @@ export function SiteHeader({
       if (window.scrollY > 80) setRevealed(true);
     };
     scroll();
+    const revealTimer = window.setTimeout(() => setRevealed(true), 3000);
     window.addEventListener("scroll", scroll, { passive: true });
-    return () => window.removeEventListener("scroll", scroll);
+    return () => {
+      window.clearTimeout(revealTimer);
+      window.removeEventListener("scroll", scroll);
+    };
   }, [immersive]);
   function homeLink(id: string, label: string) {
     return homeSectionsLocal ? (
@@ -53,6 +59,7 @@ export function SiteHeader({
       <header
         className={`tailwind-scope ${styles.homepage} ${styles.header}`}
         data-testid="home-header"
+        data-caribbean-header={caribbean || undefined}
         data-immersive-header={immersive || undefined}
         data-revealed={revealed || undefined}
         data-menu-open={menuOpen || undefined}
@@ -74,17 +81,42 @@ export function SiteHeader({
             Sol<span>&</span>Tide <small>Energy</small>
           </Link>
           <nav
-            id={immersive ? "regional-main-nav" : undefined}
+            id={immersive || caribbean ? "regional-main-nav" : undefined}
             className={styles.nav}
             aria-label="Main navigation"
             onClick={() => setMenuOpen(false)}
           >
-            {homeLink("calculator", "Savings")}
-            {homeLink("benefits", "Why solar")}
-            {homeLink("contact-us", "Contact us")}
+            {caribbean ? (
+              <>
+                <button
+                  className={styles.navAction}
+                  onClick={() => choose("savings")}
+                  aria-haspopup="dialog"
+                >
+                  Savings
+                </button>
+                <SectionAnchor href="#journey">Our approach</SectionAnchor>
+                <SectionAnchor href="#hybrid-system">Why solar</SectionAnchor>
+              </>
+            ) : (
+              <>
+                {homeLink("calculator", "Savings")}
+                {homeLink("benefits", "Why solar")}
+                {homeLink("contact-us", "Contact us")}
+              </>
+            )}
             <Link href={regionPath(country, "/faq")} prefetch={false}>
               FAQ
             </Link>
+            {caribbean && (
+              <button
+                className={styles.mobileAssessment}
+                onClick={() => choose("assessment")}
+                aria-haspopup="dialog"
+              >
+                Get Your Free Assessment
+              </button>
+            )}
           </nav>
           <div className={styles.headerActions}>
             <Link
@@ -94,17 +126,28 @@ export function SiteHeader({
             >
               FAQ
             </Link>
-            <Link
-              href={regionPath(country, "/consultation")}
-              prefetch={false}
-              className={styles.headerCta}
-            >
-              Get Your Free Assessment
-            </Link>
-            <RegionSwitcher />
+            {caribbean ? (
+              <button
+                className={`${styles.headerCta} ${styles.tailoredCta}`}
+                onClick={() => choose("assessment")}
+                aria-haspopup="dialog"
+                aria-label="Get Your Free Assessment"
+              >
+                Get Your Free Assessment
+              </button>
+            ) : (
+              <Link
+                href={regionPath(country, "/consultation")}
+                prefetch={false}
+                className={styles.headerCta}
+              >
+                Get Your Free Assessment
+              </Link>
+            )}
+            {!caribbean && <RegionSwitcher />}
             {accountSlot}
           </div>
-          {immersive && (
+          {(immersive || caribbean) && (
             <button
               type="button"
               className={styles.menuToggle}

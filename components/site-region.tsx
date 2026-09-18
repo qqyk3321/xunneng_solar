@@ -9,7 +9,11 @@ import {
   type ReactNode,
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { countryFromPath, switchedRegionPath } from "@/lib/site-region-routing";
+import {
+  countryFromPath,
+  switchedRegionPath,
+  regionPath,
+} from "@/lib/site-region-routing";
 import Image from "next/image";
 import {
   SERVICE_COUNTRIES,
@@ -21,17 +25,13 @@ const RegionContext = createContext<{
   country: ServiceCountry | null;
   ready: boolean;
   open: boolean;
-  choose: () => void;
+  choose: (intent?: "savings" | "assessment") => void;
 }>({ country: null, ready: false, open: false, choose: () => {} });
 export const useSiteRegion = () => useContext(RegionContext);
 
 export function SiteRegionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  return (
-    <RegionForPath pathname={pathname}>
-      {children}
-    </RegionForPath>
-  );
+  return <RegionForPath pathname={pathname}>{children}</RegionForPath>;
 }
 
 function RegionForPath({
@@ -45,12 +45,14 @@ function RegionForPath({
   const country = countryFromPath(pathname);
   const ready = true;
   const [manual, setManual] = useState(false);
+  const [intent, setIntent] = useState<"savings" | "assessment" | undefined>();
   // A focused option must not look selected while Continue is disabled.
   // Only the dialog draft defaults; the URL country changes after confirmation.
   const [draft, setDraft] = useState<ServiceCountry>(country ?? "AG");
   const [confirmChange, setConfirmChange] = useState(false);
   const [navigating, setNavigating] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLElement | null>(null);
   const navigationFrame = useRef<number | undefined>(undefined);
   useEffect(() => {
     setManual(false);
@@ -69,7 +71,7 @@ function RegionForPath({
       window.cancelAnimationFrame(navigationFrame.current ?? 0);
     };
   }, [pathname]);
-  // Region selection is always voluntary, including the Antigua root alias.
+  // Region selection is always voluntary, including the Caribbean entry page.
   const open = !navigating && manual;
   useEffect(() => {
     if (!open) {
@@ -83,7 +85,9 @@ function RegionForPath({
       document.body.style.overflow = previous;
     };
   }, [open]);
-  function choose() {
+  function choose(nextIntent?: "savings" | "assessment") {
+    opener.current = document.activeElement as HTMLElement;
+    setIntent(nextIntent);
     setDraft(country ?? "AG");
     setConfirmChange(false);
     setManual(true);
@@ -104,15 +108,24 @@ function RegionForPath({
     // Native modal dialogs sit above every CSS z-index. Close before showing
     // the already-mounted loader, then give the browser a frame to paint it.
     dialog.current?.close();
-    const destination = switchedRegionPath(pathname, draft);
+    const destination =
+      intent === "assessment"
+        ? regionPath(draft, "/consultation")
+        : intent === "savings"
+          ? regionPath(draft)
+          : switchedRegionPath(pathname, draft);
+    const hash =
+      intent === "savings" ? "#calculator" : intent ? "" : window.location.hash;
     if (destination === pathname) return;
     setNavigating(true);
-    window.dispatchEvent(new CustomEvent("solortide:navigation-start", {
-      detail: { immediate: true },
-    }));
+    window.dispatchEvent(
+      new CustomEvent("solortide:navigation-start", {
+        detail: { immediate: true },
+      }),
+    );
     navigationFrame.current = window.requestAnimationFrame(() => {
       navigationFrame.current = window.requestAnimationFrame(() => {
-        router.push(destination + window.location.hash);
+        router.push(destination + hash);
       });
     });
   }
@@ -124,6 +137,11 @@ function RegionForPath({
         className={styles.dialog}
         aria-labelledby="region-title"
         aria-describedby="region-description"
+        onClose={() => {
+          if (navigating || !opener.current?.isConnected) return;
+          if (opener.current.getClientRects().length) opener.current.focus();
+          else opener.current.closest("header")?.querySelector<HTMLButtonElement>('button[aria-controls="regional-main-nav"]')?.focus();
+        }}
         onCancel={(event) => {
           event.preventDefault();
           setManual(false);
@@ -136,11 +154,9 @@ function RegionForPath({
         >
           ×
         </button>
-        <p className={styles.eyebrow}>YOUR LOCATION</p>
         <h2 id="region-title">Where would you like to install your system?</h2>
         <p id="region-description" className={styles.description}>
-          Choose your installation location so we can show the relevant
-          equipment information and electricity estimates.
+          Choose your country.
         </p>
         <div
           className={styles.options}
@@ -181,19 +197,17 @@ function RegionForPath({
             unsent form. Continue?
           </p>
         )}
-        <button className={styles.save} disabled={!draft || navigating} onClick={save}>
+        <button
+          className={styles.save}
+          disabled={!draft || navigating}
+          onClick={save}
+        >
           {confirmChange
             ? "Change location and restart"
             : country
               ? "Save location"
               : "Continue"}
         </button>
-        <p className={styles.hint}>
-          The main homepage serves Antigua & Barbuda. Regional page addresses
-          identify the selected location. You can switch location anytime in the
-          header or footer. Unsent drafts are not carried over when switching
-          locations.
-        </p>
       </dialog>
     </RegionContext.Provider>
   );
@@ -211,13 +225,17 @@ export function RegionSwitcher({
     <button
       type="button"
       className={`${styles.switcher} ${className}`}
-      onClick={choose}
+      onClick={() => choose()}
       aria-haspopup="dialog"
       aria-label="Change installation location"
     >
       {country && <RegionFlag country={country} />}
       <span>
-        {country ? SERVICE_COUNTRIES[country].label : variant === "text" ? "Choose location" : "Location"}
+        {country
+          ? SERVICE_COUNTRIES[country].label
+          : variant === "text"
+            ? "Choose location"
+            : "Location"}
       </span>
       {variant === "default" && <span aria-hidden="true">▾</span>}
     </button>
