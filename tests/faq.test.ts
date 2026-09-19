@@ -12,7 +12,48 @@ test("shared FAQ includes both regional equipment certification lists", () => {
   }
 });
 import { readFileSync } from "node:fs";
-import { FAQ_CATEGORIES, FAQ_ITEMS, searchFaq } from "../lib/faq/content";
+import { FAQ_CATEGORIES, FAQ_ITEMS, getFaqItems, searchFaq } from "../lib/faq/content";
+import { ANTIGUA_CONFIG, DOMINICA_CONFIG } from "../lib/antigua-calculator/config";
+
+test("regional FAQ localizes the tariff and all action destinations without mutating shared copy", () => {
+  const before = JSON.stringify(FAQ_ITEMS);
+  for (const [country, slug, utility, config] of [
+    ["AG", "antigua", "APUA", ANTIGUA_CONFIG],
+    ["DM", "dominica", "DOMLEC", DOMINICA_CONFIG],
+  ] as const) {
+    const items = getFaqItems(country);
+    assert.equal(items.length, FAQ_ITEMS.length);
+    assert.equal(new Set(items.map(item => item.id)).size, items.length);
+    const tariff = items.find(item => item.id === "calculator-tariff")!;
+    assert.ok(tariff.question.includes(utility));
+    assert.ok(tariff.answer.includes(config.tariff.sourceDate));
+    assert.ok(tariff.answer.includes(config.tariff.fuelAdjustment.toFixed(2)));
+    assert.equal(items.find(item => item.id === "calculator-location")!.link!.href, `/${slug}#calculator`);
+    for (const item of items) {
+      if (item.link) assert.ok([`/${slug}#calculator`, `/${slug}/consultation`, "#ask-question"].includes(item.link.href));
+    }
+    assert.deepEqual(searchFaq("", "all", items), items);
+    assert.ok(searchFaq(utility, "savings", items).some(item => item.id === "calculator-tariff"));
+    assert.deepEqual(searchFaq(country === "AG" ? "DOMLEC" : "APUA", "savings", items), []);
+    assert.equal(items.find(item => item.id === "warranty-terms")!.answer, FAQ_ITEMS.find(item => item.id === "warranty-terms")!.answer);
+  }
+  const dominica = getFaqItems("DM").find(item => item.id === "calculator-tariff")!;
+  assert.match(dominica.answer, /not a verified current tariff/);
+  assert.match(dominica.answer, /October 1, 2026 is not included/);
+  assert.match(dominica.answer, /15%.*100 kWh/);
+  assert.equal(JSON.stringify(FAQ_ITEMS), before);
+});
+
+test("budget FAQ explains the direction of the calculation instead of promising a quotation", () => {
+  for (const country of ["AG", "DM"] as const) {
+    const answer = getFaqItems(country).find(item => item.id === "investment-quote")!.answer;
+    assert.match(answer, /assumed annual bill savings multiplied by an assumed payback period/);
+    assert.match(answer, /not a supplier quotation/);
+  }
+  const page = readFileSync("components/regional-faq-page.tsx", "utf8");
+  assert.match(page, /await requireRegion\(params\)/);
+  assert.match(page, /items={getFaqItems\(country\)}/);
+});
 
 test("generator integration and expansion are searchable, qualified support topics", () => {
   const generator = searchFaq("existing generator", "support").find(

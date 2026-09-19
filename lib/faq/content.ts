@@ -1,4 +1,6 @@
-import { ANTIGUA_CONFIG } from "../antigua-calculator/config";
+import { ANTIGUA_CONFIG, DOMINICA_CONFIG } from "../antigua-calculator/config";
+import type { ServiceCountry } from "../consultation-intake";
+import { regionPath } from "../site-region-routing";
 
 export const FAQ_CATEGORIES = [
   { id: "getting-started", title: "Getting started" },
@@ -88,7 +90,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "savings",
     question: "Is the suggested investment a final quote?",
     answer:
-      "No. Suggested investment and simple payback are planning figures, not a supplier quotation or a verified return. Request an assessment to discuss a proposed configuration, its scope and the applicable price.",
+      "No. The illustrative budget is calculated as assumed annual bill savings multiplied by an assumed payback period. The payback period is a planning assumption, not a return calculated from independently priced equipment and installation. This is a budget scenario, not a supplier quotation or a verified return. Request an assessment to confirm the proposed configuration, included work and applicable price.",
     keywords: [
       "price",
       "cost",
@@ -285,6 +287,49 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+/** Build the country-specific content on the server, before rendering or search. */
+export function getFaqItems(country: ServiceCountry): FaqItem[] {
+  const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
+  return FAQ_ITEMS.map((item) => {
+    let localized = { ...item };
+    if (item.id === "calculator-location") {
+      localized = {
+        ...localized,
+        answer: country === "AG"
+          ? "This calculator provides a planning scenario for homes in Antigua using an APUA reference tariff. It is not a live tariff or a quotation. For a property in Dominica, use the Dominica calculator and its separate reference assumptions."
+          : "This calculator provides a planning scenario for homes in Dominica using a historical DOMLEC tariff reference. It is not a verified current tariff or a quotation. For a property in Antigua, use the Antigua calculator and its separate reference assumptions.",
+        keywords: [country === "AG" ? "Antigua APUA 安提瓜" : "Dominica DOMLEC 多米尼克", "island", "coverage", "country", "地区"],
+      };
+    }
+    if (item.id === "calculator-tariff") {
+      localized = {
+        ...localized,
+        question: `Which ${country === "AG" ? "APUA" : "DOMLEC"} tariff does the calculator use?`,
+        answer: country === "AG"
+          ? `It uses the ${config.tariff.sourceDate} preset, including an EC$${config.tariff.fuelAdjustment.toFixed(2)}/kWh fuel surcharge. This is a fixed reference, not a live electricity rate. The question mark beside the bill slider provides the sources and assumptions.`
+          : `It uses a historical reference: ${config.tariff.sourceDate}. Base rates are EC$${config.tariff.firstTierRate.toFixed(2)}/kWh for the first ${config.tariff.firstTierLimit} kWh and EC$${config.tariff.additionalRate.toFixed(2)}/kWh thereafter, with an EC$${config.tariff.fuelAdjustment.toFixed(2)}/kWh fuel surcharge. VAT is ${config.tariff.vatRate * 100}% on electricity and fuel charges above the first ${config.tariff.vatFreeKwh} kWh. This combines historical sources and is not a verified current tariff. The new structure announced for October 1, 2026 is not included. The question mark beside the bill slider provides the sources and assumptions.`,
+        keywords: ["fuel", "rate", "tariff", "historical", config.tariff.sourceDate, config.tariff.fuelAdjustment.toFixed(2), country === "AG" ? "APUA" : "DOMLEC VAT", "燃油", "附加费", "电价"],
+      };
+    }
+    if (item.id === "savings-assumption") {
+      localized.answer = `No. The calculator assumes an ${Math.round(config.savingsFraction * 100)}% bill reduction to provide a planning scenario, not a quotation. Actual savings depend on the final system, electricity usage, site conditions and applicable tariff. Discuss your property with our team before making a purchase decision.`;
+    }
+    if (item.link) {
+      localized.link = {
+        ...item.link,
+        href: item.link.href === "/#calculator"
+          ? `${regionPath(country)}#calculator`
+          : item.link.href === "/consultation"
+            ? regionPath(country, "/consultation")
+            : item.link.href === "/#contact-us"
+              ? "#ask-question"
+              : item.link.href,
+      };
+    }
+    return localized;
+  });
+}
+
 function normalize(text: string) {
   return text
     .normalize("NFKD")
@@ -297,9 +342,10 @@ function normalize(text: string) {
 export function searchFaq(
   query: string,
   category: FaqCategory | "all" = "all",
+  items: readonly FaqItem[] = FAQ_ITEMS,
 ) {
   const terms = normalize(query).split(/\s+/).filter(Boolean);
-  return FAQ_ITEMS.filter((item) => {
+  return items.filter((item) => {
     if (category !== "all" && item.category !== category) return false;
     const categoryTitle =
       FAQ_CATEGORIES.find((group) => group.id === item.category)?.title ?? "";

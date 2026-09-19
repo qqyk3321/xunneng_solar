@@ -142,6 +142,30 @@
     500 22px/1.3 "Space Grotesk",
     sans-serif;
 }
+.module .scenarioNotice {
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--teal);
+  border-radius: 4px;
+  background: #eaf5f5;
+  color: #1e4c53;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.module .scenarioNotice p + p {
+  margin-top: 6px;
+  color: #475569;
+  font-size: 12px;
+}
+.module .budgetExplanation {
+  margin-top: 10px;
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.backupResults {
+  margin: 16px 0 0;
+}
 .labelRow {
   position: relative;
   display: flex;

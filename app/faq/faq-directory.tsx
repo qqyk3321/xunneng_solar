@@ -6,17 +6,17 @@ import { AssessmentLink } from "@/components/assessment-link";
 import { SectionAnchor } from "@/components/section-anchor";
 import {
   FAQ_CATEGORIES,
-  FAQ_ITEMS,
   searchFaq,
   type FaqCategory,
+  type FaqItem,
 } from "@/lib/faq/content";
 import styles from "./faq.module.css";
 
-export function FaqDirectory() {
+export function FaqDirectory({ items }: { items: FaqItem[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<FaqCategory | "all">("all");
   const search = useRef<HTMLInputElement>(null);
-  const results = searchFaq(query, category);
+  const results = searchFaq(query, category, items);
   const searching = query.trim().length > 0;
   function clear() {
     setQuery("");
@@ -60,7 +60,7 @@ export function FaqDirectory() {
               aria-pressed={category === "all"}
               onClick={() => setCategory("all")}
             >
-              All questions <span aria-hidden="true">{FAQ_ITEMS.length}</span>
+              All questions <span aria-hidden="true">{items.length}</span>
             </button>
             {FAQ_CATEGORIES.map((group) => (
               <button
@@ -72,7 +72,7 @@ export function FaqDirectory() {
                 {group.title}
                 <span aria-hidden="true">
                   {
-                    FAQ_ITEMS.filter((item) => item.category === group.id)
+                    items.filter((item) => item.category === group.id)
                       .length
                   }
                 </span>
@@ -106,13 +106,11 @@ export function FaqDirectory() {
                   <div className={styles.answer}>
                     <p style={{ whiteSpace: "pre-line" }}>{item.answer}</p>
                     {item.link &&
-                      (item.link.href === "/#contact-us" ? (
+                      (item.link.href === "#ask-question" ? (
                         <SectionAnchor href="#ask-question">
                           Ask a question →
                         </SectionAnchor>
-                      ) : item.link.href === "/consultation" &&
-                        item.link.label.toLowerCase() ===
-                          "get your free assessment" ? (
+                      ) : item.id === "start-assessment" ? (
                         <AssessmentLink arrow />
                       ) : (
                         <Link href={item.link.href} prefetch={false}>

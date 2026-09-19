@@ -243,6 +243,17 @@ export function AntiguaSolarCalculator({
             </div>
           ) : (
             <div data-testid="estimate">
+              <div className={styles.scenarioNotice} data-testid="scenario-notice">
+                <p>
+                  <strong>Planning scenario</strong> · Assumes an{" "}
+                  {Math.round(config.savingsFraction * 100)}% bill reduction · Not a quotation
+                </p>
+                <p data-testid="tariff-reference">
+                  {country === "AG"
+                    ? `APUA · ${config.tariff.sourceDate} reference · Not a live rate`
+                    : `DOMLEC · ${config.tariff.sourceDate} · Historical reference, not a verified current tariff. October 2026 structure not included.`}
+                </p>
+              </div>
               <dl className={styles.results}>
                 <div className={styles.row + " " + styles.highlight}>
                   <dt>Monthly savings</dt>
@@ -257,7 +268,7 @@ export function AntiguaSolarCalculator({
                   </dd>
                 </div>
                 <div className={styles.row + " " + styles.highlight}>
-                  <dt>Simple payback</dt>
+                  <dt>Assumed payback period</dt>
                   <dd className={styles.payback} data-testid="payback">
                     <span className={styles.approx} aria-label="Approximately">
                       ~
@@ -266,13 +277,13 @@ export function AntiguaSolarCalculator({
                   </dd>
                 </div>
                 <div className={styles.row}>
-                  <dt>Monthly bill after installation</dt>
+                  <dt>Estimated bill under this assumption</dt>
                   <dd data-testid="remaining-bill">
                     {money(result.displayRemaining)}
                   </dd>
                 </div>
                 <div className={styles.row}>
-                  <dt>Suggested investment</dt>
+                  <dt>Illustrative budget</dt>
                   <dd data-testid="price">
                     <span className={styles.approx} aria-label="Approximately">
                       ~
@@ -280,6 +291,12 @@ export function AntiguaSolarCalculator({
                     {money(result.price)}
                   </dd>
                 </div>
+              </dl>
+              <p className={styles.budgetExplanation} data-testid="budget-explanation">
+                Budget is calculated from assumed annual savings × the assumed
+                payback period, not equipment and installation costs.
+              </p>
+              <dl className={styles.backupResults}>
                 <div className={styles.row}>
                   <dt>
                     Outage backup{" "}

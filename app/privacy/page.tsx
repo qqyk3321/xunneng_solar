@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { RegionalContactLink } from "@/components/regional-contact-link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PRIVACY_VERSION } from "@/lib/consultation-intake";
@@ -126,9 +126,7 @@ export default function PrivacyPage() {
           <h2>6. Questions about your information</h2>
           <p>
             You can use our{" "}
-            <Link href="/#contact-us" prefetch={false}>
-              Contact us form
-            </Link>{" "}
+            <RegionalContactLink />{" "}
             to ask about information you have submitted or request a correction
             or deletion. Include the email address used for the enquiry, without
             sending identity documents. For regional support: <RegionalSupportLink />.

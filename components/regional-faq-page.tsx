@@ -3,8 +3,11 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { FaqDirectory } from "@/app/faq/faq-directory";
 import styles from "@/app/faq/faq.module.css";
+import { getFaqItems } from "@/lib/faq/content";
+import { requireRegion, type RegionPageProps } from "@/lib/region-seo";
 
-export default function FaqPage() {
+export default async function FaqPage({ params }: RegionPageProps) {
+  const country = await requireRegion(params);
   return (
     <div className={styles.page}>
       <SiteHeader />
@@ -18,7 +21,7 @@ export default function FaqPage() {
               Find the answers you need.
             </p>
           </div>
-          <FaqDirectory />
+          <FaqDirectory key={country} items={getFaqItems(country)} />
         </div>
         <div className="tailwind-scope">
           <DeferredHomepageContact variant="question" />
