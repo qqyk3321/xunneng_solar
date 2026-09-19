@@ -214,7 +214,7 @@ export function CaribbeanHomepage() {
       <main id="main" tabIndex={-1}>
         <section className={styles.hero} aria-labelledby="caribbean-title">
           <Image
-            src="/images/dominica-solar-hero.png"
+            src="/images/caribbean-solar-hero.webp"
             alt="A lush Caribbean coastline and a home with rooftop solar"
             fill
             priority

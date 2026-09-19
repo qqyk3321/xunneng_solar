@@ -66,9 +66,9 @@ export function DemoHomepage({
             <Image
               src={
                 country === "AG"
-                  ? "/images/antigua-solar-map-hero.webp"
+                  ? "/images/antigua-solar-map-hero-no-labels.webp"
                   : country === "DM"
-                    ? "/images/dominica-solar-map-hero.webp"
+                    ? "/images/dominica-solar-map-hero-no-labels.webp"
                     : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
               }
               fill
