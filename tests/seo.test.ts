@@ -8,6 +8,7 @@ import {
   regionOrganization,
   countryMetadata,
   regionAlternates,
+  websiteIdentity,
 } from "../lib/region-seo";
 import sitemap from "../app/sitemap";
 
@@ -49,7 +50,8 @@ test("Caribbean homepage has its own canonical with voluntary country selection"
   const homepage = readFileSync("app/page.tsx", "utf8");
   assert.match(homepage, /<CaribbeanHomepage/);
   assert.match(homepage, /canonical: siteUrl\("\/"\)/);
-  assert.match(homepage, /Solar Energy for Caribbean Homes/);
+  assert.match(homepage, /Sol & Tide Energy \(Solortide\)/);
+  assert.match(homepage, /application\/ld\+json/);
   assert.match(readFileSync("app/[region]/page.tsx", "utf8"), /<RegionalHomepage country=\{country\}/);
   const shared = readFileSync("components/regional-homepage.tsx", "utf8");
   assert.match(shared, /application\/ld\+json/);
@@ -67,6 +69,17 @@ test("Caribbean homepage has its own canonical with voluntary country selection"
   assert.ok(urls.includes(siteUrl("/")), "independent Caribbean root is listed");
   for (const path of ["/antigua", "/dominica", "/consultation", "/antigua/consultation", "/dominica/consultation"])
     assert.ok(urls.includes(siteUrl(path)));
+});
+
+test("homepage identifies Solortide as the website's genuine brand alias", () => {
+  const website = websiteIdentity();
+  assert.equal(website["@type"], "WebSite");
+  assert.equal(website.name, "Sol & Tide Energy");
+  assert.equal(website.alternateName, "Solortide");
+  assert.equal(website.url, siteUrl("/"));
+  const footer = readFileSync("components/site-footer.tsx", "utf8");
+  assert.doesNotMatch(footer, /Solortide is the online home of Sol/);
+  assert.match(footer, /Solortide — solar/);
 });
 
 test("regional structured contacts match visible support and never invent a common mailbox", () => {

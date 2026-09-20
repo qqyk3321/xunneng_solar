@@ -1,9 +1,9 @@
 import { CaribbeanHomepage } from "@/components/caribbean-homepage";
-import { regionAlternates, siteUrl, socialMetadata } from "@/lib/region-seo";
+import { regionAlternates, siteUrl, socialMetadata, websiteIdentity } from "@/lib/region-seo";
 
-const title = "Solar Energy for Caribbean Homes | Sol & Tide Energy";
+const title = "Sol & Tide Energy (Solortide) | Caribbean Solar";
 const description =
-  "Explore solar and battery solutions for Caribbean homes. Discover our planning and installation process, and choose Antigua & Barbuda or Dominica for local information.";
+  "Explore solar and battery solutions for Caribbean homes from Sol & Tide Energy (Solortide). Discover our planning and installation process in Antigua & Barbuda and Dominica.";
 export const metadata = {
   title,
   description,
@@ -12,5 +12,15 @@ export const metadata = {
 };
 
 export default function HomePage() {
-  return <CaribbeanHomepage />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteIdentity()).replace(/</g, "\\u003c"),
+        }}
+      />
+      <CaribbeanHomepage />
+    </>
+  );
 }

@@ -19,6 +19,17 @@ export function siteUrl(path = "/") {
     .href;
 }
 
+export function websiteIdentity() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": siteUrl("/#website"),
+    name: "Sol & Tide Energy",
+    alternateName: "Solortide",
+    url: siteUrl("/"),
+  };
+}
+
 export function regionOrganization(country: ServiceCountry) {
   return {
     "@context": "https://schema.org",

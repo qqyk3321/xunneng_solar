@@ -156,7 +156,7 @@ export function SiteFooter({
             reserved.
           </p>
           <span className={styles.signature}>
-            Solar &amp; storage. Built around your home.
+            Solortide — solar &amp; storage built around your home.
           </span>
         </div>
       </div>
