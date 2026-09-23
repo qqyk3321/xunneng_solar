@@ -206,24 +206,6 @@ export function HybridEnergyDemo() {
                 </g>
               )}
             </svg>
-            <span className={`${styles.label} ${styles.solar}`}>
-              Solar panels
-            </span>
-            <span className={`${styles.label} ${styles.grid}`}>
-              Utility grid
-            </span>
-            <span className={`${styles.label} ${styles.inverter}`}>
-              Hybrid inverter
-            </span>
-            <span className={`${styles.label} ${styles.battery}`}>
-              LiFePO4 battery
-            </span>
-            <span className={`${styles.label} ${styles.home}`}>
-              {outage ? "Selected essentials" : "Home appliances"}
-            </span>
-            {outage && (
-              <span className={styles.isolation}>Grid disconnected</span>
-            )}
           </div>
           <div className={styles.legend}>
             <span>
@@ -268,7 +250,8 @@ export function HybridEnergyDemo() {
         monitoring. Actual equipment and protective arrangements vary. Backup
         supports selected circuits; available power and runtime depend on system
         capacity, sunlight, battery charge and connected loads. Export
-        permissions and settings are assessed separately.
+        permissions and settings are assessed separately. Bill savings depend on
+        solar generation, energy use, system settings and your electricity tariff.
       </p>
     </div>
   );

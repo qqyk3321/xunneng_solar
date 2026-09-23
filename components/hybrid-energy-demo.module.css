@@ -138,49 +138,6 @@
   stroke: #bc2540;
   stroke-width: 5;
 }
-.label {
-  position: absolute;
-  padding: 7px 12px;
-  background: #ffffffed;
-  border: 1px solid #ffffffc9;
-  border-radius: 7px;
-  box-shadow: 0 3px 14px #15323916;
-  color: #153d45;
-  font:
-    600 clamp(11px, 1.2vw, 15px)/1.25 "Space Grotesk",
-    sans-serif;
-}
-.solar {
-  top: 7%;
-  left: 5%;
-}
-.grid {
-  top: 18.5%;
-  right: 3%;
-}
-.inverter {
-  top: 28%;
-  left: 33%;
-}
-.battery {
-  top: 58%;
-  left: 29%;
-}
-.home {
-  bottom: 3%;
-  right: 5%;
-}
-.isolation {
-  position: absolute;
-  top: 24%;
-  right: 3%;
-  color: #9f1831;
-  background: #fff0f1f0;
-  border-radius: 6px;
-  padding: 6px 9px;
-  font-size: 12px;
-  font-weight: 600;
-}
 .legend {
   display: flex;
   flex-wrap: wrap;
@@ -323,14 +280,6 @@
   }
   .description p {
     min-height: 0;
-  }
-  .label {
-    padding: 5px 7px;
-    font-size: 11px;
-  }
-  .isolation {
-    font-size: 10px;
-    padding: 4px 6px;
   }
   .legend {
     font-size: 11px;

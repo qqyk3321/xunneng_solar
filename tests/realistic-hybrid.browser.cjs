@@ -35,6 +35,9 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
       ]) {
         await page.getByRole("button", { name: new RegExp(name) }).click();
         assert.equal(await demo.getAttribute("data-scene"), id);
+        assert.equal(await demo.getByRole("img").locator("span").count(), 0, "no labels over the equipment image");
+        assert.ok((await demo.locator("h2").textContent()).trim().length > 0, "mode explanation heading remains");
+        assert.equal(await demo.locator("dl > div").count(), 4, "mode equipment statuses remain outside the image");
         assert.equal(await demo.getAttribute("data-running"), "true");
         assert.ok((await demo.locator("animateMotion").count()) > 0);
         await demo.screenshot({
