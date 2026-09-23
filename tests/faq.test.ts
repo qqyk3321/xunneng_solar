@@ -14,6 +14,7 @@ test("shared FAQ includes both regional equipment certification lists", () => {
 import { readFileSync } from "node:fs";
 import { FAQ_CATEGORIES, FAQ_ITEMS, getFaqItems, searchFaq } from "../lib/faq/content";
 import { ANTIGUA_CONFIG, DOMINICA_CONFIG } from "../lib/antigua-calculator/config";
+import { HYBRID_SCENES } from "../lib/hybrid-scenes";
 
 test("regional FAQ localizes the tariff and all action destinations without mutating shared copy", () => {
   const before = JSON.stringify(FAQ_ITEMS);
@@ -30,7 +31,7 @@ test("regional FAQ localizes the tariff and all action destinations without muta
     assert.ok(tariff.answer.includes(config.tariff.fuelAdjustment.toFixed(2)));
     assert.equal(items.find(item => item.id === "calculator-location")!.link!.href, `/${slug}#calculator`);
     for (const item of items) {
-      if (item.link) assert.ok([`/${slug}#calculator`, `/${slug}/consultation`, "#ask-question"].includes(item.link.href));
+      if (item.link) assert.ok([`/${slug}#calculator`, `/${slug}/consultation`, "#ask-question", ...HYBRID_SCENES.map(scene => `/${slug}/how-it-works#scene-${scene.id}`)].includes(item.link.href));
     }
     assert.deepEqual(searchFaq("", "all", items), items);
     assert.ok(searchFaq(utility, "savings", items).some(item => item.id === "calculator-tariff"));
@@ -123,7 +124,7 @@ test("FAQ entries have unique IDs, real topics and safe local destinations", () 
     assert.ok(item.question.trim() && item.answer.trim());
     if (item.link)
       assert.ok(
-        ["/consultation", "/#calculator", "/#contact-us"].includes(
+        ["/consultation", "/#calculator", "/#contact-us", ...HYBRID_SCENES.map(scene => `/how-it-works#scene-${scene.id}`)].includes(
           item.link.href,
         ),
       );

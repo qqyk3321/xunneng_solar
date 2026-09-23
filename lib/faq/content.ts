@@ -1,11 +1,13 @@
 import { ANTIGUA_CONFIG, DOMINICA_CONFIG } from "../antigua-calculator/config";
 import type { ServiceCountry } from "../consultation-intake";
 import { regionPath } from "../site-region-routing";
+import { HYBRID_FAQS } from "./hybrid";
 
 export const FAQ_CATEGORIES = [
   { id: "getting-started", title: "Getting started" },
   { id: "savings", title: "Savings & sizing" },
   { id: "support", title: "Equipment & support" },
+  { id: "hybrid", title: "How the system works" },
 ] as const;
 
 export type FaqCategory = (typeof FAQ_CATEGORIES)[number]["id"];
@@ -20,6 +22,7 @@ export type FaqItem = {
 
 /** Editorial copy, kept separate from layout. Confirm product-specific terms in the quotation. */
 export const FAQ_ITEMS: FaqItem[] = [
+  ...HYBRID_FAQS,
   {
     id: "start-assessment",
     category: "getting-started",
@@ -323,7 +326,9 @@ export function getFaqItems(country: ServiceCountry): FaqItem[] {
             ? regionPath(country, "/consultation")
             : item.link.href === "/#contact-us"
               ? "#ask-question"
-              : item.link.href,
+              : item.link.href.startsWith("/how-it-works")
+                ? regionPath(country, item.link.href)
+                : item.link.href,
       };
     }
     return localized;

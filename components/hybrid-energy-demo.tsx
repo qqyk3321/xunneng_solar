@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
-import { HYBRID_SCENES } from "@/lib/hybrid-scenes";
+import { HYBRID_SCENES, hybridSceneIndex } from "@/lib/hybrid-scenes";
 import styles from "./hybrid-energy-demo.module.css";
 
 function Flow({
@@ -55,6 +55,22 @@ export function HybridEnergyDemo() {
   const scene = HYBRID_SCENES[index];
   const running = motion && visible && pageVisible;
   useEffect(() => {
+    const sync = () => {
+      const selected = hybridSceneIndex(window.location.hash);
+      if (selected >= 0) {
+        setIndex(selected);
+        root.current?.scrollIntoView({ block: "start" });
+      }
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    window.addEventListener("popstate", sync);
+    return () => {
+      window.removeEventListener("hashchange", sync);
+      window.removeEventListener("popstate", sync);
+    };
+  }, []);
+  useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setMotion(!media.matches);
     const visibility = () => setPageVisible(!document.hidden);
@@ -94,6 +110,11 @@ export function HybridEnergyDemo() {
             aria-controls={id}
             onClick={() => {
               setIndex(i);
+              window.history.replaceState(
+                window.history.state,
+                "",
+                `#scene-${item.id}`,
+              );
             }}
           >
             <span>0{i + 1}</span>
@@ -196,12 +217,7 @@ export function HybridEnergyDemo() {
             </span>
           </div>
         </div>
-        <div className={styles.description} id={id} aria-live="off">
-          <div className={styles.sceneNumber}>
-            <span>ENERGY IN MOTION</span>
-            <span>0{index + 1} / 04</span>
-          </div>
-          <div className={styles.progress} aria-hidden="true" />
+        <div className={styles.description} id={id} aria-live="polite">
           <h2>{scene.title}</h2>
           <p>{scene.text}</p>
           <dl className={styles.status}>
@@ -217,20 +233,11 @@ export function HybridEnergyDemo() {
               </div>
             ))}
           </dl>
-          <div className={styles.note}>
-            Follow the moving light to see where the energy goes. Choose a scene
-            to explore another moment.
-          </div>
         </div>
       </div>
       <p className={styles.disclaimer}>
-        Illustrative equipment and energy flow, not a wiring diagram or live
-        monitoring. Actual equipment and protective arrangements vary. Backup
-        supports selected circuits; available power and runtime depend on system
-        capacity, sunlight, battery charge and connected loads. Export
-        permissions and settings are assessed separately. Bill savings depend on
-        solar generation, energy use, system settings and your electricity
-        tariff.
+        Illustrative scenarios. Actual supply, backup and savings depend on
+        equipment, settings and available energy.
       </p>
     </div>
   );

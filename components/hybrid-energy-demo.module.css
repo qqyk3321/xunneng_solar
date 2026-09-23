@@ -6,7 +6,7 @@
 }
 .controls {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-bottom: 24px;
 }
@@ -181,7 +181,6 @@
   color: #506b70;
   font-size: 17px;
   line-height: 1.85;
-  min-height: 190px;
 }
 .status {
   margin: 30px 0;

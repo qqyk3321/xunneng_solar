@@ -32,8 +32,10 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
         ["After sunset", "night"],
         ["Grid outage", "outage"],
         ["Grid support", "grid"],
+        ["Solar + grid", "solar-grid"],
+        ["Solar + battery", "solar-battery"],
       ]) {
-        await page.getByRole("button", { name: new RegExp(name) }).click();
+        await page.getByRole("button", { name: new RegExp(name.replace("+", "\\+")) }).click();
         assert.equal(await demo.getAttribute("data-scene"), id);
         assert.equal(
           await demo.getByRole("img").locator("span").count(),
@@ -63,7 +65,7 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
         const batteryMotion = demo
           .locator('animateMotion[path^="M498"]')
           .first();
-        if (id !== "grid") {
+        if (id !== "grid" && id !== "solar-grid") {
           assert.equal(
             await batteryMotion.getAttribute("path"),
             id === "day" ? "M498 758V855" : "M498 855V758",

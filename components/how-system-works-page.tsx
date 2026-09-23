@@ -5,6 +5,8 @@ import { AssessmentLink } from "./assessment-link";
 import { HybridEnergyDemo } from "./hybrid-energy-demo";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { regionPath } from "@/lib/site-region-routing";
+import { getFaqItems } from "@/lib/faq/content";
+import { HYBRID_FAQS, HYBRID_FEATURED_FAQ_IDS } from "@/lib/faq/hybrid";
 import styles from "./how-system-works-page.module.css";
 
 export function HowSystemWorksPage({
@@ -12,6 +14,9 @@ export function HowSystemWorksPage({
 }: {
   country?: ServiceCountry | null;
 }) {
+  const questions = (country ? getFaqItems(country) : HYBRID_FAQS).filter(
+    (item) => HYBRID_FEATURED_FAQ_IDS.includes(item.id),
+  );
   return (
     <div className={styles.page}>
       <SiteHeader caribbean={!country} />
@@ -20,84 +25,41 @@ export function HowSystemWorksPage({
           <Link href={regionPath(country)} className={styles.back}>
             ← Back to home
           </Link>
-          <p className={styles.eyebrow}>UNDERSTAND YOUR HOME ENERGY</p>
           <h1>
             One system.
             <br />
-            <em>Different ways to power your day.</em>
+            <em>More ways to power your home.</em>
           </h1>
           <p>
-            Solar panels, a battery and the grid each play a part. Your hybrid
-            inverter brings them together. Follow the energy below to see how.
+            Use more sunshine. Buy less grid electricity. Plan backup for island
+            life.
           </p>
         </div>
         <HybridEnergyDemo />
-        <section className={styles.explainer} aria-labelledby="hybrid-basics">
-          <div>
-            <p className={styles.eyebrow}>THE PARTS, EXPLAINED</p>
-            <h2 id="hybrid-basics">
-              A little understanding.
-              <br />A more confident decision.
-            </h2>
+        <section className={styles.faq} aria-labelledby="energy-questions">
+          <div className={styles.faqHeading}>
+            <h2 id="energy-questions">A few useful answers.</h2>
+            <Link href={regionPath(country, "/faq")}>Explore all FAQs →</Link>
           </div>
-          <div className={styles.cards}>
-            <article>
-              <span>01</span>
-              <h3>Generate & store</h3>
-              <p>
-                Panels turn sunlight into DC electricity. A LiFePO4 battery
-                stores energy for later, within its usable capacity and
-                configured reserve.
-              </p>
-            </article>
-            <article>
-              <span>02</span>
-              <h3>Convert & coordinate</h3>
-              <p>
-                The hybrid inverter converts DC energy into AC for household
-                appliances and manages charging and supply according to the
-                system settings.
-              </p>
-            </article>
-            <article>
-              <span>03</span>
-              <h3>Plan for backup</h3>
-              <p>
-                Backup is designed around selected loads and available power.
-                Air conditioning, water heating and other demanding appliances
-                need to be included in the sizing discussion.
-              </p>
-            </article>
-          </div>
+          {questions.map((item) => (
+            <details
+              key={item.id}
+              className={styles.question}
+              data-hybrid-faq={item.id}
+            >
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+              {item.link && <a href={item.link.href}>{item.link.label} →</a>}
+            </details>
+          ))}
         </section>
         <section className={styles.next}>
           <div>
-            <h2>What would this look like in your home?</h2>
-            <p>
-              Tell us about your electricity use and backup priorities. We’ll
-              help you explore a suitable design.
-            </p>
+            <h2>What would work for your home?</h2>
+            <p>Let’s plan around your electricity use and backup priorities.</p>
           </div>
           <AssessmentLink className={styles.cta} />
         </section>
-        <p className={styles.sources}>
-          Further reading:{" "}
-          <a
-            href="https://www.energy.gov/cmei/systems/solar-integration-inverters-and-grid-services-basics"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            US Department of Energy · Inverters & grid services
-          </a>{" "}
-          ·{" "}
-          <a
-            href="https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Solar & storage basics
-          </a>
-        </p>
       </main>
       <SiteFooter caribbean={!country} />
     </div>
