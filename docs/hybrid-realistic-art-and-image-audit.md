@@ -15,7 +15,7 @@
 - Antigua regional hero: antigua-solar-map-hero-no-labels.webp (300,224 bytes).
 - Dominica regional hero: dominica-solar-map-hero-no-labels.webp (305,592 bytes).
 - Five journey images and three hybrid carousel images are already WebP (approximately 78–178 KiB). ViewportImage gates below-fold loading; inactive journey layers are deferred.
-- The old dominica-solar-hero.png (2,851,307 bytes) is not referenced by current application code. It is retained as an unused source, not downloaded by the homepage.
+- The old dominica-solar-hero.png (2,851,307 bytes) had no application references. Conversion produced a 299,898-byte WebP (89.5% smaller), SHA-256 identical to the existing caribbean-solar-hero.webp. We therefore reuse that existing WebP rather than publish a duplicate; the unused PNG was removed from public assets. Its exact original is backed up at /home/qqyk/solortide-image-originals-20260923/dominica-solar-hero.png (SHA-256 verified before removal). No page references needed changing.
 - PWA icon-192.png and icon-512.png are intentional small installation icons, not large content photographs; retained for compatibility.
 - No active PNG/JPEG marketing photograph references remain in app/components/lib. The editor's legacy JPG placeholder is not a homepage photo.
 - Hero images remain priority-loaded. Deferring first-screen imagery would delay the main content. Next/Image supplies responsive sizes for content images, including the new scene.
