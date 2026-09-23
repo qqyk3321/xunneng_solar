@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SectionAnchor } from "./section-anchor";
 import { RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
@@ -21,6 +22,7 @@ export function SiteHeader({
   caribbean?: boolean;
 }) {
   const { country, choose } = useSiteRegion();
+  const pathname = usePathname();
   const [revealed, setRevealed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -95,8 +97,8 @@ export function SiteHeader({
                 >
                   Savings
                 </button>
-                <SectionAnchor href="#journey">Our approach</SectionAnchor>
-                <SectionAnchor href="#hybrid-system">Why solar</SectionAnchor>
+                {pathname === "/" ? <SectionAnchor href="#journey">Our approach</SectionAnchor> : <Link href="/#journey" prefetch={false}>Our approach</Link>}
+                {pathname === "/" ? <SectionAnchor href="#hybrid-system">Why solar</SectionAnchor> : <Link href="/#hybrid-system" prefetch={false}>Why solar</Link>}
               </>
             ) : (
               <>
@@ -105,6 +107,7 @@ export function SiteHeader({
                 {homeLink("contact-us", "Contact us")}
               </>
             )}
+            <Link href={regionPath(country, "/how-it-works")} prefetch={false}>How it works</Link>
             {caribbean ? (
               <button
                 className={styles.navAction}

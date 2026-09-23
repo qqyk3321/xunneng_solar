@@ -9,15 +9,14 @@ import {
   ANTIGUA_CONFIG,
   DOMINICA_CONFIG,
 } from "@/lib/antigua-calculator/config";
-import { billBounds, calculate } from "@/lib/antigua-calculator/calculate";
+import { calculate } from "@/lib/antigua-calculator/calculate";
+import { CURRENCIES, FX_DATE, currencyBounds, defaultCurrencyBill, formatMoney, fromEc, toEc, type Currency } from "@/lib/antigua-calculator/currency";
 import styles from "./antigua-solar-calculator.module.css";
 
-const number = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 const hours = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
-const money = (value: number) => "EC$ " + number.format(value);
 
 export function AntiguaSolarCalculator({
   country: explicitCountry,
@@ -34,14 +33,19 @@ export function AntiguaSolarCalculator({
   const { country: contextCountry } = useSiteRegion();
   const country = explicitCountry === undefined ? contextCountry : explicitCountry;
   const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
-  const bounds = billBounds(config);
-  const [requestedBill, setBill] = useState(ANTIGUA_CONFIG.defaultBill);
+  const [currency, setCurrency] = useState<Currency>("USD");
+  const bounds = currencyBounds(config, currency);
+  const [requestedBill, setBill] = useState(defaultCurrencyBill(config, "USD"));
+  const [currencyChanged, setCurrencyChanged] = useState(false);
   const bill = Math.min(
     Math.floor(bounds.max),
     Math.max(Math.ceil(bounds.min), requestedBill),
   );
   const [tariffOpen, setTariffOpen] = useState(false);
-  const result = calculate(bill, "bill", config);
+  const [fxOpen, setFxOpen] = useState(false);
+  const result = calculate(toEc(bill, currency), "bill", config);
+  const money = (value: number) => formatMoney(value, currency);
+  const convertedMoney = (value: number) => money(fromEc(value, currency));
   const min = Math.ceil(bounds.min);
   const max = Math.floor(bounds.max);
   const selectedValue = money(bill);
@@ -168,6 +172,35 @@ export function AntiguaSolarCalculator({
               )}
             </span>
           </div>
+          <div className={styles.currencyRow}>
+          <label className={styles.currencyPicker}>
+            <span>Currency</span>
+            <select aria-label="Calculator currency" value={currency} onChange={(event) => {
+              const next = event.target.value as Currency;
+              setCurrency(next);
+              setBill(defaultCurrencyBill(config, next));
+              setCurrencyChanged(true);
+            }}>
+              {Object.entries(CURRENCIES).map(([code, item]) => <option key={code} value={code}>{item.label}</option>)}
+            </select>
+          </label>
+          <span className={styles.fxHelp}
+            onPointerEnter={event => { if (event.pointerType === "mouse") setFxOpen(true); }}
+            onPointerLeave={event => { if (event.pointerType === "mouse" && !event.currentTarget.contains(document.activeElement)) setFxOpen(false); }}
+            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFxOpen(false); }}
+            onKeyDown={event => { if (event.key === "Escape") setFxOpen(false); }}>
+            <button type="button" className={styles.helpButton} aria-label="About exchange rates" aria-expanded={fxOpen} aria-controls={fxOpen ? id + "-fx" : undefined} onFocus={() => setFxOpen(true)} onClick={() => setFxOpen(true)}>?</button>
+            {fxOpen && <span id={id + "-fx"} role="region" aria-label="Fixed exchange rates" className={styles.tooltip}>
+              <strong>EC$ is our calculation base.</strong>
+              Fixed reference: {FX_DATE}. US$1 = EC$2.70; €1 = EC$3.09501; Cg1 ≈ EC$1.50838.
+              <a href="https://www.eccb-centralbank.org/history-of-the-ec-currency" target="_blank" rel="noopener noreferrer">ECCB · EC dollar / USD peg</a>
+              <a href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" target="_blank" rel="noopener noreferrer">ECB · EUR/USD reference (1 EUR = 1.1463 USD on 22 Sep 2026)</a>
+              <a href="https://www.centralbank.cw/functions/banknotes-coins/caribbean-guilder/frequently-asked-questions" target="_blank" rel="noopener noreferrer">CBCS · XCG / USD peg (1 USD = 1.79 XCG)</a>
+              Rates were checked on 23 Sep 2026 and are not updated automatically. Provider fees are excluded. Changing currency resets the bill slider; adjust it again to match your bill. Currency does not change your location or electricity tariff.
+            </span>}
+          </span>
+          </div>
+          {currencyChanged && <p className={styles.currencyHint} role="status">Currency changed. Adjust the slider to match your monthly bill.</p>}
           <output
             htmlFor={ids.slider}
             className={styles.selectedValue}
@@ -189,7 +222,7 @@ export function AntiguaSolarCalculator({
             max={max}
             step="1"
             value={bill}
-            onChange={(event) => setBill(Number(event.target.value))}
+            onChange={(event) => { setBill(Number(event.target.value)); setCurrencyChanged(false); }}
           />
           <div className={styles.range} id={ids.range}>
             <span>{money(min)}</span>
@@ -258,13 +291,13 @@ export function AntiguaSolarCalculator({
                 <div className={styles.row + " " + styles.highlight}>
                   <dt>Monthly savings</dt>
                   <dd data-testid="monthly-saving">
-                    {money(result.displaySaving)}
+                    {money(Math.round(bill * config.savingsFraction))}
                   </dd>
                 </div>
                 <div className={styles.row}>
                   <dt>Annual savings</dt>
                   <dd data-testid="annual-saving">
-                    {money(result.annualSaving)}
+                    {convertedMoney(result.annualSaving)}
                   </dd>
                 </div>
                 <div className={styles.row + " " + styles.highlight}>
@@ -279,7 +312,7 @@ export function AntiguaSolarCalculator({
                 <div className={styles.row}>
                   <dt>Estimated bill under this assumption</dt>
                   <dd data-testid="remaining-bill">
-                    {money(result.displayRemaining)}
+                    {money(bill - Math.round(bill * config.savingsFraction))}
                   </dd>
                 </div>
                 <div className={styles.row}>
@@ -288,7 +321,7 @@ export function AntiguaSolarCalculator({
                     <span className={styles.approx} aria-label="Approximately">
                       ~
                     </span>
-                    {money(result.price)}
+                    {convertedMoney(result.price)}
                   </dd>
                 </div>
               </dl>

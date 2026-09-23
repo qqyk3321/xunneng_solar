@@ -77,6 +77,7 @@ export function SiteFooter({
           <div className={styles.middle}>
             <h2 className={styles.sectionTitle}>Explore</h2>
             <nav className={styles.links} aria-label="Footer navigation">
+              <Link href={regionPath(country, "/how-it-works")} prefetch={false}>How it works</Link>
               {caribbean ? (
                 <button
                   type="button"

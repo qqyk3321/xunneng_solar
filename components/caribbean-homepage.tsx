@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { ViewportImage } from "./viewport-image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SiteFooter } from "./site-footer";
 import { RegionFlag, useSiteRegion } from "./site-region";
@@ -444,8 +445,9 @@ export function CaribbeanHomepage() {
             <div className={styles.stickyStory}>
               <div className={styles.storyImages}>
                 {steps.map((item, index) => (
-                  <Image
+                  <ViewportImage
                     key={item.image}
+                    enabled={index === step}
                     src={`/images/caribbean/${item.image}.webp`}
                     alt={item.alt}
                     fill
@@ -489,7 +491,7 @@ export function CaribbeanHomepage() {
                   data-active={index === step}
                 >
                   <div className={styles.mobileStepImage}>
-                    <Image
+                    <ViewportImage
                       src={`/images/caribbean/${item.image}.webp`}
                       alt={item.alt}
                       width={900}
@@ -588,7 +590,8 @@ export function CaribbeanHomepage() {
                     data-position={position}
                     aria-hidden={position !== 0}
                   >
-                    <Image
+                    <ViewportImage
+                      enabled={carouselVisible}
                       src={item.image}
                       alt={item.alt}
                       fill

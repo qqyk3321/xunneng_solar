@@ -1142,7 +1142,7 @@
     width: 100%;
     height: auto;
   }
-  .mobileStepImage span {
+  .mobileStepImage > span:not([data-viewport-image]) {
     position: absolute;
     bottom: 12px;
     left: 12px;

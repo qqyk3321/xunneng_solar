@@ -9,5 +9,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: { languages: regionAlternates(suffix) },
       })),
   );
-  return [...entries, { url: siteUrl("/antigua/faq") }, { url: siteUrl("/dominica/faq") }, { url: siteUrl("/privacy") }];
+  return [...entries, ...["/how-it-works", "/antigua/how-it-works", "/dominica/how-it-works"].map(path => ({ url: siteUrl(path) })), { url: siteUrl("/antigua/faq") }, { url: siteUrl("/dominica/faq") }, { url: siteUrl("/privacy") }];
 }

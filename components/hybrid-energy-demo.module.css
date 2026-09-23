@@ -1,0 +1,426 @@
+.demo {
+  --dc: #44c5ff;
+  --ac: #ff647a;
+  margin: 40px 0 0;
+  scroll-margin-top: 110px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.controls button {
+  text-align: left;
+  border: 1px solid #cfdfdb;
+  border-radius: 12px;
+  background: #fff;
+  color: #385957;
+  padding: 17px 18px;
+  font:
+    600 15px/1.4 "Plus Jakarta Sans",
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.controls button span {
+  display: block;
+  font-size: 12px;
+  color: #718c88;
+  margin-bottom: 5px;
+}
+.controls button[aria-pressed="true"] {
+  background: #0c575e;
+  border-color: #0c575e;
+  color: #fff;
+  box-shadow: 0 6px 18px #0c575e20;
+}
+.controls button[aria-pressed="true"] span {
+  color: #acded9;
+}
+.controls button:hover {
+  transform: translateY(-2px);
+}
+.demo button:focus-visible {
+  outline: 3px solid #f4b541;
+  outline-offset: 4px;
+}
+.console {
+  border-radius: 24px;
+  overflow: hidden;
+  background: #102f3a;
+  color: #edf9fa;
+  box-shadow: 0 25px 65px #143f4320;
+}
+.consoleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 28px;
+  border-bottom: 1px solid #ffffff14;
+}
+.consoleBar > span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.consoleBar i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7be3bc;
+  box-shadow: 0 0 12px #7be3bc70;
+}
+.consoleBar button {
+  border: 1px solid #ffffff35;
+  background: #ffffff08;
+  border-radius: 20px;
+  color: #d5efee;
+  padding: 9px 15px;
+  cursor: pointer;
+  font:
+    500 13px "Plus Jakarta Sans",
+    sans-serif;
+}
+.stage {
+  position: relative;
+  aspect-ratio: 1000/620;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 45% 38%, #21657645, transparent 65%),
+    linear-gradient(#ffffff03 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff03 1px, transparent 1px);
+  background-size:
+    auto,
+    32px 32px,
+    32px 32px;
+}
+.sun {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 12% 0%, #ffc75e1c, transparent 55%);
+  opacity: 1;
+  transition: opacity 1.2s;
+  z-index: -1;
+}
+.demo[data-scene="night"] .sun,
+.demo[data-scene="grid"] .sun {
+  opacity: 0;
+}
+.desktopWires,
+.mobileWires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mobileWires {
+  display: none;
+}
+.flow {
+  --flow-color: var(--dc);
+}
+.flow[data-ac="true"] {
+  --flow-color: var(--ac);
+}
+.flow path {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.track {
+  stroke: #6d9aa52b;
+  stroke-width: 4;
+}
+.halo {
+  stroke: var(--flow-color);
+  stroke-width: 12;
+  opacity: 0.12;
+}
+.stream {
+  stroke: var(--flow-color);
+  stroke-width: 3;
+  stroke-dasharray: 14 10;
+  animation: travel 1.1s linear infinite;
+}
+.flow[data-reverse="true"] .stream {
+  animation-direction: reverse;
+}
+.particle {
+  fill: #fff;
+  filter: drop-shadow(0 0 5px var(--flow-color));
+}
+.particle path {
+  stroke: #fff;
+  stroke-width: 2;
+}
+.direction {
+  fill: var(--flow-color);
+  font-size: 16px;
+}
+.demo[data-running="false"] .stream {
+  animation-play-state: paused;
+}
+.device {
+  position: absolute;
+  width: 22%;
+  transform: translate(-50%, -50%);
+  padding: 15px 12px;
+  border: 1px solid #a8d5da30;
+  border-radius: 18px;
+  background: linear-gradient(150deg, #284c57, #153541);
+  box-shadow:
+    0 12px 25px #04182050,
+    inset 0 1px #ffffff0c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    opacity 0.7s,
+    border-color 0.7s,
+    box-shadow 0.7s;
+}
+.device strong {
+  font:
+    600 clamp(13px, 1.6vw, 18px)/1.3 "Space Grotesk",
+    sans-serif;
+  margin-top: 6px;
+}
+.device small {
+  color: #9cc8d2;
+  font:
+    500 clamp(10px, 1.1vw, 13px)/1.4 "Plus Jakarta Sans",
+    sans-serif;
+  margin-top: 8px;
+  text-align: center;
+}
+.device[data-idle="true"] {
+  opacity: 0.55;
+}
+.device[data-disconnected="true"] {
+  opacity: 0.85;
+  border-color: #ff647a85;
+}
+.device[data-disconnected="true"] small {
+  color: #ff98a7;
+}
+.equipment {
+  display: block;
+  width: 82%;
+  max-height: 112px;
+  overflow: visible;
+}
+.solar {
+  left: 15%;
+  top: 23.39%;
+}
+.inverter {
+  left: 50%;
+  top: 45.97%;
+  border-color: #67dec57a;
+  box-shadow:
+    0 0 40px #44ceb518,
+    0 12px 25px #04182050;
+}
+.grid {
+  left: 85%;
+  top: 23.39%;
+}
+.battery {
+  left: 18%;
+  top: 77.42%;
+}
+.home {
+  left: 82%;
+  top: 77.42%;
+}
+.isolation {
+  position: absolute;
+  right: 2.8%;
+  top: 43%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #402832;
+  color: #ffc1c8;
+  font-size: 12px;
+  border: 1px solid #ff647a60;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 26px;
+  padding: 20px 28px;
+  border-top: 1px solid #ffffff14;
+  font-size: 13px;
+  color: #aec9d0;
+}
+.legend span {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+.legend i {
+  width: 20px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--dc);
+}
+.legend span:nth-child(2) i {
+  background: var(--ac);
+}
+.legend span:last-child {
+  margin-left: auto;
+  font-size: 12px;
+}
+.description {
+  display: flex;
+  gap: 28px;
+  margin-top: 30px;
+  min-height: 150px;
+}
+.sceneNumber {
+  padding-top: 5px;
+  flex-shrink: 0;
+  color: #087a83;
+  font:
+    500 16px "Space Grotesk",
+    sans-serif;
+}
+.description h2 {
+  margin: 0 0 14px;
+  font:
+    500 clamp(23px, 3vw, 32px)/1.25 "Space Grotesk",
+    sans-serif;
+  color: #143d43;
+}
+.description p {
+  margin: 0;
+  color: #506b70;
+  font-size: 17px;
+  line-height: 1.85;
+  max-width: 850px;
+}
+.disclaimer {
+  padding-top: 22px;
+  border-top: 1px solid #d5e3df;
+  color: #657a79;
+  font-size: 13px;
+  line-height: 1.8;
+}
+@keyframes travel {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@media (max-width: 650px) {
+  .controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .controls button {
+    padding: 13px 15px;
+    font-size: 14px;
+  }
+  .stage {
+    aspect-ratio: 0.82;
+  }
+  .console {
+    border-radius: 18px;
+  }
+  .consoleBar {
+    padding: 14px;
+  }
+  .consoleBar > span {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+  .consoleBar button {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+  .desktopWires {
+    display: none;
+  }
+  .mobileWires {
+    display: block;
+  }
+  .device {
+    width: 38%;
+    padding: 8px 5px;
+    border-radius: 11px;
+  }
+  .equipment {
+    height: 53px;
+    width: 90%;
+  }
+  .device strong {
+    font-size: 13px;
+  }
+  .device small {
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .solar {
+    left: 25%;
+    top: 18%;
+  }
+  .grid {
+    left: 75%;
+    top: 18%;
+  }
+  .inverter {
+    left: 50%;
+    top: 46%;
+  }
+  .battery {
+    left: 25%;
+    top: 80%;
+  }
+  .home {
+    left: 75%;
+    top: 80%;
+  }
+  .isolation {
+    top: 31%;
+    right: 2%;
+    font-size: 9px;
+    padding: 4px;
+  }
+  .legend {
+    padding: 14px;
+    gap: 10px 16px;
+    font-size: 11px;
+  }
+  .legend span:last-child {
+    margin-left: 0;
+    font-size: 11px;
+  }
+  .description {
+    gap: 12px;
+  }
+  .sceneNumber {
+    font-size: 12px;
+  }
+  .description p {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stream {
+    animation: none;
+  }
+  .device,
+  .sun,
+  .controls button {
+    transition: none;
+  }
+}

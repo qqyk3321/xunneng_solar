@@ -5,6 +5,8 @@ export const MAIN_PAGE_ROUTES = [
   "/",
   "/consultation",
   "/faq",
+  "/how-it-works",
+  "/[region]/how-it-works",
   "/privacy",
   "/solar-analysis",
   "/pwa",

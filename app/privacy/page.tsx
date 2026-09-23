@@ -106,10 +106,14 @@ export default function PrivacyPage() {
             these settings may affect embedded services.
           </p>
           <p>
-            The Cookie Preferences interface is currently a design demonstration
-            only. It does not change tracking, network requests or third-party
-            behaviour. Only dismissal of the notice is remembered for the
-            current browser tab; consent preferences are not saved or applied.
+            The Cookie Preferences interface remembers your selection in this
+            browser using local storage, with a first-party preference cookie
+            as a fallback. Local storage has no application-set expiry; the
+            fallback cookie lasts up to 400 days and is renewed on visits.
+            Neither contains a tracking identifier. You can change your choice
+            using the footer link. Clearing browser data or using a different
+            browser can show the notice again. These controls do not yet change
+            analytics, marketing requests or third-party behaviour.
           </p>
         </section>
         <section>

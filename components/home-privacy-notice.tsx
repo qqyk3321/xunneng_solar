@@ -7,31 +7,11 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useSiteRegion } from "./site-region";
 import styles from "./home-privacy-notice.module.css";
+import { readPreferences, savePreferences, PREFERENCES_KEY, LEGACY_DISMISSED_KEY as STORAGE_KEY, type Preferences } from "@/lib/cookie-preferences";
 
-const STORAGE_KEY = "sol-tide:cookie-ui:dismissed:v2";
-const PREFERENCES_KEY = "sol-tide:cookie-preferences:v1";
-type Preferences = { analytics: boolean; marketing: boolean };
 // Fallback for browsers where persistent storage is unavailable.
 let acknowledged = false;
 let remembered: Preferences | null = null;
-
-function readPreferences(): Preferences | null {
-  try {
-    const raw = localStorage.getItem(PREFERENCES_KEY);
-    if (!raw) return null;
-    const value = JSON.parse(raw);
-    if (
-      value?.version === 1 &&
-      typeof value.analytics === "boolean" &&
-      typeof value.marketing === "boolean"
-    ) {
-      return { analytics: value.analytics, marketing: value.marketing };
-    }
-  } catch {
-    /* Malformed or unavailable storage must not break the page. */
-  }
-  return null;
-}
 
 export function HomePrivacyNotice() {
   const pathname = usePathname();
@@ -121,16 +101,7 @@ export function HomePrivacyNotice() {
       remembered ?? { analytics: false, marketing: false };
     setAnalytics(remembered.analytics);
     setMarketing(remembered.marketing);
-    try {
-      // No expiry: only a UI preference, not a tracking/service consent integration.
-      localStorage.setItem(
-        PREFERENCES_KEY,
-        JSON.stringify({ version: 1, ...remembered }),
-      );
-      sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {
-      /* Keep the in-memory dismissal. */
-    }
+    savePreferences(remembered);
     setVisible(false);
     if (manuallyOpened.current) trigger.current?.focus({ preventScroll: true });
     manuallyOpened.current = false;
@@ -175,7 +146,7 @@ export function HomePrivacyNotice() {
               </p>
               <p className={styles.disclosure}>
                 Your choices are remembered in this browser. These preview
-                controls do not yet change cookies or website services.
+                controls save your preference only; they do not yet control analytics or marketing services.
               </p>
             </div>
             <div className={styles.actions}>
@@ -229,8 +200,8 @@ export function HomePrivacyNotice() {
         <h2 id="cookie-dialog-title">Cookie Preferences</h2>
         <p id="cookie-dialog-description">
           Preview the available preference categories. This interface is not
-          connected to cookie or tracking controls. Changing these options does
-          not affect website functionality.
+          connected to analytics or marketing controls. Only your preference
+          is saved; changing it does not affect website functionality.
         </p>
         <div className={styles.option}>
           <div>
