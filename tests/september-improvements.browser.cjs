@@ -157,9 +157,14 @@ async function ready(page, path) {
       ]) {
         await page.getByRole("button", { name: new RegExp(label) }).click();
         assert.equal(await demo.getAttribute("data-scene"), scene);
-        assert.equal(await demo.getAttribute("data-running"), "false");
+        assert.equal(await demo.getAttribute("data-running"), "true");
       }
-      await page.getByRole("button", { name: "Play demo" }).click();
+      assert.equal(
+        await page
+          .getByRole("button", { name: /Play demo|Pause demo/ })
+          .count(),
+        0,
+      );
       await page.waitForFunction(
         () =>
           document.querySelector("[data-scene]")?.dataset.running === "true",
@@ -169,8 +174,7 @@ async function ready(page, path) {
         {},
         { timeout: 12000 },
       );
-      await page.getByRole("button", { name: "Pause demo" }).click();
-      assert.equal(await demo.locator("animateMotion").count(), 0);
+      assert.ok((await demo.locator("animateMotion").count()) > 0);
       assert.equal(
         await page.evaluate(
           () => document.documentElement.scrollWidth > innerWidth,

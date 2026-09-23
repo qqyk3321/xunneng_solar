@@ -1,29 +1,29 @@
 .demo {
-  --dc: #44c5ff;
-  --ac: #ff647a;
-  margin: 40px 0 0;
+  --dc: #008dd8;
+  --ac: #e4284c;
+  margin-top: 40px;
   scroll-margin-top: 110px;
 }
 .controls {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .controls button {
-  text-align: left;
   border: 1px solid #cfdfdb;
   border-radius: 12px;
   background: #fff;
   color: #385957;
-  padding: 17px 18px;
+  padding: 16px 18px;
+  text-align: left;
   font:
     600 15px/1.4 "Plus Jakarta Sans",
     sans-serif;
   cursor: pointer;
   transition:
-    background 0.2s,
-    transform 0.2s;
+    background 0.25s,
+    transform 0.25s;
 }
 .controls button span {
   display: block;
@@ -43,86 +43,49 @@
 .controls button:hover {
   transform: translateY(-2px);
 }
-.demo button:focus-visible {
+.controls button:focus-visible {
   outline: 3px solid #f4b541;
   outline-offset: 4px;
 }
+.presentation {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 38px;
+  align-items: center;
+}
 .console {
-  border-radius: 24px;
+  border-radius: 22px;
   overflow: hidden;
-  background: #102f3a;
-  color: #edf9fa;
-  box-shadow: 0 25px 65px #143f4320;
-}
-.consoleBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 20px 28px;
-  border-bottom: 1px solid #ffffff14;
-}
-.consoleBar > span {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.consoleBar i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #7be3bc;
-  box-shadow: 0 0 12px #7be3bc70;
-}
-.consoleBar button {
-  border: 1px solid #ffffff35;
-  background: #ffffff08;
-  border-radius: 20px;
-  color: #d5efee;
-  padding: 9px 15px;
-  cursor: pointer;
-  font:
-    500 13px "Plus Jakarta Sans",
-    sans-serif;
+  box-shadow: 0 20px 65px #173e401c;
+  background: #ece9e2;
 }
 .stage {
   position: relative;
-  aspect-ratio: 1000/620;
+  aspect-ratio: 5/6;
   isolation: isolate;
-  background:
-    radial-gradient(ellipse at 45% 38%, #21657645, transparent 65%),
-    linear-gradient(#ffffff03 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff03 1px, transparent 1px);
-  background-size:
-    auto,
-    32px 32px,
-    32px 32px;
 }
-.sun {
+.photo {
+  object-fit: contain;
+}
+.atmosphere {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 12% 0%, #ffc75e1c, transparent 55%);
-  opacity: 1;
-  transition: opacity 1.2s;
-  z-index: -1;
-}
-.demo[data-scene="night"] .sun,
-.demo[data-scene="grid"] .sun {
+  background: #142b5340;
   opacity: 0;
+  transition: opacity 1.5s;
+  pointer-events: none;
 }
-.desktopWires,
-.mobileWires {
+.demo[data-scene="night"] .atmosphere {
+  opacity: 1;
+}
+.demo[data-scene="grid"] .atmosphere {
+  opacity: 0.45;
+}
+.wires {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
-}
-.mobileWires {
-  display: none;
 }
 .flow {
   --flow-color: var(--dc);
@@ -136,290 +99,256 @@
   stroke-linecap: round;
 }
 .track {
-  stroke: #6d9aa52b;
-  stroke-width: 4;
+  stroke: #4c62634a;
+  stroke-width: 5;
 }
 .halo {
   stroke: var(--flow-color);
-  stroke-width: 12;
-  opacity: 0.12;
+  stroke-width: 17;
+  opacity: 0.17;
+}
+.cable {
+  stroke: var(--flow-color);
+  stroke-width: 7;
 }
 .stream {
-  stroke: var(--flow-color);
-  stroke-width: 3;
-  stroke-dasharray: 14 10;
-  animation: travel 1.1s linear infinite;
+  stroke: #ffffffd9;
+  stroke-width: 2;
+  stroke-dasharray: 13 21;
+  animation: travel 1.2s linear infinite;
 }
 .flow[data-reverse="true"] .stream {
   animation-direction: reverse;
 }
 .particle {
-  fill: #fff;
-  filter: drop-shadow(0 0 5px var(--flow-color));
-}
-.particle path {
-  stroke: #fff;
-  stroke-width: 2;
+  fill: white;
+  filter: drop-shadow(0 0 4px var(--flow-color));
 }
 .direction {
-  fill: var(--flow-color);
-  font-size: 16px;
+  fill: white;
+  stroke: var(--flow-color);
+  stroke-width: 0.8;
+  font-size: 18px;
 }
-.demo[data-running="false"] .stream {
-  animation-play-state: paused;
+.disconnect {
+  fill: #bc2540;
 }
-.device {
+.disconnect path:last-child {
+  fill: none;
+  stroke: #bc2540;
+  stroke-width: 5;
+}
+.label {
   position: absolute;
-  width: 22%;
-  transform: translate(-50%, -50%);
-  padding: 15px 12px;
-  border: 1px solid #a8d5da30;
-  border-radius: 18px;
-  background: linear-gradient(150deg, #284c57, #153541);
-  box-shadow:
-    0 12px 25px #04182050,
-    inset 0 1px #ffffff0c;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition:
-    opacity 0.7s,
-    border-color 0.7s,
-    box-shadow 0.7s;
-}
-.device strong {
+  padding: 7px 12px;
+  background: #ffffffed;
+  border: 1px solid #ffffffc9;
+  border-radius: 7px;
+  box-shadow: 0 3px 14px #15323916;
+  color: #153d45;
   font:
-    600 clamp(13px, 1.6vw, 18px)/1.3 "Space Grotesk",
+    600 clamp(11px, 1.2vw, 15px)/1.25 "Space Grotesk",
     sans-serif;
-  margin-top: 6px;
-}
-.device small {
-  color: #9cc8d2;
-  font:
-    500 clamp(10px, 1.1vw, 13px)/1.4 "Plus Jakarta Sans",
-    sans-serif;
-  margin-top: 8px;
-  text-align: center;
-}
-.device[data-idle="true"] {
-  opacity: 0.55;
-}
-.device[data-disconnected="true"] {
-  opacity: 0.85;
-  border-color: #ff647a85;
-}
-.device[data-disconnected="true"] small {
-  color: #ff98a7;
-}
-.equipment {
-  display: block;
-  width: 82%;
-  max-height: 112px;
-  overflow: visible;
 }
 .solar {
-  left: 15%;
-  top: 23.39%;
-}
-.inverter {
-  left: 50%;
-  top: 45.97%;
-  border-color: #67dec57a;
-  box-shadow:
-    0 0 40px #44ceb518,
-    0 12px 25px #04182050;
+  top: 7%;
+  left: 5%;
 }
 .grid {
-  left: 85%;
-  top: 23.39%;
+  top: 18.5%;
+  right: 3%;
+}
+.inverter {
+  top: 28%;
+  left: 33%;
 }
 .battery {
-  left: 18%;
-  top: 77.42%;
+  top: 58%;
+  left: 29%;
 }
 .home {
-  left: 82%;
-  top: 77.42%;
+  bottom: 3%;
+  right: 5%;
 }
 .isolation {
   position: absolute;
-  right: 2.8%;
-  top: 43%;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: #402832;
-  color: #ffc1c8;
+  top: 24%;
+  right: 3%;
+  color: #9f1831;
+  background: #fff0f1f0;
+  border-radius: 6px;
+  padding: 6px 9px;
   font-size: 12px;
-  border: 1px solid #ff647a60;
+  font-weight: 600;
 }
 .legend {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 26px;
-  padding: 20px 28px;
-  border-top: 1px solid #ffffff14;
-  font-size: 13px;
-  color: #aec9d0;
+  justify-content: center;
+  gap: 10px 25px;
+  padding: 18px 12px;
+  background: #fff;
+  color: #405b60;
+  font-size: 12px;
 }
 .legend span {
   display: flex;
-  gap: 9px;
   align-items: center;
+  gap: 8px;
 }
 .legend i {
-  width: 20px;
-  height: 3px;
+  width: 18px;
+  height: 4px;
   border-radius: 3px;
   background: var(--dc);
 }
 .legend span:nth-child(2) i {
   background: var(--ac);
 }
-.legend span:last-child {
-  margin-left: auto;
-  font-size: 12px;
-}
 .description {
-  display: flex;
-  gap: 28px;
-  margin-top: 30px;
-  min-height: 150px;
+  min-width: 0;
 }
 .sceneNumber {
-  padding-top: 5px;
-  flex-shrink: 0;
-  color: #087a83;
-  font:
-    500 16px "Space Grotesk",
-    sans-serif;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #357b79;
+}
+.progress {
+  height: 2px;
+  background: #d7e4df;
+  margin: 18px 0 30px;
+  overflow: hidden;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: #d79937;
+  transform-origin: left;
+  animation: progress 9s linear forwards;
 }
 .description h2 {
-  margin: 0 0 14px;
-  font:
-    500 clamp(23px, 3vw, 32px)/1.25 "Space Grotesk",
-    sans-serif;
+  margin: 0 0 22px;
   color: #143d43;
+  font:
+    500 clamp(26px, 2.5vw, 36px)/1.2 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.03em;
 }
 .description p {
   margin: 0;
   color: #506b70;
   font-size: 17px;
   line-height: 1.85;
-  max-width: 850px;
+  min-height: 190px;
+}
+.status {
+  margin: 30px 0;
+}
+.status > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #dce6e1;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.status dt {
+  color: #637775;
+}
+.status dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+  color: #195e60;
+}
+.note {
+  color: #718280;
+  font-size: 13px;
+  line-height: 1.8;
 }
 .disclaimer {
+  margin-top: 30px;
   padding-top: 22px;
   border-top: 1px solid #d5e3df;
   color: #657a79;
   font-size: 13px;
   line-height: 1.8;
 }
+.demo[data-running="false"] .stream,
+.demo[data-running="false"] .progress i {
+  animation-play-state: paused;
+}
 @keyframes travel {
   to {
-    stroke-dashoffset: -24;
+    stroke-dashoffset: -34;
   }
 }
-@media (max-width: 650px) {
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (max-width: 1000px) {
+  .presentation {
+    gap: 24px;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+  .description p {
+    font-size: 16px;
+  }
+  .status > div {
+    font-size: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .presentation {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
   .controls {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
   .controls button {
-    padding: 13px 15px;
+    padding: 12px 14px;
     font-size: 14px;
   }
-  .stage {
-    aspect-ratio: 0.82;
+  .description p {
+    min-height: 0;
   }
-  .console {
-    border-radius: 18px;
-  }
-  .consoleBar {
-    padding: 14px;
-  }
-  .consoleBar > span {
-    font-size: 9px;
-    letter-spacing: 0.06em;
-  }
-  .consoleBar button {
+  .label {
+    padding: 5px 7px;
     font-size: 11px;
-    padding: 8px 10px;
-  }
-  .desktopWires {
-    display: none;
-  }
-  .mobileWires {
-    display: block;
-  }
-  .device {
-    width: 38%;
-    padding: 8px 5px;
-    border-radius: 11px;
-  }
-  .equipment {
-    height: 53px;
-    width: 90%;
-  }
-  .device strong {
-    font-size: 13px;
-  }
-  .device small {
-    font-size: 10px;
-    margin-top: 4px;
-  }
-  .solar {
-    left: 25%;
-    top: 18%;
-  }
-  .grid {
-    left: 75%;
-    top: 18%;
-  }
-  .inverter {
-    left: 50%;
-    top: 46%;
-  }
-  .battery {
-    left: 25%;
-    top: 80%;
-  }
-  .home {
-    left: 75%;
-    top: 80%;
   }
   .isolation {
-    top: 31%;
-    right: 2%;
-    font-size: 9px;
-    padding: 4px;
+    font-size: 10px;
+    padding: 4px 6px;
   }
   .legend {
-    padding: 14px;
-    gap: 10px 16px;
     font-size: 11px;
-  }
-  .legend span:last-child {
-    margin-left: 0;
-    font-size: 11px;
-  }
-  .description {
     gap: 12px;
   }
-  .sceneNumber {
-    font-size: 12px;
+  .status > div {
+    font-size: 14px;
   }
-  .description p {
-    font-size: 16px;
-    line-height: 1.75;
+  .description h2 {
+    font-size: 30px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stream {
+  .stream,
+  .progress i {
     animation: none;
   }
-  .device,
-  .sun,
+  .atmosphere,
   .controls button {
     transition: none;
   }

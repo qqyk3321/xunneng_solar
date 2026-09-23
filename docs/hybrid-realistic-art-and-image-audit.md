@@ -1,0 +1,25 @@
+# Hybrid demonstration and public image audit — 23 September 2026
+
+## Asset
+
+- Generated source (retained outside the repository): /home/qqyk/.codex/generated_images/01a07e6e-a0e7-7261-bd3a-4dfb5795672a/exec-5122ab19-357d-47e8-ac80-a5d92f0420ed.png
+- Published asset: public/images/hybrid-system-realistic.webp
+- Dimensions: 1145 × 1374; WebP quality 82, effort 6; 116,546 bytes versus 2,105,403 bytes for the source PNG (94.5% smaller).
+- Illustrative, unbranded equipment, not photographs of supplied products or installation instructions. Protective equipment is visible but not separately introduced.
+- SVG overlay uses the same aspect ratio as the photo. Solar DC passes through the pictured DC isolator; battery direction reverses for discharge. Grid and load paths are separate, with utility disconnection and only selected load branches active during outage.
+- Nine-second automatic scenes; manual selection restarts the interval and continues playback. No Play/Pause UI. Hidden/offscreen and reduced-motion states do not animate.
+
+## Public-site image audit
+
+- Caribbean landing hero: caribbean-solar-hero.webp (299,898 bytes).
+- Antigua regional hero: antigua-solar-map-hero-no-labels.webp (300,224 bytes).
+- Dominica regional hero: dominica-solar-map-hero-no-labels.webp (305,592 bytes).
+- Five journey images and three hybrid carousel images are already WebP (approximately 78–178 KiB). ViewportImage gates below-fold loading; inactive journey layers are deferred.
+- The old dominica-solar-hero.png (2,851,307 bytes) is not referenced by current application code. It is retained as an unused source, not downloaded by the homepage.
+- PWA icon-192.png and icon-512.png are intentional small installation icons, not large content photographs; retained for compatibility.
+- No active PNG/JPEG marketing photograph references remain in app/components/lib. The editor's legacy JPG placeholder is not a homepage photo.
+- Hero images remain priority-loaded. Deferring first-screen imagery would delay the main content. Next/Image supplies responsive sizes for content images, including the new scene.
+
+## Final image-generation prompt
+
+Use case: product-mockup / scientific-educational illustration. Create a premium PHOTOREALISTIC 3D architectural product visualization for a residential hybrid solar energy explainer. Portrait 5:6 composition, ideally 1500x1800. A straight-on view of a pale warm off-white stucco equipment wall on a contemporary Caribbean home's shaded veranda, a little lush tropical landscaping at the left edge, pale stone floor. Accurate-looking, solid real equipment with realistic material textures, shadows, screws, display screens, not flat icons or rounded UI cards. Precise equipment layout with lots of clean empty wall between items for separate web-animated wires: top left (x 8–48%, y 2–20%) a close view of dark blue photovoltaic panels on a real tiled roof; top right (x 78–92%, y 2–19%) a distant electricity transmission pylon against a small sky opening. Small realistic white two-pole DC breaker/isolator at x 22–29%, y 28–34%. A substantial white unbranded wall-mounted hybrid inverter with dark LCD screen, vents and lower cable ports occupies x 30–52%, y 35–53%. At right a small black split-core CT clamp surrounding a short dark vertical cable at x 77–81%, y 29–33%. A realistic compact white AC distribution box with visible circuit-breaker toggles at x 72–83%, y 39–47%. A smaller white isolator/circuit-breaker enclosure at x 72–82%, y 54–60%. Below the inverter, a white stack of three LiFePO4 battery modules with subtle indicator lights, occupying x 26–53%, y 66–92%. Far right, separate realistic domestic appliances: white split air conditioner at x 82–96%, y 65–70%; silver refrigerator at x 82–94%, y 75–87%; small washing machine at x 68–79%, y 81–90%; one warm pendant lamp at x 85–93%, y 93–97%. Keep the inverter and battery large and clear. Most of center and routing corridors should be clean empty wall. Use only short dark terminal cables immediately around devices; DO NOT draw long connecting wires, red/blue cables, glowing lines, arrows, labels, titles, annotations, legends or any text. These will be added programmatically. No brand marks or logos anywhere. Crisp commercially polished product visualization, consistent physically plausible perspective, cohesive white-and-silver equipment, natural soft daylight, realistic photography-like finish. This is a conceptual exhibition scene, not an installable wiring plan.
