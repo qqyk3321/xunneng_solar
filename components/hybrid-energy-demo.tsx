@@ -8,47 +8,34 @@ import styles from "./hybrid-energy-demo.module.css";
 function Flow({
   d,
   active,
-  reverse = false,
   ac = false,
   running,
 }: {
   d: string;
   active: boolean;
-  reverse?: boolean;
   ac?: boolean;
   running: boolean;
 }) {
-  const id = useId();
   return (
-    <g
-      className={styles.flow}
-      data-active={active}
-      data-ac={ac}
-      data-reverse={reverse}
-    >
-      <path id={id} d={d} className={styles.track} />
+    <g className={styles.flow} data-active={active} data-ac={ac}>
+      <path d={d} className={styles.track} />
       {active && (
         <>
           <path d={d} className={styles.halo} />
           <path d={d} className={styles.cable} />
-          <path d={d} className={styles.stream} />
-          <text className={styles.direction} dy="5">
-            <textPath href={`#${id}`} startOffset="55%" textAnchor="middle">
-              {reverse ? "◀" : "▶"}
-            </textPath>
-          </text>
           {running &&
             [0, 1, 2].map((i) => (
-              <g key={i} className={styles.particle}>
-                <circle r="3.5" />
+              <g key={i} className={styles.movingArrow}>
+                <polygon points="-8,-7 9,0 -8,7 -4,0" />
                 <animateMotion
                   path={d}
                   dur="3s"
                   begin={`${-i}s`}
                   repeatCount="indefinite"
-                  keyPoints={reverse ? "1;0" : "0;1"}
+                  keyPoints="0;1"
                   keyTimes="0;1"
                   calcMode="linear"
+                  rotate="auto"
                 />
               </g>
             ))}
@@ -60,7 +47,6 @@ function Flow({
 
 export function HybridEnergyDemo() {
   const [index, setIndex] = useState(0);
-  const [selection, setSelection] = useState(0);
   const [motion, setMotion] = useState(false);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
@@ -87,14 +73,6 @@ export function HybridEnergyDemo() {
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
-  useEffect(() => {
-    if (!running) return;
-    const timer = setTimeout(
-      () => setIndex((value) => (value + 1) % HYBRID_SCENES.length),
-      9000,
-    );
-    return () => clearTimeout(timer);
-  }, [running, index, selection]);
   const outage = scene.id === "outage";
   return (
     <div
@@ -116,7 +94,6 @@ export function HybridEnergyDemo() {
             aria-controls={id}
             onClick={() => {
               setIndex(i);
-              setSelection((value) => value + 1);
             }}
           >
             <span>0{i + 1}</span>
@@ -155,9 +132,12 @@ export function HybridEnergyDemo() {
                 running={running}
               />
               <Flow
-                d="M498 758V855"
+                d={
+                  scene.batteryFlow === "discharge"
+                    ? "M498 855V758"
+                    : "M498 758V855"
+                }
                 active={scene.batteryFlow !== "idle"}
-                reverse={scene.batteryFlow === "discharge"}
                 running={running}
               />
               <Flow
@@ -221,9 +201,7 @@ export function HybridEnergyDemo() {
             <span>ENERGY IN MOTION</span>
             <span>0{index + 1} / 04</span>
           </div>
-          <div className={styles.progress} aria-hidden="true">
-            <i key={`${index}-${selection}-${running}`} />
-          </div>
+          <div className={styles.progress} aria-hidden="true" />
           <h2>{scene.title}</h2>
           <p>{scene.text}</p>
           <dl className={styles.status}>
@@ -251,7 +229,8 @@ export function HybridEnergyDemo() {
         supports selected circuits; available power and runtime depend on system
         capacity, sunlight, battery charge and connected loads. Export
         permissions and settings are assessed separately. Bill savings depend on
-        solar generation, energy use, system settings and your electricity tariff.
+        solar generation, energy use, system settings and your electricity
+        tariff.
       </p>
     </div>
   );

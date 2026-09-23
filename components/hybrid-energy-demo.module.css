@@ -100,35 +100,23 @@
 }
 .track {
   stroke: #4c62634a;
-  stroke-width: 5;
+  stroke-width: 6;
 }
 .halo {
   stroke: var(--flow-color);
-  stroke-width: 17;
+  stroke-width: 20;
   opacity: 0.17;
 }
 .cable {
   stroke: var(--flow-color);
-  stroke-width: 7;
+  stroke-width: 10;
 }
-.stream {
-  stroke: #ffffffd9;
-  stroke-width: 2;
-  stroke-dasharray: 13 21;
-  animation: travel 1.2s linear infinite;
-}
-.flow[data-reverse="true"] .stream {
-  animation-direction: reverse;
-}
-.particle {
-  fill: white;
-  filter: drop-shadow(0 0 4px var(--flow-color));
-}
-.direction {
+.movingArrow {
   fill: white;
   stroke: var(--flow-color);
-  stroke-width: 0.8;
-  font-size: 18px;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px var(--flow-color));
 }
 .disconnect {
   fill: #bc2540;
@@ -180,13 +168,6 @@
   margin: 18px 0 30px;
   overflow: hidden;
 }
-.progress i {
-  display: block;
-  height: 100%;
-  background: #d79937;
-  transform-origin: left;
-  animation: progress 9s linear forwards;
-}
 .description h2 {
   margin: 0 0 22px;
   color: #143d43;
@@ -236,23 +217,6 @@
   font-size: 13px;
   line-height: 1.8;
 }
-.demo[data-running="false"] .stream,
-.demo[data-running="false"] .progress i {
-  animation-play-state: paused;
-}
-@keyframes travel {
-  to {
-    stroke-dashoffset: -34;
-  }
-}
-@keyframes progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 @media (max-width: 1000px) {
   .presentation {
     gap: 24px;
@@ -293,10 +257,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stream,
-  .progress i {
-    animation: none;
-  }
   .atmosphere,
   .controls button {
     transition: none;

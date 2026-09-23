@@ -169,10 +169,11 @@ async function ready(page, path) {
         () =>
           document.querySelector("[data-scene]")?.dataset.running === "true",
       );
-      await page.waitForFunction(
-        () => document.querySelector("[data-scene]")?.dataset.scene === "night",
-        {},
-        { timeout: 12000 },
+      await page.waitForTimeout(10000);
+      assert.equal(
+        await demo.getAttribute("data-scene"),
+        "day",
+        "mode must not advance automatically",
       );
       assert.ok((await demo.locator("animateMotion").count()) > 0);
       assert.equal(

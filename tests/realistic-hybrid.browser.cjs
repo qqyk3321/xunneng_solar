@@ -35,20 +35,51 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
       ]) {
         await page.getByRole("button", { name: new RegExp(name) }).click();
         assert.equal(await demo.getAttribute("data-scene"), id);
-        assert.equal(await demo.getByRole("img").locator("span").count(), 0, "no labels over the equipment image");
-        assert.ok((await demo.locator("h2").textContent()).trim().length > 0, "mode explanation heading remains");
-        assert.equal(await demo.locator("dl > div").count(), 4, "mode equipment statuses remain outside the image");
+        assert.equal(
+          await demo.getByRole("img").locator("span").count(),
+          0,
+          "no labels over the equipment image",
+        );
+        assert.ok(
+          (await demo.locator("h2").textContent()).trim().length > 0,
+          "mode explanation heading remains",
+        );
+        assert.equal(
+          await demo.locator("dl > div").count(),
+          4,
+          "mode equipment statuses remain outside the image",
+        );
         assert.equal(await demo.getAttribute("data-running"), "true");
         assert.ok((await demo.locator("animateMotion").count()) > 0);
+        assert.equal(
+          await demo.locator("svg textPath").count(),
+          0,
+          "no stationary direction arrows",
+        );
+        assert.ok(
+          (await demo.locator("svg polygon").count()) > 0,
+          "moving arrows replace particles",
+        );
+        const batteryMotion = demo
+          .locator('animateMotion[path^="M498"]')
+          .first();
+        if (id !== "grid") {
+          assert.equal(
+            await batteryMotion.getAttribute("path"),
+            id === "day" ? "M498 758V855" : "M498 855V758",
+          );
+          assert.equal(await batteryMotion.getAttribute("rotate"), "auto");
+        }
         await demo.screenshot({
           path: `/tmp/realistic-hybrid-${width}-${id}.png`,
         });
       }
       await page.getByRole("button", { name: /Sunny daytime/ }).click();
-      await page.waitForFunction(
-        () => document.querySelector("[data-scene]")?.dataset.scene === "night",
-        null,
-        { timeout: 12000 },
+      await page.waitForTimeout(10000);
+      assert.equal(
+        await demo.getAttribute("data-scene"),
+        "day",
+        "mode changes only on user selection",
       );
       assert.equal(
         await page.evaluate(
@@ -64,7 +95,7 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3003";
       );
       await page.close();
       console.log(
-        "PASS realistic scene, autoplay, manual selection, offscreen pause, no overflow:",
+        "PASS realistic scene, manual-only modes, animated flow, offscreen pause, no overflow:",
         width,
       );
     }

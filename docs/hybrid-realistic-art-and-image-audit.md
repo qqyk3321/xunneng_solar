@@ -7,7 +7,7 @@
 - Dimensions: 1145 × 1374; WebP quality 82, effort 6; 116,546 bytes versus 2,105,403 bytes for the source PNG (94.5% smaller).
 - Illustrative, unbranded equipment, not photographs of supplied products or installation instructions. Protective equipment is visible but not separately introduced.
 - SVG overlay uses the same aspect ratio as the photo. Solar DC passes through the pictured DC isolator; battery direction reverses for discharge. Grid and load paths are separate, with utility disconnection and only selected load branches active during outage.
-- Nine-second automatic scenes; manual selection restarts the interval and continues playback. No Play/Pause UI. Hidden/offscreen and reduced-motion states do not animate.
+- Modes switch only on explicit user selection; no automatic advance or countdown. Energy flow animates continuously within the selected mode, using moving arrowheads on thicker paths (no stationary direction arrow or light dots). Discharging reverses the actual battery motion path so arrow orientation follows travel. No Play/Pause UI. Hidden/offscreen and reduced-motion states do not animate.
 
 ## Public-site image audit
 
