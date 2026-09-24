@@ -39,10 +39,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin: 26px 0;
+  margin: 22px 0;
 }
 .options button {
-  padding: 20px 16px;
+  padding: 15px 14px;
   border: 1px solid #bfcfd1;
   border-radius: 12px;
   text-align: left;
@@ -53,19 +53,19 @@
 .options button[aria-pressed="true"] {
   background: #eaf6f5;
   border: 2px solid #007a87;
-  padding: 19px 15px;
+  padding: 14px 13px;
 }
 .options strong {
   display: flex;
   justify-content: space-between;
   font:
-    600 20px "Space Grotesk",
+    600 18px "Space Grotesk",
     sans-serif;
 }
 .options small {
   display: block;
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 7px;
+  font-size: 12px;
   color: #526b70;
 }
 .coming {
@@ -141,6 +141,7 @@
 }
 .flag { width: 24px; height: 18px; }
 .flagLarge { width: 48px; height: 36px; margin-bottom: 14px; }
+.options .flagLarge { width: 32px; height: 24px; margin-bottom: 10px; }
 .dialog :focus-visible,
 .switcher:focus-visible {
   outline: 3px solid #007a87;
@@ -159,10 +160,10 @@
     margin: 20px 0;
   }
   .options button {
-    padding: 16px;
+    padding: 15px 14px;
   }
   .options button[aria-pressed="true"] {
-    padding: 15px;
+    padding: 14px 13px;
   }
   .switcher {
     padding: 7px 9px;
