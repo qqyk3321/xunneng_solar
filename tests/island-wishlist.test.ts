@@ -5,7 +5,7 @@ import { InquiryError } from "../lib/anonymous-inquiry/handler";
 import { UPCOMING_ISLANDS } from "../lib/upcoming-islands";
 
 const payload = { email: " Person@Example.com ", islandCode: "BB" };
-test("all seven coming-soon locations are accepted by the wishlist", () => {
+test("all sixteen planned locations are accepted by the wishlist", () => {
   assert.deepEqual(Object.keys(UPCOMING_ISLANDS), [
     "KN",
     "LC",
@@ -14,6 +14,15 @@ test("all seven coming-soon locations are accepted by the wishlist", () => {
     "BB",
     "SX",
     "JM",
+    "BM",
+    "MS",
+    "TC",
+    "VG",
+    "SABA",
+    "BONAIRE",
+    "BS",
+    "KY",
+    "CW",
   ]);
   for (const islandCode of Object.keys(UPCOMING_ISLANDS)) {
     assert.deepEqual(parseWishlist({ ...payload, islandCode }), {

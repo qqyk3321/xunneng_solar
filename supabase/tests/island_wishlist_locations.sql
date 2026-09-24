@@ -4,7 +4,7 @@ create temporary table wishlist_location_probe (like public.island_wishlist incl
 insert into wishlist_location_probe
   (id, created_at, email, island_code, other_island, status, source, consent_version)
 select row_number() over (), now(), 'migration-probe@example.com', code, '', 'pending', 'test', 'launch-email-v1'
-from unnest(array['KN','LC','VC','GD','BB','SX','JM']) code;
+from unnest(array['KN','LC','VC','GD','BB','SX','JM','BM','MS','TC','VG','SABA','BONAIRE','BS','KY','CW']) code;
 do $$
 begin
   begin
