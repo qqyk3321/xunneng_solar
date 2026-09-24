@@ -20,6 +20,7 @@ import {
   type ServiceCountry,
 } from "@/lib/consultation-intake";
 import styles from "./site-region.module.css";
+import { UPCOMING_ISLANDS } from "@/lib/upcoming-islands";
 
 const RegionContext = createContext<{
   country: ServiceCountry | null;
@@ -196,11 +197,27 @@ function RegionForPath({
             </button>
           ))}
         </div>
-        <p className={styles.coming}>
+        <section
+          className={styles.coming}
+          aria-label="Coming soon — not yet available"
+        >
           <strong>More Caribbean locations are coming soon.</strong>
-          <br />
-          Stay tuned as we expand our service coverage.
-        </p>
+          <ul className={styles.upcomingLocations}>
+            {Object.entries(UPCOMING_ISLANDS).map(([code, name]) => (
+              <li key={code} aria-disabled="true">
+                <Image
+                  src={`/flags/${code.toLowerCase()}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                  width={24}
+                  height={18}
+                  unoptimized
+                />
+                <span>{name}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
         {confirmChange && (
           <p className={styles.warning} role="alert">
             Changing location restarts your assessment and clears the current

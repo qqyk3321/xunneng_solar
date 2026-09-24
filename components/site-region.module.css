@@ -35,6 +35,36 @@
   line-height: 1.8;
   color: #526b70;
 }
+.coming > strong {
+  font-size: 14px;
+}
+.upcomingLocations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  margin: 18px 0 2px;
+  padding: 0;
+  list-style: none;
+}
+.upcomingLocations li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  color: #687c80;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: default;
+}
+.upcomingLocations img {
+  flex-shrink: 0;
+  width: 24px;
+  height: 18px;
+  object-fit: cover;
+  border-radius: 2px;
+  filter: grayscale(1);
+  opacity: 0.4;
+}
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -131,7 +161,8 @@
   white-space: nowrap;
   width: fit-content;
 }
-.flag, .flagLarge {
+.flag,
+.flagLarge {
   display: inline-block;
   vertical-align: middle;
   flex-shrink: 0;
@@ -139,9 +170,20 @@
   border-radius: 3px;
   box-shadow: 0 0 0 1px #102f3626;
 }
-.flag { width: 24px; height: 18px; }
-.flagLarge { width: 48px; height: 36px; margin-bottom: 14px; }
-.options .flagLarge { width: 32px; height: 24px; margin-bottom: 10px; }
+.flag {
+  width: 24px;
+  height: 18px;
+}
+.flagLarge {
+  width: 48px;
+  height: 36px;
+  margin-bottom: 14px;
+}
+.options .flagLarge {
+  width: 32px;
+  height: 24px;
+  margin-bottom: 10px;
+}
 .dialog :focus-visible,
 .switcher:focus-visible {
   outline: 3px solid #007a87;

@@ -1,13 +1,8 @@
 import { validEmail } from "./anonymous-inquiry/config";
 import { InquiryError } from "./anonymous-inquiry/handler";
 
-export const WISHLIST_ISLANDS = {
-  BB: "Barbados",
-  LC: "Saint Lucia",
-  GD: "Grenada",
-  KN: "St. Kitts & Nevis",
-  OTHER: "Other Caribbean island or territory",
-} as const;
+import { WISHLIST_ISLANDS } from "./upcoming-islands";
+export { WISHLIST_ISLANDS } from "./upcoming-islands";
 export type WishlistPayload = {
   email: string;
   islandCode: keyof typeof WISHLIST_ISLANDS;
@@ -101,7 +96,8 @@ export function createWishlistHandler(deps: {
         clearTimeout(timer);
         reader.releaseLock();
       }
-      if (timedOut) throw new InquiryError(408, "The request timed out. Please try again.");
+      if (timedOut)
+        throw new InquiryError(408, "The request timed out. Please try again.");
       let input: unknown;
       try {
         input = JSON.parse(Buffer.concat(chunks).toString("utf8"));

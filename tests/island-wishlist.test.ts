@@ -2,8 +2,27 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createWishlistHandler, parseWishlist } from "../lib/island-wishlist";
 import { InquiryError } from "../lib/anonymous-inquiry/handler";
+import { UPCOMING_ISLANDS } from "../lib/upcoming-islands";
 
 const payload = { email: " Person@Example.com ", islandCode: "BB" };
+test("all seven coming-soon locations are accepted by the wishlist", () => {
+  assert.deepEqual(Object.keys(UPCOMING_ISLANDS), [
+    "KN",
+    "LC",
+    "VC",
+    "GD",
+    "BB",
+    "SX",
+    "JM",
+  ]);
+  for (const islandCode of Object.keys(UPCOMING_ISLANDS)) {
+    assert.deepEqual(parseWishlist({ ...payload, islandCode }), {
+      email: "person@example.com",
+      islandCode,
+      otherIsland: "",
+    });
+  }
+});
 test("wishlist validates and normalizes fields", () => {
   assert.deepEqual(parseWishlist(payload), {
     email: "person@example.com",

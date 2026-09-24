@@ -1,4 +1,5 @@
-Source: https://github.com/lipis/flag-icons (4x3/ag.svg and 4x3/dm.svg)
+Source: https://github.com/lipis/flag-icons (4x3/ag.svg, dm.svg, kn.svg, lc.svg, vc.svg, gd.svg, sx.svg, jm.svg)
+bb.svg is a locally drawn simplified Barbados flag illustration.
 
 The MIT License (MIT)
 

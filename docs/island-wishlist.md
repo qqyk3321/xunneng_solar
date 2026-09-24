@@ -4,7 +4,9 @@
 
 - Migration: `supabase/migrations/20260918052930_create_island_wishlist.sql`.
 - Table: `public.island_wishlist`; identity ID, email, island_code, other_island, created_at, status, notified_at, source, consent_version.
-- Supported codes: BB, LC, GD, KN, OTHER. OTHER requires a territory name. Email and other territory are normalized to lower case.
+- Supported codes: KN, LC, VC, GD, BB, SX, JM, OTHER. OTHER requires a territory name. Email and other territory are normalized to lower case.
+- Expansion migration: `supabase/migrations/20260924143918_expand_island_wishlist_locations.sql`. Adds St Vincent and the Grenadines, Sint Maarten and Jamaica to the existing allowed codes; no existing records or permissions change.
+- `lib/upcoming-islands.ts` supplies both the non-interactive Coming soon list and the homepage wishlist dropdown. These are planned locations, not selectable installation countries (AG/DM only).
 - Unique email + island + other territory prevents duplicate requests. Repeats return the same success response and never overwrite notified/unsubscribed states.
 - RLS enabled, no public policies; anon/authenticated table and sequence privileges revoked. Service-role writes through the server only. No public listing endpoint.
 - Apply with `supabase db push --linked` after inspecting `--dry-run`; do not apply schema edits separately in the dashboard.
@@ -23,5 +25,7 @@ This feature records launch notification requests. It does not send immediate co
 
 Unit tests: `node --conditions=react-server --import tsx --test tests/island-wishlist.test.ts`.
 Live verification should use clearly marked @example.com test addresses and remove only those exact rows afterwards. Never send emails during verification.
+Constraint-only verification: `supabase db query --linked --file supabase/tests/island_wishlist_locations.sql` clones the actual constraints into a temporary table, accepts all seven codes, rejects an invalid code and rolls back. It creates no real wishlist entries. Verified 7 accepted codes, RLS enabled, and no direct anon/authenticated insert privileges.
+UI regression: `tests/upcoming-islands.browser.cjs` verifies mobile/desktop flags, non-interactive planned locations, all dropdown choices and a mocked submission.
 
 Reference: https://supabase.com/docs/guides/deployment/database-migrations

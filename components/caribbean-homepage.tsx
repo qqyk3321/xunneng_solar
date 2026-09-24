@@ -1,4 +1,5 @@
 "use client";
+import { WISHLIST_ISLANDS } from "@/lib/upcoming-islands";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -334,12 +335,18 @@ export function CaribbeanHomepage() {
                 <span className={styles.wishlistCheck} aria-hidden="true">
                   ✓
                 </span>
-                <h4>Your wish is<br />on our list.</h4>
+                <h4>
+                  Your wish is
+                  <br />
+                  on our list.
+                </h4>
                 <p>
                   We’ve received your request. You’ll be among the first to hear
                   when we launch in your area.
                 </p>
-                <p className={styles.wishlistThanks}>Thank you for helping shape our next chapter.</p>
+                <p className={styles.wishlistThanks}>
+                  Thank you for helping shape our next chapter.
+                </p>
               </div>
             ) : (
               <form
@@ -363,13 +370,11 @@ export function CaribbeanHomepage() {
                   <option value="" disabled>
                     Select your island or territory…
                   </option>
-                  <option value="BB">Barbados</option>
-                  <option value="LC">Saint Lucia</option>
-                  <option value="GD">Grenada</option>
-                  <option value="KN">St. Kitts &amp; Nevis</option>
-                  <option value="OTHER">
-                    Other Caribbean island or territory
-                  </option>
+                  {Object.entries(WISHLIST_ISLANDS).map(([code, name]) => (
+                    <option key={code} value={code}>
+                      {name}
+                    </option>
+                  ))}
                 </select>
                 {wishlistIsland === "OTHER" && (
                   <>
@@ -603,11 +608,16 @@ export function CaribbeanHomepage() {
                       <p>{item.copy}</p>
                     </div>
                     {position === 0 && (
-                      <span className={styles.carouselProgress} aria-hidden="true">
+                      <span
+                        className={styles.carouselProgress}
+                        aria-hidden="true"
+                      >
                         <span
                           key={slide}
                           className={styles.carouselProgressFill}
-                          style={{ animationPlayState: rotating ? "running" : "paused" }}
+                          style={{
+                            animationPlayState: rotating ? "running" : "paused",
+                          }}
                           onAnimationEnd={() => {
                             if (rotating) moveSlide(1);
                           }}
