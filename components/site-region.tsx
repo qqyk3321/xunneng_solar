@@ -20,10 +20,7 @@ import {
   type ServiceCountry,
 } from "@/lib/consultation-intake";
 import styles from "./site-region.module.css";
-import {
-  UPCOMING_ISLANDS,
-  UPCOMING_PREVIEW_COUNT,
-} from "@/lib/upcoming-islands";
+import { UPCOMING_ISLANDS, UPCOMING_SHORT_NAMES } from "@/lib/upcoming-islands";
 
 const RegionContext = createContext<{
   country: ServiceCountry | null;
@@ -206,26 +203,32 @@ function RegionForPath({
         >
           <strong>More island locations are coming soon.</strong>
           <ul className={styles.upcomingLocations}>
-            {Object.entries(UPCOMING_ISLANDS)
-              .slice(0, UPCOMING_PREVIEW_COUNT)
-              .map(([code, name]) => (
-                <li key={code} aria-disabled="true">
-                  <Image
-                    src={`/flags/${code.toLowerCase()}.svg`}
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={18}
-                    unoptimized
-                  />
-                  <span>{name}</span>
-                </li>
-              ))}
+            {Object.entries(UPCOMING_ISLANDS).map(([code, name]) => (
+              <li
+                key={code}
+                aria-disabled="true"
+                aria-label={name}
+                title={name}
+              >
+                <Image
+                  src={`/flags/${code.toLowerCase()}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                  width={24}
+                  height={18}
+                  unoptimized
+                />
+                <span className={styles.fullName}>{name}</span>
+                <span className={styles.shortName} aria-hidden="true">
+                  {
+                    UPCOMING_SHORT_NAMES[
+                      code as keyof typeof UPCOMING_SHORT_NAMES
+                    ]
+                  }
+                </span>
+              </li>
+            ))}
           </ul>
-          <p className={styles.moreIslands}>
-            +{Object.keys(UPCOMING_ISLANDS).length - UPCOMING_PREVIEW_COUNT}{" "}
-            more islands planned
-          </p>
         </section>
         {confirmChange && (
           <p className={styles.warning} role="alert">

@@ -22,7 +22,7 @@ const codes = [
 (async () => {
   const browser = await chromium.launch();
   try {
-    for (const width of [375, 1440]) {
+    for (const width of [320, 375, 1440]) {
       const page = await browser.newPage({ viewport: { width, height: 950 } });
       await page.addInitScript(() =>
         sessionStorage.setItem("sol-tide:cookie-ui:dismissed:v2", "1"),
@@ -43,9 +43,9 @@ const codes = [
       const planned = dialog.getByRole("region", {
         name: "Coming soon — not yet available",
       });
-      assert.equal(await planned.getByRole("listitem").count(), 4);
+      assert.equal(await planned.getByRole("listitem").count(), 16);
       assert.ok(
-        (await planned.textContent()).includes("+12 more islands planned"),
+        !(await planned.textContent()).includes("more islands planned"),
       );
       assert.equal(
         await planned.locator("button, a, input, select").count(),
@@ -65,13 +65,36 @@ const codes = [
       );
       assert.equal(
         await planned.locator('li[aria-disabled="true"]').count(),
-        4,
+        16,
+      );
+      for (const item of await planned.getByRole("listitem").all()) {
+        assert.ok(await item.isVisible());
+      }
+      const countries = dialog.getByRole("group", {
+        name: "Installation location",
+      });
+      await countries.getByRole("button", { name: /Dominica/ }).click();
+      assert.equal(
+        await countries
+          .getByRole("button", { name: /Dominica/ })
+          .getAttribute("aria-pressed"),
+        "true",
+      );
+      assert.ok(
+        await dialog
+          .getByRole("button", { name: /Save location|Continue/ })
+          .isEnabled(),
+      );
+      assert.equal(
+        await dialog.evaluate((el) => el.scrollWidth > el.clientWidth),
+        false,
       );
       await dialog.screenshot({ path: `/tmp/upcoming-islands-${width}.png` });
       await dialog
         .getByRole("button", { name: "Close location selection" })
         .click();
       await page.goto(origin + "/", { waitUntil: "domcontentloaded" });
+      await page.waitForTimeout(4000);
       const select = page.locator("#wishlist-island");
       await select.waitFor({ state: "attached" });
       assert.deepEqual(
@@ -107,7 +130,7 @@ const codes = [
         false,
       );
       console.log(
-        "PASS compact four-flag preview, two service countries, all sixteen wishlist choices and mocked submit:",
+        "PASS all sixteen flags, two service countries, all sixteen wishlist choices and mocked submit:",
         width,
       );
       await page.close();

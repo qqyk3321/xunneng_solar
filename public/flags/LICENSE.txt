@@ -1,5 +1,10 @@
-Source: https://github.com/lipis/flag-icons (4x3/ag.svg, dm.svg, kn.svg, lc.svg, vc.svg, gd.svg, sx.svg, jm.svg)
+Source: https://github.com/lipis/flag-icons (4x3/ag.svg, dm.svg, kn.svg, lc.svg, vc.svg, gd.svg, sx.svg, jm.svg, bm.svg, ms.svg, tc.svg, vg.svg, bs.svg, ky.svg, cw.svg)
 bb.svg is a locally drawn simplified Barbados flag illustration.
+
+saba.svg: Mysid, via https://commons.wikimedia.org/wiki/File:Flag_of_Saba.svg
+Licensed under CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
+Original SVG unchanged; displayed in grayscale in the planned-locations list.
+bonaire.svg: Mike Rohsopht, public domain, via https://commons.wikimedia.org/wiki/File:Flag_of_Bonaire.svg
 
 The MIT License (MIT)
 

@@ -18,8 +18,24 @@ export const UPCOMING_ISLANDS = {
   CW: "Curaçao",
 } as const;
 
-// Keep the selector compact; the wishlist retains every planned location.
-export const UPCOMING_PREVIEW_COUNT = 4;
+export const UPCOMING_SHORT_NAMES = {
+  KN: "SKN",
+  LC: "St Lucia",
+  VC: "SVG",
+  GD: "Grenada",
+  BB: "Barbados",
+  SX: "SXM",
+  JM: "Jamaica",
+  BM: "Bermuda",
+  MS: "Montserrat",
+  TC: "TCI",
+  VG: "BVI",
+  SABA: "Saba",
+  BONAIRE: "Bonaire",
+  BS: "Bahamas",
+  KY: "Cayman",
+  CW: "Curaçao",
+} satisfies Record<keyof typeof UPCOMING_ISLANDS, string>;
 
 export const WISHLIST_ISLANDS = {
   ...UPCOMING_ISLANDS,

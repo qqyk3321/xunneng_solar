@@ -6,7 +6,7 @@
 - Table: `public.island_wishlist`; identity ID, email, island_code, other_island, created_at, status, notified_at, source, consent_version.
 - Supported codes: KN, LC, VC, GD, BB, SX, JM, BM, MS, TC, VG, SABA, BONAIRE, BS, KY, CW, OTHER. OTHER requires a territory name. Email and other territory are normalized to lower case. SABA and BONAIRE are distinct internal identifiers.
 - Expansion migration: `supabase/migrations/20260924143918_expand_island_wishlist_locations.sql`. Adds St Vincent and the Grenadines, Sint Maarten and Jamaica to the existing allowed codes; no existing records or permissions change.
-- Further expansion: `supabase/migrations/20260924151809_expand_wishlist_more_caribbean_islands.sql` adds the nine further territories. The selector previews only four disabled flags plus a count of the remaining planned islands; the wishlist lists all sixteen, plus Other.
+- Further expansion: `supabase/migrations/20260924151809_expand_wishlist_more_caribbean_islands.sql` adds the nine further territories. The selector displays all sixteen disabled flags without folding on desktop and mobile. Desktop uses full names; mobile uses compact labels with accessible full names. The wishlist lists all sixteen, plus Other.
 - `lib/upcoming-islands.ts` supplies both the non-interactive Coming soon list and the homepage wishlist dropdown. These are planned locations, not selectable installation countries (AG/DM only).
 - Unique email + island + other territory prevents duplicate requests. Repeats return the same success response and never overwrite notified/unsubscribed states.
 - RLS enabled, no public policies; anon/authenticated table and sequence privileges revoked. Service-role writes through the server only. No public listing endpoint.
