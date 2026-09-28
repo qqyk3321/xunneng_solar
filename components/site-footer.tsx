@@ -5,6 +5,7 @@ import { SITE_CONTACT } from "@/lib/site-contact";
 import { RegionFlag, RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
+import { WhatsAppContact } from "./whatsapp-contact";
 import { HomePrivacyNotice } from "./home-privacy-notice";
 import { RegionalSupportLink } from "./support-email";
 import styles from "./site-footer.module.css";
@@ -39,6 +40,7 @@ export function SiteFooter({
                 </>
               )}
             </p>
+            <WhatsAppContact dark />
             {caribbean ? (
               <div className={styles.countryLinks}>
                 <p className={styles.contactLabel}>

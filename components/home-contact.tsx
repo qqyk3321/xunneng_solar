@@ -42,6 +42,7 @@ import {
 } from "@/lib/anonymous-inquiry/rich-text";
 import styles from "./home-contact.module.css";
 import { SupportEmail } from "./support-email";
+import { WhatsAppContact } from "./whatsapp-contact";
 import { useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { RegionLinks } from "./region-links";
@@ -525,6 +526,7 @@ export function HomeContact({
               </div>
             </div>
             <SupportEmail />
+            <WhatsAppContact />
           </div>
           <div className={styles.card}>
             {!country && (
