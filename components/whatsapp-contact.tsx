@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { SITE_CONTACT } from "@/lib/site-contact";
 import styles from "./whatsapp-contact.module.css";
 
@@ -122,10 +122,35 @@ export function WhatsAppDialog({
   );
 }
 
-export function WhatsAppContact({ dark = false }: { dark?: boolean }) {
+export function WhatsAppContact({
+  dark = false,
+  inlineQr = false,
+  children,
+}: {
+  dark?: boolean;
+  inlineQr?: boolean;
+  children?: ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={styles.contact} data-dark={dark || undefined}>
+    <div
+      className={styles.contact}
+      data-dark={dark || undefined}
+      data-inline-qr={inlineQr || undefined}
+    >
+      {inlineQr && (
+        <figure className={styles.footerQr}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/contact/whatsapp-qr.png"
+            width="140"
+            height="140"
+            alt="Scan to chat with Sol & Tide on WhatsApp"
+            loading="lazy"
+          />
+        </figure>
+      )}
+      {children && <div className={styles.footerNumber}>{children}</div>}
       <a
         className={styles.link}
         href={SITE_CONTACT.whatsappUrl}

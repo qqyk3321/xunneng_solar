@@ -13,6 +13,10 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:43187";
         await page.goto(origin + path, { waitUntil: "domcontentloaded" });
         await page.waitForTimeout(2500);
         const footer = page.locator("footer");
+        const footerText = await footer.innerText();
+        assert.ok(footerText.includes("Solortide — solar"));
+        assert.ok(!footerText.includes("Let’s explore solar"));
+        assert.ok(!footerText.includes("Explore your local solution"));
         assert.equal(
           await footer
             .getByRole("link", { name: "Chat on WhatsApp" })
@@ -20,6 +24,31 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:43187";
           "https://wa.me/8617605886812",
         );
         const scan = footer.getByRole("button", { name: "Scan QR code" });
+        if (width > 900) {
+          const separators = await footer
+            .getByRole("navigation", { name: "Footer navigation" })
+            .locator("..")
+            .evaluate((el) =>
+              ["::before", "::after"].map(
+                (pseudo) => getComputedStyle(el, pseudo).width,
+              ),
+            );
+          assert.deepEqual(separators, ["1px", "1px"]);
+          assert.equal(await scan.isVisible(), false);
+          const qr = footer.locator("figure img");
+          await qr.scrollIntoViewIfNeeded();
+          await qr.evaluate((img) => img.decode());
+          assert.ok(await qr.isVisible());
+          await page.evaluate(() => document.fonts.ready);
+          await footer.screenshot({
+            path:
+              "/tmp/footer-inline-qr-" +
+              (path === "/" ? "home" : path.split("/")[1]) +
+              ".png",
+            animations: "disabled",
+          });
+          continue;
+        }
         await scan.click();
         const dialog = page.getByRole("dialog", {
           name: "Let’s talk about your home.",
@@ -56,12 +85,15 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:43187";
         await dialog.waitFor();
         await dialog.getByRole("button", { name: /Prefer email/ }).click();
         await dialog.waitFor({ state: "hidden" });
-        await page.waitForTimeout(800);
-        assert.ok(
-          await page.locator("#ask-question").evaluate((el) => {
+        await page.waitForFunction(
+          () => {
+            const el = document.querySelector("#ask-question");
+            if (!el) return false;
             const rect = el.getBoundingClientRect();
             return rect.top < innerHeight && rect.bottom > 0;
-          }),
+          },
+          null,
+          { timeout: 10000 },
         );
       } else throw new Error("Expected FAQ floating contact launcher");
       assert.equal(

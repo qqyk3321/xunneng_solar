@@ -27,9 +27,9 @@
 }
 .top {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.85fr) minmax(0, 1.2fr);
-  gap: 40px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.15fr) minmax(180px, 0.7fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: start;
 }
 .top > * {
   min-width: 0;
@@ -40,8 +40,8 @@
   align-items: flex-start;
 }
 .location {
-  margin-top: auto;
-  padding-top: 24px;
+  margin-top: 28px;
+  padding-top: 0;
 }
 .footer .locationSelector {
   border: 0;
@@ -121,9 +121,35 @@
   text-decoration: underline;
 }
 .middle {
-  padding: 0 32px;
-  border-left: 1px solid #ffffff21;
-  border-right: 1px solid #ffffff21;
+  position: relative;
+  align-self: stretch;
+  padding: 0;
+}
+@media (min-width: 901px) {
+  .middle::before,
+  .middle::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff21;
+    pointer-events: none;
+  }
+  .middle::before {
+    left: -28px;
+  }
+  .middle::after {
+    right: -28px;
+  }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .middle::before {
+    left: -14px;
+  }
+  .middle::after {
+    right: -14px;
+  }
 }
 .footer .sectionTitle {
   margin: 0 0 16px;
@@ -191,16 +217,20 @@
 .invitation {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  text-align: center;
+  gap: 36px;
+  padding: 12px 0;
 }
 .footer .invitation h2 {
-  margin: -5px 0 0;
+  margin: 0;
   color: #f4c75b;
   font:
-    500 clamp(32px, 3.2vw, 44px)/1.13 "Space Grotesk",
+    500 clamp(34px, 3.2vw, 46px)/1.16 "Space Grotesk",
     sans-serif;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
 }
 .footer .invitation p {
   max-width: 300px;
@@ -208,18 +238,33 @@
   line-height: 1.8;
   margin: 18px 0 24px;
 }
+.contactArea {
+  width: 100%;
+  max-width: 360px;
+  border-top: 1px solid #ffffff21;
+  padding-top: 20px;
+  margin-top: 24px;
+}
+.contactArea > div {
+  margin-top: 0;
+}
+.contactArea .contacts {
+  font-size: 13px;
+}
 .footer .assessment {
+  margin-top: 0;
+  width: min(100%, 310px);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  min-height: 50px;
+  gap: 12px;
+  min-height: 54px;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 14px 20px;
-  border: 1px solid #53949b;
-  border-radius: 6px;
+  padding: 14px 16px;
+  border: 1px solid #53949b80;
+  border-radius: 8px;
   background: #007a87;
   color: #fff;
   text-decoration: none;
@@ -259,13 +304,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 4px;
 }
 .countryLinks a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 36px;
+  min-height: 28px;
   color: #edf5f4;
   font-size: 14px;
   white-space: nowrap;
@@ -276,6 +321,7 @@
 }
 .countryRow {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
 }
@@ -285,10 +331,13 @@
   }
   .top {
     gap: 28px;
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.7fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(155px, 0.6fr) minmax(
+        0,
+        1.3fr
+      );
   }
   .middle {
-    padding: 0 24px;
+    padding: 0;
   }
   .footer .brand {
     font-size: 25px;
@@ -305,10 +354,10 @@
   }
   .invitation {
     grid-column: 1 / -1;
-    align-items: flex-start;
-    text-align: left;
-    border-top: 1px solid #ffffff21;
-    padding-top: 32px;
+    max-width: 440px;
+    width: 100%;
+    box-sizing: border-box;
+    justify-self: center;
   }
   .footer .invitation h2 br {
     display: none;
@@ -363,7 +412,8 @@
   }
   .invitation {
     grid-column: auto;
-    padding-top: 28px;
+    padding: 12px 0;
+    gap: 28px;
   }
   .footer .invitation h2 {
     font-size: 34px;

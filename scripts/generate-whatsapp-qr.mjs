@@ -39,7 +39,7 @@ const branded = await sharp(qr)
   .png()
   .toBuffer();
 // Decode the finished logo-overlaid image, including its smallest UI size.
-for (const width of [size, 240, 208, 180]) {
+for (const width of [size, 240, 208, 180, 140, 112]) {
   const { data, info } = await sharp(branded)
     .resize(width, width)
     .ensureAlpha()
@@ -55,4 +55,4 @@ await fs.writeFile(
   new URL("../public/contact/whatsapp-qr.png", import.meta.url),
   branded,
 );
-console.log("Verified branded QR at four sizes:", url, branded.length, "bytes");
+console.log("Verified branded QR at six sizes:", url, branded.length, "bytes");

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { SITE_CONTACT } from "@/lib/site-contact";
 import { RegionFlag, RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
@@ -40,46 +39,40 @@ export function SiteFooter({
                 </>
               )}
             </p>
-            <WhatsAppContact dark />
-            {caribbean ? (
-              <div className={styles.countryLinks}>
-                <p className={styles.contactLabel}>
-                  Explore your local solution
-                </p>
-                <div className={styles.countryRow}>
-                  <Link href="/antigua" prefetch={false}>
-                    <RegionFlag country="AG" /> Antigua &amp; Barbuda
-                  </Link>
-                  <Link href="/dominica" prefetch={false}>
-                    <RegionFlag country="DM" /> Dominica
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <>
-                <p className={styles.contactLabel}>Regional support</p>
-                <address className={styles.contacts}>
-                  <RegionalSupportLink />
-                  {SITE_CONTACT.showMockContacts && (
-                    <a href={SITE_CONTACT.phoneHref}>{SITE_CONTACT.phone}</a>
-                  )}
-                  {SITE_CONTACT.showMockContacts && country !== "DM" && (
-                    <span>{SITE_CONTACT.address}</span>
-                  )}
-                </address>
-                <div className={styles.location}>
-                  <RegionSwitcher
-                    variant="text"
-                    className={styles.locationSelector}
-                  />
-                </div>
-              </>
-            )}
+            <div className={styles.contactArea}>
+              <WhatsAppContact dark inlineQr>
+                {caribbean ? (
+                  <div className={styles.countryLinks}>
+                    <Link href="/antigua" prefetch={false}>
+                      <RegionFlag country="AG" /> Antigua &amp; Barbuda
+                    </Link>
+                    <Link href="/dominica" prefetch={false}>
+                      <RegionFlag country="DM" /> Dominica
+                    </Link>
+                  </div>
+                ) : (
+                  <>
+                    <RegionSwitcher
+                      variant="text"
+                      className={styles.locationSelector}
+                    />
+                    <address className={styles.contacts}>
+                      <RegionalSupportLink />
+                    </address>
+                  </>
+                )}
+              </WhatsAppContact>
+            </div>
           </div>
           <div className={styles.middle}>
             <h2 className={styles.sectionTitle}>Explore</h2>
             <nav className={styles.links} aria-label="Footer navigation">
-              <Link href={regionPath(country, "/how-it-works")} prefetch={false}>How it works</Link>
+              <Link
+                href={regionPath(country, "/how-it-works")}
+                prefetch={false}
+              >
+                How it works
+              </Link>
               {caribbean ? (
                 <button
                   type="button"
@@ -132,7 +125,6 @@ export function SiteFooter({
               Ready for your <br />
               next step?
             </h2>
-            <p>Let’s explore solar and battery storage for your home.</p>
             {caribbean ? (
               <button
                 type="button"
