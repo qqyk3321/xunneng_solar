@@ -36,7 +36,6 @@ test("regional FAQ localizes the tariff and all action destinations without muta
     assert.deepEqual(searchFaq("", "all", items), items);
     assert.ok(searchFaq(utility, "savings", items).some(item => item.id === "calculator-tariff"));
     assert.deepEqual(searchFaq(country === "AG" ? "DOMLEC" : "APUA", "savings", items), []);
-    assert.equal(items.find(item => item.id === "warranty-terms")!.answer, FAQ_ITEMS.find(item => item.id === "warranty-terms")!.answer);
   }
   const dominica = getFaqItems("DM").find(item => item.id === "calculator-tariff")!;
   assert.match(dominica.answer, /not a verified current tariff/);
@@ -134,17 +133,17 @@ test("FAQ entries have unique IDs, real topics and safe local destinations", () 
 test("search covers questions, answers and keywords with case and punctuation normalization", () => {
   assert.deepEqual(searchFaq(""), FAQ_ITEMS);
   assert.deepEqual(searchFaq("  "), FAQ_ITEMS);
-  assert.deepEqual(searchFaq("WARRANTY"), searchFaq("warranty"));
-  assert.deepEqual(searchFaq("wind-resistance"), searchFaq("wind resistance"));
+  assert.deepEqual(searchFaq("BATTERY"), searchFaq("battery"));
+  assert.deepEqual(searchFaq("lithium-ion"), searchFaq("lithium ion"));
   assert.deepEqual(
     searchFaq(" FUEL  surcharge 0.80 ").map((item) => item.id),
     ["calculator-tariff"],
   );
   assert.deepEqual(
-    searchFaq("保修").map((item) => item.id),
-    ["warranty-terms"],
+    searchFaq("磷酸铁锂").map((item) => item.id),
+    ["lifepo4-battery-chemistry"],
   );
-  assert.deepEqual(searchFaq("wárranty"), searchFaq("warranty"));
+  assert.deepEqual(searchFaq("báttery"), searchFaq("battery"));
   assert.ok(
     searchFaq("no solar contribution").some(
       (item) => item.id === "backup-duration",
@@ -154,31 +153,21 @@ test("search covers questions, answers and keywords with case and punctuation no
   assert.deepEqual(searchFaq("no-such-faq-entry"), []);
 });
 
-test("equipment support is qualitative and warranty coverage follows written terms", () => {
-  const warranty = FAQ_ITEMS.find((item) => item.id === "warranty-terms")!;
-  assert.match(
-    warranty.answer,
-    /dependable equipment with ongoing support/,
-  );
-  assert.match(warranty.answer, /written terms for your selected inverter, solar panels and battery/);
+test("unconfirmed warranty, wind resistance and battery life topics are absent", () => {
   for (const country of ["AG", "DM"] as const) {
-    for (const item of getFaqItems(country).filter(item =>
-      ["warranty-terms", "lifepo4-battery-chemistry", "wind-rating"].includes(item.id),
-    )) {
-      assert.doesNotMatch(JSON.stringify(item), /\d[\d,.+]*[- ]*(?:years?|cycles|mph)|八年|十五年/i);
+    const items = getFaqItems(country);
+    assert.doesNotMatch(JSON.stringify(items), /warrant|wind.rating|wind.resistan|hurricane|storm|cycle.life|long.life|lifespan|\d[\d,.+]*[- ]*cycles|质保|保修|抗风|寿命/i);
+    for (const query of ["warranty", "wind resistance", "cycle life", "质保", "抗风"]) {
+      assert.deepEqual(searchFaq(query, "all", items), []);
     }
   }
-  assert.match(warranty.answer, /faults in the equipment itself that arise during normal use/);
-  assert.match(warranty.answer, /our team will help investigate/);
-  assert.deepEqual(
-    searchFaq("written terms").map((item) => item.id),
-    ["warranty-terms"],
-  );
+  for (const file of ["components/demo-homepage.tsx", "components/why-choose-us.tsx", "components/caribbean-homepage.tsx", "app/faq/faq-directory.tsx", "lib/region-seo.ts"]) {
+    assert.doesNotMatch(readFileSync(file, "utf8"), /warrant|island conditions|built for reliability|dependable solar|reliable inverter|150\+? MPH|4,?000 cycles/i, file);
+  }
   const services = FAQ_ITEMS.find(
     (item) => item.id === "cleaning-reinforcement",
   )!;
   assert.match(services.answer, /cleaning and reinforcement services/);
-  assert.match(services.answer, /arranged separately from equipment warranty coverage/);
   assert.doesNotMatch(
     services.answer,
     /free|complimentary|included/i,
@@ -198,6 +187,6 @@ test("topic selection combines with search, not replaces it", () => {
       FAQ_ITEMS.filter((item) => item.category === category.id),
     );
   }
-  assert.equal(searchFaq("warranty", "getting-started").length, 0);
-  assert.equal(searchFaq("warranty", "support").length, 2);
+  assert.equal(searchFaq("monitoring", "getting-started").length, 0);
+  assert.equal(searchFaq("monitoring", "support").length, 1);
 });

@@ -54,11 +54,8 @@ test("regional homepage keeps calculator and contact while root uses its own ent
   );
   assert.match(home, /Antigua and Dominica/);
   for (const label of [
-    "Designed for Island Conditions",
     "Certified Equipment",
     "Local Parts Stock",
-    "Reliable Inverter Support",
-    "Dependable Solar Panel Support",
   ]) {
     assert.ok(home.includes(label));
   }

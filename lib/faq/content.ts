@@ -114,28 +114,6 @@ export const FAQ_ITEMS: FaqItem[] = [
     keywords: ["battery", "outage", "hours", "load", "停电", "备用", "电池"],
   },
   {
-    id: "warranty-terms",
-    category: "support",
-    question: "What warranty comes with the system?",
-    answer:
-      "Our systems combine dependable equipment with ongoing support. Warranty duration, coverage and applicable operating conditions are set out in the written terms for your selected inverter, solar panels and battery. Equipment warranty coverage addresses faults in the equipment itself that arise during normal use, subject to the written terms for your equipment. If you notice an issue with your solar panels, our team will help investigate and guide you through the appropriate next steps. Contact us for your equipment's written warranty terms and support with a claim.",
-    keywords: [
-      "warranty",
-      "guarantee",
-      "equipment support",
-      "written terms",
-      "repair",
-      "panel issue",
-      "fault",
-      "troubleshooting",
-      "面板异常",
-      "保修",
-      "质保",
-      "循环",
-    ],
-    link: { href: "/#contact-us", label: "Ask about warranty coverage" },
-  },
-  {
     id: "antigua-equipment-certifications",
     category: "support",
     question: "Which equipment certifications and standards apply to Antigua products?",
@@ -179,9 +157,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "lifepo4-battery-chemistry",
     category: "support",
-    question: "What is a LiFePO4 (LFP) battery, and why do we use it?",
-    answer: "Our home storage batteries use Lithium Iron Phosphate (LiFePO4, also called LFP), a lithium-ion battery chemistry known for thermal stability and long cycle life. It is suited to repeated charging and discharging for solar storage and home backup.\n\nCycle life describes repeated charge–discharge use, not a guaranteed number of years. Our batteries are designed for reliable everyday energy storage; actual performance depends on operating temperature, depth of discharge (DoD) and the conditions in the selected model’s documentation. Correct installation and operation remain essential.",
-    keywords: ["LiFePO4", "LiFePO₄", "LFP", "lithium iron phosphate", "lithium-ion", "battery chemistry", "thermal stability", "cycle life", "depth of discharge", "DoD", "reliability", "磷酸铁锂", "电池", "循环寿命", "放电深度"],
+    question: "What is a LiFePO4 (LFP) battery?",
+    answer: "Our home storage batteries use Lithium Iron Phosphate (LiFePO4, also called LFP), a lithium-ion battery chemistry. The battery stores energy for household use and backup. The capacity needed depends on your appliances and how you plan to use the system.",
+    keywords: ["LiFePO4", "LiFePO₄", "LFP", "lithium iron phosphate", "lithium-ion", "battery chemistry", "磷酸铁锂", "电池"],
     link: { href: "/#contact-us", label: "Ask about battery specifications" },
   },
   {
@@ -234,7 +212,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "support",
     question: "Do you offer cleaning and reinforcement services?",
     answer:
-      "Yes. We provide solar panel cleaning and reinforcement services to help care for your installation. These are maintenance and site-support services arranged separately from equipment warranty coverage. Our team can assess your needs and agree the service scope with you before arranging the work.",
+      "Yes. We provide solar panel cleaning and reinforcement services to help care for your installation. Our team can assess your needs and agree the service scope with you before arranging the work.",
     keywords: [
       "cleaning",
       "reinforcement",
@@ -245,14 +223,6 @@ export const FAQ_ITEMS: FaqItem[] = [
       "维护",
     ],
     link: { href: "/#contact-us", label: "Ask about system services" },
-  },
-  {
-    id: "wind-rating",
-    category: "support",
-    question: "How is the system designed for local wind and weather conditions?",
-    answer:
-      "Our systems are designed for dependable use in island conditions, with mounting and installation tailored to your roof and site assessment. Ask our team for the selected equipment’s wind-resistance documentation and installation requirements. Performance in a storm depends on the equipment, installation and site conditions.",
-    keywords: ["hurricane", "wind", "storm", "wind resistance", "weather", "飓风", "抗风"],
   },
   {
     id: "local-parts",

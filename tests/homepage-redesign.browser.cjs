@@ -62,11 +62,8 @@ async function main() {
       /caribbean|加勒比/i,
     );
     for (const label of [
-      "Designed for Island Conditions",
       "UL Certified Equipment",
       "Local Parts Stock",
-      "Reliable Inverter Support",
-      "Dependable Solar Panel Support",
     ]) {
       await hero.getByText(label, { exact: true }).waitFor();
     }

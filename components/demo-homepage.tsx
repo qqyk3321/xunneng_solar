@@ -121,15 +121,12 @@ export function DemoHomepage({
                 </SectionAnchor>
               </div>
               <div className={styles.heroNotes}>
-                <span>Designed for Island Conditions</span>
                 <span>
                   {country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE"}{" "}
                   Certified Equipment
                 </span>
                 <span>{hero.support}</span>
-                <span>Reliable Inverter Support</span>
-                <span>LiFePO4 Battery · Built for Reliability</span>
-                <span>Dependable Solar Panel Support</span>
+                <span>LiFePO4 Battery</span>
               </div>
             </div>
           </div>

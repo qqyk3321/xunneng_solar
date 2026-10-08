@@ -52,7 +52,7 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3107";
         await page.getByRole("searchbox").fill("quote");
         const consult = page.locator('[data-faq-id="investment-quote"] a');
         assert.equal(await consult.getAttribute("href"), `/${slug}/consultation`);
-        await page.getByRole("searchbox").fill("warranty");
+        await page.getByRole("searchbox").fill("cleaning");
         await page.getByRole("link", { name: /Ask a question/ }).first().click();
         assert.equal(await page.locator("#ask-question").count(), 1);
 

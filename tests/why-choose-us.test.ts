@@ -13,12 +13,8 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
   for (const phrase of [
     "100% local",
     "UL/CE-certified",
-    "RELIABLE SUPPORT",
-    "Equipment & Support",
-    "Dependable equipment · Ongoing support",
     "remote monitoring",
     "cleaning and reinforcement",
-    "DESIGNED FOR ISLAND CONDITIONS",
     "compatible existing generator",
     "Illustrative count",
     "Up to",
@@ -28,7 +24,7 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
     assert.ok(source.includes(phrase), phrase);
   assert.doesNotMatch(
     source,
-    /complimentary|free maintenance|uninterrupted|guaranteed savings|150\+? MPH|\d+[- ]year|4,?000 cycles/i,
+    /complimentary|free maintenance|uninterrupted|guaranteed savings|warrant|island conditions|150\+? MPH|\d+[- ]year|4,?000 cycles/i,
   );
   assert.match(animation, /useState\(value\)/);
   assert.match(animation, /requestAnimationFrame/);

@@ -42,8 +42,8 @@ async function main() {
       });
     });
     const section = page.locator("#benefits");
-    assert.equal(await section.getByRole("listitem").count(), 4);
-    assert.equal(await section.locator("[data-stat]").count(), 4);
+    assert.equal(await section.getByRole("listitem").count(), 3);
+    assert.equal(await section.locator("[data-stat]").count(), 3);
     await section.locator("dl").scrollIntoViewIfNeeded();
     await page.waitForFunction(
       () =>
@@ -71,10 +71,7 @@ async function main() {
         id + " counts through intermediate values",
       );
     }
-    const support = section.locator('[data-stat="warranty"]');
-    assert.match(await support.innerText(), /Reliable/);
-    assert.match(await support.innerText(), /Equipment & Support/);
-    assert.equal(await support.locator("[data-animated-value]").count(), 0);
+    assert.equal(await section.locator('[data-stat="warranty"]').count(), 0);
     assert.match(await section.innerText(), /Illustrative count/);
     assert.match(await section.innerText(), /not guarantees/);
     await section.locator('[data-stat="installations"]').hover();
@@ -93,12 +90,6 @@ async function main() {
         ),
         "No overflow at " + width,
       );
-      assert.ok(await support.evaluate(el => {
-        const text = el.querySelector("dd span:last-child");
-        const card = el.getBoundingClientRect();
-        const bounds = text.getBoundingClientRect();
-        return text.scrollWidth <= text.clientWidth && bounds.left >= card.left && bounds.right <= card.right;
-      }), "Support wording fits its card at " + width);
       // Measure layout positions independently of the hover transform settling.
       const [first, second] = await section
         .locator("[data-stat]")
@@ -137,8 +128,8 @@ async function main() {
       JSON.stringify(
         {
           ok: true,
-          fourReasons: true,
-          fourStats: true,
+          threeReasons: true,
+          threeStats: true,
           counters: true,
           hover: true,
           reducedMotion: true,

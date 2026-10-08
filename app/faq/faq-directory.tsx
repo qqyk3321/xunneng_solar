@@ -33,7 +33,7 @@ export function FaqDirectory({ items }: { items: FaqItem[] }) {
             id="faq-search"
             type="search"
             autoComplete="off"
-            placeholder="Try ‘battery’, ‘warranty’ or ‘electricity bill’"
+            placeholder="Try ‘battery’, ‘installation’ or ‘electricity bill’"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             aria-controls="faq-results"

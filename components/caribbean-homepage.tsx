@@ -94,8 +94,8 @@ const faqs = [
     "Our team reviews your details and aims to respond within 48 hours. We will explain the next steps and whether a site assessment is needed.",
   ],
   [
-    "Where can I find equipment and warranty information?",
-    "Visit your country’s website for equipment and warranty information. Applicable specifications and terms depend on the equipment selected for your project.",
+    "Where can I find equipment information?",
+    "Visit your country’s website for equipment information. Applicable specifications and terms depend on the equipment selected for your project.",
   ],
 ];
 

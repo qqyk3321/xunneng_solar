@@ -82,7 +82,7 @@ export function faqMetadata(country: ServiceCountry): Metadata {
   const path = regionPath(country, "/faq");
   const title = `Solar & Battery FAQs — ${COUNTRY_NAMES[country]} | Sol & Tide Energy`;
   const description =
-    "Answers about solar, LiFePO4 batteries, equipment certification, warranties and installation support for homes in Antigua and Dominica.";
+    "Answers about solar, LiFePO4 batteries, equipment certification and installation support for homes in Antigua and Dominica.";
   return {
     title,
     description,

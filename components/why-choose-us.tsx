@@ -9,20 +9,15 @@ const reasons = [
     text: "Lower bills and backup for essential loads. Solar, batteries, grid power and a compatible existing generator can work together with the right design.",
   },
   {
-    label: "UL/CE CERTIFIED · RELIABLE SUPPORT",
+    label: "UL/CE CERTIFIED EQUIPMENT",
     warm: true,
     title: "Certified equipment. Connected support.",
-    text: "UL/CE-certified equipment, dependable solar panels and LiFePO4 battery storage designed for reliable everyday use — with remote monitoring and customer support.",
+    text: "UL/CE-certified equipment, solar panels and LiFePO4 battery storage — with remote monitoring and customer support.",
   },
   {
     label: "100% ANTIGUA BASED · LOCAL STOCK",
     title: "100% local. Right here in Antigua.",
     text: "Local stock. A team you can reach. Ongoing support, including solar panel cleaning and reinforcement.",
-  },
-  {
-    label: "DESIGNED FOR ISLAND CONDITIONS",
-    title: "Professional design for island conditions.",
-    text: "Dependable system design and professional installation tailored to your roof and local conditions, guided by mounting specifications and site assessment.",
   },
 ];
 
@@ -43,14 +38,6 @@ const statistics = [
     prefix: "Up to",
     label: "Bill savings potential",
     note: "For a suitably sized system",
-  },
-  {
-    id: "warranty",
-    value: "Reliable",
-    suffix: "",
-    prefix: "",
-    label: "Equipment & Support",
-    note: "Dependable equipment · Ongoing support",
   },
   {
     id: "payback",
@@ -87,9 +74,6 @@ export function WhyChooseUs({
       item.title = "Support for your Dominica home.";
       item.text =
         "Our local team coordinates supply, installation and support in Dominica. Maintenance services and schedules are confirmed for your location.";
-    }
-    if (index === 3) {
-      item.title = `Designed for your home in ${location}.`;
     }
     return item;
   });
@@ -138,25 +122,17 @@ export function WhyChooseUs({
                   <span className={styles.prefix}>
                     {stat.prefix || "\u00a0"}
                   </span>
-                  <span
-                    className={
-                      typeof stat.value === "string" ? styles.word : styles.number
-                    }
-                  >
+                  <span className={styles.number}>
                     {stat.id === "payback" && (
                       <>
                         <span className={styles.srOnly}>Less than </span>
                         <span aria-hidden="true">{"<"}</span>
                       </>
                     )}
-                    {typeof stat.value === "number" ? (
-                      <AnimatedStatValue
-                        value={stat.value}
-                        suffix={stat.suffix}
-                      />
-                    ) : (
-                      stat.value
-                    )}
+                    <AnimatedStatValue
+                      value={stat.value}
+                      suffix={stat.suffix}
+                    />
                   </span>
                 </dd>
                 <dd className={styles.note}>{stat.note}</dd>
