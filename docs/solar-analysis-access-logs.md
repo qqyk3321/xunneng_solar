@@ -1,5 +1,7 @@
 # 光伏分析授权访问日志
 
+> 适用范围：本文记录原 `/solar-analysis` 的访问日志规则与历史验收。独立 `/solution-suggest` 使用自己的 Cookie、`/solution-suggest/visit` 和 `solution_suggest_access_logs` 表，其实现及当前检查结果见 [solution-suggest 子项目说明](solution-suggest.md)。不要把本页的历史云端验收当作新表已经迁移的证据。
+
 ## 行为
 
 - 仅 `/solar-analysis` 的普通密码（audited 模式）/Cookie 校验通过、分析页面在浏览器实际挂载后尝试记录。

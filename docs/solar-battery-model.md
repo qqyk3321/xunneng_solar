@@ -1,5 +1,7 @@
 # Solar analysis battery reserve and utilization
 
+> 适用范围：本文保留原 `/solar-analysis` 的容量选项、SOC 和报告方法。`/solution-suggest` 已使用独立库、固定 10% SOC、5/10/15/20 kWh 电池、实际月度用电和自动推荐规则，详见 [solution-suggest 子项目说明](solution-suggest.md)。
+
 Only `/solar-analysis` and its client-generated report use this model. Public regional calculators are unchanged.
 
 ## Capacity and SOC reserve

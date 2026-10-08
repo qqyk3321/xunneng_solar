@@ -1,5 +1,7 @@
 # Solar model table delivery
 
+> 适用范围：本文描述原 `/solar-analysis` 的清单生成与缓存。`/solution-suggest` 复用同一静态模型资产，但有独立清单与缓存键，只使用固定 PVWatts 南向20°模型；`solar:prepare` / `solar:check` 不自动同步其清单。当前说明和检查结果见 [solution-suggest 子项目说明](solution-suggest.md)。
+
 ## Data and deployment
 
 - Four demand profiles remain small, fixed 24-point arrays in the analysis component.
