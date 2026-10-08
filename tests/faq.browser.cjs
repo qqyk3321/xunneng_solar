@@ -137,7 +137,7 @@ async function main() {
     await page.locator('[data-faq-id="warranty-terms"]').waitFor();
     assert.equal(await entries.count(), 2);
     await page
-      .getByText(/inverters come with an 8-year warranty/)
+      .getByText(/dependable equipment with ongoing support/)
       .waitFor();
     await page.getByRole("link", { name: /Ask a question/ }).first().click();
     assert.equal(new URL(page.url()).pathname, "/faq");
@@ -147,7 +147,7 @@ async function main() {
         .evaluate((el) => el === document.activeElement),
       true,
     );
-    await page.getByText(/solar panels come with a 15-year warranty/).waitFor();
+    await page.getByText(/written terms for your selected inverter, solar panels and battery/).waitFor();
     await page
       .getByRole("button", { name: "Getting started", exact: true })
       .click();

@@ -135,7 +135,7 @@ test("search covers questions, answers and keywords with case and punctuation no
   assert.deepEqual(searchFaq(""), FAQ_ITEMS);
   assert.deepEqual(searchFaq("  "), FAQ_ITEMS);
   assert.deepEqual(searchFaq("WARRANTY"), searchFaq("warranty"));
-  assert.deepEqual(searchFaq("8-year"), searchFaq("8 year"));
+  assert.deepEqual(searchFaq("wind-resistance"), searchFaq("wind resistance"));
   assert.deepEqual(
     searchFaq(" FUEL  surcharge 0.80 ").map((item) => item.id),
     ["calculator-tariff"],
@@ -154,19 +154,24 @@ test("search covers questions, answers and keywords with case and punctuation no
   assert.deepEqual(searchFaq("no-such-faq-entry"), []);
 });
 
-test("warranty durations and separate services match the supplied business scope", () => {
+test("equipment support is qualitative and warranty coverage follows written terms", () => {
   const warranty = FAQ_ITEMS.find((item) => item.id === "warranty-terms")!;
   assert.match(
     warranty.answer,
-    /inverters come with an 8-year warranty/,
+    /dependable equipment with ongoing support/,
   );
-  assert.match(warranty.answer, /solar panels come with a 15-year warranty/);
-  assert.match(warranty.answer, /battery specification is 4,000 cycles/);
-  assert.doesNotMatch(warranty.answer, /10.year|25.year/);
+  assert.match(warranty.answer, /written terms for your selected inverter, solar panels and battery/);
+  for (const country of ["AG", "DM"] as const) {
+    for (const item of getFaqItems(country).filter(item =>
+      ["warranty-terms", "lifepo4-battery-chemistry", "wind-rating"].includes(item.id),
+    )) {
+      assert.doesNotMatch(JSON.stringify(item), /\d[\d,.+]*[- ]*(?:years?|cycles|mph)|八年|十五年/i);
+    }
+  }
   assert.match(warranty.answer, /faults in the equipment itself that arise during normal use/);
   assert.match(warranty.answer, /our team will help investigate/);
   assert.deepEqual(
-    searchFaq("15-year").map((item) => item.id),
+    searchFaq("written terms").map((item) => item.id),
     ["warranty-terms"],
   );
   const services = FAQ_ITEMS.find(

@@ -47,7 +47,7 @@ async function main() {
     await section.locator("dl").scrollIntoViewIfNeeded();
     await page.waitForFunction(
       () =>
-        Object.values(window.__statSamples).length === 4 &&
+        Object.values(window.__statSamples).length === 3 &&
         Object.values(window.__statSamples).every((values) =>
           values.some((text) => parseInt(text) === 0),
         ),
@@ -56,13 +56,12 @@ async function main() {
       () =>
         [...document.querySelectorAll("[data-animated-value]")]
           .map((el) => el.textContent)
-          .join(",") === "100+,95%,8,5",
+          .join(",") === "100+,95%,5",
     );
     const samples = await page.evaluate(() => window.__statSamples);
     for (const [id, target] of [
       ["installations", 100],
       ["savings", 95],
-      ["warranty", 8],
       ["payback", 5],
     ]) {
       assert.ok(
@@ -72,6 +71,10 @@ async function main() {
         id + " counts through intermediate values",
       );
     }
+    const support = section.locator('[data-stat="warranty"]');
+    assert.match(await support.innerText(), /Reliable/);
+    assert.match(await support.innerText(), /Equipment & Support/);
+    assert.equal(await support.locator("[data-animated-value]").count(), 0);
     assert.match(await section.innerText(), /Illustrative count/);
     assert.match(await section.innerText(), /not guarantees/);
     await section.locator('[data-stat="installations"]').hover();
@@ -90,6 +93,12 @@ async function main() {
         ),
         "No overflow at " + width,
       );
+      assert.ok(await support.evaluate(el => {
+        const text = el.querySelector("dd span:last-child");
+        const card = el.getBoundingClientRect();
+        const bounds = text.getBoundingClientRect();
+        return text.scrollWidth <= text.clientWidth && bounds.left >= card.left && bounds.right <= card.right;
+      }), "Support wording fits its card at " + width);
       // Measure layout positions independently of the hover transform settling.
       const [first, second] = await section
         .locator("[data-stat]")
@@ -113,13 +122,13 @@ async function main() {
     await page.reload({ waitUntil: "load" });
     assert.deepEqual(
       await section.locator("[data-animated-value]").allTextContents(),
-      ["100+", "95%", "8", "5"],
+      ["100+", "95%", "5"],
     );
     const noJs = await browser.newPage({ javaScriptEnabled: false });
     await noJs.goto(origin, { waitUntil: "load" });
     assert.deepEqual(
       await noJs.locator("#benefits [data-animated-value]").allTextContents(),
-      ["100+", "95%", "8", "5"],
+      ["100+", "95%", "5"],
     );
     await noJs.close();
     assert.deepEqual(errors, []);

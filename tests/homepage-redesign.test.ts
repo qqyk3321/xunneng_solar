@@ -54,11 +54,11 @@ test("regional homepage keeps calculator and contact while root uses its own ent
   );
   assert.match(home, /Antigua and Dominica/);
   for (const label of [
-    "150+ MPH Rated",
+    "Designed for Island Conditions",
     "Certified Equipment",
     "Local Parts Stock",
-    "8-Year Inverter Warranty",
-    "15-Year Solar Panel Warranty",
+    "Reliable Inverter Support",
+    "Dependable Solar Panel Support",
   ]) {
     assert.ok(home.includes(label));
   }

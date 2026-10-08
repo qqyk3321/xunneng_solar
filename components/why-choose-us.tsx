@@ -9,10 +9,10 @@ const reasons = [
     text: "Lower bills and backup for essential loads. Solar, batteries, grid power and a compatible existing generator can work together with the right design.",
   },
   {
-    label: "UL/CE CERTIFIED · 8-YEAR INVERTER WARRANTY",
+    label: "UL/CE CERTIFIED · RELIABLE SUPPORT",
     warm: true,
     title: "Certified equipment. Connected support.",
-    text: "UL/CE-certified equipment. 8-year inverter warranty, LiFePO4 battery with 4,000 cycles and 15-year panel warranty — with remote monitoring and customer support.",
+    text: "UL/CE-certified equipment, dependable solar panels and LiFePO4 battery storage designed for reliable everyday use — with remote monitoring and customer support.",
   },
   {
     label: "100% ANTIGUA BASED · LOCAL STOCK",
@@ -20,9 +20,9 @@ const reasons = [
     text: "Local stock. A team you can reach. Ongoing support, including solar panel cleaning and reinforcement.",
   },
   {
-    label: "150+ MPH RATED DESIGN",
+    label: "DESIGNED FOR ISLAND CONDITIONS",
     title: "Professional design for island conditions.",
-    text: "Professional installation tailored to your roof. 150+ MPH-rated designs, subject to mounting specifications and site assessment.",
+    text: "Dependable system design and professional installation tailored to your roof and local conditions, guided by mounting specifications and site assessment.",
   },
 ];
 
@@ -46,11 +46,11 @@ const statistics = [
   },
   {
     id: "warranty",
-    value: 8,
+    value: "Reliable",
     suffix: "",
     prefix: "",
-    label: "Years of inverter warranty",
-    note: "Battery: 4,000 cycles · Panels: 15 years",
+    label: "Equipment & Support",
+    note: "Dependable equipment · Ongoing support",
   },
   {
     id: "payback",
@@ -138,17 +138,25 @@ export function WhyChooseUs({
                   <span className={styles.prefix}>
                     {stat.prefix || "\u00a0"}
                   </span>
-                  <span className={styles.number}>
+                  <span
+                    className={
+                      typeof stat.value === "string" ? styles.word : styles.number
+                    }
+                  >
                     {stat.id === "payback" && (
                       <>
                         <span className={styles.srOnly}>Less than </span>
                         <span aria-hidden="true">{"<"}</span>
                       </>
                     )}
-                    <AnimatedStatValue
-                      value={stat.value}
-                      suffix={stat.suffix}
-                    />
+                    {typeof stat.value === "number" ? (
+                      <AnimatedStatValue
+                        value={stat.value}
+                        suffix={stat.suffix}
+                      />
+                    ) : (
+                      stat.value
+                    )}
                   </span>
                 </dd>
                 <dd className={styles.note}>{stat.note}</dd>

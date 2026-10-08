@@ -62,11 +62,11 @@ async function main() {
       /caribbean|加勒比/i,
     );
     for (const label of [
-      "150+ MPH Rated",
+      "Designed for Island Conditions",
       "UL Certified Equipment",
       "Local Parts Stock",
-      "8-Year Inverter Warranty",
-      "15-Year Solar Panel Warranty",
+      "Reliable Inverter Support",
+      "Dependable Solar Panel Support",
     ]) {
       await hero.getByText(label, { exact: true }).waitFor();
     }

@@ -96,7 +96,7 @@
   padding: 8px 0;
 }
 .currencyRow { position: relative; display: flex; align-items: center; gap: 12px; margin: 24px 0 12px; }
-.currencyPicker { display: flex; flex: 1; align-items: center; gap: 12px; font-size: 14px; color: #475569; }
+.currencyPicker { display: flex; flex: 1; min-width: 0; align-items: center; gap: 12px; font-size: 14px; color: #475569; }
 .currencyPicker select { min-width: 0; max-width: 100%; flex: 1; padding: 12px 28px 12px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #f8fafc; color: #183c43; font: inherit; font-weight: 600; }
 .fxHelp .tooltip { left: 0; right: auto; top: calc(100% + 8px); max-width: 100%; }
 .currencyHint { font-size: 14px; line-height: 1.6; color: #006975; margin-bottom: 8px !important; }

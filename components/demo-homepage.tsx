@@ -121,15 +121,15 @@ export function DemoHomepage({
                 </SectionAnchor>
               </div>
               <div className={styles.heroNotes}>
-                <span>150+ MPH Rated</span>
+                <span>Designed for Island Conditions</span>
                 <span>
                   {country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE"}{" "}
                   Certified Equipment
                 </span>
                 <span>{hero.support}</span>
-                <span>8-Year Inverter Warranty</span>
-                <span>LiFePO4 Battery · 4,000 Cycles</span>
-                <span>15-Year Solar Panel Warranty</span>
+                <span>Reliable Inverter Support</span>
+                <span>LiFePO4 Battery · Built for Reliability</span>
+                <span>Dependable Solar Panel Support</span>
               </div>
             </div>
           </div>

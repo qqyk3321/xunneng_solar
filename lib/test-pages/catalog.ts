@@ -9,6 +9,7 @@ export const MAIN_PAGE_ROUTES = [
   "/[region]/how-it-works",
   "/privacy",
   "/solar-analysis",
+  "/solution-suggest",
   "/pwa",
   "/pwa/app",
   "/[region]",
