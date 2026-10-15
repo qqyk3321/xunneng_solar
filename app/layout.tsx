@@ -4,15 +4,16 @@ import { SiteRegionProvider } from "@/components/site-region";
 import { SiteNavigationLoader } from "@/components/site-navigation-loader";
 import { siteUrl } from "@/lib/region-seo";
 import { SiteAnalytics } from "@/components/site-analytics-gate";
+import { SiteSpeedInsights } from "@/components/site-speed-insights";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   robots: process.env.NODE_ENV !== "production" || (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production")
     ? { index: false, follow: false }
     : { index: true, follow: true },
-  title: "Sol & Tide Energy | Caribbean Solar & Storage",
+  title: "Solortide | Sol & Tide Energy — Caribbean Solar & Storage",
   description:
-    "Solar and battery solutions for the Caribbean. Currently serving Antigua and Dominica.",
+    "Solortide by Sol & Tide Energy: solar and battery solutions for Caribbean homes in Antigua and Barbuda and Dominica.",
 };
 
 export default function RootLayout({
@@ -44,6 +45,7 @@ export default function RootLayout({
         <SiteNavigationLoader />
         <SiteRegionProvider>{children}</SiteRegionProvider>
         {process.env.VERCEL_ENV === "production" && <SiteAnalytics />}
+        {process.env.VERCEL_ENV === "production" && <SiteSpeedInsights />}
       </body>
     </html>
   );

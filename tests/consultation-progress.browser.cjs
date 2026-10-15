@@ -17,7 +17,7 @@ const assert = require('node:assert/strict');
         }
         return route.abort();
       });
-      await page.goto(`http://127.0.0.1:3003/${region}/consultation`, { waitUntil: 'networkidle', timeout: 25000 });
+      await page.goto(`${process.env.REGION_TEST_ORIGIN || 'http://127.0.0.1:3003'}/${region}/consultation`, { waitUntil: 'networkidle', timeout: 25000 });
       const steps = page.locator('ol[aria-label="Progress"] > li');
       await steps.first().waitFor();
       assert.equal(await steps.nth(0).getAttribute('data-state'), 'current');
@@ -34,7 +34,7 @@ const assert = require('node:assert/strict');
       await page.screenshot({ path: `/tmp/consultation-progress-form-${width}.png` });
       await page.frameLocator('iframe').locator('#finish').evaluate(() => parent.postMessage(JSON.stringify({event:'Tally.FormLoaded',payload:{formId:'9q8RYQ'}}),'*'));
       await page.frameLocator('iframe').locator('#finish').click();
-      const complete = page.getByRole('heading', { name: 'Your enquiry has been submitted.' });
+      const complete = page.getByRole('heading', { name: 'SUBMISSION COMPLETE', exact: true });
       await complete.waitFor();
       await page.getByText(`TEST-${code}-123`, { exact: true }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Copy', exact: true }).count(), 0);

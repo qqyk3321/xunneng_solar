@@ -4,7 +4,8 @@ import Link from "next/link";
 import { RegionFlag, RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
-import { WhatsAppContact } from "./whatsapp-contact";
+import { PrivacyLink } from "./privacy-link";
+import { SocialIcons } from "./facebook-contact";
 import { HomePrivacyNotice } from "./home-privacy-notice";
 import { RegionalSupportLink } from "./support-email";
 import styles from "./site-footer.module.css";
@@ -40,39 +41,41 @@ export function SiteFooter({
               )}
             </p>
             <div className={styles.contactArea}>
-              <WhatsAppContact dark inlineQr>
-                {caribbean ? (
-                  <div className={styles.countryLinks}>
-                    <Link href="/antigua" prefetch={false}>
-                      <RegionFlag country="AG" /> Antigua &amp; Barbuda
-                    </Link>
-                    <Link href="/dominica" prefetch={false}>
-                      <RegionFlag country="DM" /> Dominica
-                    </Link>
-                  </div>
-                ) : (
-                  <>
-                    <RegionSwitcher
-                      variant="text"
-                      className={styles.locationSelector}
-                    />
-                    <address className={styles.contacts}>
-                      <RegionalSupportLink />
-                    </address>
-                  </>
-                )}
-              </WhatsAppContact>
+              {caribbean ? (
+                <div className={styles.countryLinks}>
+                  <Link href="/antigua" prefetch={false}>
+                    <RegionFlag country="AG" /> Antigua &amp; Barbuda
+                  </Link>
+                  <Link href="/dominica" prefetch={false}>
+                    <RegionFlag country="DM" /> Dominica
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <RegionSwitcher
+                    variant="text"
+                    className={styles.locationSelector}
+                  />
+                  <address className={styles.contacts}>
+                    <RegionalSupportLink />
+                  </address>
+                </>
+              )}
+              <SocialIcons />
             </div>
           </div>
           <div className={styles.middle}>
             <h2 className={styles.sectionTitle}>Explore</h2>
             <nav className={styles.links} aria-label="Footer navigation">
-              <Link
-                href={regionPath(country, "/how-it-works")}
-                prefetch={false}
-              >
-                How it works
-              </Link>
+              {caribbean ? (
+                <button type="button" onClick={() => choose("how-it-works")} aria-haspopup="dialog">
+                  How it works
+                </button>
+              ) : (
+                <Link href={regionPath(country, "/how-it-works")} prefetch={false}>
+                  How it works
+                </Link>
+              )}
               {caribbean ? (
                 <button
                   type="button"
@@ -112,9 +115,7 @@ export function SiteFooter({
                   Contact us
                 </Link>
               )}
-              <Link href={regionPath(country, "/privacy")} prefetch={false}>
-                Privacy policy
-              </Link>
+              <PrivacyLink />
             </nav>
             <div className={styles.settings}>
               <HomePrivacyNotice />
@@ -132,7 +133,7 @@ export function SiteFooter({
                 onClick={() => choose("assessment")}
                 aria-haspopup="dialog"
               >
-                Get Your Free Assessment <span aria-hidden="true">→</span>
+                Get Your Free Assessment
               </button>
             ) : (
               <Link
@@ -140,7 +141,7 @@ export function SiteFooter({
                 prefetch={false}
                 className={styles.assessment}
               >
-                Get Your Free Assessment <span aria-hidden="true">→</span>
+                Get Your Free Assessment
               </Link>
             )}
           </div>
@@ -151,7 +152,8 @@ export function SiteFooter({
             reserved.
           </p>
           <span className={styles.signature}>
-            Solortide — solar &amp; storage built around your home.
+            <Link href="/" prefetch={false}>Solortide</Link>
+            {" — solar & storage built around your home."}
           </span>
         </div>
       </div>

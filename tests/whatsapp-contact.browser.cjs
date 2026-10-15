@@ -74,7 +74,7 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:43187";
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.waitForTimeout(500);
       const launcher = page.getByRole("button", {
-        name: "Ask a question",
+        name: "Chat on WhatsApp",
         exact: true,
       });
       if (await launcher.isVisible()) {

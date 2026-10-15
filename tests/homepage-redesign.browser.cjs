@@ -93,7 +93,7 @@ async function main() {
       text,
       /START WITH YOUR ELECTRICITY BILL|WHY CHOOSE US|YOUR INSTALLATION JOURNEY|A CONVERSATION STARTS HERE/,
     );
-    assert.match(text, /APUA June 2026/);
+    assert.match(text, /APUA October 2026/);
     const sections = await page
       .locator("main > section[id]")
       .evaluateAll((nodes) => nodes.map((node) => node.id));

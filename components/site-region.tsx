@@ -12,7 +12,8 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   countryFromPath,
   switchedRegionPath,
-  regionPath,
+  regionIntentPath,
+  type RegionIntent,
 } from "@/lib/site-region-routing";
 import Image from "next/image";
 import {
@@ -26,7 +27,7 @@ const RegionContext = createContext<{
   country: ServiceCountry | null;
   ready: boolean;
   open: boolean;
-  choose: (intent?: "savings" | "assessment" | "faq") => void;
+  choose: (intent?: RegionIntent) => void;
 }>({ country: null, ready: false, open: false, choose: () => {} });
 export const useSiteRegion = () => useContext(RegionContext);
 
@@ -47,21 +48,15 @@ function RegionForPath({
   const ready = true;
   const [manual, setManual] = useState(false);
   const [intent, setIntent] = useState<
-    "savings" | "assessment" | "faq" | undefined
+    RegionIntent | undefined
   >();
-  // A focused option must not look selected while Continue is disabled.
-  // Only the dialog draft defaults; the URL country changes after confirmation.
-  const [draft, setDraft] = useState<ServiceCountry>(country ?? "AG");
-  const [confirmChange, setConfirmChange] = useState(false);
   const [navigating, setNavigating] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const navigationFrame = useRef<number | undefined>(undefined);
   useEffect(() => {
     setManual(false);
-    setConfirmChange(false);
     setNavigating(false);
-    setDraft(country ?? "AG");
   }, [pathname, country]);
   useEffect(() => {
     const ended = () => {
@@ -88,37 +83,30 @@ function RegionForPath({
       document.body.style.overflow = previous;
     };
   }, [open]);
-  function choose(nextIntent?: "savings" | "assessment" | "faq") {
+  function choose(nextIntent?: RegionIntent) {
     opener.current = document.activeElement as HTMLElement;
     setIntent(nextIntent);
-    setDraft(country ?? "AG");
-    setConfirmChange(false);
     setManual(true);
   }
-  function save() {
-    if (!draft || navigating) return;
+  function selectCountry(nextCountry: ServiceCountry) {
+    if (navigating) return;
     if (
       country &&
-      draft !== country &&
+      nextCountry !== country &&
       pathname.endsWith("/consultation") &&
-      !confirmChange
+      !window.confirm(
+        "Changing location restarts your assessment and clears the current unsent form. Continue?",
+      )
     ) {
-      setConfirmChange(true);
       return;
     }
     setManual(false);
-    setConfirmChange(false);
     // Native modal dialogs sit above every CSS z-index. Close before showing
     // the already-mounted loader, then give the browser a frame to paint it.
     dialog.current?.close();
-    const destination =
-      intent === "assessment"
-        ? regionPath(draft, "/consultation")
-        : intent === "faq"
-          ? regionPath(draft, "/faq")
-          : intent === "savings"
-            ? regionPath(draft)
-            : switchedRegionPath(pathname, draft);
+    const destination = intent
+      ? regionIntentPath(nextCountry, intent)
+      : switchedRegionPath(pathname, nextCountry);
     const hash =
       intent === "savings" ? "#calculator" : intent ? "" : window.location.hash;
     if (destination === pathname) return;
@@ -141,7 +129,6 @@ function RegionForPath({
         ref={dialog}
         className={styles.dialog}
         aria-labelledby="region-title"
-        aria-describedby="region-description"
         onClose={() => {
           if (navigating || !opener.current?.isConnected) return;
           if (opener.current.getClientRects().length) opener.current.focus();
@@ -166,9 +153,6 @@ function RegionForPath({
           ×
         </button>
         <h2 id="region-title">Where would you like to install your system?</h2>
-        <p id="region-description" className={styles.description}>
-          Choose your country.
-        </p>
         <div
           className={styles.options}
           role="group"
@@ -178,17 +162,10 @@ function RegionForPath({
             <button
               key={code}
               type="button"
-              aria-pressed={draft === code}
-              onClick={() => {
-                setDraft(code);
-                setConfirmChange(false);
-              }}
+              onClick={() => selectCountry(code)}
             >
               <RegionFlag country={code} large />
-              <strong>
-                {SERVICE_COUNTRIES[code].label}
-                <span aria-hidden="true">{draft === code ? "✓" : ""}</span>
-              </strong>
+              <strong>{SERVICE_COUNTRIES[code].label}</strong>
               <small>
                 {code === "AG"
                   ? "Antigua & Barbuda"
@@ -230,23 +207,6 @@ function RegionForPath({
             ))}
           </ul>
         </section>
-        {confirmChange && (
-          <p className={styles.warning} role="alert">
-            Changing location restarts your assessment and clears the current
-            unsent form. Continue?
-          </p>
-        )}
-        <button
-          className={styles.save}
-          disabled={!draft || navigating}
-          onClick={save}
-        >
-          {confirmChange
-            ? "Change location and restart"
-            : country
-              ? "Save location"
-              : "Continue"}
-        </button>
       </dialog>
     </RegionContext.Provider>
   );

@@ -1,0 +1,81 @@
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 20px;
+  color: #087c86;
+}
+
+.links a,
+.links > [aria-disabled="true"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  max-width: 100%;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.links :is(svg, img) {
+  flex: 0 0 auto;
+}
+
+.links a:hover span {
+  text-decoration: underline;
+}
+
+.links a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.dark {
+  color: #edf5f4;
+}
+
+.dark a:hover {
+  color: #f4b578;
+}
+
+.icons {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 0;
+}
+
+.icons a,
+.icons > [aria-disabled="true"] {
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.icons a:first-child {
+  width: auto;
+  justify-content: flex-start;
+  padding-right: 4px;
+  color: #b0edc9;
+}
+
+.icons :is(svg, img) {
+  width: 18px;
+  height: 18px;
+}
+
+.icons a:hover {
+  background: #ffffff0d;
+
+}
+
+.icons > [aria-disabled="true"] {
+  cursor: default;
+}

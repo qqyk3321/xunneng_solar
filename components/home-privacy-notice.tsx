@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { regionPath } from "@/lib/site-region-routing";
+import { PrivacyLink } from "./privacy-link";
+import { useSiteRegion } from "./site-region";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useSiteRegion } from "./site-region";
 import styles from "./home-privacy-notice.module.css";
 import { readPreferences, savePreferences, PREFERENCES_KEY, LEGACY_DISMISSED_KEY as STORAGE_KEY, type Preferences } from "@/lib/cookie-preferences";
 
@@ -137,26 +136,11 @@ export function HomePrivacyNotice() {
             <div className={styles.copy}>
               <h2 id="home-privacy-title">Cookie Preferences</h2>
               <p>
-                Information about cookies, privacy and your browsing experience.
-                Learn how information is handled in our{" "}
-                <Link href={regionPath(country, "/privacy")} prefetch={false}>
-                  Privacy Policy
-                </Link>
-                .
-              </p>
-              <p className={styles.disclosure}>
-                Your choices are remembered in this browser. These preview
-                controls save your preference only; they do not yet control analytics or marketing services.
+                Saved preferences don’t control analytics or marketing.{" "}
+                <PrivacyLink>Privacy policy</PrivacyLink>.
               </p>
             </div>
             <div className={styles.actions}>
-              <button
-                type="button"
-                className={styles.secondary}
-                onClick={() => dialog.current?.showModal()}
-              >
-                Manage preferences
-              </button>
               <button
                 type="button"
                 className={styles.secondary}
@@ -170,6 +154,13 @@ export function HomePrivacyNotice() {
                 onClick={() => chooseAll(true)}
               >
                 Accept all
+              </button>
+              <button
+                type="button"
+                className={styles.manage}
+                onClick={() => dialog.current?.showModal()}
+              >
+                Manage preferences
               </button>
             </div>
             <button

@@ -73,18 +73,8 @@ const codes = [
       const countries = dialog.getByRole("group", {
         name: "Installation location",
       });
-      await countries.getByRole("button", { name: /Dominica/ }).click();
-      assert.equal(
-        await countries
-          .getByRole("button", { name: /Dominica/ })
-          .getAttribute("aria-pressed"),
-        "true",
-      );
-      assert.ok(
-        await dialog
-          .getByRole("button", { name: /Save location|Continue/ })
-          .isEnabled(),
-      );
+      assert.equal(await countries.locator('[aria-pressed]').count(), 0);
+      assert.equal(await dialog.getByRole("button", { name: /Save location|Continue/ }).count(), 0);
       assert.equal(
         await dialog.evaluate((el) => el.scrollWidth > el.clientWidth),
         false,

@@ -39,6 +39,10 @@ export function SolarInstallation({
       : country === "AG"
         ? "Antigua"
         : "the Caribbean";
+  const regionalSteps = steps.map((step) => ({
+    ...step,
+    text: step.text.replace("Antigua’s", `${location}’s`),
+  }));
 
   return (
     <section
@@ -53,13 +57,9 @@ export function SolarInstallation({
           <h2 id="installation-heading">
             Your Solar Installation in {location}
           </h2>
-          <p>
-            A clear path from your first request to solar-powered everyday
-            living.
-          </p>
         </div>
         <ol className={styles.timeline} aria-label="Solar installation steps">
-          {steps.map((step, index) => (
+          {regionalSteps.map((step, index) => (
             <li
               key={step.title}
               className={styles.step}
@@ -72,8 +72,29 @@ export function SolarInstallation({
               <div className={styles.card}>
                 <h3>{step.title}</h3>
                 <span className={styles.timing}>{step.timing}</span>
-                <p>{step.text.replace("Antigua’s", country === "DM" ? "Dominica’s" : country === "AG" ? "Antigua’s" : "the Caribbean’s")}</p>
+                <p>{step.text}</p>
               </div>
+            </li>
+          ))}
+        </ol>
+        <ol className={styles.mobileTimeline} aria-label="Solar installation steps">
+          {regionalSteps.map((step, index) => (
+            <li key={step.title} className={styles.step}>
+              <span className={styles.number} aria-hidden="true">{index + 1}</span>
+              <details
+                className={styles.mobileCard}
+                name="solar-installation-steps"
+                open={index === 0}
+              >
+                <summary>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <span className={styles.timing}>{step.timing}</span>
+                  </div>
+                  <span className={styles.toggle} aria-hidden="true" />
+                </summary>
+                <p>{step.text}</p>
+              </details>
             </li>
           ))}
         </ol>

@@ -6,7 +6,6 @@ import {
   PRIVACY_VERSION,
   SERVICE_COUNTRIES,
 } from "../lib/consultation-intake";
-import { isTestRoute } from "../lib/test-pages/access";
 
 test("intake requires acknowledgement and an available service country", () => {
   for (const country of ["", "other", "DO", "__proto__"]) {
@@ -35,18 +34,3 @@ test("consultation gates Tally on privacy and URL country; no legacy map or stor
   assert.doesNotMatch(source, /GoogleMaps|location_json|selectedPlace/);
 });
 
-test("cookie demo is local-only and not a functioning consent manager", () => {
-  assert.equal(isTestRoute("/test-pages/cookie-preview"), true);
-  const page = readFileSync("app/test-pages/cookie-preview/page.tsx", "utf8");
-  assert.match(page, /process.env.NODE_ENV !== "development"/);
-  const preview = readFileSync(
-    "app/test-pages/cookie-preview/preview.tsx",
-    "utf8",
-  );
-  assert.doesNotMatch(
-    preview,
-    /document.cookie|localStorage|sessionStorage|fetch\(/,
-  );
-  assert.match(preview, /No cookies, tracking or services were changed/);
-  assert.match(preview, /showModal\(\)/);
-});

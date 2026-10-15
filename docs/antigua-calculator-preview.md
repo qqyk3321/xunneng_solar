@@ -1,5 +1,15 @@
 # Antigua home solar + battery calculator
 
+## Current regional package estimates — 13 October 2026
+
+The regional homepages now place the package showcase directly after the hero, before the calculator. The calculator recommends the approved home packages using unrounded monthly consumption: Basic up to 700 kWh, Plus above 700 through 1,000 kWh, Premium above 1,000 within the existing 300–2,000 kWh supported range. This remains a home calculator; the showcase's shop ranges do not use the residential tariff for a commercial estimate.
+
+`lib/solar-packages.ts` supplies both the showcase and estimator with the same package data: 5/8/10 kW inverters, 5/10/20 kWh batteries, 8/18/24 panels, and starting budgets of EC$20,000/30,000/40,000. The visible budget retains an approximation prefix and adds `+`. Simple payback is the starting budget divided by assumed annual savings, replacing the former reverse calculation and interpolation. Payback can increase at a package boundary. Final price, actual savings, financing, maintenance and replacements affect real returns.
+
+Tariff presets, currency conversions and the existing 80% bill-saving assumption are unchanged. Backup now follows each recommended battery: 4.05/8.1/16.2 hours at the existing 1 kW load, 90% usable fraction and 90% efficiency. No new engineering yield model is introduced. Invalid or out-of-range input clears both the recommendation and estimates. The information popovers and budget FAQ describe the new calculation.
+
+The remaining sections below record the original prototype and its superseded assumptions.
+
 Local test URL: `http://192.168.1.176:3003/antigua-calculator-preview`.
 Also listed under **Solar calculators** at `/test-pages`.
 

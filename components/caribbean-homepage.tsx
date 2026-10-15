@@ -1,77 +1,88 @@
 "use client";
-import { WISHLIST_ISLANDS } from "@/lib/upcoming-islands";
+import { UPCOMING_ISLANDS, WISHLIST_ISLANDS } from "@/lib/upcoming-islands";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { PrivacyLink } from "./privacy-link";
 import Image from "next/image";
 import { ViewportImage } from "./viewport-image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { SolarPackages } from "./solar-packages";
+import { SolarPackageSelectionProvider } from "./solar-package-selection";
 import { SiteFooter } from "./site-footer";
+import { HomepageFloatingContact } from "./homepage-floating-contact";
 import { RegionFlag, useSiteRegion } from "./site-region";
 import { SiteHeader } from "./site-header";
 import { SectionAnchor } from "./section-anchor";
 import styles from "./caribbean-homepage.module.css";
 
+const IslandCoverageMap = dynamic(
+  () => import("./island-coverage-map").then((module) => module.IslandCoverageMap),
+  { ssr: false },
+);
+
 const steps = [
   {
     image: "enquiry",
     label: "Your free assessment",
-    title: "Get your free assessment.",
-    copy: "Choose your country, then tell us about your home, electricity use and what you’d like solar to do for you. It’s the first step towards a solution designed around your needs.",
-    outcome: "Your needs shared with our team, ready for an initial review.",
+    title: "Free assessment.",
+    copy: "Tell us about your home, electricity use and backup needs so our team can begin its review.",
     alt: "Illustration of a Caribbean homeowner making an online solar enquiry",
   },
   {
     image: "review",
     label: "Engineering review",
-    title: "Good planning starts with good questions.",
-    copy: "Our engineers review the information you share to explore an initial direction and identify what needs a closer look.",
-    outcome: "Initial guidance, before a detailed site assessment.",
+    title: "Engineering review.",
+    copy: "Our engineers review your details and offer initial guidance before a site assessment.",
     alt: "Illustration of an engineer reviewing roof plans",
   },
   {
     image: "survey",
     label: "Your site assessment",
-    title: "Your home. Not a template.",
-    copy: "A site visit helps us understand your roof, electrical setup and equipment locations, so the proposed design reflects your actual property.",
-    outcome: "A clearer plan based on real site conditions.",
+    title: "Your site assessment.",
+    copy: "We assess your roof, electrical setup and equipment locations to plan a system for your property.",
     alt: "Illustration of an engineer and homeowner assessing a Caribbean property",
   },
   {
     image: "installation",
     label: "Professional installation",
-    title: "From a considered plan to careful work.",
-    copy: "Once the design is agreed, we coordinate the installation and explain the arrangements, including access and anything you need to prepare.",
-    outcome: "An agreed scope and a coordinated installation.",
+    title: "Professional installation.",
+    copy: "Once you approve the design, we arrange installation and explain access and preparation requirements.",
     alt: "Illustration of solar installers working on an island home",
   },
   {
     image: "handover",
     label: "Handover & support",
-    title: "Confident from day one. Supported after.",
-    copy: "We check the system, walk you through its operation and monitoring, and explain how to reach us when you need support.",
-    outcome: "Know your system. Know who to call.",
+    title: "Handover & support.",
+    copy: "We check your system, show you how to use and monitor it, and explain how to reach our support team.",
     alt: "Illustration of a solar system handover to a homeowner",
   },
 ];
 const scenarios = [
   {
+    label: "Savings",
+    mobileTitle: "Use more of your own solar.",
+    mobileCopy: "Store daytime solar for the evening and reduce the electricity you buy from the grid.",
     image: "/images/caribbean/hybrid-evening.webp",
     alt: "Concept of a Caribbean solar and battery home illuminated after sunset",
-    tag: "Economic value",
     title: "Make your sunshine go further.",
     copy: "Store surplus daytime solar for evening use. Using more of your own energy can help reduce electricity purchases from the grid.",
   },
   {
+    label: "Backup",
+    mobileTitle: "Keep the essentials running.",
+    mobileCopy: "Support essential appliances during outages. Runtime depends on battery capacity and the loads you choose.",
     image: "/images/caribbean/hybrid-backup.webp",
     alt: "Concept of a family enjoying essential lighting and kitchen routines in a Caribbean home at dusk",
-    tag: "Power resilience",
     title: "A reserve for what matters most.",
     copy: "A system configured for essential backup can support lighting, refrigeration and home connectivity during a grid interruption. Runtime depends on battery capacity and the loads you choose.",
   },
   {
+    label: "Clean energy",
+    mobileTitle: "Clean energy, after sunset too.",
+    mobileCopy: "Generate renewable electricity at home and store it for use beyond daylight hours.",
     image: "/images/caribbean/hybrid-clean.webp",
     alt: "Concept of everyday garden life beside a Caribbean home with rooftop solar",
-    tag: "Greener living",
     title: "More sunshine in everyday life.",
     copy: "Generate renewable electricity at home and extend its usefulness beyond daylight hours. Solar and storage bring more locally generated clean energy into your daily routines.",
   },
@@ -99,17 +110,71 @@ const faqs = [
   ],
 ];
 
+const WISHLIST_RECEIPTS_KEY = "sol-tide:island-wishlist:receipts:v1";
+
+function wishlistReceipts(): string[] {
+  try {
+    const value: unknown = JSON.parse(sessionStorage.getItem(WISHLIST_RECEIPTS_KEY) || "[]");
+    return Array.isArray(value) ? value.filter((code): code is string => typeof code === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
 export function CaribbeanHomepage() {
   const { choose } = useSiteRegion();
   const [step, setStep] = useState(0);
   const [slide, setSlide] = useState(0);
+  const [controlExpanded, setControlExpanded] = useState(false);
+  const [plannedExpanded, setPlannedExpanded] = useState(false);
+  const [desktopMapVisible, setDesktopMapVisible] = useState(false);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 701px)");
+    const syncPlannedRegions = () => {
+      setPlannedExpanded(desktop.matches);
+      setDesktopMapVisible(desktop.matches);
+    };
+    syncPlannedRegions();
+    desktop.addEventListener("change", syncPlannedRegions);
+    return () => desktop.removeEventListener("change", syncPlannedRegions);
+  }, []);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
   const [wishlistStatus, setWishlistStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
   const [wishlistError, setWishlistError] = useState("");
   const [wishlistIsland, setWishlistIsland] = useState("");
   const wishlistSending = useRef(false);
+  const wishlistRequest = useRef<AbortController | null>(null);
+  const wishlistDialog = useRef<HTMLDialogElement>(null);
+  const wishlistOpener = useRef<HTMLElement | SVGElement | null>(null);
   const wishlistReceipt = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const dialog = wishlistDialog.current;
+    if (!wishlistOpen) {
+      dialog?.close();
+      return;
+    }
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog?.showModal();
+    if (wishlistReceipt.current) wishlistReceipt.current.focus({ preventScroll: true });
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      wishlistRequest.current?.abort();
+    };
+  }, [wishlistOpen]);
+
+  function openWishlist(island = wishlistIsland) {
+    wishlistOpener.current = document.activeElement as HTMLElement | SVGElement;
+    setWishlistIsland(island);
+    if (island !== "OTHER" && wishlistReceipts().includes(island)) setWishlistStatus("success");
+    else if (island !== wishlistIsland || wishlistStatus === "success") {
+      setWishlistStatus("idle");
+      setWishlistError("");
+    }
+    setWishlistOpen(true);
+  }
   useEffect(() => {
     if (wishlistStatus === "success")
       wishlistReceipt.current?.focus({ preventScroll: true });
@@ -119,6 +184,8 @@ export function CaribbeanHomepage() {
     event.preventDefault();
     if (wishlistSending.current) return;
     const form = new FormData(event.currentTarget);
+    const controller = new AbortController();
+    wishlistRequest.current = controller;
     wishlistSending.current = true;
     setWishlistStatus("sending");
     setWishlistError("");
@@ -131,7 +198,7 @@ export function CaribbeanHomepage() {
           islandCode: form.get("islandCode"),
           otherIsland: form.get("otherIsland") ?? "",
         }),
-        signal: AbortSignal.timeout(20_000),
+        signal: AbortSignal.any([AbortSignal.timeout(20_000), controller.signal]),
       });
       const result = await response.json();
       if (!response.ok || result.ok !== true) {
@@ -142,6 +209,13 @@ export function CaribbeanHomepage() {
                 "We couldn’t save your request. Please try again.",
         );
       }
+      // Keep only the confirmed location codes for this tab, never contact details.
+      try {
+        const islandCode = String(form.get("islandCode"));
+        if (islandCode !== "OTHER") sessionStorage.setItem(WISHLIST_RECEIPTS_KEY, JSON.stringify(
+          [...new Set([...wishlistReceipts(), islandCode])],
+        ));
+      } catch { /* A confirmed request remains successful when storage is unavailable. */ }
       setWishlistStatus("success");
     } catch (error) {
       setWishlistError(
@@ -152,6 +226,7 @@ export function CaribbeanHomepage() {
       setWishlistStatus("error");
     } finally {
       wishlistSending.current = false;
+      wishlistRequest.current = null;
     }
   }
   const [rotationEnabled, setRotationEnabled] = useState(true);
@@ -166,11 +241,13 @@ export function CaribbeanHomepage() {
   const lastSwipeAt = useRef(0);
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const respectMotion = () => setRotationEnabled(!motion.matches);
+    const mobile = window.matchMedia("(max-width: 700px)");
+    const respectMotion = () => setRotationEnabled(!motion.matches && !mobile.matches);
     const updateVisibility = () => setPageVisible(!document.hidden);
     respectMotion();
     updateVisibility();
     motion.addEventListener("change", respectMotion);
+    mobile.addEventListener("change", respectMotion);
     document.addEventListener("visibilitychange", updateVisibility);
     const observer = new IntersectionObserver(
       ([entry]) => setCarouselVisible(entry.isIntersecting),
@@ -180,6 +257,7 @@ export function CaribbeanHomepage() {
     return () => {
       observer.disconnect();
       motion.removeEventListener("change", respectMotion);
+      mobile.removeEventListener("change", respectMotion);
       document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
@@ -224,7 +302,6 @@ export function CaribbeanHomepage() {
             className={styles.heroImage}
           />
           <div className={styles.heroContent}>
-            <p className={styles.kicker}>ISLAND LIFE. THOUGHTFULLY POWERED.</p>
             <h1 id="caribbean-title">
               More confidence
               <br />
@@ -232,33 +309,39 @@ export function CaribbeanHomepage() {
               <br />
               <em>energy.</em>
             </h1>
-            <p>
-              Solar and battery solutions for Caribbean homes.
-              <br />
-              Clear guidance. Thoughtful planning. Support beyond installation.
-            </p>
-            <div className={styles.actions}>
-              <SectionAnchor href="#countries" className={styles.primary}>
-                Explore your country <span aria-hidden="true">↗</span>
-              </SectionAnchor>
-              <SectionAnchor href="#journey" className={styles.heroLink}>
-                See how it works <span aria-hidden="true">↓</span>
-              </SectionAnchor>
+            <div className={styles.heroDetails}>
+              <p>
+                Solortide by Sol &amp; Tide Energy.
+                <br />
+                Solar and battery solutions for Caribbean homes.
+              </p>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  className={styles.mobileConsultation}
+                  aria-haspopup="dialog"
+                  onClick={() => choose("assessment")}
+                >
+                  Get a Free Consultation
+                </button>
+                <SectionAnchor href="#countries" className={styles.primary}>
+                  Explore your country <span className={styles.heroActionIcon} aria-hidden="true">↗</span>
+                </SectionAnchor>
+                <SectionAnchor href="#journey" className={styles.heroLink}>
+                  See how it works <span aria-hidden="true">↓</span>
+                </SectionAnchor>
+              </div>
             </div>
           </div>
           <div className={styles.heroBottom}>
+            <span>Rooted in island life.</span>
             <span>
-              Rooted in island life.
-              <br />
-              <strong>Designed around your home.</strong>
-            </span>
-            <span>
-              Currently serving
-              <br />
               <strong>Antigua & Barbuda · Dominica</strong>
             </span>
           </div>
         </section>
+
+        <SolarPackageSelectionProvider><SolarPackages /></SolarPackageSelectionProvider>
 
         <section
           className={`${styles.section} ${styles.countries}`}
@@ -270,7 +353,15 @@ export function CaribbeanHomepage() {
             <div>
               <h2 id="countries-title">Choose your island.</h2>
             </div>
+            <div className={styles.countryLegend} aria-label="Map legend">
+              <span><i aria-hidden="true" />Now serving</span>
+              <span><i className={styles.plannedLegendKey} aria-hidden="true" />Planned · join wishlist</span>
+            </div>
           </div>
+          <div className={styles.desktopMap}>
+            {desktopMapVisible && <IslandCoverageMap onWishlist={openWishlist} />}
+          </div>
+          <div className={styles.mobileCountryPicker}>
           <div className={styles.countryGrid}>
             {(
               [
@@ -278,152 +369,206 @@ export function CaribbeanHomepage() {
                   "AG",
                   "antigua",
                   "Antigua & Barbuda",
-                  "Sunshine, savings and a smarter backup plan.",
                 ],
                 [
                   "DM",
                   "dominica",
                   "Dominica",
-                  "Thoughtful energy solutions for the Nature Island.",
                 ],
               ] as const
-            ).map(([code, slug, title, copy]) => (
+            ).map(([code, slug, title]) => (
               <Link
                 href={`/${slug}`}
                 prefetch={false}
                 className={styles.countryCard}
                 key={code}
               >
-                <div className={styles.countryTop}>
-                  <div className={styles.countryFlag}>
-                    <RegionFlag country={code} large />
-                  </div>
+                <div className={styles.countryFlag}>
+                  <RegionFlag country={code} large />
                 </div>
-                <div className={styles.countryCopy}>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                </div>
-                <div className={styles.countryBottom}>
-                  <span>Explore your island</span>
-                  <span className={styles.arrow} aria-hidden="true">
-                    ↗
-                  </span>
-                </div>
+                <h3>{title}</h3>
               </Link>
             ))}
           </div>
-          <aside className={styles.expansion} aria-labelledby="expansion-title">
-            <div className={styles.expansionCopy}>
-              <h3 id="expansion-title">
-                The horizon is
-                <br />
-                <em>only the beginning.</em>
-              </h3>
+          <button
+            type="button"
+            className={styles.plannedToggle}
+            aria-expanded={plannedExpanded}
+            aria-controls="planned-island-locations"
+            onClick={() => setPlannedExpanded((open) => !open)}
+          >
+            More islands <span aria-hidden="true">{plannedExpanded ? "−" : "+"}</span>
+          </button>
+          <div id="planned-island-locations" className={styles.plannedRegions} data-expanded={plannedExpanded}>
+            <ul className={styles.islandList} aria-label="Planned island locations">
+              {Object.entries(UPCOMING_ISLANDS).map(([code, name]) => (
+                <li key={code}>
+                  <button type="button" onClick={() => openWishlist(code)} aria-haspopup="dialog" aria-label={`Get launch updates for ${name}`} title={name}>
+                    <Image src={`/flags/${code.toLowerCase()}.svg`} alt="" width={32} height={24} unoptimized />
+                    <span className={styles.islandCode} aria-hidden="true">
+                      {code === "SABA" ? "SAB" : code === "BONAIRE" ? "BON" : code}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          </div>
+        </section>
+
+        <section
+          id="hybrid-system"
+          className={styles.scenarios}
+          aria-labelledby="scenarios-title"
+          tabIndex={-1}
+        >
+          <div className={styles.scenarioHeading}>
+            <h2 id="scenarios-title">
+              <span className={styles.desktopBenefitCopy}>Save the sunshine<br /><em>for life after sunset.</em></span>
+              <span className={styles.mobileBenefitCopy}>Solar, day and night.</span>
+            </h2>
+            <p>
+              Rooftop solar, battery storage and intelligent energy management,
+              working with the grid as one connected home energy system.
+            </p>
+          </div>
+          <div
+            ref={carouselRef}
+            onMouseEnter={() => setCarouselHovered(true)}
+            onMouseLeave={() => setCarouselHovered(false)}
+          >
+            <div
+              className={styles.carousel}
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="Benefits of hybrid solar and storage"
+              onTouchStart={(event) => {
+                touchStart.current = event.touches[0].clientX;
+              }}
+              onTouchEnd={(event) => {
+                if (touchStart.current !== null) {
+                  const delta =
+                    event.changedTouches[0].clientX - touchStart.current;
+                  if (Math.abs(delta) > 55) {
+                    lastSwipeAt.current = Date.now();
+                    moveSlide(delta > 0 ? -1 : 1);
+                  }
+                }
+                touchStart.current = null;
+              }}
+              onTouchCancel={() => {
+                touchStart.current = null;
+              }}
+            >
+              {scenarios.map((item, index) => {
+                const position =
+                  (index - slide + scenarios.length) % scenarios.length;
+                return (
+                  <article
+                    key={item.image}
+                    className={styles.scenarioCard}
+                    data-position={position}
+                    aria-hidden={position !== 0}
+                  >
+                    <ViewportImage
+                      enabled={carouselVisible}
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 700px) 84vw, 60vw"
+                    />
+                    <div>
+                      <h3><span className={styles.desktopBenefitCopy}>{item.title}</span><span className={styles.mobileBenefitCopy}>{item.mobileTitle}</span></h3>
+                      <p><span className={styles.desktopBenefitCopy}>{item.copy}</span><span className={styles.mobileBenefitCopy}>{item.mobileCopy}</span></p>
+                    </div>
+                    {position === 0 && (
+                      <span
+                        className={styles.carouselProgress}
+                        aria-hidden="true"
+                      >
+                        <span
+                          key={slide}
+                          className={styles.carouselProgressFill}
+                          style={{
+                            animationPlayState: rotating ? "running" : "paused",
+                          }}
+                          onAnimationEnd={() => {
+                            if (rotating) moveSlide(1);
+                          }}
+                        />
+                      </span>
+                    )}
+                  </article>
+                );
+              })}
+              <button
+                type="button"
+                className={styles.carouselHitArea}
+                aria-label="Show next solar benefit"
+                onClick={(event) => {
+                  if (
+                    event.detail !== 0 &&
+                    Date.now() - lastSwipeAt.current < 600
+                  )
+                    return;
+                  moveSlide(1);
+                }}
+              />
+            </div>
+          </div>
+          <div className={styles.benefitSelector} role="group" aria-label="Choose a solar benefit">
+            <span className={styles.benefitSelection} aria-hidden="true" style={{ transform: `translateX(${slide * 100}%)` }} />
+            {scenarios.map((item, index) => (
+              <button key={item.label} type="button" aria-pressed={slide === index} onClick={() => setSlide(index)}>{item.label}</button>
+            ))}
+          </div>
+          <div className={styles.hybridControl} data-expanded={controlExpanded}>
+            <button type="button" className={styles.controlToggle} aria-expanded={controlExpanded} aria-controls="hybrid-details" onClick={() => setControlExpanded((open) => !open)}>
+              System controls &amp; limits <span aria-hidden="true">{controlExpanded ? "−" : "+"}</span>
+            </button>
+            <div id="hybrid-details" className={styles.hybridDetails}>
+            <div className={styles.hybridControlHeading}>
+              <div>
+                <h3>
+                  Simple control.
+                  <br />A clearer view of your energy.
+                </h3>
+              </div>
               <p>
-                Starting with Antigua &amp; Barbuda and Dominica, our vision
-                reaches further across the Caribbean. More island homes. More
-                possibilities for brighter, cleaner energy.
+                Solar generates. The battery stores. Your home uses. A connected
+                app brings generation, consumption and battery charge into one
+                view.
               </p>
             </div>
-            {wishlistStatus === "success" ? (
-              <div
-                className={`${styles.wishlist} ${styles.wishlistSuccess}`}
-                ref={wishlistReceipt}
-                tabIndex={-1}
-                role="status"
-              >
-                <span className={styles.wishlistCheck} aria-hidden="true">
-                  ✓
-                </span>
-                <h4>
-                  Your wish is
-                  <br />
-                  on our list.
-                </h4>
+            <div className={styles.hybridModes}>
+              <article>
+                <h4>Self-consumption</h4>
                 <p>
-                  We’ve received your request. You’ll be among the first to hear
-                  when we launch in your area.
+                  Use solar at home first, then save surplus energy for later.
                 </p>
-                <p className={styles.wishlistThanks}>
-                  Thank you for helping shape our next chapter.
+              </article>
+              <article>
+                <h4>Backup priority</h4>
+                <p>Reserve battery energy for your selected essential loads.</p>
+              </article>
+              <article>
+                <h4>Time-of-use</h4>
+                <p>
+                  Schedule battery use around higher-priced periods where your
+                  electricity tariff and equipment support it.
                 </p>
-              </div>
-            ) : (
-              <form
-                className={styles.wishlist}
-                aria-labelledby="wishlist-title"
-                aria-busy={wishlistStatus === "sending"}
-                onSubmit={submitWishlist}
-              >
-                <div className={styles.wishlistHeading}>
-                  <h4 id="wishlist-title">Bring solar to your island</h4>
-                </div>
-                <label htmlFor="wishlist-island">Where are you located?</label>
-                <select
-                  id="wishlist-island"
-                  name="islandCode"
-                  value={wishlistIsland}
-                  onChange={(event) => setWishlistIsland(event.target.value)}
-                  required
-                  disabled={wishlistStatus === "sending"}
-                >
-                  <option value="" disabled>
-                    Select your island or territory…
-                  </option>
-                  {Object.entries(WISHLIST_ISLANDS).map(([code, name]) => (
-                    <option key={code} value={code}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-                {wishlistIsland === "OTHER" && (
-                  <>
-                    <label htmlFor="wishlist-other">
-                      Your island or territory
-                    </label>
-                    <input
-                      id="wishlist-other"
-                      name="otherIsland"
-                      required
-                      minLength={2}
-                      maxLength={100}
-                      disabled={wishlistStatus === "sending"}
-                    />
-                  </>
-                )}
-                <label htmlFor="wishlist-contact">Your email address</label>
-                <input
-                  id="wishlist-contact"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="you@example.com"
-                  maxLength={254}
-                  required
-                  disabled={wishlistStatus === "sending"}
-                  aria-describedby="wishlist-disclaimer"
-                />
-                <button type="submit" disabled={wishlistStatus === "sending"}>
-                  {wishlistStatus === "sending"
-                    ? "Sending…"
-                    : "Notify me when launched"}{" "}
-                  <span aria-hidden="true">→</span>
-                </button>
-                <p
-                  id="wishlist-disclaimer"
-                  className={styles.wishlistDisclaimer}
-                >
-                  We’ll use your email for launch updates in your area.{" "}
-                  <Link href="/privacy">Privacy policy</Link>
-                </p>
-                {wishlistStatus === "error" && (
-                  <p className={styles.wishlistFeedback} role="alert">
-                    {wishlistError}
-                  </p>
-                )}
-              </form>
-            )}
-          </aside>
+              </article>
+            </div>
+            <p className={styles.hybridCaveat}>
+              Available modes, savings and backup performance depend on
+              equipment, system design, household use and local tariffs.
+            </p>
+            </div>
+            <SectionAnchor href="#countries" className={styles.hybridLink}>
+              Explore solutions in your country{" "}
+              <span aria-hidden="true">↗</span>
+            </SectionAnchor>
+          </div>
         </section>
 
         <section
@@ -434,17 +579,8 @@ export function CaribbeanHomepage() {
         >
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.kicker}>CARE AT EVERY STEP</p>
-              <h2 id="journey-title">
-                A clear path.
-                <br />
-                Not a leap of faith.
-              </h2>
+              <h2 id="journey-title">From assessment to installation.</h2>
             </div>
-            <p>
-              From your first question to your finished system, know what
-              happens next — and why it matters.
-            </p>
           </div>
           <div className={styles.journeyGrid}>
             <div className={styles.stickyStory}>
@@ -461,7 +597,6 @@ export function CaribbeanHomepage() {
                     data-active={index === step}
                   />
                 ))}
-                <span className={styles.imageLabel}>Illustrative imagery</span>
                 <span className={styles.stepCount}>
                   0{step + 1}
                   <small> / 05</small>
@@ -503,17 +638,12 @@ export function CaribbeanHomepage() {
                       height={600}
                       sizes="90vw"
                     />
-                    <span>Illustrative imagery</span>
                   </div>
-                  <p className={styles.stepLabel}>
-                    0{index + 1} <span>{item.label}</span>
-                  </p>
-                  <h3>{item.title}</h3>
+                  <h3>
+                    <span className={styles.stepNumber} aria-hidden="true">0{index + 1}</span>
+                    {item.title}
+                  </h3>
                   <p>{item.copy}</p>
-                  <div className={styles.outcome}>
-                    <span>WHAT YOU TAKE AWAY</span>
-                    <p>{item.outcome}</p>
-                  </div>
                   {index === 0 && (
                     <button
                       type="button"
@@ -531,182 +661,13 @@ export function CaribbeanHomepage() {
         </section>
 
         <section
-          id="hybrid-system"
-          className={styles.scenarios}
-          aria-labelledby="scenarios-title"
-          tabIndex={-1}
-        >
-          <div className={styles.scenarioHeading}>
-            <p className={styles.kicker}>HYBRID SOLAR &amp; STORAGE</p>
-            <h2 id="scenarios-title">
-              Save the sunshine
-              <br />
-              <em>for life after sunset.</em>
-            </h2>
-            <p>
-              Rooftop solar, battery storage and intelligent energy management,
-              working with the grid as one connected home energy system.
-            </p>
-            <ul
-              className={styles.systemParts}
-              aria-label="Hybrid system components"
-            >
-              <li>Solar generation</li>
-              <li>Battery storage</li>
-              <li>Grid connection</li>
-              <li>Smart monitoring</li>
-            </ul>
-          </div>
-          <div
-            ref={carouselRef}
-            onMouseEnter={() => setCarouselHovered(true)}
-            onMouseLeave={() => setCarouselHovered(false)}
-          >
-            <div
-              className={styles.carousel}
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="Benefits of hybrid solar and storage"
-              onTouchStart={(event) => {
-                touchStart.current = event.touches[0].clientX;
-              }}
-              onTouchEnd={(event) => {
-                if (touchStart.current !== null) {
-                  const delta =
-                    event.changedTouches[0].clientX - touchStart.current;
-                  if (Math.abs(delta) > 55) {
-                    lastSwipeAt.current = Date.now();
-                    moveSlide(delta > 0 ? -1 : 1);
-                  }
-                }
-                touchStart.current = null;
-              }}
-              onTouchCancel={() => {
-                touchStart.current = null;
-              }}
-            >
-              {scenarios.map((item, index) => {
-                const position =
-                  (index - slide + scenarios.length) % scenarios.length;
-                return (
-                  <article
-                    key={item.tag}
-                    className={styles.scenarioCard}
-                    data-position={position}
-                    aria-hidden={position !== 0}
-                  >
-                    <ViewportImage
-                      enabled={carouselVisible}
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      sizes="(max-width: 700px) 84vw, 60vw"
-                    />
-                    <div>
-                      <span>{item.tag}</span>
-                      <h3>{item.title}</h3>
-                      <p>{item.copy}</p>
-                    </div>
-                    {position === 0 && (
-                      <span
-                        className={styles.carouselProgress}
-                        aria-hidden="true"
-                      >
-                        <span
-                          key={slide}
-                          className={styles.carouselProgressFill}
-                          style={{
-                            animationPlayState: rotating ? "running" : "paused",
-                          }}
-                          onAnimationEnd={() => {
-                            if (rotating) moveSlide(1);
-                          }}
-                        />
-                      </span>
-                    )}
-                  </article>
-                );
-              })}
-              <button
-                type="button"
-                className={styles.carouselHitArea}
-                aria-label="Show next solar benefit"
-                onClick={(event) => {
-                  if (
-                    event.detail !== 0 &&
-                    Date.now() - lastSwipeAt.current < 600
-                  )
-                    return;
-                  moveSlide(1);
-                }}
-              />
-            </div>
-          </div>
-          <p className={styles.scenarioNote}>
-            Concept visuals for illustration, not completed customer projects.
-          </p>
-          <div className={styles.hybridControl}>
-            <div className={styles.hybridControlHeading}>
-              <div>
-                <p className={styles.kicker}>ONE CONNECTED SYSTEM</p>
-                <h3>
-                  Simple control.
-                  <br />A clearer view of your energy.
-                </h3>
-              </div>
-              <p>
-                Solar generates. The battery stores. Your home uses. A connected
-                app brings generation, consumption and battery charge into one
-                view.
-              </p>
-            </div>
-            <div className={styles.hybridModes}>
-              <article>
-                <h4>Self-consumption</h4>
-                <p>
-                  Use solar at home first, then save surplus energy for later.
-                </p>
-              </article>
-              <article>
-                <h4>Backup priority</h4>
-                <p>Reserve battery energy for your selected essential loads.</p>
-              </article>
-              <article>
-                <h4>Time-of-use</h4>
-                <p>
-                  Schedule battery use around higher-priced periods where your
-                  electricity tariff and equipment support it.
-                </p>
-              </article>
-            </div>
-            <p className={styles.hybridCaveat}>
-              Available modes, savings and backup performance depend on
-              equipment, system design, household use and local tariffs.
-            </p>
-            <SectionAnchor href="#countries" className={styles.hybridLink}>
-              Explore solutions in your country{" "}
-              <span aria-hidden="true">↗</span>
-            </SectionAnchor>
-          </div>
-        </section>
-
-        <section
           className={`${styles.section} ${styles.faq}`}
           id="questions"
           tabIndex={-1}
           aria-labelledby="faq-title"
         >
           <div>
-            <p className={styles.kicker}>A LITTLE CLARITY</p>
-            <h2 id="faq-title">
-              Good questions.
-              <br />A good place to start.
-            </h2>
-            <p>
-              You don’t need all the answers
-              <br />
-              before you talk to us.
-            </p>
+            <h2 id="faq-title">Common questions.</h2>
             <button
               type="button"
               onClick={() => choose("faq")}
@@ -728,8 +689,8 @@ export function CaribbeanHomepage() {
             ))}
           </div>
         </section>
+
         <section className={styles.closing}>
-          <p>YOUR NEXT CHAPTER STARTS HERE</p>
           <h2>
             Let’s find your
             <br />
@@ -737,17 +698,138 @@ export function CaribbeanHomepage() {
           </h2>
           <div>
             <Link href="/antigua" prefetch={false}>
-              <RegionFlag country="AG" /> Antigua & Barbuda{" "}
-              <span aria-hidden="true">↗</span>
+              <RegionFlag country="AG" /> Antigua & Barbuda
             </Link>
             <Link href="/dominica" prefetch={false}>
-              <RegionFlag country="DM" /> Dominica{" "}
-              <span aria-hidden="true">↗</span>
+              <RegionFlag country="DM" /> Dominica
             </Link>
           </div>
         </section>
       </main>
 
+      <dialog
+        ref={wishlistDialog}
+        className={styles.wishlistDialog}
+        aria-labelledby="wishlist-title"
+        aria-describedby="wishlist-description"
+        onCancel={(event) => { event.preventDefault(); setWishlistOpen(false); }}
+        onClose={() => {
+          setWishlistOpen(false);
+          wishlistOpener.current?.focus({ preventScroll: true });
+        }}
+        onClick={(event) => {
+          if (event.target !== event.currentTarget) return;
+          const rect = event.currentTarget.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setWishlistOpen(false);
+        }}
+      >
+        <div className={styles.wishlistHeader}>
+          <div>
+            <h2 id="wishlist-title">Bring solar to your island</h2>
+            <p id="wishlist-description">Service isn’t available in these locations yet.</p>
+          </div>
+          <button type="button" className={styles.wishlistClose} aria-label="Close island wishlist" onClick={() => setWishlistOpen(false)}>×</button>
+        </div>
+            {wishlistStatus === "success" ? (
+              <div
+                className={`${styles.wishlist} ${styles.wishlistSuccess}`}
+                ref={wishlistReceipt}
+                tabIndex={-1}
+                role="status"
+              >
+                <span className={styles.wishlistCheck} aria-hidden="true">
+                  ✓
+                </span>
+                <h4>
+                  Your wish is
+                  <br />
+                  on our list.
+                </h4>
+                <p>
+                  We’ve received your request. We’ll email you when service
+                  launches in your area.
+                </p>
+              </div>
+            ) : (
+              <form
+                className={styles.wishlist}
+                aria-labelledby="wishlist-title"
+                aria-busy={wishlistStatus === "sending"}
+                onSubmit={submitWishlist}
+              >
+                <div className={styles.wishlistFields}>
+                  <label htmlFor="wishlist-island">Where are you located?</label>
+                  <select
+                    id="wishlist-island"
+                    name="islandCode"
+                    value={wishlistIsland}
+                    onChange={(event) => setWishlistIsland(event.target.value)}
+                    required
+                    disabled={wishlistStatus === "sending"}
+                  >
+                    <option value="" disabled>
+                      Select your island or territory…
+                    </option>
+                    {Object.entries(WISHLIST_ISLANDS).map(([code, name]) => (
+                      <option key={code} value={code}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                  {wishlistIsland === "OTHER" && (
+                    <>
+                      <label htmlFor="wishlist-other">
+                        Your island or territory
+                      </label>
+                      <input
+                        id="wishlist-other"
+                        name="otherIsland"
+                        required
+                        minLength={2}
+                        maxLength={100}
+                        disabled={wishlistStatus === "sending"}
+                      />
+                    </>
+                  )}
+                  <label htmlFor="wishlist-contact">Your email address</label>
+                  <input
+                    id="wishlist-contact"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    maxLength={254}
+                    required
+                    disabled={wishlistStatus === "sending"}
+                    aria-describedby="wishlist-disclaimer"
+                  />
+
+                  <p
+                    id="wishlist-disclaimer"
+                    className={styles.wishlistDisclaimer}
+                  >
+                    We’ll use your email for launch updates in your area.{" "}
+                    <PrivacyLink />
+                  </p>
+                  {wishlistStatus === "error" && (
+                    <p className={styles.wishlistFeedback} role="alert">
+                      {wishlistError}
+                    </p>
+                  )}
+                </div>
+                <div className={styles.wishlistActions}>
+                  <button type="submit" disabled={wishlistStatus === "sending"}>
+                    {wishlistStatus === "sending"
+                      ? "Sending…"
+                      : "Notify me when launched"}{" "}
+                    <span aria-hidden="true">→</span>
+                  </button>
+                </div>
+              </form>
+            )}
+      </dialog>
+
+      <HomepageFloatingContact blocked={wishlistOpen} />
       <SiteFooter caribbean />
     </div>
   );

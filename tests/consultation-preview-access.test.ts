@@ -14,10 +14,12 @@ test("preview access requires a matching stored hash, not an expiry or submissio
   let stored = true;
   let calls = 0;
   const submission = { country_code: "AG", submitted_at: "2020-01-01T00:00:00Z" };
-  globalThis.fetch = async (input) => {
+  globalThis.fetch = async (input, init) => {
     calls++;
     const url = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url);
     assert.equal(url.pathname, "/rest/v1/consultation_preview_tokens");
+    assert.equal(init?.cache, "no-store");
+    assert.ok(url.searchParams.get("select")?.includes("monthly_kwh,consumption_profile"));
     assert.equal(url.searchParams.has("expires_at"), false);
     assert.equal(url.searchParams.get("token_hash"), `eq.${createHash("sha256").update(token).digest("hex")}`);
     return new Response(JSON.stringify(stored ? [{ tally_form_submissions: submission }] : []), {

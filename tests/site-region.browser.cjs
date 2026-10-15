@@ -71,7 +71,6 @@ const origin = process.env.REGION_TEST_ORIGIN || 'http://127.0.0.1:3003';
       await page.locator('footer button[aria-label="Change installation location"]').click();
       const dialog = page.getByRole('dialog', { name: 'Where would you like to install your system?' });
       await dialog.getByRole('button', { name: /Antigua.*Barbuda/ }).click();
-      await dialog.getByRole('button', { name: 'Save location' }).click();
       await page.waitForURL(`${origin}/antigua/faq`);
       await page.goBack({ waitUntil: 'domcontentloaded' });
       assert.match(await page.locator('header button[aria-label="Change installation location"]').innerText(), /Dominica/);
@@ -81,17 +80,16 @@ const origin = process.env.REGION_TEST_ORIGIN || 'http://127.0.0.1:3003';
       assert.equal(await page.locator('#contact-email').isDisabled(), false);
       await page.locator('footer button[aria-label="Change installation location"]').click();
       await dialog.waitFor({ state: 'visible' });
-      assert.equal(await dialog.getByRole('button', { name: /Antigua.*Barbuda/ }).getAttribute('aria-pressed'), 'true');
+      assert.equal(await dialog.getByRole('button', { name: /Antigua.*Barbuda/ }).getAttribute('aria-pressed'), null);
       await page.keyboard.press('Escape');
       assert.equal(await dialog.isVisible(), false);
       await page.locator('footer button[aria-label="Change installation location"]').click();
-      await dialog.getByRole('button', { name: 'Save location' }).click();
-      assert.equal(page.url(), `${origin}/antigua`, 'saving the current country is a no-op');
+      await dialog.getByRole('button', { name: /Antigua/ }).click();
+      assert.equal(page.url(), `${origin}/antigua`, 'choosing the current country is a no-op');
       assert.equal(await page.locator('dialog[open]').count(), 0);
       assert.equal(await page.evaluate(() => document.documentElement.dataset.siteLoading), undefined);
       await page.locator('footer button[aria-label="Change installation location"]').click();
       await dialog.getByRole('button', { name: /Dominica/ }).click();
-      await dialog.getByRole('button', { name: 'Save location' }).click();
       await page.waitForURL(`${origin}/dominica`);
       await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
       await page.goBack();
@@ -99,13 +97,9 @@ const origin = process.env.REGION_TEST_ORIGIN || 'http://127.0.0.1:3003';
       await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
       assert.equal(await dialog.isVisible(), false);
       assert.match(await page.locator('header button[aria-label="Change installation location"]').innerText(), /Antigua/);
-      await page.goto(`${origin}/consultation`, { waitUntil: 'domcontentloaded' });
-      assert.ok(await page.locator('a[href="/dominica/consultation"]').count());
-      assert.ok(await page.locator('a[href="/antigua/consultation"]').count());
-      await page.goto(`${origin}/faq`, { waitUntil: 'domcontentloaded' });
-      await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
-      await page.locator('#ask-question').scrollIntoViewIfNeeded();
-      assert.equal(await page.locator('#contact-email').isDisabled(), true, 'generic FAQ remains region-neutral');
+      for (const path of ['/consultation', '/faq', '/how-it-works', '/antigua/privacy', '/dominica/privacy']) {
+        assert.equal((await context.request.get(origin + path)).status(), 404, path);
+      }
       // A streamed notFound response may have sent HTTP 200 before resolution.
       // Check the rendered error and noindex, never an Antigua fallback.
       await page.goto(`${origin}/unsupported-country`, { waitUntil: 'domcontentloaded' });

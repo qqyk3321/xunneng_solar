@@ -114,7 +114,16 @@ export function simulateYear(generation: number[], dailyKwh: number, profile: nu
       const h = i % 24, flow = step(generation[offset], loads[offset], soc);
       offset++;
       soc = flow.soc;
-      for (const key of Object.keys(flow) as (keyof typeof flow)[]) hourly[h][key] += flow[key] / days;
+      // Keep the hourly accumulation allocation-free inside the candidate search.
+      const hour = hourly[h];
+      hour.load += flow.load / days;
+      hour.generation += flow.generation / days;
+      hour.pvDirect += flow.pvDirect / days;
+      hour.batteryCharge += flow.batteryCharge / days;
+      hour.battery += flow.battery / days;
+      hour.grid += flow.grid / days;
+      hour.export += flow.export / days;
+      hour.soc += flow.soc / days;
       result.consumption += flow.load;
       result.generation += flow.generation;
       result.grid += flow.grid;

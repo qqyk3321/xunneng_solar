@@ -1,4 +1,5 @@
-// No legacy field heuristics: map the new Tally keys explicitly.
+import { parseEnergyInput, type ConsumptionProfile } from "./energy-input.ts";
+// No label heuristics: map Tally keys explicitly.
 export const FIELD_NAMES = [
   "installation_country",
   "name",
@@ -12,7 +13,8 @@ export const FIELD_NAMES = [
 ] as const;
 type FieldName = (typeof FIELD_NAMES)[number];
 type Obj = Record<string, unknown>;
-type Config = { formId: string; fields: Record<FieldName, string> };
+type ExtraField = "full_address" | "monthly_kwh" | "consumption_profile";
+type Config = { formId: string; fields: Record<FieldName, string> & Partial<Record<ExtraField, string>> };
 export type SubmissionRow = {
   form_id: string;
   submission_id: string;
@@ -22,10 +24,13 @@ export type SubmissionRow = {
   name: string;
   email: string;
   phone: string;
+  monthly_kwh: number | null;
+  consumption_profile: ConsumptionProfile | null;
   address: {
-    parish: string;
-    town: string;
-    street: string;
+    full_address?: string;
+    parish: string | null;
+    town: string | null;
+    street: string | null;
     building: string | null;
     directions: string | null;
   };
@@ -53,9 +58,12 @@ export function parseConfig(raw: string | undefined): Config | null {
     )
       return null;
     const keys = FIELD_NAMES.map((name) => fields[name]);
+    for (const name of ["full_address", "monthly_kwh", "consumption_profile"])
+      if (fields[name] !== undefined) keys.push(fields[name]);
     if (
       keys.some((key) => typeof key !== "string" || !key.trim()) ||
-      new Set(keys).size !== keys.length
+      new Set(keys).size !== keys.length ||
+      Boolean(fields.monthly_kwh) !== Boolean(fields.consumption_profile)
     )
       return null;
     return { formId: config.formId, fields: fields as Config["fields"] };
@@ -90,8 +98,8 @@ function extract(payload: Obj, config: Config): SubmissionRow {
       throw new Error("Invalid or duplicate field key");
     fields.set(key, field);
   }
-  function read(name: FieldName, max: number, required = true): string | null {
-    const field = fields.get(config.fields[name]);
+  function read(name: FieldName | ExtraField, max: number, required = true): string | null {
+    const field = fields.get(config.fields[name] ?? "");
     if (!field) {
       if (!required) return null;
       throw new Error("Missing field: " + name);
@@ -107,7 +115,7 @@ function extract(payload: Obj, config: Config): SubmissionRow {
       throw new Error("Invalid field: " + name);
     return value;
   }
-  const country = read("installation_country", 2);
+  const country = read("installation_country", 2, false) ?? "AG";
   if (country !== "AG" && country !== "DM")
     throw new Error("Invalid installation_country");
   const name = read("name", 200)!;
@@ -118,6 +126,10 @@ function extract(payload: Obj, config: Config): SubmissionRow {
   const digits = phone.replace(/\D/g, "");
   if (!/^\+[\d ()-]+$/.test(phone) || digits.length < 7 || digits.length > 15)
     throw new Error("Phone must include an international country code");
+  const fullAddress = read("full_address", 3000, false);
+  const energy = config.fields.monthly_kwh
+    ? parseEnergyInput(fields.get(config.fields.monthly_kwh)?.value, fields.get(config.fields.consumption_profile!)?.value)
+    : { monthly_kwh: null, consumption_profile: null };
   return {
     form_id: config.formId,
     submission_id: submissionId,
@@ -127,10 +139,12 @@ function extract(payload: Obj, config: Config): SubmissionRow {
     name,
     email,
     phone,
+    ...energy,
     address: {
-      parish: read("parish", 200)!,
-      town: read("town", 200)!,
-      street: read("street", 500)!,
+      ...(fullAddress ? { full_address: fullAddress } : {}),
+      parish: read("parish", 200, !fullAddress),
+      town: read("town", 200, !fullAddress),
+      street: read("street", 500, !fullAddress),
       building: read("building", 300, false),
       directions: read("directions", 2000, false),
     },

@@ -1,0 +1,154 @@
+[
+  {
+    "path": "/test-pages/cookie-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/test-pages",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/auth-preview/action",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/auth-preview/confirm",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/auth-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/auth-preview/session",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/auth-preview/update-password",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/home-preview/contact",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/home-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/my-submissions-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/antigua-calculator-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/contact-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/contact-preview/submit",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/contact-submissions-preview/[id]/data",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/contact-submissions-preview/[id]/download",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/contact-submissions-preview/[id]",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/contact-submissions-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/image-upload-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/image-upload-preview/upload",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/rich-text-preview",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/rich-text-preview/submit",
+    "methods": [
+      "POST"
+    ]
+  },
+  {
+    "path": "/rich-text-preview/view",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/submission-preview-test",
+    "methods": [
+      "GET"
+    ]
+  },
+  {
+    "path": "/api/geocode",
+    "methods": [
+      "GET",
+      "POST"
+    ]
+  },
+  {
+    "path": "/api/reverse-geocode",
+    "methods": [
+      "GET",
+      "POST"
+    ]
+  }
+]

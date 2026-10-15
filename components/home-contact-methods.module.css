@@ -1,0 +1,139 @@
+.methods {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 168px;
+  align-items: center;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.links > a,
+.links > [aria-disabled="true"],
+.email {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: #087c86;
+  font: 500 14px/1.5 "Plus Jakarta Sans", sans-serif;
+  text-decoration: none;
+}
+
+.links :is(svg, img) {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.email a,
+.email button {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.links a:hover,
+.links button:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.links a:focus-visible,
+.links button:focus-visible {
+  outline: 2px solid #087c86;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.qrCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 168px;
+  margin: 0;
+  padding: 4px 11px;
+  border: 1px solid #c9ded7;
+  border-radius: 12px;
+  background: #fff;
+  cursor: zoom-in;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.qrCard:hover {
+  border-color: #127c49;
+  box-shadow: 0 0 0 2px #127c4914;
+}
+
+.qrCard:focus-visible {
+  outline: 2px solid #087c86;
+  outline-offset: 4px;
+}
+
+.qrLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #127c49;
+  font: 600 13px/20px "Plus Jakarta Sans", sans-serif;
+}
+
+.qrLabel :is(svg, img) {
+  width: 16px;
+  height: 16px;
+}
+
+.methods .qr {
+  display: block;
+  width: 144px;
+  height: 144px;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .methods {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 901px) {
+  .methods {
+    grid-template-columns: minmax(0, 1fr) 144px;
+  }
+  .qrCard {
+    width: 144px;
+    min-height: 176px;
+    justify-content: center;
+  }
+  .methods .qr {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 900px) {
+  .methods {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+  }
+  .qrCard {
+    display: none;
+  }
+}
+
+.links > [aria-disabled="true"] {
+  color: #607a7e;
+  cursor: default;
+}

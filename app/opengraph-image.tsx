@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Sol & Tide Energy — Solar and battery storage for Caribbean homes";
+  "Solortide by Sol & Tide Energy — Solar and battery storage for Caribbean homes";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,7 +29,7 @@ export default function SocialImage() {
             background: "#f59a45",
           }}
         />
-        <div style={{ fontSize: 32 }}>Sol &amp; Tide Energy</div>
+        <div style={{ fontSize: 32 }}>Solortide | Sol &amp; Tide Energy</div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         <div style={{ fontSize: 68, fontWeight: 700, lineHeight: 1.12 }}>

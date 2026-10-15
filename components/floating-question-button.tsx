@@ -2,14 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./floating-question-button.module.css";
-import { WhatsAppDialog } from "./whatsapp-contact";
+import { WhatsAppDialog, WhatsAppIcon } from "./whatsapp-contact";
 
 export function FloatingQuestionButton({
   onOpen,
   disabled,
+  compact = false,
 }: {
-  onOpen: () => void;
+  onOpen?: () => void;
   disabled: boolean;
+  compact?: boolean;
   action?: "dialog" | "scroll";
 }) {
   const button = useRef<HTMLButtonElement>(null);
@@ -47,6 +49,7 @@ export function FloatingQuestionButton({
         open={contactOpen}
         onClose={() => setContactOpen(false)}
         onMessage={onOpen}
+        compact={compact}
       />
       <button
         ref={button}
@@ -64,7 +67,7 @@ export function FloatingQuestionButton({
         }
         data-dragging={dragging || undefined}
         disabled={disabled}
-        aria-label="Ask a question"
+        aria-label="Chat on WhatsApp"
         aria-haspopup="dialog"
         data-tip-right={position && position.left < 140 ? true : undefined}
         data-tip-below={position && position.top < 60 ? true : undefined}
@@ -118,22 +121,9 @@ export function FloatingQuestionButton({
           setContactOpen(true);
         }}
       >
-        <span className={styles.ripple} aria-hidden="true" />
-        <span className={styles.water} aria-hidden="true" />
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          aria-hidden="true"
-        >
-          <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H5l-3 3V11.5a9 9 0 0 1 18 0Z" />
-          <path d="M7 10h8M7 14h5" />
-        </svg>
+        <WhatsAppIcon />
         <span className={styles.tooltip} aria-hidden="true">
-          Ask a question
+          Chat on WhatsApp
         </span>
       </button>
     </>

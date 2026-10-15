@@ -3,15 +3,15 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { beforeSendAnalytics, isAnalyticsPath } from "../lib/web-analytics";
 
-test("analytics includes only home, regional homes and consultation pages", () => {
-  for (const path of ["/", "/antigua", "/dominica", "/consultation", "/antigua/consultation", "/dominica/consultation"]) {
+test("analytics includes all ten canonical public pages", () => {
+  for (const path of ["/", "/privacy", "/antigua", "/dominica", "/antigua/consultation", "/dominica/consultation", "/antigua/faq", "/dominica/faq", "/antigua/how-it-works", "/dominica/how-it-works"]) {
     assert.equal(isAnalyticsPath(path), true);
     assert.deepEqual(beforeSendAnalytics({ type: "pageview", url: `https://www.solortide.com${path}` }), { type: "pageview", url: `https://www.solortide.com${path}` });
   }
 });
 
 test("excluded paths, including nested lookalikes and sensitive links, never produce events", () => {
-  for (const path of [null, "/faq", "/privacy", "/antigua/faq", "/dominica/privacy", "/solar-analysis", "/solar-analysis/visit", "/antigua/submission/secret", "/submission-preview-test", "/test-pages", "/unknown", "/consultation/private", "/antigua-other", "/dominica/consultation/secret"]) {
+  for (const path of [null, "/consultation", "/faq", "/dominica/privacy", "/solar-analysis", "/solar-analysis/visit", "/antigua/submission/secret/extra", "/antigua/submission/", "/other/submission/secret", "/submission-preview-test", "/test-pages", "/unknown", "/consultation/private", "/antigua-other", "/dominica/consultation/secret"]) {
     assert.equal(isAnalyticsPath(path), false);
     if (path !== null) assert.equal(beforeSendAnalytics({ type: "pageview", url: `https://www.solortide.com${path}?token=secret` }), null);
   }
@@ -30,29 +30,26 @@ test("custom events and malformed URLs are silently discarded", () => {
   }
 });
 
-test("solar analytics requires an explicitly authorized render and cannot expand other routes", () => {
-  const event = { type: "pageview" as const, url: "https://www.solortide.com/solar-analysis?error=invalid_password#private" };
-  assert.equal(beforeSendAnalytics(event), null);
-  assert.equal(beforeSendAnalytics(event, false), null);
-  assert.deepEqual(beforeSendAnalytics(event, true), { type: "pageview", url: "https://www.solortide.com/solar-analysis" });
-  for (const path of ["/solar-analysis/visit", "/solar-analysis/private", "/faq", "/antigua/submission/secret"]) {
-    assert.equal(beforeSendAnalytics({ type: "pageview", url: `https://www.solortide.com${path}` }, true), null);
-  }
-  assert.equal(beforeSendAnalytics({ type: "event", url: event.url }, true), null);
-});
-
 test("integration is production-only, server-gated and never reads auth cookies in the browser", () => {
   const layout = readFileSync("app/layout.tsx", "utf8");
   const component = readFileSync("components/site-analytics.tsx", "utf8");
   assert.ok(!layout.startsWith('"use client"'));
   assert.match(layout, /process\.env\.VERCEL_ENV === "production" && <SiteAnalytics \/>/);
   assert.match(component, /if \(!isAnalyticsPath\(pathname\)\) return null/);
-  assert.match(component, /beforeSend=\{beforeSendBrowserAnalytics\}/);
-  assert.match(component, /window\.location\.pathname === "\/solar-analysis"/);
-  assert.match(component, /document\.querySelector\('\[data-solar-analytics="authorized"\]'\)/);
-  const page = readFileSync("app/solar-analysis/page.tsx", "utf8");
-  const authorizedBranch = page.slice(page.indexOf("if (mode)"), page.indexOf("const { error }"));
-  assert.match(authorizedBranch, /process\.env\.VERCEL_ENV === "production" && <AuthorizedSolarAnalytics \/>/);
-  assert.doesNotMatch(page.slice(page.indexOf("const { error }")), /AuthorizedSolarAnalytics/);
+  assert.match(component, /beforeSend=\{beforeSendAnalytics\}/);
   assert.doesNotMatch(component, /document\.cookie|localStorage|sessionStorage|supabase|accessCookie/);
+});
+
+test("submission visits are grouped by country with no access token or query data", () => {
+  for (const region of ["antigua", "dominica"]) {
+    for (const token of ["private-token_A-123", "differentPrivateToken"]) {
+      const path = `/${region}/submission/${token}`;
+      assert.equal(isAnalyticsPath(path), true);
+      const event = { type: "pageview" as const, url: `https://www.solortide.com${path}?email=private@example.com#secret` };
+      const result = beforeSendAnalytics(event);
+      assert.deepEqual(result, { type: "pageview", url: `https://www.solortide.com/${region}/submission` });
+      assert.ok(!JSON.stringify(result).includes(token));
+      assert.ok(event.url.includes(token));
+    }
+  }
 });

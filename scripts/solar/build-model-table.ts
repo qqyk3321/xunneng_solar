@@ -3,8 +3,8 @@ import { readFile, mkdir, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { gzipSync } from "node:zlib";
 import { loadGenerationModel } from "./archive-reader";
-import { DAYS } from "../../lib/solar-analysis/simulation";
-import { expectedModelIds, tableChecksum, validModelTable, type ModelTable, type TableModel } from "../../lib/solar-analysis/model-table";
+import { DAYS } from "../../lib/solution-suggest/simulation";
+import { expectedModelIds, tableChecksum, validModelTable, type ModelTable, type TableModel } from "../../lib/solution-suggest/model-table";
 
 async function main() {
   const models: TableModel[] = [];
@@ -31,11 +31,11 @@ async function main() {
   const url = `/solar-data/models.${version.slice(0, 16)}.json`;
   const manifest = JSON.stringify({ schemaVersion: 1, version, url, checksum: tableChecksum(text), modelCount: models.length }, null, 2) + "\n";
   if (process.argv.includes("--check")) {
-    if (await readFile(`public${url}`, "utf8") !== text || await readFile("lib/solar-analysis/model-table-manifest.json", "utf8") !== manifest) throw new Error("Stale solar table: run npm run solar:prepare");
+    if (await readFile(`public${url}`, "utf8") !== text || await readFile("lib/solution-suggest/model-table-manifest.json", "utf8") !== manifest) throw new Error("Stale solar table: run npm run solar:prepare");
   } else {
     await mkdir("public/solar-data", { recursive: true });
     await writeFile(`public${url}`, text);
-    await writeFile("lib/solar-analysis/model-table-manifest.json", manifest);
+    await writeFile("lib/solution-suggest/model-table-manifest.json", manifest);
   }
   console.log(JSON.stringify({ models: models.length, pointsPerModel: 288, bytes: Buffer.byteLength(text), gzipBytes: gzipSync(text).length, url, checked: process.argv.includes("--check") }));
 }

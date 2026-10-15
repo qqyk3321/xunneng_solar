@@ -1,5 +1,17 @@
 # Xunneng Tally + Resend Flow
 
+## 当前主站发布流程
+
+主站通过 GitHub `qqyk3321/xunneng_solar` 的 `main` 分支自动部署到 Vercel。
+操作顺序、干净检出验证、上线核对与回退边界见
+[Git 发布流程](docs/git-release-workflow.md)。不要用本地 CLI 上传代替正常 Git 发布。
+
+当前公开页面是品牌首页、两国地区首页/咨询/FAQ/工作原理及隐私页；客户结果页不收录。
+旧测试页面和内部工具已移除，下面的旧开发导航及服务部署说明仅作历史参考，
+不应据此重新开放路由或执行数据库/后台服务部署。
+
+---
+
 这个仓库当前拆成两段：
 
 - 主项目：现有 Next.js 站点 + `Supabase Edge Function tally-webhook`

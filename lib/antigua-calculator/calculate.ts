@@ -1,4 +1,4 @@
-import { ANTIGUA_CONFIG, type CalculatorConfig } from "./config";
+import { ANTIGUA_CONFIG } from "./config";
 
 export type InputMode = "bill" | "consumption";
 // Only absorbs floating-point noise, never meaningful 0.01 kWh differences.
@@ -6,27 +6,27 @@ const EPSILON = 1e-8;
 
 export function billFromConsumption(kwh: number, config = ANTIGUA_CONFIG) {
   const t = config.tariff;
-  const beforeVat = (units: number) =>
+  const base = (units: number) =>
     Math.min(units, t.firstTierLimit) * t.firstTierRate +
-    Math.max(0, units - t.firstTierLimit) * t.additionalRate +
-    units * t.fuelAdjustment;
-  const subtotal = beforeVat(kwh);
-  return subtotal + Math.max(0, subtotal - beforeVat(t.vatFreeKwh)) * t.vatRate;
+    Math.max(0, units - t.firstTierLimit) * t.additionalRate;
+  // Dominica zero-rates fuel surcharge and the first 150 kWh of base energy.
+  return base(kwh) + kwh * t.fuelAdjustment +
+    Math.max(0, base(kwh) - base(t.vatFreeKwh)) * t.vatRate;
 }
 
 export function consumptionFromBill(bill: number, config = ANTIGUA_CONFIG) {
   const t = config.tariff;
-  if (t.vatRate > 0) {
-    // Undo VAT above the exempt consumption before reversing the base tiers.
-    const exemptBill = billFromConsumption(t.vatFreeKwh, config);
-    if (bill > exemptBill)
-      bill = exemptBill + (bill - exemptBill) / (1 + t.vatRate);
+  // Split at both base-rate and VAT boundaries; fuel is never subject to VAT.
+  const boundaries = [...new Set([0, t.firstTierLimit, t.vatFreeKwh])].sort((a, b) => a - b);
+  for (let index = 0; index < boundaries.length; index++) {
+    const start = boundaries[index];
+    const end = boundaries[index + 1] ?? Infinity;
+    if (end !== Infinity && bill > billFromConsumption(end, config)) continue;
+    const baseRate = start < t.firstTierLimit ? t.firstTierRate : t.additionalRate;
+    const slope = baseRate * (start >= t.vatFreeKwh ? 1 + t.vatRate : 1) + t.fuelAdjustment;
+    return start + (bill - billFromConsumption(start, config)) / slope;
   }
-  const threshold = t.firstTierLimit * (t.firstTierRate + t.fuelAdjustment);
-  return bill <= threshold
-    ? bill / (t.firstTierRate + t.fuelAdjustment)
-    : t.firstTierLimit +
-        (bill - threshold) / (t.additionalRate + t.fuelAdjustment);
+  return NaN;
 }
 
 export function billBounds(config = ANTIGUA_CONFIG) {
@@ -41,21 +41,6 @@ export function parseInput(text: string): number | null {
   if (!/^\d+(?:\.\d{0,2})?$/.test(text.trim())) return null;
   const value = Number(text);
   return Number.isFinite(value) && value > 0 ? value : null;
-}
-
-function targetYears(kwh: number, config: CalculatorConfig) {
-  const anchors = config.paybackAnchors;
-  for (let i = 1; i < anchors.length; i++) {
-    const left = anchors[i - 1];
-    const right = anchors[i];
-    if (kwh <= right.kwh) {
-      return (
-        left.years +
-        ((kwh - left.kwh) / (right.kwh - left.kwh)) * (right.years - left.years)
-      );
-    }
-  }
-  return anchors[anchors.length - 1].years;
 }
 
 export function calculate(
@@ -82,7 +67,9 @@ export function calculate(
   const bill = mode === "bill" ? value : billFromConsumption(kwh, config);
   const monthlySaving = bill * config.savingsFraction;
   const annualSaving = monthlySaving * 12;
-  const years = targetYears(kwh, config);
+  // Starting package cost / assumed annual savings: not an engineered yield or quote.
+  const price = system.priceFromEc;
+  const years = price / annualSaving;
   return {
     status: "ready" as const,
     kwh,
@@ -92,7 +79,7 @@ export function calculate(
     annualSaving,
     remainingBill: bill - monthlySaving,
     years,
-    price: annualSaving * years,
+    price,
     backupHours:
       (system.batteryKwh *
         config.backup.usableFraction *

@@ -1,349 +1,274 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
 import { RegionLinks } from "./region-links";
+import { SolarEquipmentScene } from "./solar-equipment-scene";
+import { SOLAR_PACKAGES } from "@/lib/solar-packages";
+import { useSolarPackageSelection } from "./solar-package-selection";
 import type { ServiceCountry } from "@/lib/consultation-intake";
-import {
-  ANTIGUA_CONFIG,
-  DOMINICA_CONFIG,
-} from "@/lib/antigua-calculator/config";
-import { calculate } from "@/lib/antigua-calculator/calculate";
+import { ANTIGUA_CONFIG, DOMINICA_CONFIG } from "@/lib/antigua-calculator/config";
+import { calculate, parseInput } from "@/lib/antigua-calculator/calculate";
 import { CURRENCIES, FX_DATE, currencyBounds, defaultCurrencyBill, formatMoney, fromEc, toEc, type Currency } from "@/lib/antigua-calculator/currency";
+import { tariffReference } from "@/lib/antigua-calculator/tariff-reference";
 import styles from "./antigua-solar-calculator.module.css";
 
-const hours = new Intl.NumberFormat("en-US", {
-  minimumFractionDigits: 1,
-  maximumFractionDigits: 1,
-});
+const integer = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
+const decimal = new Intl.NumberFormat("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-export function AntiguaSolarCalculator({
-  country: explicitCountry,
-}: { country?: ServiceCountry | null } = {}) {
+/** Native popovers escape the calculator's surface and support light dismiss. */
+function CalculatorHelp({ title, label, children }: { title: string; label: string; children: ReactNode }) {
   const id = useId();
-  const ids = {
-    inputTitle: id + "-input-title",
-    resultTitle: id + "-result-title",
-    slider: id + "-slider",
-    help: id + "-help",
-    range: id + "-range",
-    tooltip: id + "-tooltip",
-  };
+  const trigger = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const pinned = useRef(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [open, setOpen] = useState(false);
+  function clearTimer() { clearTimeout(closeTimer.current); }
+  function position() {
+    const el = panel.current;
+    if (!el?.matches(":popover-open") || !trigger.current || window.matchMedia("(max-width: 800px)").matches) return;
+    const box = trigger.current.getBoundingClientRect();
+    el.style.left = `${Math.min(innerWidth - el.offsetWidth - 16, Math.max(16, box.left - 90))}px`;
+    el.style.top = `${box.bottom + el.offsetHeight + 8 < innerHeight ? box.bottom + 8 : Math.max(16, box.top - el.offsetHeight - 8)}px`;
+  }
+  function hide(restore = false) {
+    clearTimer();
+    panel.current?.hidePopover();
+    pinned.current = false;
+    setOpen(false);
+    if (restore) trigger.current?.focus({ preventScroll: true });
+  }
+  function show(pin: boolean) {
+    clearTimer();
+    pinned.current = pin;
+    panel.current?.showPopover();
+    setOpen(true);
+    position();
+    if (pin) closeButton.current?.focus({ preventScroll: true });
+  }
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
+  useEffect(() => {
+    if (!open) return;
+    const reposition = () => position();
+    window.addEventListener("resize", reposition);
+    window.addEventListener("scroll", reposition, true);
+    return () => {
+      window.removeEventListener("resize", reposition);
+      window.removeEventListener("scroll", reposition, true);
+    };
+  }, [open]);
+  return <div className={styles.helpRoot}
+    onPointerEnter={event => {
+      clearTimer();
+      if (event.pointerType === "mouse" && window.matchMedia("(min-width: 801px)").matches && !pinned.current) show(false);
+    }}
+    onPointerLeave={event => {
+      if (event.pointerType === "mouse" && !pinned.current) closeTimer.current = setTimeout(() => hide(), 160);
+    }}
+    onKeyDown={event => { if (event.key === "Escape" && panel.current?.matches(":popover-open")) { event.preventDefault(); event.stopPropagation(); hide(true); } }}>
+    <button ref={trigger} type="button" className={styles.info} aria-label={label} aria-expanded={open} aria-controls={id}
+      onClick={() => { if (pinned.current && panel.current?.matches(":popover-open")) hide(true); else show(true); }}>
+      <span aria-hidden="true">i</span>
+    </button>
+    <div ref={panel} id={id} popover="auto" className={styles.helpPanel} role="region" aria-labelledby={`${id}-title`}
+      onToggle={event => {
+        const visible = event.currentTarget.matches(":popover-open");
+        setOpen(visible);
+        if (!visible) pinned.current = false;
+      }}>
+      <div className={styles.helpHeading}>
+        <h3 id={`${id}-title`}>{title}</h3>
+        <button ref={closeButton} type="button" aria-label="Close explanation" onClick={() => hide(true)}>×</button>
+      </div>
+      {children}
+    </div>
+  </div>;
+}
+
+function TariffDetails({ country }: { country: ServiceCountry }) {
+  const reference = tariffReference(country);
+  return <details className={styles.helpDetails}>
+    <summary>Electricity rates</summary>
+    <p><strong>{reference.title}</strong></p>
+    <p>{reference.description}</p>
+    <p>{reference.caveat}</p>
+    {reference.sources.map(source => <a key={source.href} href={source.href} target="_blank" rel="noopener noreferrer">{source.label}</a>)}
+  </details>;
+}
+
+export function AntiguaSolarCalculator({ country: explicitCountry }: { country?: ServiceCountry | null } = {}) {
   const { country: contextCountry } = useSiteRegion();
   const country = explicitCountry === undefined ? contextCountry : explicitCountry;
-  const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
-  const [currency, setCurrency] = useState<Currency>("USD");
-  const bounds = currencyBounds(config, currency);
-  const [requestedBill, setBill] = useState(defaultCurrencyBill(config, "USD"));
-  const [currencyChanged, setCurrencyChanged] = useState(false);
-  const bill = Math.min(
-    Math.floor(bounds.max),
-    Math.max(Math.ceil(bounds.min), requestedBill),
-  );
-  const [tariffOpen, setTariffOpen] = useState(false);
-  const [fxOpen, setFxOpen] = useState(false);
-  const result = calculate(toEc(bill, currency), "bill", config);
-  const money = (value: number) => formatMoney(value, currency);
-  const convertedMoney = (value: number) => money(fromEc(value, currency));
-  const min = Math.ceil(bounds.min);
-  const max = Math.floor(bounds.max);
-  const selectedValue = money(bill);
-
   if (!country) return <section className={styles.module}>
     <h3>Choose your location to explore your savings.</h3>
     <RegionLinks suffix="#calculator" />
   </section>;
+  return <RegionalCalculator key={country} country={country} />;
+}
 
-  return (
-    <section
-      className={styles.module}
-      aria-label="Home solar and battery calculator"
-      data-testid="calculator-module"
-    >
-      <div className={styles.workspace}>
-        <section
-          className={styles.inputPanel}
-          aria-labelledby={ids.inputTitle}
-          data-testid="calculator-input"
-        >
-          <div className={styles.titleRow}>
-            <h2 id={ids.inputTitle}>Your monthly bill</h2>
-            <span
-              className={styles.tariffHelp}
-              onPointerEnter={(event) => {
-                if (event.pointerType === "mouse") setTariffOpen(true);
-              }}
-              onPointerLeave={(event) => {
-                if (
-                  event.pointerType === "mouse" &&
-                  !event.currentTarget.contains(document.activeElement)
-                )
-                  setTariffOpen(false);
-              }}
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget))
-                  setTariffOpen(false);
-              }}
-            >
-              <button
-                type="button"
-                className={styles.helpButton}
-                aria-label="About the electricity tariff"
-                aria-expanded={tariffOpen}
-                aria-controls={tariffOpen ? ids.tooltip : undefined}
-                onFocus={() => setTariffOpen(true)}
-                onClick={() => setTariffOpen(true)}
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") setTariffOpen(false);
-                }}
-              >
-                ?
-              </button>
-              {tariffOpen && (
-                <span
-                  id={ids.tooltip}
-                  role="region"
-                  aria-label="Tariff sources and assumptions"
-                  className={styles.tooltip}
-                >
-                  {country === "AG" ? (
-                    <>
-                      <strong>APUA · June 2026</strong>
-                      EC$0.40/kWh for the first 300 kWh, EC$0.38 thereafter,
-                      plus the June fuel surcharge of EC$0.80/kWh. Fixed June
-                      2026 preset, not a live rate.
-                      <a
-                        href="https://www.apua.ag/customer-service/rates/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Source: APUA Rates · Electricity (Domestic)
-                      </a>
-                    </>
-                  ) : (
-                    <>
-                      <strong>DOMLEC · historical reference</strong>
-                      Base: EC$0.58/kWh for the first 50 kWh, EC$0.67 thereafter
-                      (WTO Trade Policy Review 2023, Dominica, footnote 150).
-                      Fuel: EC$0.33/kWh (July 2026 DOMLEC announcement). VAT:
-                      15% on electricity and fuel charges above the first 100
-                      kWh; the first 100 kWh are VAT-free.
-                      <a
-                        href="https://sice.oas.org/ctyindex/OECS/WTO/TPR_2023/s437-02_e.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        WTO 2023 · base rates, footnote 150
-                      </a>
-                      <a
-                        href="https://dominicanewsonline.com/news/homepage/homepage-carousel/domlec-geothermal-energy-helps-cut-july-fuel-surcharge-to-33-cents/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        DOMLEC July 2026 announcement · reported by DNO
-                      </a>
-                      <a
-                        href="https://www.domlec.dm/faqs/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        DOMLEC FAQs · VAT / Billing Queries
-                      </a>
-                      This combines historical sources, assumes the old base
-                      rates still apply, and is not a verified current tariff.
-                      The new structure announced for October 1, 2026 is not
-                      included.
-                      <a
-                        href="https://www.ircdominica.org/news/new-electricity-tariff-takes-effect-october-1-what-customers-should-know/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        IRC · October 2026 tariff change
-                      </a>
-                    </>
-                  )}
-                  <span className={styles.assumptions}>
-                    Savings assume an 80% bill reduction. System sizes,
-                    investment and payback use our planning assumptions, not
-                    utility forecasts or a quotation.
-                  </span>
-                </span>
-              )}
-            </span>
-          </div>
-          <div className={styles.currencyRow}>
-          <label className={styles.currencyPicker}>
-            <span>Currency</span>
-            <select aria-label="Calculator currency" value={currency} onChange={(event) => {
-              const next = event.target.value as Currency;
-              setCurrency(next);
-              setBill(defaultCurrencyBill(config, next));
-              setCurrencyChanged(true);
-            }}>
-              {Object.entries(CURRENCIES).map(([code, item]) => <option key={code} value={code}>{item.label}</option>)}
-            </select>
+function RegionalCalculator({ country }: { country: ServiceCountry }) {
+  const { selectPackage } = useSolarPackageSelection();
+  const id = useId();
+  const config = country === "AG" ? ANTIGUA_CONFIG : DOMINICA_CONFIG;
+  const [currency, setCurrency] = useState<Currency>("USD");
+  const [text, setText] = useState(String(defaultCurrencyBill(config, "USD")));
+  const [lastBill, setLastBill] = useState(defaultCurrencyBill(config, "USD"));
+  const [touched, setTouched] = useState(false);
+  const input = useRef<HTMLInputElement>(null);
+  const calculatorRoot = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const element = calculatorRoot.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+  const { min, max } = currencyBounds(config, currency);
+  const parsed = parseInput(text);
+  const valid = parsed !== null && parsed >= min && parsed <= max;
+  const result = calculate(valid ? toEc(parsed, currency) : null, "bill", config);
+  const ready = result.status === "ready";
+  const plan = ready ? SOLAR_PACKAGES.find(plan => plan.inverter === result.system.inverterKw) : undefined;
+  const bill = valid ? parsed : lastBill;
+  const prefix = CURRENCIES[currency].prefix;
+  const money = (value: number) => formatMoney(value, currency);
+  const converted = (value: number) => integer.format(fromEc(value, currency));
+  const error = !valid && touched ? `Enter ${money(min)}–${money(max)}.` : "";
+  const sliderStyle = { "--progress": `${((bill - min) / (max - min)) * 100}%` } as CSSProperties;
+
+  function updateText(value: string) {
+    setText(value);
+    const amount = parseInput(value);
+    if (amount !== null && amount >= min && amount <= max) setLastBill(amount);
+  }
+
+  return <section ref={calculatorRoot} className={styles.module} tabIndex={-1} aria-label="Home solar and battery calculator" data-testid="calculator-module" data-calculator-visible={visible || undefined}>
+    <div className={styles.workspace}>
+      <form className={styles.inputPanel} data-testid="calculator-input" noValidate onSubmit={event => {
+        event.preventDefault(); setTouched(true);
+        if (ready) input.current?.blur();
+        else input.current?.focus();
+      }}>
+        <h3 className={styles.mobileTitle}>Find your solar fit</h3>
+        <div className={styles.labelLine}>
+          <label className={styles.billLabel} htmlFor={`${id}-bill`}>
+            <span className={styles.desktopBillLabel}>Monthly electricity bill</span>
+            <span className={styles.mobileBillLabel}>Monthly bill</span>
           </label>
-          <span className={styles.fxHelp}
-            onPointerEnter={event => { if (event.pointerType === "mouse") setFxOpen(true); }}
-            onPointerLeave={event => { if (event.pointerType === "mouse" && !event.currentTarget.contains(document.activeElement)) setFxOpen(false); }}
-            onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFxOpen(false); }}
-            onKeyDown={event => { if (event.key === "Escape") setFxOpen(false); }}>
-            <button type="button" className={styles.helpButton} aria-label="About exchange rates" aria-expanded={fxOpen} aria-controls={fxOpen ? id + "-fx" : undefined} onFocus={() => setFxOpen(true)} onClick={() => setFxOpen(true)}>?</button>
-            {fxOpen && <span id={id + "-fx"} role="region" aria-label="Fixed exchange rates" className={styles.tooltip}>
-              <strong>EC$ is our calculation base.</strong>
-              Fixed reference: {FX_DATE}. US$1 = EC$2.70; €1 = EC$3.09501; Cg1 ≈ EC$1.50838.
+          <CalculatorHelp title="Your electricity bill" label="About your electricity bill">
+            <p>Use your monthly electricity charges, excluding arrears, water and other services.</p>
+            <details className={styles.helpDetails}>
+              <summary>Currency conversion</summary>
+              <p>Fixed reference: {FX_DATE}. US$1 = EC$2.70; €1 = EC$3.09501; Cg1 ≈ EC$1.50838.</p>
+              <p>Rates are not updated automatically. Provider fees are excluded. Changing currency resets the amount; adjust it to match your bill. Currency does not change your location or electricity tariff.</p>
               <a href="https://www.eccb-centralbank.org/history-of-the-ec-currency" target="_blank" rel="noopener noreferrer">ECCB · EC dollar / USD peg</a>
-              <a href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" target="_blank" rel="noopener noreferrer">ECB · EUR/USD reference (1 EUR = 1.1463 USD on 22 Sep 2026)</a>
-              <a href="https://www.centralbank.cw/functions/banknotes-coins/caribbean-guilder/frequently-asked-questions" target="_blank" rel="noopener noreferrer">CBCS · XCG / USD peg (1 USD = 1.79 XCG)</a>
-              Rates were checked on 23 Sep 2026 and are not updated automatically. Provider fees are excluded. Changing currency resets the bill slider; adjust it again to match your bill. Currency does not change your location or electricity tariff.
-            </span>}
-          </span>
+              <a href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml" target="_blank" rel="noopener noreferrer">ECB · EUR/USD reference</a>
+              <a href="https://www.centralbank.cw/functions/banknotes-coins/caribbean-guilder/frequently-asked-questions" target="_blank" rel="noopener noreferrer">CBCS · XCG / USD peg</a>
+            </details>
+            <TariffDetails country={country} />
+          </CalculatorHelp>
+        </div>
+        <div className={styles.amountField}>
+          <span className={styles.amountPrefix} aria-hidden="true">{prefix}</span>
+          <input ref={input} id={`${id}-bill`} type="text" inputMode="decimal" value={text} autoComplete="off" spellCheck={false}
+            aria-label={`Monthly electricity bill in ${currency}`} aria-invalid={Boolean(error)} aria-describedby={error ? `${id}-error` : undefined}
+            data-testid="bill-input" onChange={event => updateText(event.target.value)} onBlur={() => setTouched(true)} />
+          <select aria-label="Calculator currency" value={currency} onChange={event => {
+            const next = event.target.value as Currency;
+            const nextBill = defaultCurrencyBill(config, next);
+            setCurrency(next); setText(String(nextBill)); setLastBill(nextBill); setTouched(false);
+          }}>
+            {Object.keys(CURRENCIES).map(code => <option key={code} value={code}>{code === "XCD" ? "EC$" : code}</option>)}
+          </select>
+        </div>
+        {error && <p className={styles.error} id={`${id}-error`} role="alert">{error}</p>}
+        <div className={styles.rangeGroup}>
+          <input id={`${id}-slider`} type="range" min={min} max={max} step="1" value={bill} style={sliderStyle}
+            className={styles.slider} aria-label="Adjust monthly bill" aria-valuetext={`${money(bill)} per month`}
+            onChange={event => { const amount = Number(event.target.value); setText(event.target.value); setLastBill(amount); setTouched(false); }} />
+          <div className={styles.rangeLabels}><span>{money(min)}</span><span>{money(max)}</span></div>
+        </div>
+        <div className={styles.usageSummary}>
+          <span className={styles.sliderHint} aria-hidden="true">Adjust your monthly bill</span>
+          <div className={styles.metricLabel}>
+            <span id={`${id}-usage-label`}>Monthly usage</span>
+            <CalculatorHelp title="Monthly electricity usage" label="About estimated monthly usage">
+              <p>Estimated from your monthly bill using the electricity rates for {country === "AG" ? "Antigua & Barbuda" : "Dominica"}. Check your bill for your actual kWh usage.</p>
+              <TariffDetails country={country} />
+            </CalculatorHelp>
           </div>
-          {currencyChanged && <p className={styles.currencyHint} role="status">Currency changed. Adjust the slider to match your monthly bill.</p>}
-          <output
-            htmlFor={ids.slider}
-            className={styles.selectedValue}
-            data-testid="selected-value"
-          >
-            {selectedValue}
+          <output className={styles.usageValue} htmlFor={`${id}-bill ${id}-slider`} aria-labelledby={`${id}-usage-label`} data-testid="monthly-usage">
+            {ready ? `~${integer.format(result.kwh)}` : "—"} <span className={styles.unit}>kWh</span>
           </output>
-          <p id={ids.help} className={styles.help}>
-            Electricity charges only. Exclude arrears, water and other services.
-          </p>
-          <input
-            id={ids.slider}
-            className={styles.slider}
-            aria-describedby={ids.help + " " + ids.range}
-            aria-valuetext={selectedValue}
-            aria-label="Adjust monthly bill"
-            type="range"
-            min={min}
-            max={max}
-            step="1"
-            value={bill}
-            onChange={(event) => { setBill(Number(event.target.value)); setCurrencyChanged(false); }}
-          />
-          <div className={styles.range} id={ids.range}>
-            <span>{money(min)}</span>
-            <span>{money(max)}</span>
-          </div>
-          {result.status === "ready" && (
-            <div className={styles.systemPreview} data-testid="system-preview">
-              <p>System preview</p>
-              <div className={styles.systemSize}>
-                <strong data-testid="inverter">
-                  {result.system.inverterKw.toFixed(1)} <span>kW</span>
-                </strong>
-                <span className={styles.plus}>+</span>
-                <strong data-testid="battery">
-                  {result.system.batteryKwh} <span>kWh</span>
-                </strong>
-              </div>
-              <p className={styles.systemCaption}>Inverter + battery</p>
-            </div>
-          )}
-          <div className={styles.contact}>
-            <p>Ready to explore solar for your home?</p>
-            <AssessmentLink className={styles.contactButton} />
-          </div>
-        </section>
-
-        <section
-          className={styles.resultCard}
-          aria-labelledby={ids.resultTitle}
-          data-testid="calculator-results"
-        >
-          <h2 id={ids.resultTitle}>Estimate Your Savings</h2>
-          {result.status !== "ready" ? (
-            <div className={styles.empty} role="status">
-              <h3>
-                {result.status === "out-of-range"
-                  ? "Individual assessment required"
-                  : "Enter a valid monthly amount"}
-              </h3>
-              <p>
-                {result.status === "out-of-range"
-                  ? "This estimate covers " +
-                    money(min) +
-                    "–" +
-                    money(max) +
-                    " per month" +
-                    ". Homes outside this range need a tailored assessment."
-                  : "Enter a positive number with up to 2 decimal places to see your estimate."}
-              </p>
-              <p>No system or price is estimated for this input.</p>
-            </div>
-          ) : (
-            <div data-testid="estimate">
-              <div className={styles.scenarioNotice} data-testid="scenario-notice">
-                <p>
-                  <strong>Planning scenario</strong> · Assumes an{" "}
-                  {Math.round(config.savingsFraction * 100)}% bill reduction · Not a quotation
-                </p>
-                <p data-testid="tariff-reference">
-                  {country === "AG"
-                    ? `APUA · ${config.tariff.sourceDate} reference · Not a live rate`
-                    : `DOMLEC · ${config.tariff.sourceDate} · Historical reference, not a verified current tariff. October 2026 structure not included.`}
-                </p>
-              </div>
-              <dl className={styles.results}>
-                <div className={styles.row + " " + styles.highlight}>
-                  <dt>Monthly savings</dt>
-                  <dd data-testid="monthly-saving">
-                    {money(Math.round(bill * config.savingsFraction))}
-                  </dd>
-                </div>
-                <div className={styles.row}>
-                  <dt>Annual savings</dt>
-                  <dd data-testid="annual-saving">
-                    {convertedMoney(result.annualSaving)}
-                  </dd>
-                </div>
-                <div className={styles.row + " " + styles.highlight}>
-                  <dt>Assumed payback period</dt>
-                  <dd className={styles.payback} data-testid="payback">
-                    <span className={styles.approx} aria-label="Approximately">
-                      ~
-                    </span>
-                    {hours.format(result.years)} <span>years</span>
-                  </dd>
-                </div>
-                <div className={styles.row}>
-                  <dt>Estimated bill under this assumption</dt>
-                  <dd data-testid="remaining-bill">
-                    {money(bill - Math.round(bill * config.savingsFraction))}
-                  </dd>
-                </div>
-                <div className={styles.row}>
-                  <dt>Illustrative budget</dt>
-                  <dd data-testid="price">
-                    <span className={styles.approx} aria-label="Approximately">
-                      ~
-                    </span>
-                    {convertedMoney(result.price)}
-                  </dd>
-                </div>
-              </dl>
-              <p className={styles.budgetExplanation} data-testid="budget-explanation">
-                Budget is calculated from assumed annual savings × the assumed
-                payback period, not equipment and installation costs.
-              </p>
-              <dl className={styles.backupResults}>
-                <div className={styles.row}>
-                  <dt>
-                    Outage backup{" "}
-                    <small>At a {config.backup.loadKw} kW average load</small>
-                  </dt>
-                  <dd data-testid="backup">
-                    ~{hours.format(result.backupHours)} <span>hours</span>
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          )}
-        </section>
+        </div>
+      </form>
+      <div className={styles.recommendation}>
+          <span><span className={styles.desktopRecommendationLabel}>Recommended package</span><span className={styles.mobileRecommendationLabel}>Recommended for your home</span></span>
+          <strong data-testid="recommended-package" aria-live="polite" aria-atomic="true">{ready ? <a href="#packages" className={styles.recommendationLink} aria-label={`View ${result.system.name} package`} aria-controls={`package-${result.system.inverterKw}`} onClick={event => {
+            if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            selectPackage(result.system.inverterKw);
+            window.history.pushState(null, "", "#packages");
+            requestAnimationFrame(() => {
+              document.getElementById(`package-${result.system.inverterKw}`)?.focus({ preventScroll: true });
+              document.getElementById("packages")?.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+            });
+          }}><span>{result.system.name}</span><span className={styles.recommendationArrow} aria-hidden="true">↑</span></a> : "—"}</strong>
+        </div>
+      <div className={styles.mobileEquipment} data-testid="recommended-equipment">
+        {plan ? <SolarEquipmentScene plan={plan} /> : <p>Enter your monthly bill to see your recommended package.</p>}
       </div>
-    </section>
-  );
+      {plan && <div className={styles.mobileSpecs} data-testid="recommended-specs"><span><b>{plan.inverter} kW</b> inverter</span><span><b>{plan.battery} kWh</b> battery</span><span><b>{plan.panelRange}</b> panels</span></div>}
+      <section className={styles.resultPanel} aria-label="Your solar estimate" data-testid="calculator-results">
+        <dl className={styles.results} data-testid="estimate">
+          <div className={styles.budget} data-metric="budget">
+            <dt className={styles.metricLabel}>Estimated budget
+              <CalculatorHelp title="Estimated budget" label="About estimated budget">
+                <p>The starting price of your recommended package, shown in your selected currency.</p>
+                <p>The + means the final cost may be higher. A free assessment confirms the configuration, included work and quote for your home.</p>
+              </CalculatorHelp>
+            </dt>
+            <dd className={styles.budgetValue} data-testid="price">{ready ? <><span className={styles.moneyPrefix}>~{prefix}</span> {converted(result.price)}<span className={styles.budgetPlus}>+</span></> : "—"}</dd>
+          </div>
+          <div className={`${styles.metricRow} ${styles.prominent}`} data-metric="payback">
+            <dt className={styles.metricLabel}>Payback
+              <CalculatorHelp title="Payback" label="About payback">
+                <p>Package starting price ÷ estimated annual savings.</p>
+                <p>This simple estimate uses the starting budget and an {Math.round(config.savingsFraction * 100)}% bill-saving assumption. A higher final price or lower savings increases the payback period. Financing, maintenance and equipment replacement are excluded.</p>
+              </CalculatorHelp>
+            </dt>
+            <dd className={styles.metricValue} data-testid="payback">{ready ? <>~{decimal.format(result.years)} <span className={styles.unit}>years</span></> : "—"}</dd>
+          </div>
+          <div className={styles.metricRow} data-metric="annual">
+            <dt className={styles.metricLabel}><span className={styles.desktopMetricLabel}>Annual savings</span><span className={styles.mobileMetricLabel}>Saved / year</span>
+              <CalculatorHelp title="Annual savings" label="About annual savings">
+                <p>{money(bill)} × {Math.round(config.savingsFraction * 100)}% × 12 months.</p>
+                <p>This estimate assumes an {Math.round(config.savingsFraction * 100)}% reduction in your electricity bill. Actual savings depend on your system, usage and electricity rates.</p>
+                <TariffDetails country={country} />
+              </CalculatorHelp>
+            </dt>
+            <dd className={styles.metricValue} data-testid="annual-saving">{ready ? <><span className={styles.unit}>~{prefix}</span> {converted(result.annualSaving)}</> : "—"}</dd>
+          </div>
+          <div className={styles.metricRow} data-metric="backup">
+            <dt className={styles.metricLabel}><span className={styles.desktopMetricLabel}>Outage backup</span><span className={styles.mobileMetricLabel}>Backup</span>
+              <CalculatorHelp title="Outage backup" label="About outage backup">
+                {ready && <p>Uses the {result.system.batteryKwh} kWh battery in the {result.system.name} package.</p>}
+                <p>Based on a {config.backup.loadKw} kW average load, {Math.round(config.backup.usableFraction * 100)}% usable battery capacity and {Math.round(config.backup.efficiency * 100)}% efficiency.</p>
+                <p>Runtime varies with the appliances you use and the battery’s charge level.</p>
+              </CalculatorHelp>
+            </dt>
+            <dd className={styles.metricValue} data-testid="backup">{ready ? <>~{decimal.format(result.backupHours)} <span className={styles.unit}>hrs</span></> : "—"}</dd>
+          </div>
+        </dl>
+        <div className={styles.assessmentArea}>
+          {ready ? <AssessmentLink country={country} className={`${styles.primary} ${styles.assessment}`} />
+            : <button type="button" disabled className={`${styles.primary} ${styles.assessment}`}>Get Your Free Assessment</button>}
+        </div>
+      </section>
+    </div>
+  </section>;
 }

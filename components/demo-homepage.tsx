@@ -7,6 +7,8 @@ import { SectionAnchor } from "./section-anchor";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 import { SolarInstallation } from "./solar-installation";
+import { SolarPackages } from "./solar-packages";
+import { SolarPackageSelectionProvider } from "./solar-package-selection";
 import { WhyChooseUs } from "./why-choose-us";
 import styles from "./demo-homepage.module.css";
 
@@ -49,12 +51,14 @@ export function DemoHomepage({
     <div
       className={"demo-home tailwind-scope " + styles.homepage}
       data-immersive={immersive || undefined}
+      data-regional-home={country ?? undefined}
     >
       <SiteHeader
         homeSectionsLocal
         accountSlot={accountSlot}
         immersive={immersive}
       />
+      <SolarPackageSelectionProvider>
       <main className={styles.main}>
         <section
           className={styles.hero}
@@ -89,9 +93,9 @@ export function DemoHomepage({
             {country ? (
               <div className={styles.islandHeading}>
                 <h1 id="hero-title">
+                  Solortide ·{" "}
                   {country === "AG" ? "Antigua & Barbuda" : "Dominica"}
                 </h1>
-                <p>Brighter homes. A cleaner tomorrow.</p>
               </div>
             ) : (
               <>
@@ -103,7 +107,8 @@ export function DemoHomepage({
               {country && (
                 <h2 className={styles.islandPromise}>
                   Clean energy.
-                  <br />A brighter island home.
+                  <br />A brighter
+                  <br />island home.
                 </h2>
               )}
               <p className={styles.heroCopy}>
@@ -130,12 +135,14 @@ export function DemoHomepage({
               </div>
             </div>
           </div>
-          {immersive && (
+          {immersive && !country && (
             <SectionAnchor href="#calculator" className={styles.exploreCue}>
               Explore your savings <span aria-hidden="true">↓</span>
             </SectionAnchor>
           )}
         </section>
+
+        {country && <SolarPackages country={country} />}
 
         <section
           id="calculator"
@@ -146,7 +153,10 @@ export function DemoHomepage({
           <div className={styles.container}>
             <div className={styles.sectionIntro}>
               <div>
-                <h2 id="calculator-heading">What could solar save you?</h2>
+                <h2 id="calculator-heading">
+                  <span className={styles.desktopCalculatorHeading}>What could solar save you?</span>
+                  <span className={styles.mobileCalculatorHeading}>Your solar estimate</span>
+                </h2>
               </div>
             </div>
             <AntiguaSolarCalculator country={country} />
@@ -158,6 +168,7 @@ export function DemoHomepage({
         <SolarInstallation country={country} />
         {contactSlot}
       </main>
+      </SolarPackageSelectionProvider>
       <SiteFooter />
     </div>
   );

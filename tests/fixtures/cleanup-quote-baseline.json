@@ -1,0 +1,45 @@
+[
+  {
+    "label": "AG",
+    "token": "cleanup-fixture-AG-xxxxxxxxxxxxxxxxxxxxxxxx",
+    "estimate": {
+      "status": "ready",
+      "country": "AG",
+      "quoteXcd": 22200,
+      "annualSavedKwh": 2741.2959794975045,
+      "annualSavedPercent": 76.14711054159736,
+      "annualBeforeXcd": 4607.999999999999,
+      "annualAfterXcd": 1099.1411462431938,
+      "annualSavingsXcd": 3508.8588537568057,
+      "paybackYears": 6.326843263082891
+    },
+    "country": "AG",
+    "submission_id": "preview-test-AG"
+  },
+  {
+    "label": "DM",
+    "token": "cleanup-fixture-DM-xxxxxxxxxxxxxxxxxxxxxxxx",
+    "estimate": {
+      "status": "ready",
+      "country": "DM",
+      "quoteXcd": 22200,
+      "annualSavedKwh": 2741.2959794975045,
+      "annualSavedPercent": 76.14711054159736,
+      "annualBeforeXcd": 4100.579999999999,
+      "annualAfterXcd": 893.837497830654,
+      "annualSavingsXcd": 3206.742502169345,
+      "paybackYears": 6.9229132008515855
+    },
+    "country": "DM",
+    "submission_id": "preview-test-DM"
+  },
+  {
+    "label": "legacy",
+    "token": "cleanup-fixture-legacy-xxxxxxxxxxxxxxxxxxxx",
+    "estimate": {
+      "status": "missing-inputs"
+    },
+    "country": "AG",
+    "submission_id": "preview-test-legacy"
+  }
+]

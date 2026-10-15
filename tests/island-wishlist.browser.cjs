@@ -1,51 +1,103 @@
-// UI contract tests use mocked API responses; real database checks are separate.
+// Mock the existing API: no real requests, database writes or launch emails.
 const assert = require('node:assert/strict');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const origin = process.env.HOME_TEST_ORIGIN || 'http://127.0.0.1:3003/';
 (async () => {
   const browser = await chromium.launch();
   try {
-    for (const width of [1440, 390]) {
-      const page = await browser.newPage({ viewport: { width, height: 900 } });
+    for (const width of [1440, 390, 320]) {
+      const page = await browser.newPage({ viewport: { width, height: 740 }, reducedMotion: 'reduce' });
+      page.setDefaultNavigationTimeout(60000);
       await page.addInitScript(() => sessionStorage.setItem('sol-tide:cookie-ui:dismissed:v2', '1'));
+      await page.route('**/*', route => ['GET', 'HEAD', 'OPTIONS'].includes(route.request().method()) ? route.continue() : route.abort());
       let responseStatus = 503;
-      let calls = 0;
+      let release;
+      const calls = [];
       await page.route('**/api/island-wishlist', async route => {
-        calls++;
-        const data = route.request().postDataJSON();
-        assert.equal(data.email, 'test@example.com');
-        assert.equal(data.islandCode, 'OTHER');
-        assert.equal(data.otherIsland, 'Test Island');
-        await new Promise(resolve => setTimeout(resolve, 200));
+        calls.push(route.request().postDataJSON());
+        if (responseStatus === 503) await new Promise(resolve => { release = resolve; });
         await route.fulfill({ status: responseStatus, contentType: 'application/json', body: JSON.stringify(responseStatus === 200 ? { ok: true } : { error: 'Please try again shortly.' }) });
       });
-      await page.goto(process.env.HOME_TEST_ORIGIN || 'http://127.0.0.1:3003/');
+      await page.goto(origin, { waitUntil: 'domcontentloaded' });
+      await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
+      assert.equal(await page.locator('#countries button[aria-haspopup=dialog][aria-label]').count(), 16);
+      assert.equal(await page.locator('#countries a[href="/antigua"]').count(), 1);
+      assert.equal(await page.locator('#countries a[href="/dominica"]').count(), 1);
+      assert.equal(await page.locator('#more-islands').count(), 0);
+      const barbados = page.getByRole('button', { name: 'Get launch updates for Barbados', exact: true });
+      const locationsToggle = page.getByRole('button', { name: 'More islands', exact: true });
+      const plannedLocations = page.locator('#planned-island-locations');
+      assert.equal(await plannedLocations.isVisible(), false, 'planned locations start collapsed');
+      assert.equal(await locationsToggle.getAttribute('aria-expanded'), 'false');
+      await locationsToggle.focus();
+      await page.keyboard.press('Enter');
+      assert.equal(await plannedLocations.isVisible(), true);
+      assert.equal(await locationsToggle.getAttribute('aria-expanded'), 'true');
+      const entry = barbados;
+      const dialog = page.getByRole('dialog', { name: 'Bring solar to your island' });
       const form = page.getByRole('form', { name: 'Bring solar to your island' });
-      await form.getByRole('button').click();
-      assert.equal(calls, 0, 'required validation blocks empty submission');
+      assert.equal(await form.count(), 0, 'form is hidden until requested');
+      await barbados.click();
+      assert.equal(await form.locator('select').inputValue(), 'BB', 'clicked location is preselected');
+      assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden');
+      await form.getByRole('button', { name: 'Notify me when launched' }).focus();
+      await page.keyboard.press('Tab');
+      // Native dialogs may send Tab to browser chrome before cycling back.
+      if (!await page.evaluate(() => document.hasFocus())) await page.keyboard.press('Tab');
+      assert.ok(await dialog.evaluate(el => el.contains(document.activeElement)), 'page focus remains in modal');
+      await page.keyboard.press('Escape');
+      await dialog.waitFor({ state: 'hidden' });
+      await page.waitForFunction(() => document.body.style.overflow !== 'hidden');
+      assert.equal(await barbados.evaluate(el => el === document.activeElement), true, 'focus returns to the location');
+      await entry.click();
+      await form.getByRole('button', { name: 'Notify me when launched' }).click();
+      assert.equal(calls.length, 0, 'required email blocks empty submission');
       await form.locator('select').selectOption('OTHER');
       await form.locator('[name=otherIsland]').fill('Test Island');
       await form.locator('[name=email]').fill('test@example.com');
-      await form.getByRole('button').click();
+      const request = page.waitForRequest('**/api/island-wishlist');
+      await form.getByRole('button', { name: 'Notify me when launched' }).click();
+      await request;
+      assert.equal(await form.getByRole('button', { name: 'Sending…' }).isDisabled(), true);
+      await form.evaluate(el => el.requestSubmit());
+      assert.equal(calls.length, 1, 'pending submission cannot duplicate');
+      assert.deepEqual(calls[0], { email: 'test@example.com', islandCode: 'OTHER', otherIsland: 'Test Island' });
+      release();
       await form.getByRole('alert').waitFor();
       assert.equal(await form.locator('[name=email]').inputValue(), 'test@example.com');
-      assert.equal(await page.getByRole('heading', { name: 'Your wish is on our list.' }).count(), 0);
+      assert.equal(await form.locator('[name=otherIsland]').inputValue(), 'Test Island');
+      await page.getByRole('button', { name: 'Close island wishlist' }).click();
+      await entry.click();
+      assert.equal(await form.locator('[name=email]').inputValue(), 'test@example.com', 'closing preserves the unsent form');
+      assert.equal(await form.locator('select').inputValue(), 'BB');
+      await form.locator('select').selectOption('OTHER');
+      await form.locator('[name=otherIsland]').fill('Test Island');
       responseStatus = 200;
-      await form.getByRole('button').click();
-      await page.getByRole('heading', { name: 'Your wish is on our list.' }).waitFor();
-      const receipt = page.getByRole('status').filter({ has: page.getByRole('heading', { name: 'Your wish is on our list.' }) });
-      const typography = await receipt.evaluate(el => ({
-        alignment: getComputedStyle(el).textAlign,
-        titleSize: parseFloat(getComputedStyle(el.querySelector('h4')).fontSize),
-        bodySize: parseFloat(getComputedStyle(el.querySelector('p')).fontSize),
-      }));
-      assert.equal(typography.alignment, 'center');
-      assert.ok(typography.titleSize >= 30);
-      assert.ok(typography.bodySize >= 16);
-      await receipt.screenshot({ path: `/tmp/wishlist-receipt-${width}.png` });
-      assert.equal(await form.count(), 0, 'success replaces form inline');
-      assert.equal(await page.locator('dialog[open]').count(), 0);
+      await form.getByRole('button', { name: 'Notify me when launched' }).click();
+      await dialog.getByRole('heading', { name: 'Your wish is on our list.' }).waitFor();
+      assert.equal(await form.count(), 0);
+      assert.ok(await dialog.getByRole('status').evaluate(el => el === document.activeElement));
+      await page.getByRole('button', { name: 'Close island wishlist' }).click();
+      await barbados.click();
+      await form.locator('[name=email]').fill('test@example.com');
+      await form.getByRole('button', { name: 'Notify me when launched' }).click();
+      await dialog.getByRole('status').waitFor();
+      assert.deepEqual(calls[2], { email: 'test@example.com', islandCode: 'BB', otherIsland: '' });
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
+      await locationsToggle.click();
+      await barbados.click();
+      await dialog.getByRole('heading', { name: 'Your wish is on our list.' }).waitFor();
+      assert.equal(await form.count(), 0, 'confirmed location receipt survives a tab refresh');
+      assert.equal(calls.length, 3, 'refresh does not submit again');
+      const saved = await page.evaluate(() => sessionStorage.getItem('sol-tide:island-wishlist:receipts:v1'));
+      assert.deepEqual(JSON.parse(saved), ['BB'], 'receipt contains location codes only');
+      await page.getByRole('button', { name: 'Close island wishlist' }).click();
+      await locationsToggle.click();
+      assert.equal(await plannedLocations.isVisible(), false, 'planned locations can be collapsed again');
+      assert.equal(await locationsToggle.getAttribute('aria-expanded'), 'false');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      console.log(`PASS ${width}px wishlist validation, error recovery and inline success`);
+      console.log(`PASS ${width}px: 16 locations, modal preselection/focus/close, validation, duplicate prevention, retry, draft and receipt recovery`);
       await page.close();
     }
   } finally { await browser.close(); }

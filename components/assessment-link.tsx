@@ -15,8 +15,15 @@ export function AssessmentLink({
   arrow?: boolean;
   country?: ServiceCountry | null;
 }) {
-  const { country: contextCountry } = useSiteRegion();
+  const { country: contextCountry, choose } = useSiteRegion();
   const country = explicitCountry === undefined ? contextCountry : explicitCountry;
+  if (!country) {
+    return (
+      <button type="button" onClick={() => choose("assessment")} aria-haspopup="dialog" className={`${styles.assessment} ${className}`}>
+        Get Your Free Assessment{arrow && <span aria-hidden="true">→</span>}
+      </button>
+    );
+  }
   return (
     <Link
       href={regionPath(country, "/consultation")}

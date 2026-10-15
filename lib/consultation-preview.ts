@@ -2,6 +2,7 @@ import "server-only";
 
 import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
+import type { ProfileKey } from "./solution-suggest/optimizer";
 
 export type ConsultationPreview = {
   submission_id: string;
@@ -12,6 +13,8 @@ export type ConsultationPreview = {
   address: Record<string, string | null>;
   preview_url: string | null;
   submitted_at: string;
+  monthly_kwh: number | null;
+  consumption_profile: ProfileKey | null;
 };
 
 export async function loadConsultationPreview(token: string) {
@@ -21,12 +24,13 @@ export async function loadConsultationPreview(token: string) {
   if (!url || !key) return null;
   const client = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
+    global: { fetch: (input, init) => fetch(input, { ...init, cache: "no-store", signal: AbortSignal.timeout(8000) }) },
   });
   const tokenHash = createHash("sha256").update(token).digest("hex");
   const { data } = await client
     .from("consultation_preview_tokens")
     .select(
-      "tally_form_submissions(submission_id, country_code, name, email, phone, address, submitted_at, preview_url:payload->data->>submissionPreviewUrl)",
+      "tally_form_submissions(submission_id, country_code, name, email, phone, address, submitted_at, monthly_kwh, consumption_profile, preview_url:payload->data->>submissionPreviewUrl)",
     )
     .eq("token_hash", tokenHash)
     .maybeSingle();

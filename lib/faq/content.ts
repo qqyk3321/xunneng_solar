@@ -33,6 +33,15 @@ export const FAQ_ITEMS: FaqItem[] = [
     link: { href: "/consultation", label: "Get your free assessment" },
   },
   {
+    id: "package-tailoring",
+    category: "getting-started",
+    question: "Can you tailor a package to my home?",
+    answer:
+      "Yes. Choose Basic, Plus or Premium as a starting point. Our engineers will review your roof, when you use electricity, the appliances you run together and your backup priorities, then fine-tune the panels, battery capacity and system design to suit your home. Any changes and the final price will be confirmed in your proposal.",
+    keywords: ["package", "tailor", "customise", "customize", "engineer", "套餐", "微调", "工程师"],
+    link: { href: "/consultation", label: "Discuss your package" },
+  },
+  {
     id: "prepare-information",
     category: "getting-started",
     question: "What information should I have ready?",
@@ -58,6 +67,55 @@ export const FAQ_ITEMS: FaqItem[] = [
     link: { href: "/#contact-us", label: "Go to Contact us" },
   },
   {
+    id: "solar-usage-habits",
+    category: "savings",
+    question: "How do my daily habits affect solar savings?",
+    answer:
+      "Your routine affects how much solar energy you use at home and how much electricity you still buy from the grid. Running suitable appliances during sunny hours can help you use solar power directly. If most of your electricity use is after sunset, battery storage becomes more important. Share when you normally use air conditioning, cooking appliances and other main loads so we can match the system to your routine.",
+    keywords: ["routine", "habits", "self consumption", "daytime", "night", "用电习惯", "自用", "节省"],
+  },
+  {
+    id: "daytime-battery-sizing",
+    category: "savings",
+    question: "Can I choose a smaller battery if I mainly use electricity in the day?",
+    answer:
+      "Often, yes. When your main appliances run during sunny hours, solar can supply them directly, so you may need less battery storage for later. We still consider your evening and overnight use, the appliances you want to keep running during a power cut and how long you need backup.",
+    keywords: ["daytime", "smaller battery", "battery size", "storage", "白天用电", "小电池", "电池容量"],
+  },
+  {
+    id: "evening-battery-sizing",
+    category: "savings",
+    question: "Should I consider a larger battery if I use most electricity at night?",
+    answer:
+      "Usually, yes. A larger battery can store more daytime solar energy for the evening and overnight. We size it around the appliances you use, how long they run and the reserve you want for outages. Your panels also need to generate enough surplus during the day to recharge it; a bigger battery alone does not generate more electricity.",
+    keywords: ["night", "evening", "larger battery", "battery size", "recharge", "晚上用电", "大电池", "电池容量"],
+  },
+  {
+    id: "panel-direction-tilt",
+    category: "savings",
+    question: "How do panel direction and roof slope affect solar generation?",
+    answer:
+      "They affect how much sunlight the panels receive and when they produce electricity. East-facing panels tend to produce earlier in the day, while west-facing panels tend to produce later. Our engineers assess your roof's direction, slope and available space alongside your electricity use to plan a suitable layout.",
+    keywords: ["orientation", "direction", "tilt", "slope", "east", "west", "roof", "朝向", "倾角", "屋顶"],
+  },
+  {
+    id: "shade-weather-output",
+    category: "savings",
+    question: "Will shade or cloudy weather reduce solar output?",
+    answer:
+      "Yes. Trees, nearby buildings and cloud cover can reduce the sunlight reaching your panels. Shade can move across the roof during the day and through the year, so our engineers consider it when planning the layout. A battery can help cover a shortfall while usable charge and power are available; the grid can also contribute when connected.",
+    keywords: ["shade", "shading", "cloudy", "weather", "trees", "遮阴", "阴影", "阴天", "发电量"],
+  },
+  {
+    id: "right-sized-system",
+    category: "savings",
+    question: "Is the biggest solar and battery system always the best choice?",
+    answer:
+      "No. A suitable system balances your daytime and overnight use, roof space, expected solar generation, backup needs and budget. Extra panels or battery capacity add value when you can use the additional energy or storage. We use your chosen package as a starting point and recommend adjustments that suit your home.",
+    keywords: ["system size", "oversize", "budget", "package", "battery capacity", "方案大小", "预算", "容量", "套餐"],
+    link: { href: "/consultation", label: "Find a suitable configuration" },
+  },
+  {
     id: "calculator-location",
     category: "savings",
     question: "Which location is the savings calculator for?",
@@ -79,7 +137,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "savings",
     question: "Which APUA tariff does the calculator use?",
     answer: `It uses the ${ANTIGUA_CONFIG.tariff.sourceDate} preset, including an EC$${ANTIGUA_CONFIG.tariff.fuelAdjustment.toFixed(2)}/kWh fuel surcharge. This is a fixed reference, not a live electricity rate. You can also find this note under the question mark beside the bill slider.`,
-    keywords: ["fuel", "rate", "June", "0.80", "燃油", "附加费", "电价"],
+    keywords: ["fuel", "rate", "October", "0.88", "燃油", "附加费", "电价"],
   },
   {
     id: "savings-assumption",
@@ -93,7 +151,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "savings",
     question: "Is the suggested investment a final quote?",
     answer:
-      "No. The illustrative budget is calculated as assumed annual bill savings multiplied by an assumed payback period. The payback period is a planning assumption, not a return calculated from independently priced equipment and installation. This is a budget scenario, not a supplier quotation or a verified return. Request an assessment to confirm the proposed configuration, included work and applicable price.",
+      "No. The budget uses the starting price of the Basic, Plus or Premium package recommended for your estimated home electricity use. Simple payback is that starting price divided by estimated annual savings, using the calculator’s bill-saving assumption. A higher final price or lower savings increases the payback period; financing, maintenance and replacements are excluded. Request an assessment to confirm the configuration, included work and final quote.",
     keywords: [
       "price",
       "cost",
@@ -267,7 +325,7 @@ export function getFaqItems(country: ServiceCountry): FaqItem[] {
         ...localized,
         answer: country === "AG"
           ? "This calculator provides a planning scenario for homes in Antigua using an APUA reference tariff. It is not a live tariff or a quotation. For a property in Dominica, use the Dominica calculator and its separate reference assumptions."
-          : "This calculator provides a planning scenario for homes in Dominica using a historical DOMLEC tariff reference. It is not a verified current tariff or a quotation. For a property in Antigua, use the Antigua calculator and its separate reference assumptions.",
+          : "This calculator provides a planning scenario for homes in Dominica using a dated DOMLEC tariff reference. The November 2026 structure is not included; this is not a live tariff or a quotation. For a property in Antigua, use the Antigua calculator and its separate reference assumptions.",
         keywords: [country === "AG" ? "Antigua APUA 安提瓜" : "Dominica DOMLEC 多米尼克", "island", "coverage", "country", "地区"],
       };
     }
@@ -277,7 +335,7 @@ export function getFaqItems(country: ServiceCountry): FaqItem[] {
         question: `Which ${country === "AG" ? "APUA" : "DOMLEC"} tariff does the calculator use?`,
         answer: country === "AG"
           ? `It uses the ${config.tariff.sourceDate} preset, including an EC$${config.tariff.fuelAdjustment.toFixed(2)}/kWh fuel surcharge. This is a fixed reference, not a live electricity rate. The question mark beside the bill slider provides the sources and assumptions.`
-          : `It uses a historical reference: ${config.tariff.sourceDate}. Base rates are EC$${config.tariff.firstTierRate.toFixed(2)}/kWh for the first ${config.tariff.firstTierLimit} kWh and EC$${config.tariff.additionalRate.toFixed(2)}/kWh thereafter, with an EC$${config.tariff.fuelAdjustment.toFixed(2)}/kWh fuel surcharge. VAT is ${config.tariff.vatRate * 100}% on electricity and fuel charges above the first ${config.tariff.vatFreeKwh} kWh. This combines historical sources and is not a verified current tariff. The new structure announced for October 1, 2026 is not included. The question mark beside the bill slider provides the sources and assumptions.`,
+          : `It uses ${config.tariff.sourceDate}, reviewed 8 Oct 2026. Base rates are EC$${config.tariff.firstTierRate.toFixed(2)}/kWh for the first ${config.tariff.firstTierLimit} kWh and EC$${config.tariff.additionalRate.toFixed(2)}/kWh thereafter, plus EC$${config.tariff.fuelAdjustment.toFixed(4)}/kWh fuel surcharge. VAT is ${config.tariff.vatRate * 100}% on base charges above ${config.tariff.vatFreeKwh} kWh; fuel surcharge is VAT-free. Rates are held constant. The new tariff announced for 1 November 2026 is not included because its full residential table has not yet been verified. The question mark beside the bill slider provides sources.`,
         keywords: ["fuel", "rate", "tariff", "historical", config.tariff.sourceDate, config.tariff.fuelAdjustment.toFixed(2), country === "AG" ? "APUA" : "DOMLEC VAT", "燃油", "附加费", "电价"],
       };
     }

@@ -4,8 +4,6 @@ import test from "node:test";
 import { modelId, type GenerationModel } from "../lib/solution-suggest/models";
 import { BATTERIES, FIXED_INSTALLATION, INVERTERS, OPTIMIZATION_TARGETS, PROFILES, alignPanelConfiguration, capacityPreference, compareCandidates, evaluateConfiguration, legalConfigurations, optimizeSystem, type Candidate } from "../lib/solution-suggest/optimizer";
 import { DAYS, simulateYear } from "../lib/solution-suggest/simulation";
-import { createSolarReport, type ReportBasis } from "../lib/solution-suggest/report";
-import { annualReportOption } from "../app/solution-suggest/report-charts";
 
 const manifest = JSON.parse(readFileSync("lib/solution-suggest/model-table-manifest.json", "utf8"));
 const model: GenerationModel = JSON.parse(readFileSync(`public${manifest.url}`, "utf8")).models.find((m: GenerationModel) => m.id === modelId(FIXED_INSTALLATION));
@@ -222,23 +220,4 @@ test("night battery metric excludes PV direct supply and equals actual nighttime
   near(directOnly.worstNightCoverage, 1);
   near(directOnly.worstNightBatteryShare, 0);
   assert.equal(directOnly.meetsTargets, false, "PV direct supply cannot count as battery supply");
-});
-
-test("report freezes the same optimized equipment and rejects out-of-range configurations", () => {
-  const r = optimizeSystem(model, 300, PROFILES.night.values);
-  const basis: ReportBasis = { ...r, installation: { ...FIXED_INSTALLATION }, billCountry: "antigua", inputMode: "kwh", inputValue: 300, monthlyInputKwh: 300, panelW: 500, reserveSocPercent: 10, profileKey: "night", profileValues: [...PROFILES.night.values], model,
-    optimization: { ...r }, months: r.months.map(m => ({ ...m, antiguaCost: m.grid, dominicaCost: m.grid, antiguaBaseline: m.consumption, dominicaBaseline: m.consumption })) };
-  const report = createSolarReport(basis, { name: "Test Customer", address: "Antigua" });
-  near(report.totals.consumption, 3600);
-  assert.equal(report.panelCount, r.panelCount);
-  assert.equal(report.optimization.coverage, r.coverage);
-  near(report.optimization.exportShare, report.totals.exportPercent / 100);
-  const bars = (annualReportOption(report).series as { type: string; data: number[] }[]).filter(s => s.type === "bar");
-  for (let m = 0; m < 12; m++) near(bars.reduce((sum, series) => sum + series.data[m], 0), report.months[m].consumption);
-  basis.months[0].grid = 123;
-  assert.notEqual(report.months[0].grid, 123);
-  assert.throws(() => createSolarReport({ ...basis, panelW: 350 }, { name: "" , address: "" }));
-  assert.throws(() => createSolarReport({ ...basis, oversize: 1.21 }, { name: "", address: "" }));
-  assert.throws(() => createSolarReport({ ...basis, optimization: { ...basis.optimization, capacityPreference: capacityPreference(750) } }, { name: "", address: "" }), /容量优选目标/);
-  assert.throws(() => createSolarReport({ ...basis, inverterKw: 8, panelCount: 13, capacityKwp: 6.5, oversize: .8125 }, { name: "", address: "" }), /配置超出/);
 });

@@ -12,6 +12,9 @@
 .intro {
   max-width: 880px;
 }
+.mobileTitle {
+  display: none;
+}
 .back {
   color: #55736f;
   font-size: 14px;
@@ -194,4 +197,47 @@
   .cta {
     margin-top: 20px;
   }
+}
+@media (min-width: 1001px) {
+  .main { padding-top: 120px; }
+  .intro { max-width: none; }
+  .intro h1 {
+    margin: 0;
+    font-size: clamp(38px, 3.4vw, 48px);
+  }
+  .faq { margin-top: 56px; }
+  .faqHeading { margin-bottom: 12px; }
+  .next { margin-top: 48px; }
+  .next h2 { margin-bottom: 0; }
+}
+@media (max-width: 1000px) {
+  .intro h1 { margin: 0; }
+  .faqHeading { margin-bottom: 12px; }
+  .next h2 { margin-bottom: 0; }
+}
+@media (max-width: 760px) {
+  .main { padding: 100px 20px 32px; }
+  .desktopTitle { display: none; }
+  .mobileTitle { display: inline; }
+  .intro h1 { font-size: 28px; line-height: 1.2; font-weight: 600; letter-spacing: -.7px; }
+  .faq {
+    margin: 32px -20px 0;
+    padding: 28px 20px;
+    background: #fff;
+    border-top: 1px solid #d3e1da;
+    border-bottom: 1px solid #d3e1da;
+  }
+  .faqHeading h2 { font-size: 26px; }
+  .question { padding: 16px 0; }
+  .question summary { font-size: 15px; line-height: 1.5; padding-right: 0; }
+  .question p { font-size: 15px; line-height: 1.65; margin: 12px 0 4px; }
+  .question:last-child { border-bottom: 0; }
+  .next { display: block; margin-top: 28px; padding: 20px; border-radius: 14px; }
+  .next h2 { font-size: 24px; line-height: 1.25; }
+  .cta.cta { width: 100%; min-height: 52px; margin-top: 20px; }
+}
+@media (max-width: 359px) {
+  .main { padding-left: 16px; padding-right: 16px; }
+  .intro h1 { font-size: 26px; }
+  .faq { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
 }

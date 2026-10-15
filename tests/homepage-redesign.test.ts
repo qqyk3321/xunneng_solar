@@ -66,14 +66,12 @@ test("regional homepage keeps calculator and contact while root uses its own ent
   );
 });
 
-test("contact integration is public while the legacy preview write remains local", () => {
+test("contact integration uses the public business endpoint", () => {
   const integration = read("components/homepage-contact.tsx");
-  const route = read("app/home-preview/contact/route.ts");
   assert.match(integration, /return <HomeContact variant={variant}/);
   assert.doesNotMatch(integration, /NODE_ENV|AssessmentLink/);
   assert.match(read("app/api/contact/route.ts"), /enabled: true/);
   assert.match(read("components/home-contact.tsx"), /fetch\("\/api\/contact"/);
-  assert.match(route, /enabled: process\.env\.NODE_ENV === "development"/);
   assert.doesNotMatch(integration, /SERVICE_ROLE|saveInquiry|\.storage\./);
 });
 

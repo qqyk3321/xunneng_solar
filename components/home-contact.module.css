@@ -109,24 +109,10 @@
   gap: clamp(36px, 6vw, 72px);
   align-items: center;
 }
-.eyebrow {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #087c86;
-}
 .intro h2 {
   font-size: 18px;
   font-weight: 600;
   margin: 20px 0;
-}
-.intro h2 span {
-  display: block;
-  font-size: clamp(32px, 3.6vw, 46px);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -1.6px;
-  margin-top: 15px;
 }
 .intro > p {
   font-size: 17px;
@@ -134,29 +120,31 @@
   color: #617779;
   max-width: 430px;
 }
-.promise {
-  display: flex;
-  gap: 14px;
-  margin: 32px 0;
-  align-items: center;
-  color: #087c86;
+.supportEmail {
+  font-size: 15px;
 }
-.promise strong,
-.promise span {
-  display: block;
+.section.contact {
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
-.promise strong {
+.contact .intro h2 {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 3.6vw, 46px);
+  line-height: 1.15;
+  letter-spacing: -1.6px;
+}
+.contact .intro > .responseTime {
+  margin: 0;
   font-size: 16px;
-  color: #23494e;
-  margin-bottom: 4px;
+  line-height: 1.65;
 }
-.promise span {
-  font-size: 15px;
-  color: #617779;
+.contactDescription {
+  display: block;
+  margin-bottom: 8px;
 }
-.intro > .supportEmail {
-  margin-top: 24px;
-  font-size: 15px;
+.contact .intro > [data-inline-qr] {
+  margin-top: 28px;
+  row-gap: 16px;
 }
 .supportEmail a {
   color: #087c86;
@@ -208,6 +196,16 @@
 .field textarea {
   min-height: 170px;
   resize: vertical;
+}
+.contact .card {
+  padding: 28px;
+}
+.contact .field {
+  margin-bottom: 16px;
+}
+.contact .field textarea {
+  min-height: 144px;
+  height: 144px;
 }
 .field input::placeholder,
 .field textarea::placeholder {
@@ -556,9 +554,6 @@
   .section {
     padding: 52px 20px;
   }
-  .intro h2 span {
-    font-size: 36px;
-  }
   .intro > p {
     max-width: none;
   }
@@ -596,4 +591,54 @@
   .secondary {
     padding: 11px 13px;
   }
+  .section.contact {
+    padding: var(--regional-section-space, 24px) 20px;
+    background: var(--regional-section-plain, #f2f7f6);
+  }
+  .contact .layout {
+    max-width: 440px;
+    gap: 20px;
+  }
+  .contact .intro h2 {
+    margin-bottom: 18px;
+    font: 600 28px/1.2 "Space Grotesk", sans-serif;
+    letter-spacing: -.7px;
+    text-align: left;
+  }
+  .contact .intro > [data-inline-qr] {
+    display: none;
+  }
+  .contact .card {
+    padding: 20px 16px;
+  }
+  .contact .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .contact .actions > button {
+    min-width: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+  .contact .actions > .primary:only-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 359px) {
+  .section.contact {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .contact .intro h2 {
+    font-size: 24px;
+  }
+  .contact .actions > button {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) and (max-height: 640px) {
+  .section.contact { padding-top: var(--regional-section-space, 16px); }
+  .contact .intro h2 { font-size: 24px; margin-bottom: 14px; }
 }

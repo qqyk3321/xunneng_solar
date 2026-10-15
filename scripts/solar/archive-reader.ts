@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { gunzipSync } from "node:zlib";
 import catalog from "@/data/solar-generation/catalog.json";
 import legacy from "@/hoymiles_gooo_Glorida_generation_curve.json";
-import { validGenerationModel, type GenerationModel } from "../../lib/solar-analysis/models";
+import { validGenerationModel, type GenerationModel } from "../../lib/solution-suggest/models";
 
 type Entry = { id: string; raw: string; raw_sha256: string; runtime?: string; runtime_sha256?: string };
 const base = path.join(process.cwd(), "data/solar-generation");

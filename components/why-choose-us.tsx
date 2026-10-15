@@ -1,148 +1,86 @@
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { AnimatedStatValue } from "./animated-stat-value";
+import { AssessmentLink } from "./assessment-link";
 import styles from "./why-choose-us.module.css";
 
-const reasons = [
-  {
-    label: "24/7 RESILIENT POWER",
-    title: "Lower bills. Smarter backup. One connected system.",
-    text: "Lower bills and backup for essential loads. Solar, batteries, grid power and a compatible existing generator can work together with the right design.",
-  },
-  {
-    label: "UL/CE CERTIFIED EQUIPMENT",
-    warm: true,
-    title: "Certified equipment. Connected support.",
-    text: "UL/CE-certified equipment, solar panels and LiFePO4 battery storage — with remote monitoring and customer support.",
-  },
-  {
-    label: "100% ANTIGUA BASED · LOCAL STOCK",
-    title: "100% local. Right here in Antigua.",
-    text: "Local stock. A team you can reach. Ongoing support, including solar panel cleaning and reinforcement.",
-  },
-];
-
 const statistics = [
-  // Requested design placeholder, not a count read from completed projects.
-  {
-    id: "installations",
-    value: 100,
-    suffix: "+",
-    prefix: "",
-    label: "Systems installed",
-    note: "Illustrative count · to be confirmed",
-  },
-  {
-    id: "savings",
-    value: 95,
-    suffix: "%",
-    prefix: "Up to",
-    label: "Bill savings potential",
-    note: "For a suitably sized system",
-  },
-  {
-    id: "payback",
-    value: 5,
-    suffix: "",
-    prefix: "Target: within",
-    label: "Years to pay back",
-    note: "For suitable system configurations",
-  },
+  // Marketing copy retained from the approved design; not a live project count.
+  { id: "installations", value: 100, suffix: "+", prefix: "", spokenPrefix: "", label: "Systems installed" },
+  { id: "savings", value: 95, suffix: "%", prefix: "~", spokenPrefix: "Approximately ", label: "Bill savings potential" },
+  { id: "payback", value: 5, suffix: "", prefix: "<", spokenPrefix: "Less than ", label: "Payback period" },
+  { id: "response", value: 24, suffix: "h", prefix: "≤", spokenPrefix: "Within ", label: "Response time" },
 ];
 
-export function WhyChooseUs({
-  country,
-}: {
-  country: ServiceCountry | null;
-}) {
-  const certificate =
-    country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE";
-  const location =
-    country === "AG"
-      ? "Antigua"
-      : country === "DM"
-        ? "Dominica"
-        : "the Caribbean";
-  const regionalReasons = reasons.map((reason, index) => {
-    const item = {
-      ...reason,
-      label: reason.label.replace("UL/CE", certificate),
-      text: reason.text.replace("UL/CE", certificate),
-    };
-    if (index === 1) item.title = `Certified equipment for ${location}.`;
-    if (index === 2 && country === "DM") {
-      item.label = "SERVING DOMINICA · ONGOING SUPPORT";
-      item.title = "Support for your Dominica home.";
-      item.text =
-        "Our local team coordinates supply, installation and support in Dominica. Maintenance services and schedules are confirmed for your location.";
-    }
-    return item;
-  });
+export function WhyChooseUs({ country }: { country: ServiceCountry | null }) {
+  const certificate = country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE";
+  const location = country === "AG" ? "Antigua" : country === "DM" ? "Dominica" : "the Caribbean";
+  const reasons = [
+    {
+      title: "Lower bills. Smarter backup.",
+      mobileTitle: "Lower bills. Smarter backup.",
+      text: "Backup for essential loads, with compatible solar, battery, grid and generator integration.",
+    },
+    {
+      title: `Certified equipment for ${location}.`,
+      mobileTitle: "Certified equipment.",
+      text: `${certificate}-certified equipment with LiFePO4 storage, remote monitoring and support.`,
+    },
+    country === "DM"
+      ? {
+          title: "Support for your Dominica home.",
+          mobileTitle: "Support in Dominica.",
+          text: "Supply and installation coordination, with maintenance arranged for your location.",
+        }
+      : {
+          title: "Local stock and support in Antigua.",
+          mobileTitle: "Local stock & support.",
+          text: "An Antigua-based team for installation, panel cleaning and reinforcement.",
+        },
+  ];
+
   return (
-    <section
-      id="benefits"
-      className={styles.section}
-      aria-labelledby="benefits-heading"
-      tabIndex={-1}
-    >
+    <section id="benefits" className={styles.section} aria-labelledby="benefits-heading" tabIndex={-1}>
       <div className={styles.layout}>
         <div className={styles.copy}>
           <h2 id="benefits-heading">
-            {country === "AG"
-              ? "Your Antigua home."
-              : country === "DM"
-                ? "Your Dominica home."
-                : "Your home. Our Caribbean."}
-            <br />
-            <span>Solar you can count on.</span>
+            <span className={styles.location}>
+              {country === "AG" ? "Your Antigua home." : country === "DM" ? "Your Dominica home." : "Your home. Our Caribbean."}
+              <br />
+            </span>
+            <span className={styles.promise}>Solar you can count on</span>
           </h2>
-          <ul className={styles.reasons} aria-label="Why choose Sol & Tide">
-            {regionalReasons.map(({ label, warm, title, text }) => (
-              <li key={title}>
-                <span
-                  className={
-                    styles.badge + (warm ? " " + styles.badgeWarm : "")
-                  }
-                >
-                  {label}
-                </span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
+        <ul className={styles.reasons} aria-label="Why choose Sol & Tide">
+          {reasons.map(({ title, text }) => (
+            <li key={title}><h3>{title}</h3><p>{text}</p></li>
+          ))}
+        </ul>
         <div className={styles.results}>
           <dl className={styles.stats} aria-label="System benefits at a glance">
             {statistics.map((stat) => (
               <div key={stat.id} className={styles.stat} data-stat={stat.id}>
                 <dt>{stat.label}</dt>
                 <dd className={styles.value}>
-                  <span className={styles.prefix}>
-                    {stat.prefix || "\u00a0"}
-                  </span>
                   <span className={styles.number}>
-                    {stat.id === "payback" && (
-                      <>
-                        <span className={styles.srOnly}>Less than </span>
-                        <span aria-hidden="true">{"<"}</span>
-                      </>
-                    )}
-                    <AnimatedStatValue
-                      value={stat.value}
-                      suffix={stat.suffix}
-                    />
+                    {stat.prefix && <><span className={styles.srOnly}>{stat.spokenPrefix}</span><span aria-hidden="true">{stat.prefix}</span></>}
+                    <AnimatedStatValue value={stat.value} suffix={stat.suffix} />
+                    {stat.id === "payback" && <> <span className={styles.unit}>years</span></>}
                   </span>
                 </dd>
-                <dd className={styles.note}>{stat.note}</dd>
               </div>
             ))}
           </dl>
-          <p className={styles.disclaimer}>
-            Savings and payback are planning targets, not guarantees. Your site,
-            usage and final proposal determine the outcome.
-          </p>
+        </div>
+        <div className={styles.mobileReasons}>
+          {reasons.map(({ mobileTitle, text }, index) => (
+            <details key={mobileTitle} name="solar-benefits" className={styles.reasonDetails} open={index === 0}>
+              <summary><h3>{mobileTitle}</h3><span className={styles.toggle} aria-hidden="true" /></summary>
+              <p>{text}</p>
+            </details>
+          ))}
+        </div>
+        <div className={styles.mobileActions}>
+          <AssessmentLink country={country} className={styles.cta} />
         </div>
       </div>
     </section>

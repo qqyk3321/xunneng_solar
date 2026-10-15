@@ -86,13 +86,6 @@
   width: 32px;
   height: 32px;
 }
-.successLabel {
-  margin: 0 0 12px;
-  color: #897044;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
 .success h2 {
   max-width: 490px;
   margin: 0 auto 18px;

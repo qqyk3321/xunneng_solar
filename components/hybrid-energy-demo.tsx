@@ -52,6 +52,7 @@ export function HybridEnergyDemo() {
   const [pageVisible, setPageVisible] = useState(true);
   const root = useRef<HTMLDivElement>(null);
   const id = useId();
+  const noteId = useId();
   const scene = HYBRID_SCENES[index];
   const running = motion && visible && pageVisible;
   useEffect(() => {
@@ -117,7 +118,6 @@ export function HybridEnergyDemo() {
               );
             }}
           >
-            <span>0{i + 1}</span>
             {item.label}
           </button>
         ))}
@@ -215,11 +215,22 @@ export function HybridEnergyDemo() {
             <span>
               <i /> AC · grid & home
             </span>
+            <button
+              type="button"
+              className={styles.noteButton}
+              popoverTarget={noteId}
+              aria-label="Details about this diagram"
+            >
+              <span className={styles.noteIcon} aria-hidden="true">i</span>
+              <span className={styles.noteLabel} aria-hidden="true">Details</span>
+            </button>
           </div>
         </div>
         <div className={styles.description} id={id} aria-live="polite">
-          <h2>{scene.title}</h2>
-          <p>{scene.text}</p>
+          <div className={styles.sceneCopy}>
+            <h2>{scene.title}</h2>
+            <p>{scene.text}</p>
+          </div>
           <dl className={styles.status}>
             {[
               ["Solar panels", scene.solar],
@@ -235,10 +246,17 @@ export function HybridEnergyDemo() {
           </dl>
         </div>
       </div>
-      <p className={styles.disclaimer}>
-        Illustrative scenarios. Actual supply, backup and savings depend on
-        equipment, settings and available energy.
-      </p>
+      <div id={noteId} popover="auto" className={styles.notePopover} role="region" aria-labelledby={`${noteId}-title`}>
+        <div className={styles.noteHeading}>
+          <h3 id={`${noteId}-title`}>About this diagram</h3>
+          <button type="button" popoverTarget={noteId} popoverTargetAction="hide" aria-label="Close diagram information">×</button>
+        </div>
+        <div className={styles.mobileExplanation}>
+          <h4>{scene.title}</h4>
+          <p>{scene.text}</p>
+        </div>
+        <p>Illustrative scenarios. Actual supply, backup and savings depend on equipment, settings and available energy.</p>
+      </div>
     </div>
   );
 }

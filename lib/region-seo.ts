@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { supportEmail } from "./site-contact";
+import { SITE_CONTACT, supportEmail } from "./site-contact";
 import type { ServiceCountry } from "./consultation-intake";
 import {
   countryFromSlug,
@@ -24,31 +24,43 @@ export function websiteIdentity() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": siteUrl("/#website"),
-    name: "Sol & Tide Energy",
-    alternateName: "Solortide",
+    name: "Solortide",
+    alternateName: "Sol & Tide Energy",
     url: siteUrl("/"),
+    publisher: { "@id": siteUrl("/#organization") },
   };
 }
 
-export function regionOrganization(country: ServiceCountry) {
+export function organizationIdentity(country?: ServiceCountry) {
+  const countries: ServiceCountry[] = country ? [country] : ["AG", "DM"];
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": siteUrl("/#organization"),
     name: "Sol & Tide Energy",
+    alternateName: "Solortide",
     url: siteUrl(),
-    logo: siteUrl("/icon.svg"),
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        "@id": siteUrl(`${regionPath(country)}#support`),
-        contactType: "customer support",
-        email: supportEmail(country),
-        areaServed: { "@type": "Country", name: COUNTRY_NAMES[country] },
-        url: siteUrl(regionPath(country)),
-      },
-    ],
+    logo: siteUrl("/brand/solortide-logo.svg"),
+    sameAs: [SITE_CONTACT.facebookUrl],
+    description:
+      "Solortide by Sol & Tide Energy provides solar and battery solutions for Caribbean homes in Antigua and Barbuda and Dominica.",
+    areaServed: (["AG", "DM"] as const).map((code) => ({
+      "@type": "Country",
+      name: COUNTRY_NAMES[code],
+    })),
+    contactPoint: countries.map((country) => ({
+      "@type": "ContactPoint",
+      "@id": siteUrl(`${regionPath(country)}#support`),
+      contactType: "customer support",
+      email: supportEmail(country),
+      areaServed: { "@type": "Country", name: COUNTRY_NAMES[country] },
+      url: siteUrl(regionPath(country)),
+    })),
   };
+}
+
+export function regionOrganization(country: ServiceCountry) {
+  return organizationIdentity(country);
 }
 export function socialMetadata(
   title: string,
@@ -59,7 +71,7 @@ export function socialMetadata(
     url: siteUrl("/opengraph-image"),
     width: 1200,
     height: 630,
-    alt: "Sol & Tide Energy — Solar and battery storage for Caribbean homes",
+    alt: "Solortide by Sol & Tide Energy — Solar and battery storage for Caribbean homes",
   };
   return {
     openGraph: {
@@ -67,7 +79,7 @@ export function socialMetadata(
       description,
       url: siteUrl(path),
       type: "website",
-      siteName: "Sol & Tide Energy",
+      siteName: "Solortide",
       images: [image],
     },
     twitter: {
@@ -80,7 +92,7 @@ export function socialMetadata(
 }
 export function faqMetadata(country: ServiceCountry): Metadata {
   const path = regionPath(country, "/faq");
-  const title = `Solar & Battery FAQs — ${COUNTRY_NAMES[country]} | Sol & Tide Energy`;
+  const title = `Solar & Battery FAQs — ${COUNTRY_NAMES[country]} | Solortide`;
   const description =
     "Answers about solar, LiFePO4 batteries, equipment certification and installation support for homes in Antigua and Dominica.";
   return {
@@ -96,11 +108,11 @@ export function faqMetadata(country: ServiceCountry): Metadata {
     ...socialMetadata(title, description, path),
   };
 }
-export function regionAlternates(suffix = "") {
+export function regionAlternates(suffix = ""): Record<string, string> {
   return {
     "en-AG": siteUrl(regionPath("AG", suffix)),
     "en-DM": siteUrl(regionPath("DM", suffix)),
-    "x-default": siteUrl(suffix || "/"),
+    ...(suffix ? {} : { "x-default": siteUrl("/") }),
   };
 }
 export async function regionMetadata(
@@ -118,8 +130,8 @@ export function countryMetadata(
   const suffix = page === "home" ? "" : `/${page}`;
   const title =
     page === "home"
-      ? `Solar & Battery Storage in ${COUNTRY_NAMES[country]} | Sol & Tide Energy`
-      : `Free Solar Assessment — ${COUNTRY_NAMES[country]} | Sol & Tide Energy`;
+      ? `Solar & Battery Storage in ${COUNTRY_NAMES[country]} | Solortide`
+      : `Free Solar Assessment — ${COUNTRY_NAMES[country]} | Solortide`;
   const description =
     page === "home"
       ? `Explore solar and battery storage for homes in ${COUNTRY_NAMES[country]}, with local electricity savings estimates, equipment information and installation support.`

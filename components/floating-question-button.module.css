@@ -10,15 +10,14 @@
   padding: 0;
   border: 1px solid #ffffff60;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 15%, #349d9b, #105a64 65%, #0a3e49);
+  background: #127c49;
   color: #fff;
-  box-shadow:
-    0 8px 26px #103c4335,
-    inset 0 1px 2px #ffffff50;
+  box-shadow: 0 8px 26px #0c653b40;
   cursor: pointer;
   touch-action: none;
   user-select: none;
   transition:
+    background 180ms ease,
     scale 320ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 320ms ease;
   animation: arrive 600ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -26,44 +25,9 @@
 .launcher svg {
   position: relative;
   z-index: 1;
-  width: 24px;
-  height: 24px;
-  filter: drop-shadow(0 1px 2px #103c4350);
+  width: 32px;
+  height: 32px;
   transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.water {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.water::before,
-.water::after {
-  content: "";
-  position: absolute;
-  width: 112px;
-  height: 112px;
-  left: -25px;
-  top: 28px;
-  border-radius: 43% 48% 42% 46%;
-  background: #80e0d329;
-  border: 1px solid #c2fff32a;
-  animation: waterFlow 9s linear infinite;
-}
-.water::after {
-  top: 34px;
-  background: #b0f9e51f;
-  animation-duration: 13s;
-  animation-direction: reverse;
-}
-.ripple {
-  position: absolute;
-  inset: -2px;
-  border: 1px solid #218d8b;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: waterRipple 5s ease-out infinite;
 }
 .tooltip {
   position: absolute;
@@ -76,7 +40,7 @@
   color: #17484c;
   box-shadow: 0 6px 22px #143e4315;
   font:
-    600 12px/1.5 "Plus Jakarta Sans",
+    600 13px/1.5 "Plus Jakarta Sans",
     sans-serif;
   white-space: nowrap;
   opacity: 0;
@@ -98,10 +62,9 @@
 }
 @media (hover: hover) {
   .launcher:hover {
+    background: #0c653b;
     scale: 1.05;
-    box-shadow:
-      0 12px 32px #103c4345,
-      inset 0 1px 2px #ffffff50;
+    box-shadow: 0 12px 32px #0c653b45;
   }
   .launcher:hover svg {
     transform: translateY(-1px);
@@ -131,11 +94,6 @@
   visibility: hidden;
   transition-delay: 0ms;
 }
-.launcher[data-dragging] .water::before,
-.launcher[data-dragging] .water::after,
-.launcher[data-dragging] .ripple {
-  animation-play-state: paused;
-}
 .launcher:focus-visible {
   outline: 3px solid #edaa62;
   outline-offset: 5px;
@@ -143,26 +101,6 @@
 .launcher:disabled {
   opacity: 0.5;
   cursor: default;
-}
-@keyframes waterFlow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes waterRipple {
-  0%,
-  65% {
-    transform: scale(1);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1.35);
-    opacity: 0;
-  }
 }
 @keyframes arrive {
   from {
@@ -177,15 +115,9 @@
 @media (prefers-reduced-motion: reduce) {
   .launcher,
   .launcher svg,
-  .tooltip,
-  .ripple,
-  .water::before,
-  .water::after {
+  .tooltip {
     animation: none;
     transition: none;
-  }
-  .ripple {
-    opacity: 0;
   }
 }
 @media (max-width: 640px) {

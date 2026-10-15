@@ -19,12 +19,13 @@
   bottom: max(18px, env(safe-area-inset-bottom));
   left: 20px;
   right: 20px;
-  max-width: 1020px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 22px 54px 22px 26px;
-  display: flex;
+  padding: 18px 48px 18px 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   border: 1px solid #42777a;
   border-top: 4px solid #ffa500;
   border-radius: 16px;
@@ -44,17 +45,25 @@
   flex-wrap: wrap;
   gap: 10px;
 }
-.notice {
-  flex-direction: column;
-  align-items: stretch;
-  padding-right: 48px;
-  max-width: 960px;
-  gap: 18px;
-}
 .notice .actions {
-  justify-content: flex-end;
-  padding-top: 16px;
-  border-top: 1px solid #ffffff30;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+}
+.notice .manage {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  border: 0;
+  padding: 8px 12px;
+  background: transparent;
+  color: #d9e9eb;
+  font: 500 14px/1.4 "Plus Jakarta Sans", sans-serif;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.notice .manage:hover {
+  color: #fff;
 }
 .notice .secondary {
   background: #ffffff0d;
@@ -79,15 +88,11 @@
 .secondary:hover {
   background: #edf5f5;
 }
-.notice .disclosure,
 .dialog .disclosure {
   font-size: 13px;
   line-height: 1.6;
   color: #617779;
   margin-top: 10px;
-}
-.notice .disclosure {
-  color: #b8d1d4;
 }
 .dialog {
   width: min(600px, calc(100% - 32px));
@@ -176,16 +181,16 @@
   }
 }
 .notice h2 {
-  margin: 0 0 7px;
+  margin: 0 0 6px;
   color: #fff;
   font:
-    600 24px/1.3 "Space Grotesk",
+    600 18px/1.3 "Space Grotesk",
     sans-serif;
 }
 .notice p {
   margin: 0;
   font:
-    400 15px/1.7 "Plus Jakarta Sans",
+    400 14px/1.5 "Plus Jakarta Sans",
     sans-serif;
   color: #d9e9eb;
 }
@@ -249,15 +254,20 @@
     bottom: max(12px, env(safe-area-inset-bottom));
     left: 12px;
     right: 12px;
-    padding: 20px;
-    flex-direction: column;
+    padding: 16px 16px 8px;
+    grid-template-columns: minmax(0, 1fr);
     align-items: stretch;
-    gap: 14px;
+    gap: 12px;
   }
   .notice h2 {
     padding-right: 26px;
   }
   .notice p {
+    font-size: 14px;
+  }
+  .notice .secondary,
+  .notice .acknowledge {
+    padding: 10px 12px;
     font-size: 14px;
   }
 }

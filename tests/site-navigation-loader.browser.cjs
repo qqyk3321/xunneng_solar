@@ -38,11 +38,10 @@ const origin = process.env.LOADER_TEST_ORIGIN || 'http://127.0.0.1:3195';
       await page.unroute('**/_next/static/**/*.js', slowScripts);
       assert.equal(await regionDialog.isVisible(), false, 'root opens directly without region selection');
       await page.locator('footer button[aria-label="Change installation location"]').click();
-      await regionDialog.getByRole('button', { name: 'Save location' }).click();
+      await regionDialog.getByRole('button', { name: /Antigua/ }).click();
       assert.equal(page.url(), origin + '/antigua');
       assert.equal(await page.evaluate(() => document.documentElement.dataset.siteLoading), undefined);
       await page.locator('footer button[aria-label="Change installation location"]').click();
-      await regionDialog.getByRole('button', { name: /Dominica/ }).click();
 
       let release;
       const gate = new Promise(resolve => { release = resolve; });
@@ -52,9 +51,9 @@ const origin = process.env.LOADER_TEST_ORIGIN || 'http://127.0.0.1:3195';
         await route.continue();
       };
       await page.route('**/dominica?**', slowDestination);
-      await regionDialog.getByRole('button', { name: 'Save location', exact: true }).click();
+      await regionDialog.getByRole('button', { name: /Dominica/ }).click();
       await page.waitForFunction(() => document.documentElement.dataset.siteLoading === 'immediate');
-      assert.equal(await regionDialog.isVisible(), false, 'saving immediately closes the native modal');
+      assert.equal(await regionDialog.isVisible(), false, 'choosing immediately closes the native modal');
       const loader = page.locator('[data-site-loader]');
       assert.equal(await loader.locator('svg').count(), 1, 'brand SVG is inline');
       assert.equal(await loader.locator('img').count(), 0, 'brand waits for no image request');
@@ -80,17 +79,16 @@ const origin = process.env.LOADER_TEST_ORIGIN || 'http://127.0.0.1:3195';
       assert.equal(await regionDialog.isVisible(), false);
       await page.locator('footer button[aria-label="Change installation location"]').click();
       await regionDialog.getByRole('button', { name: /Dominica/ }).click();
-      await regionDialog.getByRole('button', { name: 'Save location', exact: true }).click();
       await page.waitForURL(`${origin}/dominica`);
       await idle();
-      // Saving the current country must not leave a loader waiting for a URL change.
+      // Choosing the current country must not leave a loader waiting for a URL change.
       await page.locator('footer button[aria-label="Change installation location"]').click();
-      await regionDialog.getByRole('button', { name: 'Save location' }).click();
+      await regionDialog.getByRole('button', { name: /Dominica/ }).click();
       assert.equal(await regionDialog.isVisible(), false);
       assert.equal(await page.evaluate(() => document.documentElement.dataset.siteLoading), undefined);
       assert.deepEqual(errors, []);
       await context.close();
-      console.log(`PASS ${width}px: regional home, slow region switch, inline brand, FAQ, Back, repeat selection, same-country save; no app errors`);
+      console.log(`PASS ${width}px: regional home, slow region switch, inline brand, FAQ, Back, repeat selection, same-country selection; no app errors`);
     }
   } finally {
     await browser.close();

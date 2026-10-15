@@ -42,7 +42,7 @@ const assert = require('node:assert/strict');
       assert.ok(embedded);
       await embedded.waitForFunction(() => document.body.innerText.trim().length > 100);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      await page.getByRole('button', { name: 'Ask a question', exact: true }).click();
+      await page.getByRole('button', { name: 'Chat on WhatsApp', exact: true }).click();
       const dialog = page.locator('dialog[open]');
       await dialog.waitFor();
       assert.ok(await dialog.locator('#contact-modal-email').inputValue() === submission.email);

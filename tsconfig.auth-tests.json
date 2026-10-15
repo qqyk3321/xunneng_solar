@@ -1,6 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": { "incremental": false },
-  "include": ["tests/auth-protection*.ts", "lib/auth-protection/**/*.ts"],
-  "exclude": ["node_modules"]
-}

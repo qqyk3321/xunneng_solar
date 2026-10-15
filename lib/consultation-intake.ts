@@ -1,4 +1,4 @@
-export const PRIVACY_VERSION = "2026-09-13-draft";
+export const PRIVACY_VERSION = "2026-10-12";
 
 export const SERVICE_COUNTRIES = {
   AG: { label: "Antigua", center: { lat: 17.0747, lng: -61.8175 } },

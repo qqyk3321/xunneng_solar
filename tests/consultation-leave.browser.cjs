@@ -20,7 +20,7 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('iframe').count(), 1);
     const frame = page.frames().find(frame => frame.url().startsWith('https://tally.so/embed/'));
     await frame.evaluate(() => parent.postMessage(JSON.stringify({ event: 'Tally.FormSubmitted', payload: { formId: '9q8RYQ' } }), '*'));
-    await page.getByRole('heading', { name: 'Your enquiry has been submitted.' }).waitFor();
+    await page.getByRole('heading', { name: 'SUBMISSION COMPLETE', exact: true }).waitFor();
     await page.reload({ waitUntil: 'networkidle' });
     assert.equal(confirmations, 2);
     console.log('PASS leaving link and refresh warnings, cancel preserves form, completed form releases guard');

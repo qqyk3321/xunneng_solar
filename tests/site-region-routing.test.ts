@@ -5,6 +5,7 @@ import {
   countryFromPath,
   regionPath,
   switchedRegionPath,
+  regionIntentPath,
 } from "../lib/site-region-routing";
 
 test("URL determines region exactly, without storage or ambiguous matches", () => {
@@ -22,7 +23,7 @@ test("URL determines region exactly, without storage or ambiguous matches", () =
   );
   assert.equal(
     switchedRegionPath("/dominica/privacy", "AG"),
-    "/antigua/privacy",
+    "/privacy",
   );
   assert.doesNotMatch(
     readFileSync("components/site-region.tsx", "utf8"),
@@ -40,9 +41,12 @@ test("neutral root navigates to explicit regional business URLs", () => {
   assert.equal(switchedRegionPath("/dominica", "AG"), "/antigua");
 });
 
-test("the region dialog has a real default without changing the URL country", () => {
-  const source = readFileSync("components/site-region.tsx", "utf8");
-  assert.ok(source.includes('useState<ServiceCountry>(country ?? "AG")'));
-  assert.ok(source.includes('setDraft(country ?? "AG")'));
-  assert.ok(source.includes('const country = countryFromPath(pathname)'));
+test("country selection opens the chosen business page", () => {
+  for (const country of ["AG", "DM"] as const) {
+    const prefix = country === "AG" ? "/antigua" : "/dominica";
+    assert.equal(regionIntentPath(country, "assessment"), `${prefix}/consultation`);
+    assert.equal(regionIntentPath(country, "faq"), `${prefix}/faq`);
+    assert.equal(regionIntentPath(country, "how-it-works"), `${prefix}/how-it-works`);
+    assert.equal(regionPath(country, "/privacy"), "/privacy");
+  }
 });

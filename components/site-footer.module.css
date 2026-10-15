@@ -2,7 +2,7 @@
   position: relative;
   background: #0b3338;
   color: #bed0d0;
-  padding: 56px 0 24px;
+  padding: 36px 0 20px;
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 .footer::before {
@@ -28,7 +28,7 @@
 .top {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(180px, 0.7fr) minmax(0, 1.1fr);
-  gap: 56px;
+  gap: 40px;
   align-items: start;
 }
 .top > * {
@@ -91,9 +91,9 @@
 }
 .footer .description {
   max-width: 310px;
-  font-size: 16px;
-  line-height: 1.85;
-  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 12px 0 0;
 }
 .footer .contactLabel {
   color: #90b0b2;
@@ -137,10 +137,10 @@
     pointer-events: none;
   }
   .middle::before {
-    left: -28px;
+    left: -20px;
   }
   .middle::after {
-    right: -28px;
+    right: -20px;
   }
 }
 @media (min-width: 901px) and (max-width: 1100px) {
@@ -152,7 +152,7 @@
   }
 }
 .footer .sectionTitle {
-  margin: 0 0 16px;
+  margin: 0 0 8px;
   color: #90b0b2;
   font:
     500 15px/1.5 "Plus Jakarta Sans",
@@ -169,9 +169,9 @@
 .footer .settings > button {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
+  min-height: 32px;
   color: #edf5f4;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.5;
   text-decoration: none;
@@ -221,14 +221,14 @@
   justify-content: center;
   align-self: stretch;
   text-align: center;
-  gap: 36px;
-  padding: 12px 0;
+  gap: 20px;
+  padding: 4px 0;
 }
 .footer .invitation h2 {
   margin: 0;
   color: #f4c75b;
   font:
-    500 clamp(34px, 3.2vw, 46px)/1.16 "Space Grotesk",
+    500 clamp(28px, 2.5vw, 36px)/1.2 "Space Grotesk",
     sans-serif;
   letter-spacing: -1px;
 }
@@ -242,8 +242,8 @@
   width: 100%;
   max-width: 360px;
   border-top: 1px solid #ffffff21;
-  padding-top: 20px;
-  margin-top: 24px;
+  padding-top: 14px;
+  margin-top: 16px;
 }
 .contactArea > div {
   margin-top: 0;
@@ -257,12 +257,12 @@
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 12px;
-  min-height: 54px;
+  min-height: 48px;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 14px 16px;
+  padding: 10px 16px;
   border: 1px solid #53949b80;
   border-radius: 8px;
   background: #007a87;
@@ -287,8 +287,8 @@
   align-items: center;
   gap: 16px;
   border-top: 1px solid #ffffff21;
-  margin-top: 36px;
-  padding-top: 20px;
+  margin-top: 24px;
+  padding-top: 14px;
   color: #9ab5b7;
 }
 .footer .copyright {
@@ -297,8 +297,18 @@
   line-height: 1.7;
 }
 .signature {
+  text-align: right;
   font-size: 13px;
   line-height: 1.7;
+}
+.signature a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+.signature a:hover,
+.signature a:focus-visible {
+  text-decoration: underline;
 }
 .countryLinks {
   display: flex;
@@ -371,26 +381,26 @@
 }
 @media (max-width: 600px) {
   .footer {
-    padding: 36px 0 20px;
+    padding: 24px 0 16px;
   }
   .container {
     padding: 0 24px;
   }
   .top {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 20px;
   }
   .footer .brand {
     font-size: 28px;
   }
   .footer .description {
-    margin-top: 16px;
+    margin-top: 10px;
   }
   .footer .contactLabel {
     margin-top: 20px;
   }
   .middle {
-    padding: 24px 0 0;
+    padding: 16px 0 0;
     border-left: 0;
     border-top: 1px solid #ffffff21;
   }
@@ -408,15 +418,15 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 8px 16px;
-    margin-top: 16px;
+    margin-top: 8px;
   }
   .invitation {
     grid-column: auto;
-    padding: 12px 0;
-    gap: 28px;
+    padding: 4px 0;
+    gap: 16px;
   }
   .footer .invitation h2 {
-    font-size: 34px;
+    font-size: 28px;
     letter-spacing: -1px;
   }
   .footer .invitation h2 br {
@@ -428,11 +438,14 @@
   .footer .assessment {
     width: 100%;
   }
+  .signature {
+    text-align: left;
+  }
   .bottom {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    margin-top: 28px;
-    padding-top: 18px;
+    margin-top: 20px;
+    padding-top: 12px;
   }
 }

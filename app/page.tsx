@@ -1,9 +1,9 @@
 import { CaribbeanHomepage } from "@/components/caribbean-homepage";
-import { regionAlternates, siteUrl, socialMetadata, websiteIdentity } from "@/lib/region-seo";
+import { organizationIdentity, regionAlternates, siteUrl, socialMetadata, websiteIdentity } from "@/lib/region-seo";
 
-const title = "Sol & Tide Energy (Solortide) | Caribbean Solar";
+const title = "Solortide | Sol & Tide Energy — Caribbean Solar";
 const description =
-  "Explore solar and battery solutions for Caribbean homes from Sol & Tide Energy (Solortide). Discover our planning and installation process in Antigua & Barbuda and Dominica.";
+  "Solortide by Sol & Tide Energy provides solar and battery solutions for Caribbean homes. Explore home energy planning in Antigua & Barbuda and Dominica.";
 export const metadata = {
   title,
   description,
@@ -18,6 +18,12 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteIdentity()).replace(/</g, "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationIdentity()).replace(/</g, "\\u003c"),
         }}
       />
       <CaribbeanHomepage />

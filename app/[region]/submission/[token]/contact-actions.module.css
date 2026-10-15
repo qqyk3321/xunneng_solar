@@ -1,0 +1,61 @@
+.contact {
+  padding: 26px 24px;
+  border: 1px solid #dce7df;
+  border-radius: 20px;
+  background: #fff;
+}
+.contact h2 { margin: 0 0 20px; font-size: 22px; line-height: 1.35; }
+.contact > p { margin: 0 0 20px; color: #526b70; font-size: 14px; line-height: 1.7; }
+.actions { display: flex; flex-direction: column; gap: 12px; }
+.whatsapp, .share {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font: 600 14px/1.5 "Plus Jakarta Sans", sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 180ms, transform 180ms;
+}
+.whatsapp { background: #127c49; color: #fff; }
+.whatsapp:hover { background: #0c653b; transform: translateY(-2px); }
+.share { background: #f1f7f3; color: #183c43; border-color: #dce7df; }
+.share:hover { background: #e4f0e9; }
+.share:disabled { cursor: progress; opacity: .7; }
+.actions svg { flex-shrink: 0; }
+.contact :focus-visible { outline: 3px solid #e5a34c; outline-offset: 4px; }
+.contact .status { margin: 12px 0 0; }
+.contact .status:empty { margin: 0; }
+.manualCopy { display: grid; gap: 8px; margin-top: 16px; font-size: 14px; }
+.manualCopy input { min-width: 0; width: 100%; padding: 12px; border: 1px solid #dce7df; border-radius: 8px; color: #183c43; background: #f1f7f3; font: inherit; }
+.desktopQr { margin-top: 22px; padding-top: 20px; border-top: 1px solid #dce7df; }
+.qrOptions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.qrOptions figure { min-width: 0; margin: 0; text-align: center; }
+.qrButton { display: block; width: 124px; max-width: 100%; margin: 0 auto; padding: 0; border: 0; border-radius: 14px; background: transparent; cursor: zoom-in; }
+.qrButton:hover { outline: 2px solid #127c49; outline-offset: 3px; }
+.qrOptions img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.qrOptions figcaption { margin-top: 10px; color: #526b70; font-size: 13px; }
+.qrDialog { position: fixed; width: min(400px, calc(100% - 32px)); max-height: 90dvh; overflow-y: auto; margin: auto; padding: 52px 28px 28px; border: 1px solid #dce7df; border-radius: 22px; color: #183c43; background: #fff; box-shadow: 0 24px 90px #082f3b40; text-align: center; }
+.qrDialog::backdrop { background: #092f3b99; backdrop-filter: blur(4px); }
+.qrDialog img { display: block; width: 320px; max-width: 100%; height: auto; margin: 20px auto 0; border-radius: 24px; }
+.qrDialog p { margin: 18px 0 0; color: #526b70; font-size: 14px; line-height: 1.6; }
+.close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; color: #526b70; background: transparent; cursor: pointer; }
+.close:hover { background: #f1f7f3; }
+@media (max-width: 700px), (hover: none) and (pointer: coarse) {
+  .desktopQr { display: none; }
+}
+@media (max-width: 600px) {
+  .contact { padding: 12px 14px; border-radius: 16px; }
+  .contact h2 { margin-bottom: 10px; font-size: 15px; line-height: 1.4; }
+  .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .whatsapp, .share { min-height: 44px; padding: 10px 8px; gap: 6px; font-size: 13px; }
+  .actionIntro, .actionArrow { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp, .share { transition: none; }
+  .whatsapp:hover { transform: none; }
+}

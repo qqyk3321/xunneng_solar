@@ -1,0 +1,86 @@
+.coverage { width: 100%; }
+.map {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px #32554c0c;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.oceanLabels {
+  fill: #567a70;
+  opacity: .6;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+.planned, .serving { cursor: pointer; outline: none !important; }
+.islandShape { fill: transparent; stroke: none; }
+.planned:hover .islandShape, .planned:focus-visible .islandShape {
+  fill: #6f8b7b;
+  stroke: #fff;
+  stroke-width: .7;
+}
+.serving:hover .islandShape, .serving:focus-visible .islandShape {
+  fill: #dd941c;
+  stroke: #fff;
+  stroke-width: .7;
+}
+.labelLine, .servingLine { fill: none; vector-effect: non-scaling-stroke; }
+.labelLine { stroke: #7c958b; stroke-width: .65; }
+.servingLine { stroke: #246b61; stroke-width: .8; }
+.placeName {
+  font-size: 17px;
+  font-weight: 600;
+  fill: #35574b;
+  paint-order: stroke;
+  stroke: #dceae1;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.planned:hover .placeName, .planned:focus-visible .placeName {
+  fill: #163e46;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.planned:hover .labelLine, .planned:focus-visible .labelLine { stroke: #315d51; stroke-width: 1; }
+.destinationCard {
+  fill: #fbfcf6;
+  stroke: #c8d7c9;
+  stroke-width: .6;
+  filter: drop-shadow(0 3px 4px #204b4011);
+}
+.destinationName {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  fill: #163e46;
+  letter-spacing: -.4px;
+}
+.serving:hover .destinationCard { fill: #fff; stroke: #5f9787; stroke-width: 1.5; }
+.serving:focus-visible .destinationCard { stroke: #d99219; stroke-width: 2; }
+.coverage .attribution {
+  margin: 12px 0 0;
+  color: #718177;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.attribution a { color: inherit; text-underline-offset: 3px; }
+@media (max-width: 1200px) {
+  .placeName { font-size: 17px; }
+  .destinationName { font-size: 21px; }
+}
+@media (max-height: 900px) {
+  .placeName { font-size: 20px; }
+  .destinationName { font-size: 21px; }
+}
+@media (max-height: 760px) {
+  .placeName { font-size: 22px; }
+  .destinationName { font-size: 22px; }
+}

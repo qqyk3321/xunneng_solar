@@ -1,11 +1,15 @@
+import { consultationWhatsAppUrl } from "../_shared/whatsapp.ts";
+import { consultationQrAttachment, PREVIEW_QR_HTML } from "../_shared/consultation-qr.ts";
+import QRCode from "qrcode";
+import { PNG } from "pngjs";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { createClient } from "npm:@supabase/supabase-js@2";
+import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2";
 import { receiveSubmission, type SubmissionRow } from "./intake.ts";
 import { regionalTime } from "./submission-time.ts";
 
 type Environment = (name: string) => string | undefined;
 type StoredSubmission = { id: number; received_at: string };
-type DatabaseClient = ReturnType<typeof createClient>;
+type DatabaseClient = SupabaseClient;
 
 function base64Url(bytes: Uint8Array) {
   return btoa(String.fromCharCode(...bytes))
@@ -85,26 +89,26 @@ async function sendConfirmationEmail(args: {
   env: Environment;
   row: SubmissionRow;
   submission: StoredSubmission;
-  receivedAt: string;
   previewUrl: string;
 }) {
+  // A completed delivery remains completed even after Resend's 24-hour
+  // idempotency window, or after an administrator changes the pricing.
+  const { data: delivered, error: deliveryError } = await args.client
+    .from("consultation_email_audit")
+    .select("id")
+    .eq("tally_submission_row_id", args.submission.id)
+    .eq("status", "accepted")
+    .limit(1);
+  if (deliveryError) throw new Error("Email delivery lookup failed");
+  if (delivered?.length) return;
+
   const apiKey = args.env("RESEND_API_KEY");
   const templateId = args.env("RESEND_TEMPLATE_ID");
   const from = args.env("RESEND_FROM_EMAIL");
   if (!apiKey || !templateId || !from)
     throw new Error("Resend is not configured");
 
-  const replyWindowHours = Number(
-    args.env("CONSULTATION_REPLY_WINDOW_HOURS") ?? "48",
-  );
   const submittedAt = new Date(args.row.submitted_at);
-  const replyDeadline = new Date(
-    submittedAt.getTime() +
-      (Number.isFinite(replyWindowHours) ? replyWindowHours : 48) *
-        60 *
-        60 *
-        1000,
-  );
   const supportEmail = regionalSupportEmail(args.env, args.row.country_code);
   const idempotencyKey = `consultation-confirmation/${args.row.submission_id}`;
   const { data: audit, error: auditError } = await args.client
@@ -124,8 +128,10 @@ async function sendConfirmationEmail(args: {
 
   let response: Response;
   try {
+    const qrAttachment = await consultationQrAttachment(args.previewUrl, QRCode, PNG);
     response = await fetch("https://api.resend.com/emails", {
       method: "POST",
+      signal: AbortSignal.timeout(7000),
       headers: {
         authorization: `Bearer ${apiKey}`,
         "content-type": "application/json",
@@ -136,22 +142,22 @@ async function sendConfirmationEmail(args: {
         to: [args.row.email],
         reply_to: [supportEmail],
         subject: `Your consultation · ${args.row.submission_id} | Sol & Tide Energy`,
+        attachments: [qrAttachment],
         template: {
           id: templateId,
           variables: {
             SUBMISSION_ID: args.row.submission_id,
+            WHATSAPP_URL: consultationWhatsAppUrl(args.row.submission_id, args.env("WHATSAPP_BASE_URL") || undefined),
             RECIPIENT_NAME: args.row.name,
             RECIPIENT_EMAIL: args.row.email,
             PREVIEW_URL: args.previewUrl,
+            PREVIEW_QR_HTML,
             SUPPORT_EMAIL: supportEmail,
             SUBMITTED_AT: formatRegionalTimestamp(
               submittedAt,
               args.row.country_code,
             ),
-            REPLY_DEADLINE: formatRegionalTimestamp(
-              replyDeadline,
-              args.row.country_code,
-            ),
+
           },
         },
       }),
@@ -234,7 +240,6 @@ Deno.serve((req: Request) =>
           env: (name) => Deno.env.get(name),
           row,
           submission: data,
-          receivedAt: data.received_at,
           previewUrl,
         });
         return { duplicate: false };
@@ -244,14 +249,14 @@ Deno.serve((req: Request) =>
       if (error.code === "23505") {
         const existing = await client
           .from("tally_form_submissions")
-          .select("id, received_at")
+          .select("*")
           .eq("form_id", row.form_id)
           .eq("submission_id", row.submission_id)
           .maybeSingle();
         if (!existing.error && existing.data?.id && existing.data.received_at) {
           const previewUrl = await createPreviewUrl({
             client,
-            row,
+            row: existing.data,
             submission: existing.data,
             serviceKey: key,
             siteUrl: Deno.env.get("SITE_URL") ?? "https://www.solortide.com",
@@ -259,9 +264,8 @@ Deno.serve((req: Request) =>
           await sendConfirmationEmail({
             client,
             env: (name) => Deno.env.get(name),
-            row,
+            row: existing.data,
             submission: existing.data,
-            receivedAt: existing.data.received_at,
             previewUrl,
           });
           return { duplicate: true };

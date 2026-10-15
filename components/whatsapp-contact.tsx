@@ -1,10 +1,21 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { SocialBrandIcon } from "./social-brand-icon";
 import { SITE_CONTACT } from "@/lib/site-contact";
+import { CONTACT_COPY } from "@/lib/contact-copy";
 import styles from "./whatsapp-contact.module.css";
 
-export function WhatsAppIcon() {
+type ConsultationContact = { url: string; qrSrc: string; submissionId: string };
+const ConsultationContactContext = createContext<ConsultationContact | null>(null);
+
+/** Keep footer and floating contact links tied to the quote being viewed. */
+export function ConsultationContactProvider({ value, children }: { value: ConsultationContact; children: ReactNode }) {
+  return <ConsultationContactContext.Provider value={value}>{children}</ConsultationContactContext.Provider>;
+}
+
+export function WhatsAppIcon({ brand = false }: { brand?: boolean } = {}) {
+  if (brand) return <SocialBrandIcon brand="whatsapp" />;
   return (
     <svg
       width="22"
@@ -25,11 +36,16 @@ export function WhatsAppDialog({
   open,
   onClose,
   onMessage,
+  qrOnly = false,
+  compact = false,
 }: {
   open: boolean;
   onClose: () => void;
   onMessage?: () => void;
+  qrOnly?: boolean;
+  compact?: boolean;
 }) {
+  const consultation = useContext(ConsultationContactContext);
   const dialog = useRef<HTMLDialogElement>(null);
   const title = useId();
   useEffect(() => {
@@ -54,6 +70,9 @@ export function WhatsAppDialog({
     <dialog
       ref={dialog}
       className={styles.dialog}
+      data-consultation={consultation ? true : undefined}
+      data-qr-zoom={qrOnly || undefined}
+      data-compact={compact || undefined}
       aria-labelledby={title}
       onCancel={(event) => {
         event.preventDefault();
@@ -80,30 +99,34 @@ export function WhatsAppDialog({
       >
         ×
       </button>
-      <div className={styles.mark}>
+      {!qrOnly && !compact && <div className={styles.mark}>
         <WhatsAppIcon />
-      </div>
-      <h2 id={title}>Let’s talk about your home.</h2>
-      <p>One team. Every island. Connect with Sol &amp; Tide on WhatsApp.</p>
+      </div>}
+      <h2 id={title}>{qrOnly ? "WhatsApp QR code" : compact ? CONTACT_COPY.contact.title : consultation ? "Let’s discuss your quote." : "Let’s talk about your home."}</h2>
+      {!qrOnly && <>
+      {!compact && <p>{consultation ? `Your message includes Submission ID: ${consultation.submissionId}` : "One team. Every island. Connect with Sol & Tide on WhatsApp."}</p>}
       <a
         className={styles.primary}
-        href={SITE_CONTACT.whatsappUrl}
+        href={consultation?.url || SITE_CONTACT.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <WhatsAppIcon /> Chat on WhatsApp <span aria-hidden="true">↗</span>
+        <WhatsAppIcon /> Chat on WhatsApp
       </a>
+      </>}
       <div className={styles.scan}>
-        {/* Static lossless QR: no third-party widget or tracking script. */}
+        {/* Locally generated PNG: no third-party widget or tracking script. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/contact/whatsapp-qr.png"
+          src={consultation?.qrSrc || "/contact/whatsapp-qr.png"}
           width="240"
           height="240"
           alt="Scan to chat with Sol & Tide on WhatsApp"
         />
-        <strong>Scan to start a conversation</strong>
-        <span>{SITE_CONTACT.whatsappNumber}</span>
+        {!compact && <>
+          <strong>Scan to start a conversation</strong>
+          <span>{consultation ? `+${new URL(consultation.url).pathname.slice(1)}` : SITE_CONTACT.whatsappNumber}</span>
+        </>}
       </div>
       {onMessage && (
         <button
@@ -115,7 +138,7 @@ export function WhatsAppDialog({
             requestAnimationFrame(onMessage);
           }}
         >
-          Prefer email? Leave a message <span aria-hidden="true">→</span>
+          Prefer email? Leave a message
         </button>
       )}
     </dialog>
@@ -124,25 +147,48 @@ export function WhatsAppDialog({
 
 export function WhatsAppContact({
   dark = false,
+  iconOnly = false,
+  linkOnly = false,
   inlineQr = false,
+  showMobileQr = true,
   children,
 }: {
   dark?: boolean;
+  iconOnly?: boolean;
+  linkOnly?: boolean;
   inlineQr?: boolean;
+  showMobileQr?: boolean;
   children?: ReactNode;
 }) {
+  const consultation = useContext(ConsultationContactContext);
   const [open, setOpen] = useState(false);
+  if (iconOnly || linkOnly) {
+    return (
+      <a
+        href={consultation?.url || SITE_CONTACT.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Solortide on WhatsApp"
+        title="WhatsApp"
+      >
+        <WhatsAppIcon brand={linkOnly} />
+        {linkOnly && <span>Chat on WhatsApp</span>}
+      </a>
+    );
+  }
   return (
     <div
       className={styles.contact}
       data-dark={dark || undefined}
       data-inline-qr={inlineQr || undefined}
+      data-mobile-qr={showMobileQr ? undefined : "hidden"}
+      data-consultation={consultation ? true : undefined}
     >
       {inlineQr && (
         <figure className={styles.footerQr}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/contact/whatsapp-qr.png"
+            src={consultation?.qrSrc || "/contact/whatsapp-qr.png"}
             width="140"
             height="140"
             alt="Scan to chat with Sol & Tide on WhatsApp"
@@ -153,11 +199,11 @@ export function WhatsAppContact({
       {children && <div className={styles.footerNumber}>{children}</div>}
       <a
         className={styles.link}
-        href={SITE_CONTACT.whatsappUrl}
+        href={consultation?.url || SITE_CONTACT.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <WhatsAppIcon /> Chat on WhatsApp <span aria-hidden="true">↗</span>
+        <WhatsAppIcon /> Chat on WhatsApp
       </a>
       <button
         type="button"

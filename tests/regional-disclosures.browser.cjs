@@ -68,7 +68,6 @@ const origin = process.env.PREVIEW_TEST_ORIGIN || "http://127.0.0.1:3107";
       await page.getByRole("button", { name: "Change installation location" }).last().click();
       const chooser = page.getByRole("dialog", { name: "Where would you like to install your system?" });
       await chooser.getByRole("button", { name: /^Dominica/ }).click();
-      await chooser.getByRole("button", { name: "Save location", exact: true }).click();
       await page.waitForURL(`${origin}/dominica/faq`);
       assert.equal(await page.getByRole("searchbox").inputValue(), "");
       await page.getByRole("searchbox").fill("DOMLEC");

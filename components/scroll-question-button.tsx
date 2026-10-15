@@ -4,46 +4,36 @@ import { useEffect, useState } from "react";
 import { FloatingQuestionButton } from "./floating-question-button";
 import { useSiteRegion } from "./site-region";
 
-/** Contact remains in the page; this launcher is only a scroll shortcut. */
+/** Opens contact options, including a shortcut to the in-page form. */
 export function ScrollQuestionButton({
   targetId,
-  showImmediately = false,
 }: {
   targetId: string;
-  showImmediately?: boolean;
 }) {
   const { country, open: regionOpen } = useSiteRegion();
-  const [scrolled, setScrolled] = useState(false);
+  const [landingVisible, setLandingVisible] = useState(true);
   const [cookieVisible, setCookieVisible] = useState(false);
-  const [atForm, setAtForm] = useState(false);
   useEffect(() => {
-    const scroll = () => setScrolled(window.scrollY > 200);
+    const hero = document.querySelector('[data-testid="home-hero"]');
+    const header = document.querySelector("header");
+    const scroll = () =>
+      setLandingVisible(Boolean(
+        hero && hero.getBoundingClientRect().bottom > (header?.getBoundingClientRect().bottom ?? 0),
+      ));
     const cookie = (event: Event) =>
       setCookieVisible(Boolean((event as CustomEvent).detail));
     scroll();
     setCookieVisible(Boolean(document.querySelector("[data-cookie-notice]")));
     window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("resize", scroll);
     window.addEventListener("sol-tide:cookie-notice", cookie);
-    const observer = new IntersectionObserver(
-      ([entry]) => setAtForm(entry.isIntersecting),
-      { threshold: 0 },
-    );
-    const target = document.getElementById(targetId);
-    if (target) observer.observe(target);
     return () => {
-      observer.disconnect();
       window.removeEventListener("scroll", scroll);
+      window.removeEventListener("resize", scroll);
       window.removeEventListener("sol-tide:cookie-notice", cookie);
     };
-  }, [targetId]);
-  if (
-    !country ||
-    regionOpen ||
-    (!showImmediately && !scrolled) ||
-    cookieVisible ||
-    atForm
-  )
-    return null;
+  }, []);
+  if (!country || regionOpen || landingVisible || cookieVisible) return null;
   return (
     <FloatingQuestionButton
       disabled={false}

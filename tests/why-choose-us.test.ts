@@ -11,17 +11,20 @@ test("why choose us preserves the anchor, scoped claims and readable counter fal
     /<WhyChooseUs country={country}\s*\/>/,
   );
   for (const phrase of [
-    "100% local",
-    "UL/CE-certified",
+    "Local stock and support in Antigua.",
+    "Support for your Dominica home.",
+    "-certified equipment with LiFePO4 storage",
     "remote monitoring",
     "cleaning and reinforcement",
-    "compatible existing generator",
-    "Illustrative count",
-    "Up to",
-    "Target: within",
-    "not guarantees",
+    "compatible solar, battery, grid and generator integration",
+    "Systems installed",
+    "Bill savings potential",
+    "Payback period",
+    "Response time",
   ])
     assert.ok(source.includes(phrase), phrase);
+  assert.match(source, /country === "AG" \? "UL" : country === "DM" \? "CE"/);
+  assert.match(source, /country === "DM"\s*\?/);
   assert.doesNotMatch(
     source,
     /complimentary|free maintenance|uninterrupted|guaranteed savings|warrant|island conditions|150\+? MPH|\d+[- ]year|4,?000 cycles/i,

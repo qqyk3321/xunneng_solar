@@ -32,14 +32,3 @@ test("global branded loading covers slow initial and client navigations", () => 
 test("the route suspense fallback uses the same branded visual", () => {
   assert.match(read("app/loading.tsx"), /<SiteLoadingVisual fallback\s*\/>/);
 });
-
-test("report generation reuses an embedded brand loader without route-loader markers", () => {
-  const visual = read("components/site-loading-visual.tsx");
-  const report = read("app/solar-analysis/report-dialog.tsx");
-  assert.match(visual, /data-route-loading=\{fallback && !embedded/);
-  assert.match(visual, /data-site-loader=\{!fallback && !embedded/);
-  assert.match(report, /<SiteLoadingVisual embedded/);
-  assert.match(report, /percent:71,message:"PDF 已生成，正在准备预览/);
-  assert.doesNotMatch(report, /report-spinner/);
-  assert.match(read("components/site-loading.module.css"), /\.embedded \{[\s\S]*?position: relative/);
-});

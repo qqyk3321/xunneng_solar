@@ -9,7 +9,7 @@ import {
   useState,
   type FormEvent,
 } from "react";
-import Link from "next/link";
+import { PrivacyLink } from "./privacy-link";
 import { FloatingQuestionButton } from "./floating-question-button";
 import { ScrollQuestionButton } from "./scroll-question-button";
 import {
@@ -17,7 +17,6 @@ import {
   ArrowUpRight,
   ImagePlus,
   LoaderCircle,
-  Mail,
   X,
 } from "lucide-react";
 import type { InquiryEditorHandle } from "./inquiry-rich-editor";
@@ -41,10 +40,9 @@ import {
   type RichDocument,
 } from "@/lib/anonymous-inquiry/rich-text";
 import styles from "./home-contact.module.css";
-import { SupportEmail } from "./support-email";
-import { WhatsAppContact } from "./whatsapp-contact";
+import { HomeContactMethods } from "./home-contact-methods";
+import { CONTACT_COPY, CONTACT_RESPONSE_TIME } from "@/lib/contact-copy";
 import { useSiteRegion } from "./site-region";
-import { regionPath } from "@/lib/site-region-routing";
 import { RegionLinks } from "./region-links";
 
 // Tiptap is sizeable and is only needed after the user opens the photo/rich
@@ -77,6 +75,8 @@ function photoError(error: unknown) {
   return "We couldn't process this photo. Please try a different image or browser.";
 }
 
+// Homepage and FAQ share all markup, contact methods and form behavior.
+// Keep small copy differences in contact-copy rather than duplicating layouts.
 export function HomeContact({
   initialEmail = "",
   variant = "contact",
@@ -86,6 +86,7 @@ export function HomeContact({
 }) {
   const { country } = useSiteRegion();
   const isQuestion = variant === "question";
+  const copy = CONTACT_COPY[isQuestion ? "question" : "contact"];
   const floating = variant === "floating";
   const [email, setEmail] = useState(initialEmail);
   const [text, setText] = useState("");
@@ -421,13 +422,7 @@ export function HomeContact({
           />
           <span>
             I have read the{" "}
-            <Link
-              href={regionPath(country, "/privacy")}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Privacy policy
-            </Link>{" "}
+            <PrivacyLink>Privacy policy</PrivacyLink>{" "}
             and agree to be contacted about my enquiry.
           </span>
         </label>
@@ -444,9 +439,9 @@ export function HomeContact({
       <button type="submit" className={styles.primary} disabled={cannotSend}>
         {sending ? (
           <LoaderCircle size={18} className={styles.spin} />
-        ) : (
+        ) : floating ? (
           <ArrowUpRight size={18} />
-        )}
+        ) : null}
         {sending ? "Sending…" : "Send message"}
       </button>
     );
@@ -462,7 +457,7 @@ export function HomeContact({
         </h3>
         <p>
           Thank you for reaching out. We’ll reply to your email as soon as
-          possible, within <strong>48 hours</strong>.
+          possible, within <strong>{floating ? "48 hours" : "24 hours"}</strong>.
         </p>
         <p className={styles.email}>{receipt?.email}</p>
         <p className={styles.hint}>Please check your inbox and spam folder.</p>
@@ -485,7 +480,7 @@ export function HomeContact({
   return (
     <section
       id={floating ? undefined : isQuestion ? "ask-question" : "contact-us"}
-      className={`${styles.section} ${floating ? styles.floating : ""}`}
+      className={`${styles.section} ${floating ? styles.floating : styles.contact}`}
       aria-labelledby={floating ? undefined : "contact-heading"}
       aria-label={floating ? "Ask our team a question" : undefined}
       tabIndex={-1}
@@ -498,35 +493,14 @@ export function HomeContact({
       ) : (
         <div className={styles.layout}>
           <div className={styles.intro}>
-            {isQuestion && (
-              <span className={styles.eyebrow}>WE’RE HERE TO HELP</span>
-            )}
-            <h2 id="contact-heading">
-              {isQuestion ? "Ask a question" : "Contact us"}
-              {isQuestion ? (
-                <span>Still have a question?</span>
-              ) : (
-                <span>
-                  Let’s talk about
-                  <br />
-                  your next step.
-                </span>
-              )}
-            </h2>
-            <p>
-              {isQuestion
-                ? "Can’t find the answer you need? Send us your question. You can add photos to help explain it."
-                : "Have a question about solar, storage, or your property? Leave us a message. A photo can help us understand the details."}
+            <h2 id="contact-heading">{copy.title}</h2>
+            <p className={styles.responseTime}>
+              <span className={styles.contactDescription}>
+                {copy.description}
+              </span>
+              <span>{CONTACT_RESPONSE_TIME}</span>
             </p>
-            <div className={styles.promise}>
-              <Mail size={21} />
-              <div>
-                <strong>A real reply, by email.</strong>
-                <span>We’ll get back to you within 48 hours.</span>
-              </div>
-            </div>
-            <SupportEmail />
-            <WhatsAppContact />
+            <HomeContactMethods />
           </div>
           <div className={styles.card}>
             {!country && (
@@ -545,7 +519,7 @@ export function HomeContact({
               <form
                 onSubmit={submit}
                 noValidate
-                aria-label={isQuestion ? "Ask a question" : "Contact us"}
+                aria-label="Contact us"
                 aria-busy={busy}
               >
                 <fieldset
@@ -575,9 +549,11 @@ export function HomeContact({
                           edited();
                         }}
                       />
-                      <span className={styles.count}>
-                        {text.length.toLocaleString("en-US")} / 5,000
-                      </span>
+                      {text.length >= MAX_TEXT - 500 && (
+                        <span className={styles.count}>
+                          {text.length.toLocaleString("en-US")} / 5,000
+                        </span>
+                      )}
                     </div>
                   ) : (
                     <div className={styles.draft}>
@@ -630,7 +606,6 @@ export function HomeContact({
       )}
       {!floating && (
         <ScrollQuestionButton
-          showImmediately={isQuestion}
           targetId={isQuestion ? "ask-question" : "contact-us"}
         />
       )}

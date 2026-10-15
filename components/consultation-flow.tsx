@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import Link from "next/link";
+import { PrivacyLink } from "./privacy-link";
 import { useEffect, useRef, useState } from "react";
 import { RegionFlag } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
@@ -183,13 +184,7 @@ function ConsultationForRegion({ country }: { country: ServiceCountry }) {
                   />
                   <span>
                     I have read the{" "}
-                    <Link
-                      href={regionPath(country, "/privacy")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Privacy Policy
-                    </Link>{" "}
+                    <PrivacyLink>Privacy Policy</PrivacyLink>{" "}
                     and understand how my information will be used to handle
                     this enquiry.
                   </span>
@@ -251,19 +246,17 @@ function SubmissionComplete({
             />
           </svg>
         </div>
-        <p className={styles.successLabel}>SUBMISSION COMPLETE</p>
         <h2 id="submission-complete-title" ref={heading} tabIndex={-1}>
-          Your enquiry has been submitted.
+          SUBMISSION COMPLETE
         </h2>
         <p className={styles.successIntro}>
-          Thank you for sharing your plans with us. Our team will review your
-          details and aim to respond <strong>within 48 hours.</strong> A
-          confirmation email will arrive shortly — please check your spam folder
-          if you don’t see it.
+          Thank you for sharing your plans with us. Our team will prepare your
+          preliminary quote as soon as possible. Please check your email for the
+          details.
         </p>
         <SubmissionReference id={submissionId} />
         <Link className={styles.successHome} href={regionPath(country)}>
-          Back to home <span aria-hidden="true">↗</span>
+          Back to home
         </Link>
       </div>
       <div className={styles.successHelp}>

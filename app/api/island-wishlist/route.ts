@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { saveWishlist } from "@/lib/wishlist/save";
 import { createWishlistHandler } from "@/lib/island-wishlist";
 import { isContactOrigin } from "@/lib/anonymous-inquiry/origin";
 import { checkContactLimit } from "@/lib/anonymous-inquiry/rate-limit";
@@ -20,15 +21,7 @@ export const POST = createWishlistHandler({
           fetch(input, { ...init, signal: AbortSignal.timeout(10_000) }),
       },
     });
-    const { error } = await client.from("island_wishlist").upsert(
-      {
-        email: payload.email,
-        island_code: payload.islandCode,
-        other_island: payload.otherIsland,
-      },
-      { onConflict: "email,island_code,other_island", ignoreDuplicates: true },
-    );
-    if (error) throw new Error("wishlist_database_write_failed");
+    await saveWishlist(payload, client, url, key);
   },
   // Never log emails, request bodies, credentials or upstream error messages.
   onError: () =>

@@ -8,7 +8,7 @@ const assert = require('node:assert/strict');
       for (const region of ['antigua', 'dominica']) {
         const page = await browser.newPage({ viewport: { width, height: 900 } });
         await page.goto(`http://127.0.0.1:3003/${region}`, { waitUntil: 'networkidle' });
-        const launcher = page.getByRole('button', { name: 'Ask a question', exact: true });
+        const launcher = page.getByRole('button', { name: 'Chat on WhatsApp', exact: true });
         await page.waitForFunction(() => {
           const input = document.getElementById('contact-email');
           return input && !input.matches(':disabled');

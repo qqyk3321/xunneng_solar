@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SectionAnchor } from "./section-anchor";
@@ -25,6 +25,7 @@ export function SiteHeader({
   const pathname = usePathname();
   const [revealed, setRevealed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuToggle = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!immersive) return;
     const scroll = () => {
@@ -69,7 +70,10 @@ export function SiteHeader({
           if (immersive) setRevealed(true);
         }}
         onKeyDown={(event) => {
-          if (event.key === "Escape") setMenuOpen(false);
+          if (event.key === "Escape" && menuOpen) {
+            setMenuOpen(false);
+            menuToggle.current?.focus();
+          }
         }}
       >
         <div className={styles.headerInner}>
@@ -83,7 +87,7 @@ export function SiteHeader({
             Sol<span>&</span>Tide <small>Energy</small>
           </Link>
           <nav
-            id={immersive || caribbean ? "regional-main-nav" : undefined}
+            id="regional-main-nav"
             className={styles.nav}
             aria-label="Main navigation"
             onClick={() => setMenuOpen(false)}
@@ -107,7 +111,13 @@ export function SiteHeader({
                 {homeLink("contact-us", "Contact us")}
               </>
             )}
-            <Link href={regionPath(country, "/how-it-works")} prefetch={false}>How it works</Link>
+            {caribbean ? (
+              <button className={styles.navAction} onClick={() => choose("how-it-works")} aria-haspopup="dialog">
+                How it works
+              </button>
+            ) : (
+              <Link href={regionPath(country, "/how-it-works")} prefetch={false}>How it works</Link>
+            )}
             {caribbean ? (
               <button
                 className={styles.navAction}
@@ -121,7 +131,7 @@ export function SiteHeader({
                 FAQ
               </Link>
             )}
-            {caribbean && (
+            {caribbean ? (
               <button
                 className={styles.mobileAssessment}
                 onClick={() => choose("assessment")}
@@ -129,18 +139,17 @@ export function SiteHeader({
               >
                 Get Your Free Assessment
               </button>
+            ) : (
+              <Link
+                href={regionPath(country, "/consultation")}
+                prefetch={false}
+                className={styles.mobileAssessment}
+              >
+                Get Your Free Assessment
+              </Link>
             )}
           </nav>
           <div className={styles.headerActions}>
-            {!caribbean && (
-              <Link
-                href={regionPath(country, "/faq")}
-                prefetch={false}
-                className={styles.mobileFaq}
-              >
-                FAQ
-              </Link>
-            )}
             {caribbean ? (
               <button
                 className={`${styles.headerCta} ${styles.tailoredCta}`}
@@ -162,21 +171,20 @@ export function SiteHeader({
             {!caribbean && <RegionSwitcher />}
             {accountSlot}
           </div>
-          {(immersive || caribbean) && (
-            <button
-              type="button"
-              className={styles.menuToggle}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-              aria-controls="regional-main-nav"
-              onClick={() => {
-                setRevealed(true);
-                setMenuOpen((value) => !value);
-              }}
-            >
-              <span aria-hidden="true">{menuOpen ? "✕" : "☰"}</span>
-            </button>
-          )}
+          <button
+            ref={menuToggle}
+            type="button"
+            className={styles.menuToggle}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="regional-main-nav"
+            onClick={() => {
+              setRevealed(true);
+              setMenuOpen((value) => !value);
+            }}
+          >
+            <span aria-hidden="true">{menuOpen ? "✕" : "☰"}</span>
+          </button>
         </div>
       </header>
     </>

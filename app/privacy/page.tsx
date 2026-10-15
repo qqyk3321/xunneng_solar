@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { RegionalContactLink } from "@/components/regional-contact-link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PRIVACY_VERSION } from "@/lib/consultation-intake";
 import styles from "./privacy.module.css";
-import { siteUrl } from "@/lib/region-seo";
-import { RegionalSupportLink } from "@/components/support-email";
+import { siteUrl, socialMetadata } from "@/lib/region-seo";
+import { SUPPORT_EMAILS, SITE_CONTACT } from "@/lib/site-contact";
 
 export const metadata: Metadata = {
   alternates: { canonical: siteUrl("/privacy") },
-  title: "Privacy Policy | Sol & Tide Energy",
+  title: "Privacy Policy | Solortide",
+  ...socialMetadata("Privacy Policy | Solortide", "How Sol & Tide Energy handles your enquiries, website information and privacy requests.", "/privacy"),
   description:
     "How information shared through our website is used to handle solar enquiries.",
 };
@@ -17,18 +17,33 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader caribbean />
       <main className={styles.page}>
-        <p className={styles.eyebrow}>YOUR INFORMATION, HANDLED WITH CARE</p>
+        <header className={styles.introHeader}>
+        <p className={styles.eyebrow}>SOL &amp; TIDE ENERGY</p>
         <h1>Privacy policy</h1>
         <p className={styles.intro}>
-          A clear view of the information you share and the services that help
-          us respond.
+          How we handle your information when you browse our website or contact
+          us about solar and battery storage. This policy covers both Antigua and
+          Barbuda and Dominica.
         </p>
         <p className={styles.version}>
-          Last updated: 13 September 2026 · Version {PRIVACY_VERSION}
+          Last updated: 12 October 2026 · Version {PRIVACY_VERSION}
         </p>
-        <section>
+        </header>
+        <div className={styles.layout}>
+        <nav className={styles.contents} aria-label="Privacy policy contents">
+          <p>ON THIS PAGE</p>
+          <a href="#information">Information you share</a>
+          <a href="#use">How we use it</a>
+          <a href="#services">Services we use</a>
+          <a href="#cookies">Cookies &amp; storage</a>
+          <a href="#retention">Retention &amp; security</a>
+          <a href="#contact">Contact &amp; requests</a>
+          <a href="#updates">Policy updates</a>
+        </nav>
+        <article className={styles.content}>
+        <section id="information">
           <h2>1. Information you choose to share</h2>
           <p>
             When you contact Sol &amp; Tide Energy or request an assessment, you
@@ -39,7 +54,7 @@ export default function PrivacyPage() {
             information.
           </p>
         </section>
-        <section>
+        <section id="use">
           <h2>2. How your information is used</h2>
           <p>
             We use your enquiry information to understand your requirements,
@@ -56,7 +71,7 @@ export default function PrivacyPage() {
             to withdraw the request or ask for deletion.
           </p>
         </section>
-        <section>
+        <section id="services">
           <h2>3. Services involved in your visit</h2>
           <p>
             Tally hosts the assessment details form. Website hosting, security
@@ -64,6 +79,19 @@ export default function PrivacyPage() {
             operate the site. Loading external services, fonts or images can
             disclose technical information such as your IP address and browser
             details to their providers.
+          </p>
+          <p>
+            We use Vercel for website hosting, Web Analytics for visits to selected
+            public pages, and Speed Insights for browser performance measurements.
+            These measurements help us understand page loading and responsiveness.
+            Our tracking configuration removes URL query strings and fragments.
+            Analytics and Speed Insights group submission-detail measurements by
+            region without sending the private access token in the link.
+          </p>
+          <p>
+            Supabase stores enquiry information and supports our submission
+            processing. Resend delivers enquiry emails. If you choose to contact
+            us through WhatsApp, your message is handled through that service.
           </p>
           <p>
             In the consultation flow, Tally loads when you open the details form
@@ -116,7 +144,7 @@ export default function PrivacyPage() {
             analytics, marketing requests or third-party behaviour.
           </p>
         </section>
-        <section>
+        <section id="retention">
           <h2>5. Retention and security</h2>
           <p>
             Submitted enquiries are stored for handling and follow-up. A fixed
@@ -126,19 +154,31 @@ export default function PrivacyPage() {
             not send highly sensitive material through these forms.
           </p>
         </section>
-        <section>
+        <section id="contact">
           <h2>6. Questions about your information</h2>
           <p>
-            You can use our{" "}
-            <RegionalContactLink />{" "}
-            to ask about information you have submitted or request a correction
-            or deletion. Include the email address used for the enquiry, without
-            sending identity documents. For regional support: <RegionalSupportLink />.
-            Requests may require verification before action. Our legal company
-            identity will be added once confirmed.
+            Contact either regional support team to ask about your information or
+            request a correction or deletion. Include the email address used for
+            your enquiry and, if available, your Submission ID. Please do not send
+            identity documents or other sensitive information. We may need to
+            verify that the request relates to you.
           </p>
+          <div className={styles.contacts}>
+            <div>
+              <h3>Antigua &amp; Barbuda</h3>
+              <a href={`mailto:${SUPPORT_EMAILS.AG}`}>{SUPPORT_EMAILS.AG}</a>
+            </div>
+            <div>
+              <h3>Dominica</h3>
+              <a href={`mailto:${SUPPORT_EMAILS.DM}`}>{SUPPORT_EMAILS.DM}</a>
+            </div>
+            <div className={styles.whatsapp}>
+              <h3>WhatsApp</h3>
+              <a href={SITE_CONTACT.whatsappUrl} target="_blank" rel="noopener">{SITE_CONTACT.whatsappNumber} ↗</a>
+            </div>
+          </div>
         </section>
-        <section>
+        <section id="updates">
           <h2>7. Updates to this notice</h2>
           <p>
             We may update this notice as our services, providers and privacy
@@ -146,8 +186,10 @@ export default function PrivacyPage() {
             available when you start your consultation.
           </p>
         </section>
+        </article>
+        </div>
       </main>
-      <SiteFooter />
+      <SiteFooter caribbean />
     </>
   );
 }

@@ -2,6 +2,7 @@
 
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import styles from "./home-contact.module.css";
+import { CONTACT_COPY, CONTACT_RESPONSE_TIME } from "@/lib/contact-copy";
 
 const Contact = lazy(async () => {
   const contactModule = await import("./homepage-contact");
@@ -10,21 +11,23 @@ const Contact = lazy(async () => {
 
 function ContactPlaceholder({ variant }: { variant: "contact" | "question" }) {
   const question = variant === "question";
+  const copy = CONTACT_COPY[variant];
   return (
     <section
       id={question ? "ask-question" : "contact-us"}
-      className={styles.section}
+      className={`${styles.section} ${styles.contact}`}
       aria-labelledby="deferred-contact-heading"
     >
       <div className={styles.layout}>
         <div className={styles.intro}>
           <h2 id="deferred-contact-heading">
-            {question ? "Ask a question" : "Contact us"}
+            {copy.title}
           </h2>
-          <p>
-            {question
-              ? "Can’t find the answer you need? Send our team your question."
-              : "Have a question about solar, storage, or your property? Leave us a message."}
+          <p className={styles.responseTime}>
+            <span className={styles.contactDescription}>
+              {copy.description}
+            </span>
+            <span>{CONTACT_RESPONSE_TIME}</span>
           </p>
         </div>
       </div>
@@ -38,6 +41,14 @@ export function DeferredHomepageContact({
 }: { variant?: "contact" | "question" } = {}) {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (variant !== "question") return;
+    // The FAQ's contact form owns its floating launcher. Load it
+    // even before scrolling to the form so help is available beside the FAQ.
+    const timer = window.setTimeout(() => setActive(true), 1200);
+    return () => window.clearTimeout(timer);
+  }, [variant]);
 
   useEffect(() => {
     if (!root.current || !("IntersectionObserver" in window)) {

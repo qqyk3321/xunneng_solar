@@ -38,17 +38,18 @@ test("regional FAQ localizes the tariff and all action destinations without muta
     assert.deepEqual(searchFaq(country === "AG" ? "DOMLEC" : "APUA", "savings", items), []);
   }
   const dominica = getFaqItems("DM").find(item => item.id === "calculator-tariff")!;
-  assert.match(dominica.answer, /not a verified current tariff/);
-  assert.match(dominica.answer, /October 1, 2026 is not included/);
-  assert.match(dominica.answer, /15%.*100 kWh/);
+  assert.match(dominica.answer, /full residential table has not yet been verified/);
+  assert.match(dominica.answer, /1 November 2026 is not included/);
+  assert.match(dominica.answer, /15%.*150 kWh/);
   assert.equal(JSON.stringify(FAQ_ITEMS), before);
 });
 
 test("budget FAQ explains the direction of the calculation instead of promising a quotation", () => {
   for (const country of ["AG", "DM"] as const) {
     const answer = getFaqItems(country).find(item => item.id === "investment-quote")!.answer;
-    assert.match(answer, /assumed annual bill savings multiplied by an assumed payback period/);
-    assert.match(answer, /not a supplier quotation/);
+    assert.match(answer, /starting price of the Basic, Plus or Premium package/);
+    assert.match(answer, /starting price divided by estimated annual savings/);
+    assert.match(answer, /assessment.*final quote/);
   }
   const page = readFileSync("components/regional-faq-page.tsx", "utf8");
   assert.match(page, /await requireRegion\(params\)/);
@@ -107,7 +108,7 @@ test("FAQ reuses the guarded contact module and links to its own inquiry section
   assert.match(deferredContact, /import\("\.\/homepage-contact"\)/);
   assert.match(deferredContact, /id={question \? "ask-question"/);
   assert.match(page, /<SiteHeader\s*\/>/);
-  assert.match(directory, /<SectionAnchor href="#ask-question">/);
+  assert.match(directory, /<SectionAnchor\b[^>]*\bhref="#ask-question"[^>]*>/);
   const header = readFileSync("components/site-header.tsx", "utf8");
   assert.match(header, /homeSectionsLocal = false/);
   assert.ok(header.includes('href={`${regionPath(country)}#${id}`}'));
@@ -136,7 +137,7 @@ test("search covers questions, answers and keywords with case and punctuation no
   assert.deepEqual(searchFaq("BATTERY"), searchFaq("battery"));
   assert.deepEqual(searchFaq("lithium-ion"), searchFaq("lithium ion"));
   assert.deepEqual(
-    searchFaq(" FUEL  surcharge 0.80 ").map((item) => item.id),
+    searchFaq(" FUEL  surcharge 0.88 ").map((item) => item.id),
     ["calculator-tariff"],
   );
   assert.deepEqual(

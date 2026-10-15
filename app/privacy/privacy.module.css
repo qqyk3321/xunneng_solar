@@ -1,47 +1,43 @@
 .page {
-  max-width: 880px;
+  max-width: 1160px;
   margin: 0 auto;
-  padding: 64px 24px 80px;
+  padding: 144px 32px 88px;
   color: #183c43;
 }
+.introHeader { max-width: 780px; margin-bottom: 48px; }
 .page h1 {
-  font:
-    600 clamp(36px, 6vw, 56px)/1.15 "Space Grotesk",
-    sans-serif;
-  margin: 16px 0;
+  font: 600 clamp(38px, 6vw, 64px)/1.1 "Space Grotesk", sans-serif;
+  letter-spacing: -0.035em;
+  margin: 16px 0 24px;
 }
-.eyebrow {
-  font-size: 13px;
-  letter-spacing: 1.3px;
-  color: #007c8a;
-  font-weight: 600;
-}
-.intro {
-  font-size: 20px;
-  line-height: 1.6;
-}
-.version {
-  font-size: 14px;
-  color: #617779;
-  margin-top: 20px;
-}
-.page section {
-  border-top: 1px solid #dde8e6;
-  padding: 24px 0;
-  scroll-margin-top: 110px;
-}
-.page h2 {
-  font-size: 22px;
-  line-height: 1.4;
-  margin-bottom: 14px;
-}
-.page section p {
-  font-size: 17px;
-  line-height: 1.9;
-  margin-bottom: 12px;
-}
-.page a {
-  color: #006975;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.eyebrow { font-size: 12px; letter-spacing: 1.8px; color: #007c8a; font-weight: 700; }
+.intro { font-size: 19px; line-height: 1.7; }
+.version { font-size: 13px; color: #617779; margin-top: 20px; }
+.layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 64px; align-items: start; }
+.contents { position: sticky; top: 112px; display: grid; gap: 14px; padding: 24px 0; border-top: 1px solid #cddedb; }
+.contents p { font-size: 11px; letter-spacing: 1.4px; font-weight: 700; color: #617779; margin: 0 0 6px; }
+.page .contents a { font-size: 14px; text-decoration: none; line-height: 1.5; }
+.content { min-width: 0; }
+.page section { border-top: 1px solid #dde8e6; padding: 28px 0; scroll-margin-top: 110px; }
+.page h2 { font-size: 23px; line-height: 1.4; margin: 0 0 16px; letter-spacing: -0.02em; }
+.page section p { font-size: 16px; line-height: 1.85; margin: 0 0 14px; }
+.page a { color: #006975; text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.page a:hover { color: #003f46; }
+.page a:focus-visible { outline: 2px solid #007c8a; outline-offset: 4px; border-radius: 2px; }
+.contacts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.contacts > div { background: #eef5f2; border: 1px solid #dbe7e1; border-radius: 14px; padding: 20px; }
+.contacts h3 { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+.contacts a { font-size: 15px; }
+.whatsapp { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  .page { padding: 108px 22px 56px; }
+  .introHeader { margin-bottom: 30px; }
+  .intro { font-size: 17px; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .contents { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; padding: 16px 0; }
+  .contents p { grid-column: 1 / -1; margin-bottom: 12px; }
+  .page .contents a { display: flex; align-items: center; min-height: 44px; }
+  .page h2 { font-size: 21px; }
+  .contacts { grid-template-columns: minmax(0, 1fr); }
+  .contacts a { display: inline-block; padding: 6px 0; }
 }

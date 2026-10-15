@@ -29,7 +29,6 @@
     600 30px/1.2 "Space Grotesk",
     sans-serif;
 }
-.description,
 .coming {
   font-size: 15px;
   line-height: 1.8;
@@ -85,10 +84,10 @@
   color: #153e46;
   cursor: pointer;
 }
-.options button[aria-pressed="true"] {
+.options button:hover,
+.options button:active {
   background: #eaf6f5;
-  border: 2px solid #007a87;
-  padding: 14px 13px;
+  border-color: #007a87;
 }
 .options strong {
   display: flex;
@@ -108,36 +107,12 @@
   border-radius: 10px;
   padding: 14px;
 }
-.save {
-  width: 100%;
-  padding: 15px;
-  margin-top: 12px;
-  border: 0;
-  border-radius: 9px;
-  background: #ffa500;
-  color: #102f36;
-  font:
-    700 16px "Plus Jakarta Sans",
-    sans-serif;
-  cursor: pointer;
-}
-.save:disabled {
-  background: #e8eeee;
-  color: #6a7c80;
-  cursor: not-allowed;
-}
 .hint {
   color: #657b80;
   font-size: 13px;
   line-height: 1.7;
   text-align: center;
   margin: 16px 0 0;
-}
-.warning {
-  padding: 12px;
-  background: #fff2df;
-  font-size: 15px;
-  line-height: 1.6;
 }
 .close {
   position: absolute;
@@ -208,9 +183,6 @@
   }
   .options button {
     padding: 12px;
-  }
-  .options button[aria-pressed="true"] {
-    padding: 11px;
   }
   .options strong {
     font-size: 16px;

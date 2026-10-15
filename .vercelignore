@@ -1,0 +1,27 @@
+# Production credentials come from Vercel environment variables.
+.env
+.env.*
+**/.env
+**/.env.*
+.git/
+.next/
+.vercel/
+.codex
+.vscode/
+node_modules/
+**/node_modules/
+**/__pycache__/
+*.tsbuildinfo
+
+# Separate services, local experiments, and non-runtime source artifacts.
+email/
+supabase/.temp
+supabase/.branches
+ticket-query-local/
+design/
+exports/
+docs/
+tests/
+deprecated/
+tools/
+prototypes/

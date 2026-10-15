@@ -11,8 +11,6 @@ import {
   buildTallyIntakeUrl,
   isTallySubmissionMessage,
 } from "../lib/tally-intake";
-import { middleware } from "../middleware";
-import { NextRequest } from "next/server";
 
 const config = {
   formId: "V2TEST",
@@ -93,6 +91,21 @@ test("strict field mapping, phone and address JSON, full original payload", asyn
     assert.deepEqual(saved?.payload, input);
   }
 });
+test("missing, null or blank country defaults to Antigua; explicit regions remain unchanged", async () => {
+  for (const value of [undefined, null, "", "  ", "AG", "DM"]) {
+    const input = payload();
+    input.data.fields = input.data.fields.filter(field => field.key !== config.fields.installation_country);
+    if (value !== undefined) input.data.fields.push({ key: config.fields.installation_country, label: "Country", value });
+    let saved: SubmissionRow | undefined;
+    const response = await receiveSubmission(request(input), env, async row => {
+      saved = row;
+      return { duplicate: false };
+    });
+    assert.equal(response.status, 200);
+    assert.equal(saved?.country_code, value === "DM" ? "DM" : "AG");
+    assert.deepEqual(saved?.payload, input, "retain the original country input in the source payload");
+  }
+});
 test("config missing/disabled rejects before writes; duplicate map keys rejected", async () => {
   const noWrite = async () => {
     assert.fail("must not save");
@@ -149,7 +162,7 @@ test("reject invalid signatures and tampered signed payloads", async () => {
 });
 test("required fields, country, metadata, email and international phone validated", async () => {
   const badValues = {
-    installation_country: ["", "FR", "dm"],
+    installation_country: ["FR", "dm"],
     name: [""],
     email: ["not-email"],
     phone: ["7670000000", "+1"],
@@ -195,8 +208,8 @@ test("required fields, country, metadata, email and international phone validate
 });
 test("no fallback to labels, no duplicate keys; optional omitted fields are null", async () => {
   const input = payload();
-  input.data.fields[0].key = "wrong";
-  input.data.fields[0].label = "installation_country";
+  input.data.fields.find(field => field.key === config.fields.name)!.key = "wrong";
+  input.data.fields.find(field => field.key === "wrong")!.label = "name";
   assert.equal(
     (
       await receiveSubmission(request(input), env, async () =>
@@ -295,33 +308,5 @@ test("Tally URL only carries country, completion events require exact trusted or
   assert.equal(
     isTallySubmissionMessage("https://tally.so", event, "Other"),
     false,
-  );
-});
-test("retired routes reject reads and writes even in development without auth refresh", async () => {
-  for (const path of [
-    "/auth-preview",
-    "/auth-preview/action",
-    "/auth-preview/confirm",
-    "/home-preview/contact",
-    "/my-submissions-preview",
-    "/submission-preview-test",
-    "/image-upload-preview/upload",
-    "/test-pages/cookie-preview",
-  ]) {
-    for (const method of ["GET", "POST"]) {
-      assert.equal(
-        (
-          await middleware(
-            new NextRequest(`http://example.com${path}`, { method }),
-          )
-        ).status,
-        404,
-      );
-    }
-  }
-  assert.equal(
-    (await middleware(new NextRequest("http://example.com/api/contact")))
-      .status,
-    200,
   );
 });

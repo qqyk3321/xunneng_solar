@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
+import modelManifest from "./lib/solution-suggest/model-table-manifest.json";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/*/submission/*": [`./public${modelManifest.url}`],
+  },
   async headers() {
     const brandHeaders = ["/icon.svg", "/flags/ag.svg", "/flags/dm.svg"].map((source) => ({
       source,
@@ -12,26 +16,16 @@ const nextConfig: NextConfig = {
         },
       ],
     }));
-    return [{ source: "/solar-data/:path*", headers: [
+    return [{
+      source: "/:region(antigua|dominica)/submission/:token",
+      // Redacting the event URL alone does not remove the HTTP Referer header.
+      headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
+    }, { source: "/solar-data/:path*", headers: [
       { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
       { key: "Vercel-CDN-Cache-Control", value: "public, max-age=31536000" },
       { key: "X-Content-Type-Options", value: "nosniff" },
       { key: "X-Robots-Tag", value: "noindex" },
-    ] }, { source: "/solar-analysis/sw.js", headers: [
-      { key: "Cache-Control", value: "no-store" },
-      { key: "Service-Worker-Allowed", value: "/solar-analysis" },
-      { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self'; connect-src 'self'" },
-    ] }, { source: "/pwa/sw.js", headers: [
-      { key: "Cache-Control", value: "no-store" },
-      { key: "Service-Worker-Allowed", value: "/pwa" },
-      { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self'; connect-src 'self'" },
-    ] }, { source: "/pwa/offline-assets.json", headers: [
-      { key: "Cache-Control", value: "no-store" },
-      { key: "X-Robots-Tag", value: "noindex" },
-    ] }, ...brandHeaders, ...["/fonts/report-space-grotesk-v1.ttf"].map(source=>({
-      source,
-      headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-    }))];
+    ] }, ...brandHeaders];
   },
   images: {
     remotePatterns: [

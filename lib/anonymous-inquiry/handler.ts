@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import type { ServiceCountry } from "../consultation-intake";
-import { detectImageMime, type ImageMime } from "@/lib/image-lab/config";
+import { detectImageMime, type ImageMime } from "./image";
 import {
   MAX_ATTACHMENT_BYTES,
   MAX_IMAGES,

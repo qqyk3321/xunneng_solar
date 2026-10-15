@@ -1,4 +1,4 @@
-import { detectImageMime, imageDimensions } from "@/lib/image-lab/config";
+import { detectImageMime, imageDimensions } from "./image";
 import { MAX_SOURCE_BYTES } from "./config";
 import { encodeWithinBudget } from "./compression-policy";
 
