@@ -23,7 +23,7 @@
 .planned, .serving { cursor: pointer; outline: none !important; }
 .islandShape { fill: transparent; stroke: none; }
 .serving { --reveal-delay: 0ms; }
-.serving[data-island="DM"] { --reveal-delay: 100ms; }
+.serving[data-island="DM"] { --reveal-delay: 380ms; }
 .serving .islandShape { fill: #167b72; stroke: #ecf7ed; stroke-width: .7; }
 .planned:hover .islandShape, .planned:focus-visible .islandShape {
   fill: #6f8b7b;
@@ -35,20 +35,16 @@
   stroke: #fff;
   stroke-width: .7;
 }
-.labelLine, .servingLine { fill: none; vector-effect: non-scaling-stroke; }
+.labelLine, .servingLine, .arrowHead { fill: none; vector-effect: non-scaling-stroke; }
 .labelLine { stroke: #7c958b; stroke-width: .65; }
-.servingLine { stroke: #246b61; stroke-width: 1.1; }
-.servingTrace {
-  fill: none;
-  stroke: #e9a12a;
+.servingLine, .arrowHead {
+  stroke: #b87a16;
   stroke-width: 2;
   stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  vector-effect: non-scaling-stroke;
-  opacity: 0;
+  stroke-linejoin: round;
   pointer-events: none;
 }
+.servingLine { stroke-dasharray: 1; stroke-dashoffset: 0; }
 .placeName {
   font-size: 17px;
   font-weight: 600;
@@ -66,10 +62,11 @@
 .planned:hover .labelLine, .planned:focus-visible .labelLine { stroke: #315d51; stroke-width: 1; }
 .destinationCard {
   fill: #fbfcf6;
-  stroke: #81aa9b;
-  stroke-width: 1.1;
-  filter: drop-shadow(0 4px 6px #204b4024);
+  stroke: #377e70;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 5px 8px #204b4029);
 }
+.destinationFrame { transform-box: fill-box; transform-origin: left center; }
 .destinationName {
   font-family: "Space Grotesk", sans-serif;
   font-size: 20px;
@@ -87,38 +84,41 @@
 }
 .attribution a { color: inherit; text-underline-offset: 3px; }
 
-/* A single island → leader → destination reveal; links remain visible and usable. */
+/* Draw the arrow, open an empty frame, then reveal the flag and name. */
 @media (prefers-reduced-motion: no-preference) {
-  .coverage[data-revealed] .serving .islandShape {
-    animation: islandLight 700ms ease-out var(--reveal-delay) backwards;
+  .coverage[data-motion]:not([data-revealed]) :is(.servingLine, .arrowHead, .destinationFrame, .destinationContent) {
+    opacity: 0;
   }
-  .coverage[data-revealed] .servingTrace {
-    animation: traceRoute 600ms ease-out calc(var(--reveal-delay) + 60ms) backwards;
+  .coverage[data-motion][data-revealed] .servingLine {
+    animation: drawArrow 680ms cubic-bezier(.45, 0, .25, 1) var(--reveal-delay) backwards;
   }
-  .coverage[data-revealed] .destinationLabel {
-    animation: labelArrival 400ms cubic-bezier(.16, 1, .3, 1) calc(var(--reveal-delay) + 180ms) backwards;
+  .coverage[data-motion][data-revealed] .arrowHead {
+    animation: arrowTip 100ms ease-out calc(var(--reveal-delay) + 600ms) backwards;
   }
-  .coverage[data-revealed] .destinationCard {
-    animation: cardLight 520ms ease-out calc(var(--reveal-delay) + 180ms) backwards;
+  .coverage[data-motion][data-revealed] .destinationFrame {
+    animation: openFrame 420ms cubic-bezier(.22, 1, .36, 1) calc(var(--reveal-delay) + 740ms) backwards;
+  }
+  .coverage[data-motion][data-revealed] .destinationContent {
+    animation: revealDestination 360ms ease-out calc(var(--reveal-delay) + 1260ms) backwards;
   }
 }
-@keyframes islandLight {
-  0%, 100% { fill: #167b72; filter: drop-shadow(0 0 0 transparent); }
-  35% { fill: #ffb22b; filter: drop-shadow(0 0 4px #edab49); }
+@keyframes drawArrow {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  10% { opacity: 1; }
+  to { stroke-dashoffset: 0; opacity: 1; }
 }
-@keyframes traceRoute {
-  0% { stroke-dashoffset: 1; opacity: 0; }
-  12% { opacity: 1; }
-  72% { stroke-dashoffset: 0; opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
+@keyframes arrowTip {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-@keyframes labelArrival {
-  from { opacity: .55; transform: translate(-9px, 3px); }
-  to { opacity: 1; transform: translate(0, 0); }
+@keyframes openFrame {
+  from { opacity: 0; transform: scaleX(.04); }
+  15% { opacity: 1; }
+  to { opacity: 1; transform: scaleX(1); }
 }
-@keyframes cardLight {
-  0%, 100% { stroke: #81aa9b; fill: #fbfcf6; }
-  40% { stroke: #e9a12a; fill: #fff9e9; }
+@keyframes revealDestination {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 1200px) {
   .placeName { font-size: 17px; }

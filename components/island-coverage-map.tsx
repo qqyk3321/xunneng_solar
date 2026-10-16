@@ -16,8 +16,13 @@ export function IslandCoverageMap({
   const lastDestination = useRef<SVGGElement>(null);
   const [mapReady, setMapReady] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(false);
 
   useEffect(() => {
+    setMotionEnabled(
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+      "IntersectionObserver" in window,
+    );
     // SVG image load events are inconsistent; share the browser's image cache.
     const background = new window.Image();
     background.onload = background.onerror = () => setMapReady(true);
@@ -42,7 +47,7 @@ export function IslandCoverageMap({
   }, [mapReady, revealed]);
 
   return (
-    <div className={styles.coverage} data-island-coverage data-revealed={revealed || undefined}>
+    <div className={styles.coverage} data-island-coverage data-motion={motionEnabled || undefined} data-revealed={revealed || undefined}>
       <svg className={styles.map} viewBox="0 0 1280 820" role="group" aria-label="Choose a Caribbean island or territory">
         <image href={MAP_IMAGE} width="1280" height="820" aria-hidden="true" />
         <g className={styles.oceanLabels} aria-hidden="true">
@@ -53,19 +58,31 @@ export function IslandCoverageMap({
           const { code, name, shape, point: [x, y], label: [lx, ly, anchor] } = island;
           if (code === "AG" || code === "DM") {
             const antigua = code === "AG";
-            const leader = `M${x},${y} L${lx - 14},${ly + 28} H${lx}`;
+            const leader = `M${x},${y} L${lx - 22},${ly + 28} H${lx - 5}`;
             return (
-              <a key={code} href={antigua ? "/antigua" : "/dominica"} className={styles.serving} data-island={code} aria-label={`Explore ${name}`}>
+              <a key={code} href={antigua ? "/antigua" : "/dominica"} className={styles.serving} data-island={code} aria-label={`Explore ${name}`}
+                onFocus={() => {
+                  // Keyboard navigation never waits for the presentation sequence.
+                  setMotionEnabled(false);
+                  setRevealed(true);
+                }}
+              >
                 <path className={styles.islandShape} d={shape} />
-                <path className={styles.servingLine} d={leader} aria-hidden="true" />
-                <path className={styles.servingTrace} d={leader} pathLength={1} aria-hidden="true" />
+                <path className={styles.servingLine} d={leader} pathLength={1} aria-hidden="true" />
+                <path className={styles.arrowHead} d={`M${lx - 13},${ly + 23} L${lx - 5},${ly + 28} L${lx - 13},${ly + 33}`} aria-hidden="true" />
                 <g ref={antigua ? undefined : lastDestination} className={styles.destinationLabel}>
-                  <rect className={styles.destinationCard} x={lx} y={ly} width={antigua ? 178 : 158} height={antigua ? 68 : 55} rx={10} />
-                  <image href={`/flags/${code.toLowerCase()}.svg`} x={lx + 10} y={ly + 14} width={26} height={20} aria-hidden="true" />
-                  <text className={styles.destinationName} x={lx + 45} y={ly + 28}>
-                    <tspan x={lx + 45}>{antigua ? "Antigua &" : "Dominica"}</tspan>
-                    {antigua && <tspan x={lx + 45} dy={23}>Barbuda</tspan>}
-                  </text>
+                  {/* Stable bounds for observation and clicking while the frame opens. */}
+                  <rect x={lx} y={ly} width={antigua ? 178 : 158} height={antigua ? 68 : 55} rx={10} fill="transparent" />
+                  <g className={styles.destinationFrame}>
+                    <rect className={styles.destinationCard} x={lx} y={ly} width={antigua ? 178 : 158} height={antigua ? 68 : 55} rx={10} />
+                  </g>
+                  <g className={styles.destinationContent}>
+                    <image href={`/flags/${code.toLowerCase()}.svg`} x={lx + 10} y={ly + 14} width={26} height={20} aria-hidden="true" />
+                    <text className={styles.destinationName} x={lx + 45} y={ly + 28}>
+                      <tspan x={lx + 45}>{antigua ? "Antigua &" : "Dominica"}</tspan>
+                      {antigua && <tspan x={lx + 45} dy={23}>Barbuda</tspan>}
+                    </text>
+                  </g>
                 </g>
               </a>
             );
