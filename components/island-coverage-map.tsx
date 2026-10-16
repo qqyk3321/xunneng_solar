@@ -69,7 +69,6 @@ export function IslandCoverageMap({
               >
                 <path className={styles.islandShape} d={shape} />
                 <path className={styles.servingLine} d={leader} pathLength={1} aria-hidden="true" />
-                <path className={styles.arrowHead} d={`M${lx - 13},${ly + 23} L${lx - 5},${ly + 28} L${lx - 13},${ly + 33}`} aria-hidden="true" />
                 <g ref={antigua ? undefined : lastDestination} className={styles.destinationLabel}>
                   {/* Stable bounds for observation and clicking while the frame opens. */}
                   <rect x={lx} y={ly} width={antigua ? 178 : 158} height={antigua ? 68 : 55} rx={10} fill="transparent" />

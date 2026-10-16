@@ -35,9 +35,9 @@
   stroke: #fff;
   stroke-width: .7;
 }
-.labelLine, .servingLine, .arrowHead { fill: none; vector-effect: non-scaling-stroke; }
+.labelLine, .servingLine { fill: none; vector-effect: non-scaling-stroke; }
 .labelLine { stroke: #7c958b; stroke-width: .65; }
-.servingLine, .arrowHead {
+.servingLine {
   stroke: #b87a16;
   stroke-width: 2;
   stroke-linecap: round;
@@ -84,16 +84,13 @@
 }
 .attribution a { color: inherit; text-underline-offset: 3px; }
 
-/* Draw the arrow, open an empty frame, then reveal the flag and name. */
+/* Draw the line, open an empty frame, then reveal the flag and name. */
 @media (prefers-reduced-motion: no-preference) {
-  .coverage[data-motion]:not([data-revealed]) :is(.servingLine, .arrowHead, .destinationFrame, .destinationContent) {
+  .coverage[data-motion]:not([data-revealed]) :is(.servingLine, .destinationFrame, .destinationContent) {
     opacity: 0;
   }
   .coverage[data-motion][data-revealed] .servingLine {
-    animation: drawArrow 680ms cubic-bezier(.45, 0, .25, 1) var(--reveal-delay) backwards;
-  }
-  .coverage[data-motion][data-revealed] .arrowHead {
-    animation: arrowTip 100ms ease-out calc(var(--reveal-delay) + 600ms) backwards;
+    animation: drawLine 680ms cubic-bezier(.45, 0, .25, 1) var(--reveal-delay) backwards;
   }
   .coverage[data-motion][data-revealed] .destinationFrame {
     animation: openFrame 420ms cubic-bezier(.22, 1, .36, 1) calc(var(--reveal-delay) + 740ms) backwards;
@@ -102,14 +99,10 @@
     animation: revealDestination 360ms ease-out calc(var(--reveal-delay) + 1260ms) backwards;
   }
 }
-@keyframes drawArrow {
+@keyframes drawLine {
   from { stroke-dashoffset: 1; opacity: 0; }
   10% { opacity: 1; }
   to { stroke-dashoffset: 0; opacity: 1; }
-}
-@keyframes arrowTip {
-  from { opacity: 0; transform: translateX(-4px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 @keyframes openFrame {
   from { opacity: 0; transform: scaleX(.04); }
