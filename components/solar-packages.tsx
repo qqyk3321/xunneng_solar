@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } fr
 import { SERVICE_COUNTRIES, type ServiceCountry } from "@/lib/consultation-intake";
 import { SOLAR_PACKAGES as PACKAGES } from "@/lib/solar-packages";
 import { SITE_CONTACT } from "@/lib/site-contact";
+import { usePackageDeckMotion } from "@/hooks/use-package-deck-motion";
 import { useSolarPackageSelection } from "./solar-package-selection";
 import { SolarEquipmentScene } from "./solar-equipment-scene";
 import styles from "./solar-packages.module.css";
@@ -16,10 +17,10 @@ const wrap = (index: number) => (index + PACKAGES.length) % PACKAGES.length;
 
 
 export function SolarPackages({ country = null }: { country?: ServiceCountry | null }) {
-  const section = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
   const selection = useSolarPackageSelection();
-  const selected = PACKAGES.findIndex(plan => plan.inverter === selection.inverter);
+  const requestedIndex = PACKAGES.findIndex(plan => plan.inverter === selection.inverter);
+  const motion = usePackageDeckMotion(requestedIndex);
+  const selected = motion.displayedIndex;
   const [interacted, setInteracted] = useState(false);
   const cards = useRef<Array<HTMLElement | null>>([]);
   const viewFromScroll = useRef(false);
@@ -30,13 +31,6 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
   const consultationLocation = country ? ` in ${SERVICE_COUNTRIES[country].label}` : "";
   const consultationUrl = new URL(SITE_CONTACT.whatsappUrl);
   consultationUrl.searchParams.set("text", `Hello Solortide, I'd like to ask about the ${current.name} solar package (${current.inverter} kW inverter, ${current.battery} kWh battery, ${current.panelRange} panels) for my property${consultationLocation}. Could you help me check whether it suits my home and provide a quote?`);
-
-  useEffect(() => {
-    if (!section.current) return;
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
-    observer.observe(section.current);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (viewFromScroll.current) { viewFromScroll.current = false; return; }
@@ -74,8 +68,8 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
   function onKeyDown(event: KeyboardEvent<HTMLElement>) {
     if ((event.target as HTMLElement).closest("[data-package-images]")) return;
     let next: number;
-    if (event.key === "ArrowRight") next = selected + 1;
-    else if (event.key === "ArrowLeft") next = selected - 1;
+    if (event.key === "ArrowRight") next = requestedIndex + 1;
+    else if (event.key === "ArrowLeft") next = requestedIndex - 1;
     else if (event.key === "Home") next = 0;
     else if (event.key === "End") next = PACKAGES.length - 1;
     else return;
@@ -102,7 +96,7 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
     resetPointer();
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) {
       suppressClickUntil.current = performance.now() + 400;
-      choose(selected + (dx < 0 ? 1 : -1));
+      choose(requestedIndex + (dx < 0 ? 1 : -1));
     }
   }
 
@@ -118,7 +112,7 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
   }
 
   return (
-    <section ref={section} data-packages-visible={visible || undefined} id="packages" className={`${styles.packages} ${styles["is-entering"]}`} aria-labelledby="packages-heading" data-testid="solar-packages" tabIndex={-1}>
+    <section id="packages" className={`${styles.packages} ${styles["is-entering"]}`} aria-labelledby="packages-heading" data-testid="solar-packages" tabIndex={-1}>
       <div className={styles.container}>
         <div className={styles["section-heading"]}>
           <h2 id="packages-heading"><span className={styles["desktop-title"]}>Solortide solar packages</span><span className={styles["mobile-title"]}>Solortide packages</span></h2>
@@ -128,7 +122,24 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
             ))}
           </div>
         </div>
-        <div className={styles.deck} role="region" aria-label="Solar packages" onKeyDown={onKeyDown} onPointerDown={onPointerDown} onPointerUp={onPointerUp} onPointerCancel={resetPointer} onLostPointerCapture={event => { if (event.target === event.currentTarget) resetPointer(); }} onPointerLeave={event => { if (event.pointerType === "mouse" && !event.buttons) resetPointer(); }} onClickCapture={event => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}>
+        <div
+          ref={motion.deck}
+          className={styles.deck}
+          data-deck-motion={motion.enabled || undefined}
+          data-deck-phase={motion.phase}
+          data-moving={(motion.enabled && motion.phase !== "open" && motion.phase !== "waiting") || undefined}
+          role="region"
+          aria-label="Solar packages"
+          onTransitionEnd={motion.onTransitionEnd}
+          onFocusCapture={motion.onFocusCapture}
+          onKeyDown={onKeyDown}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={resetPointer}
+          onLostPointerCapture={event => { if (event.target === event.currentTarget) resetPointer(); }}
+          onPointerLeave={event => { if (event.pointerType === "mouse" && !event.buttons) resetPointer(); }}
+          onClickCapture={event => { if (performance.now() < suppressClickUntil.current) { event.preventDefault(); event.stopPropagation(); } }}
+        >
           {PACKAGES.map((plan, index) => {
             const active = index === selected;
             const imageView = active ? selection.imageView : "installed";

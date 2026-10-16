@@ -60,3 +60,19 @@
   .packages .card .price{line-height:1.39}
 }
 @media(max-width:359px){.packages .section-heading h2{font-size:24px}}
+
+/* Desktop: gather the cards into a deck, change its front card, then fan out. */
+@media(min-width:801px) and (prefers-reduced-motion:no-preference){
+  .is-entering .deck{animation:none}
+  .deck[data-deck-motion] .card{transition:transform 620ms cubic-bezier(.22,1,.36,1),box-shadow 620ms ease,filter 620ms ease}
+  .deck[data-deck-phase=opening] .card[data-slot=left]{transition-delay:35ms,0ms,0ms}
+  .deck[data-deck-phase=opening] .card[data-slot=right]{transition-delay:70ms,0ms,0ms}
+  .deck[data-deck-phase=closing] .card{transition-duration:260ms;transition-timing-function:cubic-bezier(.4,0,.6,1)}
+  .deck:is([data-deck-phase=waiting],[data-deck-phase=stacked]) .card{transition:none}
+  .deck:is([data-deck-phase=waiting],[data-deck-phase=closing],[data-deck-phase=stacked]) .card{
+    transform:translateX(-50%) translate3d(0,20px,0) rotateY(0deg) rotateZ(0deg);
+    box-shadow:0 2px 3px #254b3512,0 14px 24px -12px #254b353b;
+  }
+  .deck:is([data-deck-phase=waiting],[data-deck-phase=closing],[data-deck-phase=stacked]) .card[data-slot=left]{transform:translateX(-50%) translate3d(-14px,26px,-44px) rotateY(0deg) rotateZ(-2deg)}
+  .deck:is([data-deck-phase=waiting],[data-deck-phase=closing],[data-deck-phase=stacked]) .card[data-slot=right]{transform:translateX(-50%) translate3d(14px,32px,-88px) rotateY(0deg) rotateZ(2deg)}
+}
