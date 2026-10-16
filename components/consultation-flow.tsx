@@ -9,7 +9,6 @@ import { regionPath } from "@/lib/site-region-routing";
 import { SUPPORT_EMAILS } from "@/lib/site-contact";
 import { BrandMark } from "./brand-mark";
 import { SubmissionReference } from "./submission-reference";
-import { DeferredFloatingContact } from "./deferred-floating-contact";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import {
   buildTallyIntakeUrl,
@@ -34,12 +33,7 @@ const STEPS = [
 ] as const;
 
 export function ConsultationFlow({ country }: { country: ServiceCountry }) {
-  return (
-    <>
-      <ConsultationForRegion key={country} country={country} />
-      <DeferredFloatingContact key={`question-${country}`} />
-    </>
-  );
+  return <ConsultationForRegion key={country} country={country} />;
 }
 
 function ConsultationForRegion({ country }: { country: ServiceCountry }) {

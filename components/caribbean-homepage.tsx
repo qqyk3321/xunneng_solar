@@ -10,7 +10,6 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SolarPackages } from "./solar-packages";
 import { SolarPackageSelectionProvider } from "./solar-package-selection";
 import { SiteFooter } from "./site-footer";
-import { HomepageFloatingContact } from "./homepage-floating-contact";
 import { RegionFlag, useSiteRegion } from "./site-region";
 import { SiteHeader } from "./site-header";
 import { SectionAnchor } from "./section-anchor";
@@ -829,7 +828,6 @@ export function CaribbeanHomepage() {
             )}
       </dialog>
 
-      <HomepageFloatingContact blocked={wishlistOpen} />
       <SiteFooter caribbean />
     </div>
   );

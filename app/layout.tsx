@@ -5,6 +5,7 @@ import { SiteNavigationLoader } from "@/components/site-navigation-loader";
 import { siteUrl } from "@/lib/region-seo";
 import { SiteAnalytics } from "@/components/site-analytics-gate";
 import { SiteSpeedInsights } from "@/components/site-speed-insights";
+import { KnocketWidget } from "@/components/knocket-widget";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body>
         <SiteNavigationLoader />
         <SiteRegionProvider>{children}</SiteRegionProvider>
+        <KnocketWidget />
         {process.env.VERCEL_ENV === "production" && <SiteAnalytics />}
         {process.env.VERCEL_ENV === "production" && <SiteSpeedInsights />}
       </body>

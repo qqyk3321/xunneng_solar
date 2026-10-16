@@ -43,14 +43,6 @@ export function DeferredHomepageContact({
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (variant !== "question") return;
-    // The FAQ's contact form owns its floating launcher. Load it
-    // even before scrolling to the form so help is available beside the FAQ.
-    const timer = window.setTimeout(() => setActive(true), 1200);
-    return () => window.clearTimeout(timer);
-  }, [variant]);
-
-  useEffect(() => {
     if (!root.current || !("IntersectionObserver" in window)) {
       setActive(true);
       return;

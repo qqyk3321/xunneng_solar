@@ -244,7 +244,6 @@
   .priceMetric dt { font-size: 16px; }
 }
 @media (max-width: 600px) {
-  .floatingContact[data-overview-visible] { display: none; }
   .estimateMetrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: 112px 92px;

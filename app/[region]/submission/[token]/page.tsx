@@ -10,7 +10,6 @@ import { loadCurrentConsultationEstimate } from "@/lib/quote-pricing/consultatio
 import { CurrentEstimate } from "./estimate";
 import { RefreshOnReturn } from "./refresh-on-return";
 import { SubmissionContactActions } from "./contact-actions";
-import { SubmissionFloatingContact } from "./floating-contact";
 import { ConsultationContactProvider } from "@/components/whatsapp-contact";
 import { consultationWhatsAppUrl } from "@/supabase/functions/_shared/whatsapp";
 import { qrDataUrl } from "@/supabase/functions/_shared/consultation-qr";
@@ -95,13 +94,12 @@ export default async function ConsultationPreviewPage({
           ) : (
             <section className={styles.card} role="status">
               <h2>Your preview is not available yet.</h2>
-              <p>Please contact our team using the question button below.</p>
+              <p>Please contact our team using the contact details on this page.</p>
             </section>
           )}
         </div>
       </main>
       <SiteFooter />
-      <SubmissionFloatingContact initialEmail={submission.email} />
     </div>
     </ConsultationContactProvider>
   );

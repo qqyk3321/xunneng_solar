@@ -2,7 +2,6 @@ import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 import { AssessmentLink } from "./assessment-link";
 import { HybridEnergyDemo } from "./hybrid-energy-demo";
-import { HowSystemWorksContact } from "./how-system-works-contact";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { getFaqItems } from "@/lib/faq/content";
 import { HYBRID_FAQS, HYBRID_FEATURED_FAQ_IDS } from "@/lib/faq/hybrid";
@@ -50,7 +49,6 @@ export function HowSystemWorksPage({
         </section>
       </main>
       <SiteFooter caribbean={!country} />
-      <HowSystemWorksContact />
     </div>
   );
 }
