@@ -872,23 +872,8 @@
   .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroContent { padding-top: clamp(132px, 18svh, 164px); padding-bottom: 50px; }
 }
 
-/* Brand layer (desktop): a bolder island hero, tide rings and a warm, textured estimate chapter. */
+/* Brand layer (desktop): a bolder island hero and a grid-textured estimate chapter. */
 @media (min-width: 801px) {
-  .hero::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    right: -10vw;
-    top: -30vw;
-    width: 64vw;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    pointer-events: none;
-    background: repeating-radial-gradient(circle at 50% 50%, transparent 0 58px, rgba(255, 232, 178, 0.2) 58px 59px);
-    -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 68%);
-    mask-image: radial-gradient(circle, #000 18%, transparent 68%);
-  }
-  .homepage .hero[data-country="DM"]::before { right: auto; left: -10vw; }
   .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroDetails { width: 700px; }
   .islandPromise { font-size: clamp(56px, 6.4vw, 96px); line-height: 1; letter-spacing: -0.05em; }
   .islandPromise > span:last-child { color: #ffc667; }
@@ -896,10 +881,12 @@
   .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroActions a { padding-left: 30px; padding-right: 30px; }
 
   .calculatorSection {
-    padding: 104px 0 112px;
-    background-color: #f3ead9;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='28' viewBox='0 0 240 28'%3E%3Cpath d='M0 14Q30 0 60 14T120 14T180 14T240 14' fill='none' stroke='%23b9a272' stroke-opacity='.26' stroke-width='1'/%3E%3C/svg%3E");
-    background-size: 240px 28px;
+    padding: 96px 0 104px;
+    background-color: #eaf2f1;
+    background-image:
+      linear-gradient(rgba(0, 122, 135, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 122, 135, 0.07) 1px, transparent 1px);
+    background-size: 56px 56px;
   }
   .calculatorSection .sectionIntro { margin-bottom: 44px; }
   .calculatorSection .sectionIntro h2 { font-size: clamp(42px, 4.6vw, 62px); line-height: 1.02; letter-spacing: -0.05em; }
