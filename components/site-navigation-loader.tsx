@@ -20,25 +20,33 @@ function NavigationEvents() {
   const committedHref = useRef<string | undefined>(undefined);
   const paintFrame = useRef<number | undefined>(undefined);
   const startedAt = useRef(0);
+  const slowTimer = useRef<number | undefined>(undefined);
+  const contentReadyAt = useRef<number | undefined>(undefined);
 
   const finish = useCallback(function finishLoading() {
     window.clearTimeout(window.__solTideInitialLoader);
     window.clearTimeout(stallTimer.current);
     window.clearTimeout(watchTimer.current);
+    window.clearTimeout(slowTimer.current);
     committedHref.current = window.location.href;
     const root = document.documentElement;
     if (!root.dataset.siteLoading || root.dataset.siteLoading === "leaving") return;
+    root.dataset.siteRevealed = "true";
     if (root.dataset.siteLoading === "pending" && performance.now() - startedAt.current < 140) {
       delete root.dataset.siteLoading;
+      delete root.dataset.siteLoadingKind;
       window.dispatchEvent(new Event("solortide:navigation-end"));
       return;
     }
     root.dataset.siteLoading = "leaving";
+    window.dispatchEvent(new Event("solortide:navigation-reveal"));
     window.clearTimeout(exitTimer.current);
     exitTimer.current = window.setTimeout(() => {
       delete root.dataset.siteLoading;
+      delete root.dataset.siteLoadingKind;
+      delete root.dataset.siteLoadingSlow;
       window.dispatchEvent(new Event("solortide:navigation-end"));
-    }, 220);
+    }, window.matchMedia("(min-width: 801px) and (prefers-reduced-motion: no-preference)").matches ? 360 : 220);
   }, []);
 
   const finishWhenReady = useCallback(() => {
@@ -48,6 +56,17 @@ function NavigationEvents() {
       if (fallback && !fallback.closest('[hidden]')) {
         watchTimer.current = window.setTimeout(waitForContent, 50);
         return;
+      }
+      // Give the priority background a bounded head start on first load.
+      // Navigation and mobile retain their existing readiness behavior.
+      const root = document.documentElement;
+      if (root.dataset.siteLoading === "initial" && window.matchMedia("(min-width: 801px)").matches) {
+        contentReadyAt.current ??= performance.now();
+        const image = document.querySelector<HTMLImageElement>("[data-hero-background]");
+        if (image && !image.complete && performance.now() - contentReadyAt.current < 850) {
+          watchTimer.current = window.setTimeout(waitForContent, 30);
+          return;
+        }
       }
       finish();
     };
@@ -60,9 +79,17 @@ function NavigationEvents() {
       window.clearTimeout(exitTimer.current);
       window.clearTimeout(stallTimer.current);
       window.clearTimeout(watchTimer.current);
+      window.clearTimeout(slowTimer.current);
+      contentReadyAt.current = undefined;
       window.cancelAnimationFrame(paintFrame.current ?? 0);
       startedAt.current = performance.now();
       root.dataset.siteLoading = immediate ? "immediate" : "pending";
+      delete root.dataset.siteRevealed;
+      root.dataset.siteLoadingKind = "route";
+      delete root.dataset.siteLoadingSlow;
+      slowTimer.current = window.setTimeout(() => {
+        if (root.dataset.siteLoading === "pending") root.dataset.siteLoadingSlow = "true";
+      }, 400);
 
       // Query-only navigations do not change usePathname. Detect the committed
       // URL without subscribing the root layout to Next's async search state.
@@ -161,6 +188,7 @@ function NavigationEvents() {
       window.clearTimeout(exitTimer.current);
       window.clearTimeout(stallTimer.current);
       window.clearTimeout(watchTimer.current);
+      window.clearTimeout(slowTimer.current);
       window.cancelAnimationFrame(paintFrame.current ?? 0);
     };
   }, [begin, finish, finishWhenReady]);

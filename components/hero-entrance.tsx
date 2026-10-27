@@ -22,23 +22,27 @@ export function HeroEntrance({ className, children, ...props }: ComponentPropsWi
         finish();
         return;
       }
+      // The loader also sets this before hydration, so CSS can reveal SSR content
+      // in its exit frame. Hydrating this component must not restart that animation.
+      document.documentElement.dataset.siteRevealed = "true";
       setPhase("entering");
-      timer = window.setTimeout(finish, 1000);
+      timer = window.setTimeout(finish, 1900);
     };
-    if (desktop.matches && !reduced.matches && document.documentElement.dataset.siteLoading) {
+    if (desktop.matches && !reduced.matches && document.documentElement.dataset.siteLoading && document.documentElement.dataset.siteLoading !== "leaving") {
       setPhase("waiting");
     } else {
       enter();
     }
     // The loading watchdog can also remove the attribute without dispatching an event.
     const observer = new MutationObserver(() => {
-      if (!document.documentElement.dataset.siteLoading) enter();
+      if (!document.documentElement.dataset.siteLoading || document.documentElement.dataset.siteLoading === "leaving") enter();
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-site-loading"] });
     const stop = () => { started = true; finish(); };
     desktop.addEventListener("change", stop);
     reduced.addEventListener("change", stop);
     window.addEventListener("solortide:navigation-end", enter);
+    window.addEventListener("solortide:navigation-reveal", enter);
     section.current?.addEventListener("focusin", stop);
     const element = section.current;
     return () => {
@@ -47,6 +51,7 @@ export function HeroEntrance({ className, children, ...props }: ComponentPropsWi
       desktop.removeEventListener("change", stop);
       reduced.removeEventListener("change", stop);
       window.removeEventListener("solortide:navigation-end", enter);
+      window.removeEventListener("solortide:navigation-reveal", enter);
       element?.removeEventListener("focusin", stop);
     };
   }, []);

@@ -115,7 +115,7 @@ export function SolarPackages({ country = null }: { country?: ServiceCountry | n
     <section id="packages" className={`${styles.packages} ${styles["is-entering"]}`} aria-labelledby="packages-heading" data-testid="solar-packages" tabIndex={-1}>
       <div className={styles.container}>
         <div className={styles["section-heading"]}>
-          <h2 id="packages-heading"><span className={styles["desktop-title"]}>Solortide solar packages</span><span className={styles["mobile-title"]}>Solortide packages</span></h2>
+          <h2 data-reveal="heading" id="packages-heading"><span className={styles["desktop-title"]}>Solortide solar packages</span><span className={styles["mobile-title"]}>Solortide packages</span></h2>
           <div className={styles["mobile-picker"]} role="group" aria-label="Choose solar package" data-package-picker onKeyDown={onKeyDown}>
             {PACKAGES.map((plan, index) => (
               <button key={plan.inverter} type="button" data-plan-index={index} aria-pressed={index === selected} aria-controls={`package-${plan.inverter}`} onClick={() => choose(index)}>{plan.name}</button>

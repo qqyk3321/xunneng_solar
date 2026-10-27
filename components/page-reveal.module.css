@@ -1,0 +1,18 @@
+@media (min-width: 801px) {
+  .scope [data-reveal="heading"]::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin-top: 16px;
+    background: #d99d38;
+    transform-origin: left;
+  }
+}
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .scope [data-reveal] { transition: opacity 420ms ease var(--reveal-delay, 0ms), translate 420ms cubic-bezier(.22,1,.36,1) var(--reveal-delay, 0ms); }
+  .scope [data-reveal-state="waiting"] { opacity: 0; translate: 0 18px; }
+  .scope [data-reveal-state="visible"] { opacity: 1; translate: 0 0; }
+  .scope [data-reveal="heading"]::after { transition: transform 520ms cubic-bezier(.22,1,.36,1) 120ms; }
+  .scope [data-reveal-state="waiting"]::after { transform: scaleX(0); }
+}

@@ -125,3 +125,13 @@
   .placeName { font-size: 22px; }
   .destinationName { font-size: 22px; }
 }
+
+@media (min-width: 801px) {
+  .coverage .attribution { margin-top: 8px; font-size: 11px; color: #53675d; }
+  .planned, .serving { transition: opacity 160ms ease; }
+  .map:has(.serving:is(:hover, :focus-visible)) .planned,
+  .map:has(.serving:is(:hover, :focus-visible)) .serving:not(:hover):not(:focus-visible) { opacity: .45; }
+  .serving:is(:hover, :focus-visible) .servingLine { stroke: #b87a16; stroke-width: 2.5; }
+  .serving:is(:hover, :focus-visible) .destinationCard { stroke: #b87a16; stroke-width: 2; }
+}
+@media (prefers-reduced-motion: reduce) { .planned, .serving { transition: none; } }

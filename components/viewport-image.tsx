@@ -11,9 +11,10 @@ import styles from "./viewport-image.module.css";
 export function ViewportImage({
   enabled = true,
   preload = false,
+  eagerDesktop = false,
   onLoad,
   ...props
-}: ImageProps & { enabled?: boolean; preload?: boolean }) {
+}: ImageProps & { enabled?: boolean; preload?: boolean; eagerDesktop?: boolean }) {
   const host = useRef<HTMLSpanElement>(null);
   const [ready, setReady] = useState(false);
   const [loadedSource, setLoadedSource] = useState<ImageProps["src"] | null>(null);
@@ -27,6 +28,7 @@ export function ViewportImage({
     let observer: IntersectionObserver | undefined;
     const observe = () => {
       observer?.disconnect();
+      if (eagerDesktop && desktop.matches) { setReady(true); return; }
       if (!enabled && !(preload && desktop.matches)) return;
       observer = new IntersectionObserver(
         ([entry]) => {
@@ -42,7 +44,7 @@ export function ViewportImage({
     observe();
     desktop.addEventListener("change", observe);
     return () => { observer?.disconnect(); desktop.removeEventListener("change", observe); };
-  }, [enabled, preload, ready]);
+  }, [enabled, preload, ready, eagerDesktop]);
   return (
     <span
       ref={host}

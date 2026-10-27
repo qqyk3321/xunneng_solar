@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import { PrivacyLink } from "./privacy-link";
 import Image from "next/image";
 import { ViewportImage } from "./viewport-image";
+import { PageReveal } from "./page-reveal";
+import { TideEdge } from "./tide-edge";
 import { HeroEntrance } from "./hero-entrance";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SolarPackages } from "./solar-packages";
@@ -296,7 +298,7 @@ export function CaribbeanHomepage() {
       </a>
       <SiteHeader caribbean immersive />
 
-      <main id="main" tabIndex={-1}>
+      <PageReveal id="main" tabIndex={-1}>
         <HeroEntrance className={styles.hero} aria-labelledby="caribbean-title">
           <Image
             src="/images/caribbean-solar-hero.webp"
@@ -305,6 +307,7 @@ export function CaribbeanHomepage() {
             priority
             sizes="100vw"
             className={styles.heroImage}
+            data-hero-background
           />
           <div className={styles.heroContent}>
             <h1 id="caribbean-title">
@@ -312,7 +315,7 @@ export function CaribbeanHomepage() {
               <br />
               <span data-hero-reveal="1">in your home’s</span>
               <br />
-              <span data-hero-reveal="2"><em>energy.</em></span>
+              <span data-hero-reveal="2"><em data-hero-energy>energy.</em></span>
             </h1>
             <div className={styles.heroDetails}>
               <p data-hero-reveal="copy">
@@ -341,9 +344,11 @@ export function CaribbeanHomepage() {
           <div className={styles.heroBottom} data-hero-rule>
             <span data-hero-reveal="notes">Rooted in island life.</span>
             <span data-hero-reveal="notes">
-              <strong>Antigua & Barbuda · Dominica</strong>
+              <strong className={styles.mobileHeroIslands}>Antigua &amp; Barbuda · Dominica</strong>
+              <strong className={styles.desktopHeroIslands}><Link href="/antigua" prefetch={false}>Antigua &amp; Barbuda</Link><span aria-hidden="true"> · </span><Link href="/dominica" prefetch={false}>Dominica</Link></strong>
             </span>
           </div>
+          <TideEdge />
         </HeroEntrance>
 
         <SolarPackageSelectionProvider><SolarPackages /></SolarPackageSelectionProvider>
@@ -356,7 +361,7 @@ export function CaribbeanHomepage() {
         >
           <div className={`${styles.sectionHeading} ${styles.countryHeading}`}>
             <div>
-              <h2 id="countries-title">Choose your island.</h2>
+              <h2 data-reveal="heading" id="countries-title">Choose your island.</h2>
             </div>
             <div className={styles.countryLegend} aria-label="Map legend">
               <span><i aria-hidden="true" />Now serving</span>
@@ -427,8 +432,10 @@ export function CaribbeanHomepage() {
           aria-labelledby="scenarios-title"
           tabIndex={-1}
         >
+          <TideEdge position="top" color="#f4f5ef" />
+          <TideEdge color="#edf3f0" />
           <div className={styles.scenarioHeading}>
-            <h2 id="scenarios-title">
+            <h2 data-reveal="heading" id="scenarios-title">
               <span className={styles.desktopBenefitCopy}>Save the sunshine<br /><em>for life after sunset.</em></span>
               <span className={styles.mobileBenefitCopy}>Solar, day and night.</span>
             </h2>
@@ -535,7 +542,7 @@ export function CaribbeanHomepage() {
             <div id="hybrid-details" className={styles.hybridDetails}>
             <div className={styles.hybridControlHeading}>
               <div>
-                <h3>
+                <h3 data-reveal>
                   Simple control.
                   <br />A clearer view of your energy.
                 </h3>
@@ -547,17 +554,17 @@ export function CaribbeanHomepage() {
               </p>
             </div>
             <div className={styles.hybridModes}>
-              <article>
+              <article data-reveal>
                 <h4>Self-consumption</h4>
                 <p>
                   Use solar at home first, then save surplus energy for later.
                 </p>
               </article>
-              <article>
+              <article data-reveal>
                 <h4>Backup priority</h4>
                 <p>Reserve battery energy for your selected essential loads.</p>
               </article>
-              <article>
+              <article data-reveal>
                 <h4>Time-of-use</h4>
                 <p>
                   Schedule battery use around higher-priced periods where your
@@ -585,7 +592,7 @@ export function CaribbeanHomepage() {
         >
           <div className={styles.sectionHeading}>
             <div>
-              <h2 id="journey-title">From assessment to installation.</h2>
+              <h2 data-reveal="heading" id="journey-title">From assessment to installation.</h2>
             </div>
           </div>
           <div className={styles.journeyGrid}>
@@ -596,6 +603,7 @@ export function CaribbeanHomepage() {
                     key={item.image}
                     enabled={index === step}
                     preload={index === step + 1}
+                    eagerDesktop={index === 0}
                     onLoad={() => setLoadedSteps(current => current.includes(index) ? current : [...current, index])}
                     src={`/images/caribbean/${item.image}.webp`}
                     alt={item.alt}
@@ -636,6 +644,7 @@ export function CaribbeanHomepage() {
                     stepNodes.current[index] = node;
                   }}
                   className={styles.step}
+                  data-reveal
                   data-active={index === step}
                 >
                   <div className={styles.mobileStepImage}>
@@ -675,7 +684,7 @@ export function CaribbeanHomepage() {
           aria-labelledby="faq-title"
         >
           <div>
-            <h2 id="faq-title">Common questions.</h2>
+            <h2 data-reveal="heading" id="faq-title">Common questions.</h2>
             <button
               type="button"
               onClick={() => choose("faq")}
@@ -687,7 +696,7 @@ export function CaribbeanHomepage() {
           </div>
           <div>
             {faqs.map(([question, answer]) => (
-              <details key={question}>
+              <details data-reveal key={question}>
                 <summary>
                   {question}
                   <span aria-hidden="true">+</span>
@@ -699,21 +708,22 @@ export function CaribbeanHomepage() {
         </section>
 
         <section className={styles.closing}>
-          <h2>
+          <svg className={styles.closingSun} viewBox="0 0 160 100" aria-hidden="true" focusable="false"><path d="M45 58a35 35 0 0 1 70 0" fill="none" stroke="#d99d38" strokeWidth="1.5"/><path d="M0 62C30 42 55 82 85 62s50-20 75 0M15 78C45 58 65 98 95 78s35-16 50-4" fill="none" stroke="#007a87" strokeWidth="1.5"/></svg>
+          <h2 data-reveal="heading">
             Let’s find your
             <br />
             <em>local solution.</em>
           </h2>
           <div>
-            <Link href="/antigua" prefetch={false}>
+            <Link data-reveal href="/antigua" prefetch={false}>
               <RegionFlag country="AG" /> Antigua & Barbuda
             </Link>
-            <Link href="/dominica" prefetch={false}>
+            <Link data-reveal href="/dominica" prefetch={false}>
               <RegionFlag country="DM" /> Dominica
             </Link>
           </div>
         </section>
-      </main>
+      </PageReveal>
 
       <dialog
         ref={wishlistDialog}

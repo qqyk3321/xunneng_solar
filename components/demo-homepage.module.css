@@ -841,3 +841,10 @@
   .calculatorSection > .container { max-width: none; padding: 0; }
   .calculatorSection .sectionIntro { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
+
+/* Keep the approved mobile composition; desktop uses the brand display face. */
+@media (min-width: 801px) {
+  .islandHeading h1 { font: 500 clamp(24px, 2.6vw, 36px)/1.15 "Space Grotesk", sans-serif; letter-spacing: -1px; }
+  .islandPromise { font: 500 clamp(48px, 5.1vw, 70px)/1.04 "Space Grotesk", sans-serif; letter-spacing: -2px; }
+  .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroContent { padding-top: clamp(132px, 18svh, 164px); padding-bottom: 50px; }
+}

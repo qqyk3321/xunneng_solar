@@ -1,5 +1,8 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { RegionalHeroArt } from "./regional-hero-art";
+import { PageReveal } from "./page-reveal";
+import { TideEdge } from "./tide-edge";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { AssessmentLink } from "./assessment-link";
 import { AntiguaSolarCalculator } from "./antigua-solar-calculator";
@@ -60,7 +63,7 @@ export function DemoHomepage({
         immersive={immersive}
       />
       <SolarPackageSelectionProvider>
-      <main className={styles.main}>
+      <PageReveal className={styles.main}>
         <HeroEntrance
           className={styles.hero}
           aria-labelledby="hero-title"
@@ -68,27 +71,19 @@ export function DemoHomepage({
           data-country={country ?? undefined}
         >
           <div className={styles.heroMedia}>
-            <Image
-              src={
-                country === "AG"
-                  ? "/images/antigua-solar-map-hero-no-labels.webp"
-                  : country === "DM"
-                    ? "/images/dominica-solar-map-hero-no-labels.webp"
-                    : "https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
-              }
-              fill
-              priority
-              quality={78}
-              sizes="100vw"
-              className={country === "AG" ? styles.antiguaHero : undefined}
-              alt={
-                country === "AG"
-                  ? "Antigua-inspired solar home and turquoise bay with Antigua and Barbuda island silhouettes blended into the sea; artistic illustration"
-                  : country === "DM"
-                    ? "Dominica-inspired rainforest coast and solar home with the island silhouette blended into the background; artistic illustration"
-                    : "Solar-equipped coastal homes"
-              }
-            />
+            {country ? (
+              <RegionalHeroArt country={country} className={country === "AG" ? styles.antiguaHero : undefined} />
+            ) : (
+              <Image
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO8sy9rZQu18XXsryGTTrzlndxDiumh3ZIr6_HGFb0DcAgM_kQLwfm2HCcSlYSEK2KMVb32NCfyojj6Mf5Ox7F6xc956zVNekFfnbf9GAVRbQ-HsdZ_Z4v29wdr73LB1AhcDsXqPbIEdlkCMnKGUze9dfjhpFXHUif06fcLtjSW6Nc1S4ZZwnfwWbFnC7jBzHLxaE5d0tE6vf7Yi2leAmbSMhmvfoT_t6tEeCwoKeuRhUl1noLnA77"
+                fill
+                priority
+                quality={78}
+                sizes="100vw"
+                data-hero-background
+                alt="Solar-equipped coastal homes"
+              />
+            )}
           </div>
           <div className={styles.heroContent}>
             {country ? (
@@ -141,6 +136,7 @@ export function DemoHomepage({
               Explore your savings <span aria-hidden="true">↓</span>
             </SectionAnchor>
           )}
+          <TideEdge />
         </HeroEntrance>
 
         {country && <SolarPackages country={country} />}
@@ -154,7 +150,7 @@ export function DemoHomepage({
           <div className={styles.container}>
             <div className={styles.sectionIntro}>
               <div>
-                <h2 id="calculator-heading">
+                <h2 data-reveal="heading" id="calculator-heading">
                   <span className={styles.desktopCalculatorHeading}>What could solar save you?</span>
                   <span className={styles.mobileCalculatorHeading}>Your solar estimate</span>
                 </h2>
@@ -168,7 +164,7 @@ export function DemoHomepage({
 
         <SolarInstallation country={country} />
         {contactSlot}
-      </main>
+      </PageReveal>
       </SolarPackageSelectionProvider>
       <SiteFooter />
     </div>

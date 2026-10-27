@@ -1,0 +1,20 @@
+.outline { display: none; }
+@media (min-width: 801px) {
+  .outline {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    width: 14%;
+    height: 38%;
+    fill: none;
+    stroke: #ffe1a2;
+    stroke-width: .12;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: .85;
+    filter: drop-shadow(0 2px 4px #092c36);
+    pointer-events: none;
+  }
+  .outline[data-country="DM"] { left: 44%; width: 13%; top: 34%; height: 30%; }
+}

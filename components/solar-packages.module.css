@@ -76,3 +76,12 @@
   .deck:is([data-deck-phase=waiting],[data-deck-phase=closing],[data-deck-phase=stacked]) .card[data-slot=left]{transform:translateX(-50%) translate3d(-14px,26px,-44px) rotateY(0deg) rotateZ(-2deg)}
   .deck:is([data-deck-phase=waiting],[data-deck-phase=closing],[data-deck-phase=stacked]) .card[data-slot=right]{transform:translateX(-50%) translate3d(14px,32px,-88px) rotateY(0deg) rotateZ(2deg)}
 }
+
+@media(min-width:801px){
+  /* Keep the side-card name and price above the depth veil; details belong to the front card. */
+  .card:not([data-slot=center]) .card-top{position:relative;z-index:4;background:#f8faf6}
+  .card:not([data-slot=center]) .card-body{display:none}
+  .card:not([data-slot=center]) .image-picker{display:none}
+  .deck[data-deck-phase=open] .card:not([data-slot=center]):is(:hover,:focus-within){--rear-y:34px;--angle:4deg;filter:saturate(1)}
+  .card:not([data-slot=center]):is(:hover,:focus-within)::after{opacity:.24}
+}

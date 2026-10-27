@@ -276,3 +276,12 @@
     animation: none;
   }
 }
+
+@media (min-width: 801px) {
+  .notice { padding: 14px 48px 14px 20px; gap: 20px; border-top-width: 2px; border-radius: 12px; }
+  .notice .actions { grid-template-columns: repeat(3, auto); align-items: center; }
+  .notice .manage { grid-column: auto; }
+  .notice .copy h2 { font-size: 17px; margin-bottom: 4px; }
+  .notice .copy p { font-size: 13px; line-height: 1.55; }
+  .notice .actions button { padding-inline: 12px; white-space: nowrap; }
+}

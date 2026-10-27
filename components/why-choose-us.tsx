@@ -42,7 +42,7 @@ export function WhyChooseUs({ country }: { country: ServiceCountry | null }) {
     <section id="benefits" className={styles.section} aria-labelledby="benefits-heading" tabIndex={-1}>
       <div className={styles.layout}>
         <div className={styles.copy}>
-          <h2 id="benefits-heading">
+          <h2 data-reveal="heading" id="benefits-heading">
             <span className={styles.location}>
               {country === "AG" ? "Your Antigua home." : country === "DM" ? "Your Dominica home." : "Your home. Our Caribbean."}
               <br />

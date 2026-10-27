@@ -10,6 +10,18 @@
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+@keyframes backgroundSettle {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+@keyframes energyLight {
+  from { opacity: .25; }
+  to { opacity: 1; }
+}
+@keyframes islandDraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
 @media (min-width: 801px) {
   .scope span[data-hero-reveal] { display: inline-block; }
   .scope [data-hero-rule] { position: relative; border-top-color: transparent; }
@@ -23,6 +35,14 @@
   }
 }
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .scope[data-hero-motion="waiting"] [data-hero-background] { transform: scale(1.06); }
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-hero-background] { animation: backgroundSettle 1500ms cubic-bezier(.2,.7,.2,1) both; }
+  .scope[data-hero-motion="waiting"] [data-hero-energy] { opacity: .25; }
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-hero-energy] { animation: energyLight 560ms ease 380ms both; }
+  .scope [data-island-outline] path { stroke-dasharray: 1; }
+  .scope[data-hero-motion="done"] [data-island-outline] path { stroke-dasharray: none; }
+  .scope[data-hero-motion="waiting"] [data-island-outline] path { stroke-dashoffset: 1; }
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-island-outline] path { animation: islandDraw 1400ms cubic-bezier(.25,.1,.25,1) 200ms both; }
   .scope [data-hero-reveal="1"] { --hero-delay: 70ms; }
   .scope [data-hero-reveal="2"] { --hero-delay: 140ms; }
   .scope [data-hero-reveal="3"] { --hero-delay: 210ms; }
@@ -31,12 +51,12 @@
   .scope [data-hero-reveal="notes"] { --hero-delay: 360ms; }
   .scope[data-hero-motion="waiting"] [data-hero-reveal] { opacity: 0; }
   .scope[data-hero-motion="waiting"] [data-hero-reveal="actions"] { opacity: .65; }
-  .scope[data-hero-motion="entering"] [data-hero-reveal] {
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-hero-reveal] {
     animation: arrive 560ms cubic-bezier(.22, 1, .36, 1) var(--hero-delay, 0ms) both;
   }
-  .scope[data-hero-motion="entering"] [data-hero-reveal="actions"] { animation-name: actionsArrive; }
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-hero-reveal="actions"] { animation-name: actionsArrive; }
   .scope[data-hero-motion="waiting"] [data-hero-rule]::before { transform: scaleX(0); }
-  .scope[data-hero-motion="entering"] [data-hero-rule]::before {
+  :global(html[data-site-revealed]) .scope:not([data-hero-motion="done"]) [data-hero-rule]::before {
     animation: drawRule 560ms cubic-bezier(.22, 1, .36, 1) 360ms both;
   }
 }
