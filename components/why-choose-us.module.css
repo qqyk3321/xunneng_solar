@@ -169,3 +169,26 @@
   .stat:nth-child(2) { background: #e3f1f4; border-color: #c3dfe5; }
   .stat:nth-child(3) { background: #e3f1ef; border-color: #c4e0dc; }
 }
+
+/* Round 3 (desktop): brand-teal payback figure and scroll-linked enter/leave motion. */
+@media (min-width: 801px) {
+  .stat[data-stat="payback"] .number { color: #007a87; }
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+    .reasons li {
+      animation: blIn linear backwards, blOut linear forwards;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 40%, exit 60% exit 100%;
+    }
+    .stat {
+      animation: blPop linear backwards, blPopOut linear forwards;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 45%, exit 60% exit 100%;
+    }
+  }
+}
+@keyframes blIn { from { opacity: 0; translate: 0 28px; } to { opacity: 1; translate: 0 0; } }
+@keyframes blOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -20px; } }
+@keyframes blPop { from { opacity: 0; scale: 0.94; } to { opacity: 1; scale: 1; } }
+@keyframes blPopOut { from { opacity: 1; scale: 1; } to { opacity: 0; scale: 0.97; } }

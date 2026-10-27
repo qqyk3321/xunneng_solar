@@ -891,3 +891,28 @@
   .calculatorSection .sectionIntro { margin-bottom: 44px; }
   .calculatorSection .sectionIntro h2 { font-size: clamp(42px, 4.6vw, 62px); line-height: 1.02; letter-spacing: -0.05em; }
 }
+
+/* Round 3 (desktop): hero leave motion and entering estimate block. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+    .homepage .hero:is([data-country="AG"], [data-country="DM"]) .heroContent {
+      animation: blHeroOut linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 55%;
+    }
+    .heroMedia img {
+      animation: blHeroImage linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+    .calculatorSection > .container > :not(.sectionIntro) {
+      animation: blIn linear backwards, blOut linear forwards;
+      animation-timeline: view(), view();
+      animation-range: entry 5% entry 45%, exit 60% exit 100%;
+    }
+  }
+}
+@keyframes blIn { from { opacity: 0; translate: 0 36px; } to { opacity: 1; translate: 0 0; } }
+@keyframes blOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -28px; } }
+@keyframes blHeroOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -48px; } }
+@keyframes blHeroImage { from { scale: 1; translate: 0 0; } to { scale: 1.08; translate: 0 6%; } }

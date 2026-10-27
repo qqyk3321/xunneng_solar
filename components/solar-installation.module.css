@@ -435,3 +435,28 @@
   .step:hover .number { background: #ffc667; color: #0d3a42; border-color: #ffc667; }
   .step:hover .card { border-color: #e3b25a; box-shadow: 0 16px 36px #0006; }
 }
+
+/* Round 3 (desktop): the installation chapter is an ascending, left-aligned sequence,
+   not four centred slide cards. Narrow desktops keep the stacked timeline. */
+@media (min-width: 901px) {
+  .heading { text-align: left; max-width: none; margin: 0; }
+  .section .heading h2[data-reveal]::after { margin-inline: 0; }
+  .timeline::before { display: none; }
+  .step { align-items: flex-start; border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 24px; }
+  .step:nth-child(2) { margin-top: 28px; }
+  .step:nth-child(3) { margin-top: 56px; }
+  .step:nth-child(4) { margin-top: 84px; }
+  .card { margin-top: 20px; padding: 0; border: 0; background: transparent; text-align: left; box-shadow: none; }
+  .card h3 { min-height: 0; }
+  .actions { text-align: left; margin-top: 56px; }
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+    .step {
+      animation: blOut linear forwards;
+      animation-timeline: view();
+      animation-range: exit 60% exit 100%;
+    }
+  }
+}
+@keyframes blOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -20px; } }

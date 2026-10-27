@@ -1533,3 +1533,59 @@
   .closing h2 { font-size: clamp(42px, 4.8vw, 70px); line-height: 1.02; letter-spacing: -0.05em; }
   .closing a { border-radius: 999px; padding: 18px 30px; }
 }
+
+/* Round 3 (desktop): left-aligned editorial headings, clearer corner marks,
+   and scroll-linked enter/leave motion that never touches existing reveals. */
+@media (min-width: 801px) {
+  .scenarioCard::before,
+  .storyImages::before { filter: drop-shadow(0 0 2px rgba(6, 30, 36, 0.55)); }
+
+  /* The benefits heading becomes a two-column lead instead of a centred slide title. */
+  .scenarioHeading {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: end;
+    gap: 56px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: left;
+  }
+  .scenarioHeading > p { max-width: 460px; margin: 0 0 8px; }
+  .scenarioHeading h2::after { margin-inline: 0; }
+  .closing { text-align: left; }
+  .closing h2::after { margin-inline: 0; }
+  .closing { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 56px; padding-left: max(5vw, calc((100vw - 1240px) / 2)); padding-right: max(5vw, calc((100vw - 1240px) / 2)); }
+  .closing > div { margin-top: 0; flex-direction: column; }
+}
+@supports (animation-timeline: view()) {
+  @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+    /* Enter and leave: blocks rise in as they arrive and ease out as they leave. */
+    .desktopMap, .closing > div {
+      animation: blIn linear backwards, blOut linear forwards;
+      animation-timeline: view(), view();
+      animation-range: entry 5% entry 45%, exit 55% exit 100%;
+    }
+    /* Elements that already reveal themselves only get the leave half. */
+    .step, .faq details, .hybridControl {
+      animation: blOut linear forwards;
+      animation-timeline: view();
+      animation-range: exit 60% exit 100%;
+    }
+    /* Hero: content drifts up and the photo settles as the page scrolls away. */
+    .heroContent {
+      animation: blHeroOut linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 55%;
+    }
+    .heroImage {
+      animation: blHeroImage linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+@keyframes blIn { from { opacity: 0; translate: 0 36px; } to { opacity: 1; translate: 0 0; } }
+@keyframes blOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -28px; } }
+@keyframes blHeroOut { from { opacity: 1; translate: 0 0; } to { opacity: 0; translate: 0 -48px; } }
+@keyframes blHeroImage { from { scale: 1; translate: 0 0; } to { scale: 1.08; translate: 0 6%; } }
