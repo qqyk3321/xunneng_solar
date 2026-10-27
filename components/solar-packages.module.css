@@ -85,3 +85,12 @@
   .deck[data-deck-phase=open] .card:not([data-slot=center]):is(:hover,:focus-within){--rear-y:34px;--angle:4deg;filter:saturate(1)}
   .card:not([data-slot=center]):is(:hover,:focus-within)::after{opacity:.24}
 }
+
+/* Brand layer (desktop): a sun rising behind the front package card. */
+@media(min-width:801px){
+  .packages{padding-top:96px;padding-bottom:64px;background:radial-gradient(ellipse 60% 55% at 50% 0%,#fff3d6 0,transparent 72%),var(--paper)}
+  .section-heading{margin-bottom:34px}
+  .section-heading h2{font-size:clamp(44px,4.8vw,66px);line-height:1.02;letter-spacing:-.05em}
+  .deck::before{content:"";position:absolute;left:50%;top:-8px;width:600px;aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,#ffe3a6,#f9b64a 70%);opacity:.5;z-index:-2;pointer-events:none}
+  .assessment{border-radius:999px}
+}

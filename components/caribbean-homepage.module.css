@@ -1433,3 +1433,113 @@
   }
 }
 @keyframes sunsetToNight { from { opacity: 1; } to { opacity: 0; } }
+
+/* Brand layer, desktop: Sun & Tide editorial rhythm.
+   Replaces the one-slide-per-screen feel with scale contrast, brand shapes
+   (the sun arch, tide lines, a rising sun) and warm surfaces. */
+@media (min-width: 801px) {
+  /* Chapters grow with their content instead of each filling a full screen. */
+  .countries, .faq { min-height: 0; }
+  .countries {
+    display: block;
+    padding-top: 104px;
+    padding-bottom: 96px;
+    background-color: #f3ead9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='28' viewBox='0 0 240 28'%3E%3Cpath d='M0 14Q30 0 60 14T120 14T180 14T240 14' fill='none' stroke='%23b9a272' stroke-opacity='.26' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 240px 28px;
+  }
+
+  /* Hero: bigger voice, pill actions, and tide rings radiating from the sky. */
+  .hero h1 {
+    font-size: clamp(54px, 6.5vw, 98px);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    max-width: 1000px;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -10vw;
+    top: -30vw;
+    width: 64vw;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    pointer-events: none;
+    background: repeating-radial-gradient(circle at 50% 50%, transparent 0 58px, rgba(255, 232, 178, 0.2) 58px 59px);
+    -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 68%);
+    mask-image: radial-gradient(circle, #000 18%, transparent 68%);
+  }
+  .page .primary { border-radius: 999px; padding: 17px 30px; }
+  .page .hero .primary { padding-right: 14px; }
+  .heroActionIcon {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #14353a;
+    color: #ffc667;
+    font-size: 15px;
+  }
+
+  /* Benefits: bigger headline; the cards become sun-arch windows. */
+  .scenarioHeading h2 { font-size: clamp(44px, 5vw, 74px); line-height: 1.02; letter-spacing: -0.05em; }
+  .scenarioCard { border-radius: 240px 240px 24px 24px; }
+
+  /* Journey: sun-arch picture with a sun rising behind it, outlined step numerals. */
+  .stickyStory { isolation: isolate; }
+  .stickyStory::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8%;
+    top: -7%;
+    width: 46%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffe0a0, #f5a933 72%);
+    opacity: 0.92;
+  }
+  .storyImages { border-radius: 280px 280px 20px 20px; box-shadow: 0 34px 60px -30px #12383e70; }
+  .stepCount { top: auto; bottom: 22px; right: 30px; }
+  .step h3 { align-items: center; gap: 22px; }
+  .stepNumber {
+    font: 600 clamp(46px, 4.6vw, 68px) / 1 "Space Grotesk", sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #d99d38;
+  }
+
+  /* FAQ: question cards with a pinned heading. */
+  .faq { align-content: start; padding-top: 104px; padding-bottom: 112px; background: #f7f0e1; }
+  .faq > div:first-child { position: sticky; top: 130px; align-self: start; }
+  .faq details {
+    padding: 0 26px;
+    margin-bottom: 12px;
+    border: 1px solid #e6dcc3;
+    border-radius: 16px;
+    background: #fffdf8;
+    transition: box-shadow 250ms ease, border-color 250ms ease, background 250ms ease;
+  }
+  .faq details:first-child { border-top: 1px solid #e6dcc3; }
+  .faq details[open] { border-color: #e0b25a; background: #fff; box-shadow: 0 20px 40px -26px #7a5a1a66; }
+  .faq summary { padding: 24px 0; font-size: 18px; }
+  .faq summary span {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #f4e7c8;
+    color: #8a5b0c;
+  }
+
+  /* Closing: the sun rises over the horizon line of the footer. */
+  .closing {
+    padding: 112px 24px 136px;
+    background: radial-gradient(ellipse 72% 95% at 50% 112%, #ffcf80 0, #f7e2b4 38%, #f3ead9 72%);
+  }
+  .closing h2 { font-size: clamp(42px, 4.8vw, 70px); line-height: 1.02; letter-spacing: -0.05em; }
+  .closing a { border-radius: 999px; padding: 18px 30px; }
+}

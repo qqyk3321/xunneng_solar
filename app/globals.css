@@ -1284,3 +1284,22 @@ h2 {
     white-space: normal;
   }
 }
+
+/* Brand layer (desktop): numbered chapter marks so the three homepages read as one
+   editorial story instead of a stack of slides. Pure CSS; no markup depends on it. */
+@media (min-width: 801px) {
+  .tailwind-scope { counter-reset: brandsec; }
+  #packages, #countries, #hybrid-system, #journey, #questions,
+  #calculator, #benefits, #solar-installation { counter-increment: brandsec; }
+  :is(#packages-heading, #countries-title, #scenarios-title, #journey-title, #faq-title,
+      #calculator-heading, #benefits-heading, #installation-heading)::before {
+    content: counter(brandsec, decimal-leading-zero) "  ——";
+    display: block;
+    margin-bottom: 14px;
+    font: 700 13px/1 "Plus Jakarta Sans", sans-serif;
+    letter-spacing: 0.24em;
+    color: #c4811c;
+    white-space: pre;
+  }
+  :is(#scenarios-title, #installation-heading)::before { color: #ffc667; }
+}

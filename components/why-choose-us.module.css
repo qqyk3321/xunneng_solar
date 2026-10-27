@@ -155,3 +155,17 @@
   .reasons li, .stat, .toggle::after { transition: none; }
   .reasons li:hover, .stat:hover { transform: none; }
 }
+
+/* Brand layer (desktop): colour-blocked, staggered result tiles and accented reasons. */
+@media (min-width: 801px) {
+  .section { padding: 104px 0 120px; }
+  .copy h2 { font-size: clamp(38px, 4vw, 56px); line-height: 1.04; letter-spacing: -0.05em; }
+  .reasons li { border-left: 3px solid #edbd66; }
+  .results { padding-bottom: 32px; }
+  .stat:nth-child(even) { translate: 0 32px; }
+  .stat:nth-child(1) { background: linear-gradient(150deg, #11505a, #0b343d); border-color: #0b343d; }
+  .stat:nth-child(1) .number { color: #ffd48a; }
+  .stat:nth-child(1) dt { color: #d4e8e8; }
+  .stat:nth-child(2) { background: #fdf0d2; border-color: #efd9a0; }
+  .stat:nth-child(3) { background: #e3f1ef; border-color: #c4e0dc; }
+}

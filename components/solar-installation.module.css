@@ -405,3 +405,33 @@
   .heading h2 { font-size: 24px; }
   .mobileTimeline { margin-top: 14px; }
 }
+
+/* Brand layer (desktop): the installation chapter becomes the "night" beat of the page,
+   opened by a tide-line edge so the rhythm moves light, dark, light. */
+@media (min-width: 801px) {
+  .section {
+    position: relative;
+    padding: 136px 0 104px;
+    color: #e6f1f1;
+    background: radial-gradient(ellipse at 15% 0%, #1d5a60 0, transparent 55%), linear-gradient(#0d3a42, #082a33);
+  }
+  .section::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto;
+    height: 48px;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1440V20C1200 52 960 52 720 26S240 -6 0 22Z' fill='white'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  }
+  .heading h2 { color: #fff; font-size: clamp(40px, 4.4vw, 60px); line-height: 1.04; letter-spacing: -0.05em; }
+  .number { background: #0d3a42; color: #ffc667; border-color: #e3b25a; box-shadow: none; }
+  .card { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.16); box-shadow: none; }
+  .card h3 { color: #fff; }
+  .timing { color: #ffc667; }
+  .card p { color: #c9dddd; }
+  .actions p { color: #9fbcbc; }
+}
+@media (min-width: 801px) and (hover: hover) and (pointer: fine) {
+  .step:hover .number { background: #ffc667; color: #0d3a42; border-color: #ffc667; }
+  .step:hover .card { border-color: #e3b25a; box-shadow: 0 16px 36px #0006; }
+}
