@@ -7,6 +7,7 @@ import { SectionAnchor } from "./section-anchor";
 import { RegionSwitcher, useSiteRegion } from "./site-region";
 import { regionPath } from "@/lib/site-region-routing";
 import { BrandMark } from "./brand-mark";
+import { useDesktopHeaderMorph } from "@/hooks/use-desktop-header-morph";
 import styles from "./demo-homepage.module.css";
 
 /** Shared public navigation; only homepage sections use local anchors. */
@@ -26,6 +27,10 @@ export function SiteHeader({
   const [revealed, setRevealed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggle = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
+  const headerContent = useRef<HTMLDivElement>(null);
+  const desktopToggle = useRef<HTMLButtonElement>(null);
+  useDesktopHeaderMorph(immersive, header, headerContent, desktopToggle);
   useEffect(() => {
     if (!immersive) return;
     const scroll = () => {
@@ -50,16 +55,8 @@ export function SiteHeader({
   }
   return (
     <>
-      {immersive && !revealed && (
-        <div
-          className={styles.headerRevealZone}
-          aria-hidden="true"
-          onPointerEnter={(event) => {
-            if (event.pointerType === "mouse") setRevealed(true);
-          }}
-        />
-      )}
       <header
+        ref={header}
         className={`tailwind-scope ${styles.homepage} ${styles.header}`}
         data-testid="home-header"
         data-caribbean-header={caribbean || undefined}
@@ -76,7 +73,24 @@ export function SiteHeader({
           }
         }}
       >
-        <div className={styles.headerInner}>
+        {immersive && (
+          <button
+            ref={desktopToggle}
+            type="button"
+            className={styles.headerStrip}
+            aria-label="Open navigation"
+            aria-controls="site-header-content"
+            aria-expanded="false"
+          >
+            <span className={styles.headerStripBrand}>
+              <BrandMark />Solortide
+            </span>
+            <span className={styles.headerStripMenu}>
+              Menu<span aria-hidden="true"><i /><i /></span>
+            </span>
+          </button>
+        )}
+        <div ref={headerContent} id="site-header-content" className={styles.headerInner}>
           <Link
             href={regionPath(country)}
             prefetch={false}
