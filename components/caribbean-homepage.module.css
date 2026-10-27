@@ -1418,7 +1418,7 @@
   .journeyGrid { grid-template-columns: 1fr 1fr; gap: 5%; }
   .step { min-height: 0; padding: 0; margin-bottom: 160px; }
   .step:last-child { margin-bottom: 0; }
-  .step p { margin-top: 18px; }
+  .step p { margin-top: 18px; color: #50686d; }
   .stepNav a { color: #526d65; }
   .storyImages::after { content: ""; position: absolute; bottom: 18px; left: 18px; width: 48px; height: 22px; border-bottom: 1px solid #ffe1a2; border-left: 1px solid #ffe1a2; border-radius: 0 0 0 10px; pointer-events: none; }
   .closing { position: relative; overflow: hidden; }

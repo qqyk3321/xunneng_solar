@@ -54,7 +54,7 @@ export function SolarInstallation({
       <InstallationReveal sectionId="solar-installation" />
       <div className={styles.container}>
         <div className={styles.heading}>
-          <h2 data-reveal="heading" id="installation-heading">
+          <h2 data-reveal="heading-centered" id="installation-heading">
             Your Solar Installation in {location}
           </h2>
         </div>

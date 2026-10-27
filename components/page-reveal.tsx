@@ -23,7 +23,7 @@ export function PageReveal({ children, className, ...props }: {
         entries.forEach(entry => { if (entry.isIntersecting) show(entry.target as HTMLElement); });
       }, { threshold: 0, rootMargin: "0px 0px -32px 0px" });
       nodes.forEach((node, index) => {
-        node.style.setProperty("--reveal-delay", node.dataset.reveal === "heading" ? "0ms" : `${index % 3 * 60}ms`);
+        node.style.setProperty("--reveal-delay", node.dataset.reveal?.startsWith("heading") ? "0ms" : `${index % 3 * 60}ms`);
         const rect = node.getBoundingClientRect();
         if (rect.top < innerHeight - 32) show(node);
         else { node.dataset.revealState = "waiting"; observer?.observe(node); }
