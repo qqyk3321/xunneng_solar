@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { PrivacyLink } from "./privacy-link";
 import Image from "next/image";
 import { ViewportImage } from "./viewport-image";
+import { HeroEntrance } from "./hero-entrance";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { SolarPackages } from "./solar-packages";
 import { SolarPackageSelectionProvider } from "./solar-package-selection";
@@ -123,6 +124,11 @@ function wishlistReceipts(): string[] {
 export function CaribbeanHomepage() {
   const { choose } = useSiteRegion();
   const [step, setStep] = useState(0);
+  const [loadedSteps, setLoadedSteps] = useState<number[]>([]);
+  const [displayedStep, setDisplayedStep] = useState(0);
+  useEffect(() => {
+    if (loadedSteps.includes(step)) setDisplayedStep(step);
+  }, [step, loadedSteps]);
   const [slide, setSlide] = useState(0);
   const [controlExpanded, setControlExpanded] = useState(false);
   const [plannedExpanded, setPlannedExpanded] = useState(false);
@@ -291,7 +297,7 @@ export function CaribbeanHomepage() {
       <SiteHeader caribbean immersive />
 
       <main id="main" tabIndex={-1}>
-        <section className={styles.hero} aria-labelledby="caribbean-title">
+        <HeroEntrance className={styles.hero} aria-labelledby="caribbean-title">
           <Image
             src="/images/caribbean-solar-hero.webp"
             alt="A lush Caribbean coastline and a home with rooftop solar"
@@ -302,19 +308,19 @@ export function CaribbeanHomepage() {
           />
           <div className={styles.heroContent}>
             <h1 id="caribbean-title">
-              More confidence
+              <span data-hero-reveal="0">More confidence</span>
               <br />
-              in your home’s
+              <span data-hero-reveal="1">in your home’s</span>
               <br />
-              <em>energy.</em>
+              <span data-hero-reveal="2"><em>energy.</em></span>
             </h1>
             <div className={styles.heroDetails}>
-              <p>
+              <p data-hero-reveal="copy">
                 Solortide by Sol &amp; Tide Energy.
                 <br />
                 Solar and battery solutions for Caribbean homes.
               </p>
-              <div className={styles.actions}>
+              <div className={styles.actions} data-hero-reveal="actions">
                 <button
                   type="button"
                   className={styles.mobileConsultation}
@@ -332,13 +338,13 @@ export function CaribbeanHomepage() {
               </div>
             </div>
           </div>
-          <div className={styles.heroBottom}>
-            <span>Rooted in island life.</span>
-            <span>
+          <div className={styles.heroBottom} data-hero-rule>
+            <span data-hero-reveal="notes">Rooted in island life.</span>
+            <span data-hero-reveal="notes">
               <strong>Antigua & Barbuda · Dominica</strong>
             </span>
           </div>
-        </section>
+        </HeroEntrance>
 
         <SolarPackageSelectionProvider><SolarPackages /></SolarPackageSelectionProvider>
 
@@ -471,6 +477,7 @@ export function CaribbeanHomepage() {
                   >
                     <ViewportImage
                       enabled={carouselVisible}
+                      preload
                       src={item.image}
                       alt={item.alt}
                       fill
@@ -588,12 +595,14 @@ export function CaribbeanHomepage() {
                   <ViewportImage
                     key={item.image}
                     enabled={index === step}
+                    preload={index === step + 1}
+                    onLoad={() => setLoadedSteps(current => current.includes(index) ? current : [...current, index])}
                     src={`/images/caribbean/${item.image}.webp`}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 800px) 90vw, 46vw"
                     className={styles.storyImage}
-                    data-active={index === step}
+                    data-active={index === displayedStep}
                   />
                 ))}
                 <span className={styles.stepCount}>

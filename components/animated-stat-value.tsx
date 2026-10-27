@@ -7,18 +7,22 @@ import styles from "./why-choose-us.module.css";
 export function AnimatedStatValue({
   value,
   suffix,
+  countUp = true,
 }: {
   value: number;
   suffix: string;
+  countUp?: boolean;
 }) {
   const [display, setDisplay] = useState(value);
   const target = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const desktop = window.matchMedia("(min-width: 801px)");
     if (
       !target.current ||
       motion.matches ||
+      (desktop.matches && !countUp) ||
       !("IntersectionObserver" in window)
     )
       return;
@@ -35,7 +39,7 @@ export function AnimatedStatValue({
     function tick(now: number) {
       if (finished) return;
       if (start === null) start = now;
-      const progress = Math.min((now - start) / 1600, 1);
+      const progress = Math.min((now - start) / (desktop.matches ? 600 : 1600), 1);
       setDisplay(Math.round(value * (1 - Math.pow(1 - progress, 3))));
       if (progress < 1) frame = requestAnimationFrame(tick);
       else finish();
@@ -50,16 +54,18 @@ export function AnimatedStatValue({
     );
     observer.observe(target.current);
     const onMotionChange = () => {
-      if (motion.matches) finish();
+      if (motion.matches || (desktop.matches && !countUp)) finish();
     };
     motion.addEventListener("change", onMotionChange);
+    desktop.addEventListener("change", onMotionChange);
     return () => {
       finished = true;
       observer.disconnect();
       cancelAnimationFrame(frame);
       motion.removeEventListener("change", onMotionChange);
+      desktop.removeEventListener("change", onMotionChange);
     };
-  }, [value]);
+  }, [value, countUp]);
 
   return (
     <>

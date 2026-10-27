@@ -63,7 +63,7 @@ export function WhyChooseUs({ country }: { country: ServiceCountry | null }) {
                 <dd className={styles.value}>
                   <span className={styles.number}>
                     {stat.prefix && <><span className={styles.srOnly}>{stat.spokenPrefix}</span><span aria-hidden="true">{stat.prefix}</span></>}
-                    <AnimatedStatValue value={stat.value} suffix={stat.suffix} />
+                    <AnimatedStatValue value={stat.value} suffix={stat.suffix} countUp={stat.id !== "payback" && stat.id !== "response"} />
                     {stat.id === "payback" && <> <span className={styles.unit}>years</span></>}
                   </span>
                 </dd>

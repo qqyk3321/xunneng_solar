@@ -10,6 +10,7 @@ import { SolarInstallation } from "./solar-installation";
 import { SolarPackages } from "./solar-packages";
 import { SolarPackageSelectionProvider } from "./solar-package-selection";
 import { WhyChooseUs } from "./why-choose-us";
+import { HeroEntrance } from "./hero-entrance";
 import styles from "./demo-homepage.module.css";
 
 export function DemoHomepage({
@@ -60,7 +61,7 @@ export function DemoHomepage({
       />
       <SolarPackageSelectionProvider>
       <main className={styles.main}>
-        <section
+        <HeroEntrance
           className={styles.hero}
           aria-labelledby="hero-title"
           data-testid="home-hero"
@@ -91,7 +92,7 @@ export function DemoHomepage({
           </div>
           <div className={styles.heroContent}>
             {country ? (
-              <div className={styles.islandHeading}>
+              <div className={styles.islandHeading} data-hero-reveal="0">
                 <h1 id="hero-title">
                   Solortide ·{" "}
                   {country === "AG" ? "Antigua & Barbuda" : "Dominica"}
@@ -106,17 +107,17 @@ export function DemoHomepage({
             <div className={styles.heroDetails}>
               {country && (
                 <h2 className={styles.islandPromise}>
-                  Clean energy.
-                  <br />A brighter
-                  <br />island home.
+                  <span data-hero-reveal="1">Clean energy.</span>
+                  <br /><span data-hero-reveal="2">A brighter</span>
+                  <br /><span data-hero-reveal="3">island home.</span>
                 </h2>
               )}
-              <p className={styles.heroCopy}>
+              <p className={styles.heroCopy} data-hero-reveal="copy">
                 {country
                   ? "Solar and battery storage for lower bills and smarter backup. Locally supported, from planning to installation and beyond."
                   : hero.description}
               </p>
-              <div className={styles.heroActions}>
+              <div className={styles.heroActions} data-hero-reveal="actions">
                 <AssessmentLink country={country} className={styles.primary} />
                 <SectionAnchor
                   href="#calculator"
@@ -125,7 +126,7 @@ export function DemoHomepage({
                   Get an Estimate
                 </SectionAnchor>
               </div>
-              <div className={styles.heroNotes}>
+              <div className={styles.heroNotes} data-hero-reveal="notes">
                 <span>
                   {country === "AG" ? "UL" : country === "DM" ? "CE" : "UL/CE"}{" "}
                   Certified Equipment
@@ -140,7 +141,7 @@ export function DemoHomepage({
               Explore your savings <span aria-hidden="true">↓</span>
             </SectionAnchor>
           )}
-        </section>
+        </HeroEntrance>
 
         {country && <SolarPackages country={country} />}
 

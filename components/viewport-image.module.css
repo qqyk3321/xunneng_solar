@@ -1,0 +1,6 @@
+@media (min-width: 801px) {
+  .frame[data-image-loaded="false"] > img { opacity: 0; }
+}
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .frame > img { transition: opacity 200ms ease-out; }
+}

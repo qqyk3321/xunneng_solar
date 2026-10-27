@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { SmoothEstimateValue } from "./smooth-estimate-value";
 import { useSiteRegion } from "./site-region";
 import { AssessmentLink } from "./assessment-link";
 import { RegionLinks } from "./region-links";
@@ -232,7 +233,7 @@ function RegionalCalculator({ country }: { country: ServiceCountry }) {
                 <p>The + means the final cost may be higher. A free assessment confirms the configuration, included work and quote for your home.</p>
               </CalculatorHelp>
             </dt>
-            <dd className={styles.budgetValue} data-testid="price">{ready ? <><span className={styles.moneyPrefix}>~{prefix}</span> {converted(result.price)}<span className={styles.budgetPlus}>+</span></> : "—"}</dd>
+            <dd className={styles.budgetValue} data-testid="price">{ready ? <><span className={styles.moneyPrefix}>~{prefix}</span> <SmoothEstimateValue key={currency} value={result.price} format={converted} active={visible} /><span className={styles.budgetPlus}>+</span></> : "—"}</dd>
           </div>
           <div className={`${styles.metricRow} ${styles.prominent}`} data-metric="payback">
             <dt className={styles.metricLabel}>Payback
@@ -241,7 +242,7 @@ function RegionalCalculator({ country }: { country: ServiceCountry }) {
                 <p>This simple estimate uses the starting budget and an {Math.round(config.savingsFraction * 100)}% bill-saving assumption. A higher final price or lower savings increases the payback period. Financing, maintenance and equipment replacement are excluded.</p>
               </CalculatorHelp>
             </dt>
-            <dd className={styles.metricValue} data-testid="payback">{ready ? <>~{decimal.format(result.years)} <span className={styles.unit}>years</span></> : "—"}</dd>
+            <dd className={styles.metricValue} data-testid="payback">{ready ? <>~<SmoothEstimateValue key={currency} value={result.years} format={decimal.format} active={visible} /> <span className={styles.unit}>years</span></> : "—"}</dd>
           </div>
           <div className={styles.metricRow} data-metric="annual">
             <dt className={styles.metricLabel}><span className={styles.desktopMetricLabel}>Annual savings</span><span className={styles.mobileMetricLabel}>Saved / year</span>
@@ -251,7 +252,7 @@ function RegionalCalculator({ country }: { country: ServiceCountry }) {
                 <TariffDetails country={country} />
               </CalculatorHelp>
             </dt>
-            <dd className={styles.metricValue} data-testid="annual-saving">{ready ? <><span className={styles.unit}>~{prefix}</span> {converted(result.annualSaving)}</> : "—"}</dd>
+            <dd className={styles.metricValue} data-testid="annual-saving">{ready ? <><span className={styles.unit}>~{prefix}</span> <SmoothEstimateValue key={currency} value={result.annualSaving} format={converted} active={visible} /></> : "—"}</dd>
           </div>
           <div className={styles.metricRow} data-metric="backup">
             <dt className={styles.metricLabel}><span className={styles.desktopMetricLabel}>Outage backup</span><span className={styles.mobileMetricLabel}>Backup</span>
@@ -261,7 +262,7 @@ function RegionalCalculator({ country }: { country: ServiceCountry }) {
                 <p>Runtime varies with the appliances you use and the battery’s charge level.</p>
               </CalculatorHelp>
             </dt>
-            <dd className={styles.metricValue} data-testid="backup">{ready ? <>~{decimal.format(result.backupHours)} <span className={styles.unit}>hrs</span></> : "—"}</dd>
+            <dd className={styles.metricValue} data-testid="backup">{ready ? <>~<SmoothEstimateValue key={currency} value={result.backupHours} format={decimal.format} active={visible} /> <span className={styles.unit}>hrs</span></> : "—"}</dd>
           </div>
         </dl>
         <div className={styles.assessmentArea}>

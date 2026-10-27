@@ -171,6 +171,10 @@
   font-size: 14px;
   font-weight: 500;
 }
+@media (min-width: 801px) {
+  .heroBottom { padding-right: 72px; }
+  .scenarioCard { background: linear-gradient(145deg, #486d6d, #123a40 70%); }
+}
 .section {
   padding: 108px max(5vw, calc((100vw - 1240px) / 2));
 }
@@ -469,6 +473,9 @@
   transition:
     opacity 0.7s,
     transform 1.2s;
+}
+@media (min-width: 801px) {
+  .storyImages { background: linear-gradient(140deg, #e5ede4, #b4cbc4); }
 }
 .storyImage[data-active="true"] {
   opacity: 1;

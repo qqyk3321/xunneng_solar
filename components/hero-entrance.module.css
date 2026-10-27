@@ -1,0 +1,42 @@
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes actionsArrive {
+  from { opacity: .65; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes drawRule {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (min-width: 801px) {
+  .scope span[data-hero-reveal] { display: inline-block; }
+  .scope [data-hero-rule] { position: relative; border-top-color: transparent; }
+  .scope [data-hero-rule]::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto;
+    height: 1px;
+    background: #ffffff30;
+    transform-origin: left;
+  }
+}
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .scope [data-hero-reveal="1"] { --hero-delay: 70ms; }
+  .scope [data-hero-reveal="2"] { --hero-delay: 140ms; }
+  .scope [data-hero-reveal="3"] { --hero-delay: 210ms; }
+  .scope [data-hero-reveal="copy"] { --hero-delay: 240ms; }
+  .scope [data-hero-reveal="actions"] { --hero-delay: 300ms; }
+  .scope [data-hero-reveal="notes"] { --hero-delay: 360ms; }
+  .scope[data-hero-motion="waiting"] [data-hero-reveal] { opacity: 0; }
+  .scope[data-hero-motion="waiting"] [data-hero-reveal="actions"] { opacity: .65; }
+  .scope[data-hero-motion="entering"] [data-hero-reveal] {
+    animation: arrive 560ms cubic-bezier(.22, 1, .36, 1) var(--hero-delay, 0ms) both;
+  }
+  .scope[data-hero-motion="entering"] [data-hero-reveal="actions"] { animation-name: actionsArrive; }
+  .scope[data-hero-motion="waiting"] [data-hero-rule]::before { transform: scaleX(0); }
+  .scope[data-hero-motion="entering"] [data-hero-rule]::before {
+    animation: drawRule 560ms cubic-bezier(.22, 1, .36, 1) 360ms both;
+  }
+}
