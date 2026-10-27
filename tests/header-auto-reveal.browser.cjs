@@ -1,9 +1,9 @@
-// Read-only header checks. Desktop follows scroll; mobile keeps its timed reveal.
+// Read-only: desktop reveals the complete navigation in a long rounded bar,
+// then widens the shell. Mobile keeps its existing timed reveal and menu.
 const assert = require('node:assert/strict');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const origin = process.env.HOME_TEST_ORIGIN || 'http://127.0.0.1:3003';
 const output = process.env.HEADER_TEST_OUTPUT;
-
 (async () => {
   const browser = await chromium.launch();
   try {
@@ -15,7 +15,6 @@ const output = process.env.HEADER_TEST_OUTPUT;
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     const header = page.getByTestId('home-header');
-    const compact = page.getByRole('button', { name: 'Open navigation', exact: true });
     const go = async path => {
       assert.equal((await page.goto(origin + path, { waitUntil: 'domcontentloaded' })).status(), 200);
       await page.waitForFunction(() => !document.documentElement.dataset.siteLoading);
@@ -24,36 +23,44 @@ const output = process.env.HEADER_TEST_OUTPUT;
       await page.mouse.move(20, 800);
     };
     const at = async y => {
-      await page.evaluate(y => window.scrollTo(0, y), y);
-      await page.waitForFunction(y => Math.abs(parseFloat(document.querySelector('header').style.getPropertyValue('--header-progress')) - Math.min(1, y / 200)) < .002, y);
+      await page.evaluate(y => { document.activeElement?.blur(); window.scrollTo(0, y); }, y);
+      await page.waitForFunction(y => {
+        const style = document.querySelector('header').style;
+        const progress = Math.min(1, Math.max(0, (y - 80) / 200));
+        const visible = Math.min(1, Math.max(0, (y - 12) / 44));
+        return Math.abs(parseFloat(style.getPropertyValue('--header-progress')) - progress) < .002 && Math.abs(parseFloat(style.getPropertyValue('--header-visible')) - visible) < .002;
+      }, y);
     };
+    const shell = () => header.evaluate(el => {
+      const r = el.getBoundingClientRect();
+      return { x: r.x, width: r.width, radius: parseFloat(getComputedStyle(el).borderRadius), opacity: parseFloat(getComputedStyle(el).opacity) };
+    });
     for (const width of [1440, 1280]) {
       await page.setViewportSize({ width, height: 900 });
       for (const path of ['/', '/antigua', '/dominica']) {
         await go(path);
-        // Waiting for the original timer proves desktop no longer auto-expands.
         await page.waitForFunction(() => document.querySelector('header').dataset.revealed === 'true');
         await at(0);
-        assert(await compact.isVisible());
-        assert(await page.locator('#site-header-content').evaluate(el => el.inert));
-        assert.equal(await header.evaluate(el => getComputedStyle(el).opacity), '1');
-        const collapsedWidth = await header.evaluate(el => parseFloat(getComputedStyle(el, '::before').width));
-        assert(Math.abs(collapsedWidth - 264) < 2);
-        if (output) await page.screenshot({ path: `${output}/${width}-${path.replaceAll('/', '') || 'home'}-compact.png` });
-        await at(100);
-        const middleWidth = await header.evaluate(el => parseFloat(getComputedStyle(el, '::before').width));
-        assert(middleWidth > collapsedWidth + 200 && middleWidth < width - 200);
-        await at(220);
-        assert.equal(await page.locator('#site-header-content').evaluate(el => el.inert), false);
-        assert.equal(await compact.isVisible(), false);
-        assert.equal(await header.getByRole('navigation').isVisible(), true);
+        assert((await shell()).opacity < .01, 'desktop stays hidden initially, including after the mobile timer');
+        assert.equal(await header.getByRole('button', { name: 'Open navigation', exact: true }).count(), 0, 'no collapsed navigation or compact menu');
+        if (output) await page.screenshot({ path: `${output}/${width}-${path.replaceAll('/', '') || 'home'}-initial.png` });
+        await at(64);
+        const rounded = await shell();
+        assert(rounded.opacity > .98 && rounded.radius >= 40 && rounded.width > width * .9 && rounded.x >= 15);
+        for (const label of ['Savings', 'Why solar', 'How it works', 'FAQ']) assert(await header.getByText(label, { exact: true }).isVisible(), `${label} remains present`);
+        assert(await header.getByRole('link', { name: 'Sol & Tide Energy home' }).isVisible());
+        assert(await header.getByText('Get Your Free Assessment', { exact: true }).last().isVisible());
+        const controls = await header.locator('a,button').evaluateAll(els => els.filter(el => el.getBoundingClientRect().width).map(el => { const r = el.getBoundingClientRect(); return { left: r.left, right: r.right }; }));
+        assert(controls.every(r => r.left >= rounded.x && r.right <= rounded.x + rounded.width), 'complete navigation fits inside rounded shell');
+        if (output) await page.screenshot({ path: `${output}/${width}-${path.replaceAll('/', '') || 'home'}-rounded.png` });
+        await at(180);
+        const middle = await shell();
+        assert(middle.x > 0 && middle.x < rounded.x && middle.radius > 0 && middle.radius < rounded.radius);
+        await at(300);
+        const full = await shell();
+        assert(full.x < .2 && full.width > width - .4 && full.radius < .2, 'full-width rectangular header');
+        if (output) await page.screenshot({ path: `${output}/${width}-${path.replaceAll('/', '') || 'home'}-full.png` });
         assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-        if (output) await page.screenshot({ path: `${output}/${width}-${path.replaceAll('/', '') || 'home'}-expanded.png` });
-        await at(0);
-        await compact.click();
-        await page.waitForFunction(() => document.querySelector('header').hasAttribute('data-desktop-expanded'));
-        assert.equal(await header.getByRole('link', { name: 'Sol & Tide Energy home' }).evaluate(el => el === document.activeElement), true);
-        // Regional selector / root assessment still opens its real dialog.
         const selector = path === '/' ? header.getByRole('button', { name: 'Get Your Free Assessment', exact: true }) : header.getByRole('button', { name: 'Change installation location' });
         await selector.click();
         const dialog = page.getByRole('dialog', { name: 'Where would you like to install your system?' });
@@ -62,48 +69,41 @@ const output = process.env.HEADER_TEST_OUTPUT;
         await dialog.getByRole('button', { name: 'Close location selection' }).click();
         await page.waitForFunction(() => document.querySelector('dialog[data-closed-for-test="true"]'));
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(resolve)));
-        await page.waitForFunction(() => document.querySelector('header').contains(document.activeElement));
-        await page.keyboard.press('Escape');
         await at(0);
-        assert.equal(await compact.evaluate(el => el === document.activeElement), true);
-        await page.keyboard.press('Enter');
-        await page.waitForFunction(() => document.querySelector('header').hasAttribute('data-desktop-expanded'));
+        await header.getByRole('link', { name: 'Sol & Tide Energy home' }).focus();
+        assert((await shell()).opacity > .98, 'keyboard focus reveals complete navigation at the top');
         await page.keyboard.press('Tab');
-        assert.equal(await header.getByRole('navigation').evaluate(el => el.contains(document.activeElement)), true);
-        await page.keyboard.press('Escape');
+        assert(await header.getByRole('navigation').evaluate(el => el.contains(document.activeElement)));
         await at(0);
-        console.log(`PASS ${width}px ${path}: compact, continuous midpoint, expanded, reversed, pointer/dialog/keyboard`);
+        console.log(`PASS ${width}px ${path}: hidden initially, complete rounded bar, continuous widening, full width, reverse, dialog and keyboard`);
       }
     }
-    // Resizing out of desktop must immediately remove inert from mobile controls.
     for (const path of ['/', '/antigua', '/dominica']) {
       await page.setViewportSize({ width: 1440, height: 900 });
       await go(path);
       await at(0);
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.waitForFunction(() => !document.getElementById('site-header-content').inert);
       await page.waitForFunction(() => document.querySelector('header').dataset.revealed === 'true');
-      assert.equal(await compact.isVisible(), false);
+      assert.equal(await header.evaluate(el => getComputedStyle(el).opacity), '1');
       const toggle = header.getByRole('button', { name: 'Open menu', exact: true });
       await toggle.click();
-      assert.equal(await header.getByRole('navigation').isVisible(), true);
+      assert(await header.getByRole('navigation').isVisible());
       await page.keyboard.press('Escape');
       assert.equal(await toggle.getAttribute('aria-expanded'), 'false');
-      console.log(`PASS ${path}: mobile timer/menu and desktop-to-mobile resize unchanged`);
+      console.log(`PASS ${path}: mobile reveal/menu and viewport resize unchanged`);
     }
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await go('/antigua');
-    await page.waitForFunction(() => document.querySelector('header').hasAttribute('data-desktop-expanded'));
-    assert.equal(await compact.isVisible(), false);
-    assert.equal(await page.locator('#site-header-content').evaluate(el => el.inert), false);
+    await page.waitForFunction(() => document.querySelector('header').style.getPropertyValue('--header-visible') === '1.0000');
+    assert((await shell()).opacity > .98);
+    assert((await shell()).radius < .2);
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await at(0);
-    console.log('PASS reduced motion: full navigation without animation; preference can change live');
     await go('/antigua/faq');
     assert.equal(await header.getAttribute('data-immersive-header'), null);
-    assert.equal(await header.getByRole('navigation').isVisible(), true);
+    assert(await header.getByRole('navigation').isVisible());
     assert.deepEqual(errors, []);
-    console.log('PASS FAQ retains normal header; no browser errors');
+    console.log('PASS reduced motion, live preference changes, normal FAQ header and no browser errors');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -1,9 +1,10 @@
 "use client";
 
 import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { useHeadingScroll } from "@/hooks/use-heading-scroll";
 import styles from "./page-reveal.module.css";
 
-/** Once-only desktop reveals. SSR, small screens and reduced motion stay visible. */
+/** Homepage titles follow scroll; other content reveals once. */
 export function PageReveal({ children, className, ...props }: {
   children: ReactNode;
   className?: string;
@@ -46,5 +47,6 @@ export function PageReveal({ children, className, ...props }: {
       reduced.removeEventListener("change", reset);
     };
   }, []);
+  useHeadingScroll(host);
   return <main {...props} ref={host} className={`${className ?? ""} ${styles.scope}`}>{children}</main>;
 }

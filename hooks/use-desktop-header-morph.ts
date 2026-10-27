@@ -2,122 +2,82 @@
 
 import { useEffect, type RefObject } from "react";
 
-/** Scroll the desktop shell without re-rendering the navigation on every frame. */
+/** Reveal the complete desktop navigation, then widen its rounded shell on scroll. */
 export function useDesktopHeaderMorph(
   enabled: boolean,
   header: RefObject<HTMLElement | null>,
-  content: RefObject<HTMLDivElement | null>,
-  trigger: RefObject<HTMLButtonElement | null>,
 ) {
   useEffect(() => {
     const shell = header.current;
-    const navigation = content.current;
-    const button = trigger.current;
-    if (!enabled || !shell || !navigation || !button) return;
-
+    if (!enabled || !shell) return;
     const desktop = window.matchMedia("(min-width: 1001px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let progress = 0;
-    let target = 0;
+    let visible = 0;
+    let targetProgress = 0;
+    let targetVisible = 0;
     let frame = 0;
     let previousTime = 0;
-    let previousScroll = window.scrollY;
-    let opened = false;
-    let focusAfterOpening = false;
-
+    let focused = false;
+    let disposed = false;
     const paint = () => {
-      const ready = progress >= 0.985;
       shell.style.setProperty("--header-progress", progress.toFixed(4));
-      shell.style.setProperty("--header-content", Math.max(0, (progress - 0.82) / 0.18).toFixed(4));
-      shell.style.setProperty("--header-strip", Math.min(1, Math.max(0, (0.85 - progress) / 0.3)).toFixed(4));
-      shell.toggleAttribute("data-desktop-expanded", desktop.matches && ready);
-      button.setAttribute("aria-expanded", String(ready));
-      navigation.inert = desktop.matches && !ready;
-      if (ready && focusAfterOpening) {
-        focusAfterOpening = false;
-        navigation.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true });
-      }
-      button.inert = !desktop.matches || ready;
+      shell.style.setProperty("--header-visible", visible.toFixed(4));
+      shell.toggleAttribute("data-desktop-visible", desktop.matches && visible >= 0.98);
     };
     const animate = (time: number) => {
       const elapsed = Math.min(64, time - (previousTime || time - 16));
       previousTime = time;
-      progress += (target - progress) * (1 - Math.exp(-elapsed / 85));
-      if (Math.abs(target - progress) < 0.001) progress = target;
+      const easing = 1 - Math.exp(-elapsed / 85);
+      progress += (targetProgress - progress) * easing;
+      visible += (targetVisible - visible) * easing;
+      if (Math.abs(targetProgress - progress) < 0.001) progress = targetProgress;
+      if (Math.abs(targetVisible - visible) < 0.001) visible = targetVisible;
       paint();
-      frame = progress === target ? 0 : window.requestAnimationFrame(animate);
+      frame = progress === targetProgress && visible === targetVisible ? 0 : requestAnimationFrame(animate);
     };
     const update = () => {
-      const keyboardFocus = navigation.contains(document.activeElement) && document.activeElement?.matches(":focus-visible");
-      target = !desktop.matches || reduced.matches || opened || keyboardFocus
-        ? 1
-        : Math.min(1, Math.max(0, window.scrollY / 200));
-      if (!desktop.matches || reduced.matches) {
-        window.cancelAnimationFrame(frame);
+      if (disposed) return;
+      const immediate = !desktop.matches || reduced.matches;
+      // First reveal a long, complete navigation bar; only then widen it to the edges.
+      targetVisible = immediate || focused ? 1 : Math.min(1, Math.max(0, (window.scrollY - 12) / 44));
+      targetProgress = immediate ? 1 : Math.min(1, Math.max(0, (window.scrollY - 80) / 200));
+      if (immediate) {
+        cancelAnimationFrame(frame);
         frame = 0;
-        progress = target;
+        progress = targetProgress;
+        visible = targetVisible;
         paint();
       } else if (!frame) {
         previousTime = 0;
-        frame = window.requestAnimationFrame(animate);
+        frame = requestAnimationFrame(animate);
       }
     };
-    const scroll = () => {
-      if (window.scrollY !== previousScroll) opened = false;
-      previousScroll = window.scrollY;
+    const focus = () => {
+      focused = true;
+      // A keyboard user can reach the complete navigation even at the page top.
+      visible = 1;
+      paint();
       update();
     };
-    const open = () => {
-      opened = true;
-      // Move focus before the compact control becomes hidden/inert.
-      focusAfterOpening = true;
+    const blur = () => queueMicrotask(() => {
+      focused = shell.contains(document.activeElement) || Boolean(document.querySelector("dialog[open]"));
       update();
-    };
-    const outside = (event: PointerEvent) => {
-      if (document.querySelector("dialog[open]")) return;
-      if (event.target instanceof Node && !shell.contains(event.target)) {
-        opened = false;
-        update();
-      }
-    };
-    const focus = () => update();
-    const blur = (event: FocusEvent) => {
-      const enteringDialog = event.relatedTarget instanceof Element && event.relatedTarget.closest("dialog[open]");
-      if (!enteringDialog && (!(event.relatedTarget instanceof Node) || !shell.contains(event.relatedTarget))) opened = false;
-      // focusout precedes the browser updating activeElement.
-      queueMicrotask(update);
-    };
-    const escape = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || !desktop.matches || reduced.matches || window.scrollY >= 200) return;
-      opened = false;
-      focusAfterOpening = false;
-      shell.removeAttribute("data-desktop-expanded");
-      button.inert = false;
-      button.focus({ preventScroll: true });
-      update();
-    };
-
-    paint();
+    });
     update();
-    window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("scroll", update, { passive: true });
     desktop.addEventListener("change", update);
     reduced.addEventListener("change", update);
-    button.addEventListener("click", open);
-    document.addEventListener("pointerdown", outside);
     shell.addEventListener("focusin", focus);
     shell.addEventListener("focusout", blur);
-    shell.addEventListener("keydown", escape);
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scroll);
+      disposed = true;
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
       desktop.removeEventListener("change", update);
       reduced.removeEventListener("change", update);
-      button.removeEventListener("click", open);
-      document.removeEventListener("pointerdown", outside);
       shell.removeEventListener("focusin", focus);
       shell.removeEventListener("focusout", blur);
-      shell.removeEventListener("keydown", escape);
-      navigation.inert = false;
     };
-  }, [enabled, header, content, trigger]);
+  }, [enabled, header]);
 }

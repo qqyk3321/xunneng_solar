@@ -17,3 +17,12 @@
   .scope [data-reveal^="heading"]::after { transition: transform 520ms cubic-bezier(.22,1,.36,1) 120ms; }
   .scope [data-reveal-state="waiting"]::after { transform: scaleX(0); }
 }
+/* This wrapper belongs to the three homepages; controls and body copy stay still. */
+@media (min-width: 1001px) and (prefers-reduced-motion: no-preference) {
+  .scope[data-heading-scroll] [data-reveal^="heading"],
+  .scope[data-heading-scroll] [id="contact-heading"] {
+    transition: none;
+    opacity: var(--heading-opacity, 1);
+    translate: 0 var(--heading-offset, 0px);
+  }
+}

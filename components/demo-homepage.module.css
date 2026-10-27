@@ -369,84 +369,37 @@
   opacity: 0;
   pointer-events: none;
 }
-.headerStrip { display: none; }
+/* Keep every desktop navigation item present while the shell changes shape. */
 @media (min-width: 1001px) {
   .header[data-immersive-header],
   .header[data-immersive-header]:not([data-revealed]) {
     --header-progress: 0;
-    --header-content: 0;
-    --header-strip: 1;
-    background: transparent;
-    backdrop-filter: none;
-    border: 0;
-    transform: none;
-    opacity: 1;
-    pointer-events: none;
-    transition: none;
-  }
-  .header[data-immersive-header]::before {
-    content: "";
-    position: absolute;
+    --header-visible: 0;
+    --header-gutter: clamp(16px, calc(20vw - 240px), 64px);
     top: calc(16px * (1 - var(--header-progress)));
-    left: 50%;
-    width: calc(264px + (100% - 264px) * var(--header-progress));
-    height: calc(48px + (100% - 48px) * var(--header-progress));
-    transform: translateX(-50%);
+    left: calc(var(--header-gutter) * (1 - var(--header-progress)));
+    right: calc(var(--header-gutter) * (1 - var(--header-progress)));
     border: 1px solid #16494b14;
-    border-radius: calc(24px * (1 - var(--header-progress)));
+    border-radius: calc(44px * (1 - var(--header-progress)));
     background: #fffffff0;
     backdrop-filter: blur(18px);
     box-shadow: 0 4px 18px #082c3610;
+    transform: translateY(calc((-100% - 24px) * (1 - var(--header-visible))));
+    opacity: var(--header-visible);
+    pointer-events: none;
+    transition: none;
   }
+  .header[data-immersive-header][data-desktop-visible] { pointer-events: auto; }
   .header[data-immersive-header] .headerInner {
-    position: relative;
-    opacity: var(--header-content);
-    transform: translateY(calc(6px * (1 - var(--header-progress))));
-    clip-path: inset(0 calc((50% - 132px) * (1 - var(--header-progress))));
+    padding-inline: calc(32px + 16px * var(--header-progress));
   }
-  .header[data-immersive-header][data-desktop-expanded] .headerInner {
-    clip-path: none;
-    pointer-events: auto;
-  }
-  .header .headerStrip {
-    position: absolute;
-    z-index: 1;
-    top: calc(16px * (1 - var(--header-progress)) + (100% - 48px) * var(--header-progress) / 2);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 264px;
-    height: 48px;
-    padding: 0 18px 0 12px;
-    border: 0;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #123940;
-    background: transparent;
-    opacity: var(--header-strip);
-    pointer-events: auto;
-    cursor: pointer;
-  }
-  .header[data-desktop-expanded] .headerStrip { visibility: hidden; }
-  .headerStripBrand {
-    display: flex;
-    align-items: center;
-    font: 600 20px/1 "Space Grotesk", sans-serif;
-    letter-spacing: -.6px;
-  }
-  .headerStripBrand img { width: 30px; height: 30px; }
-  .headerStripMenu { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; }
-  .headerStripMenu > span { display: grid; gap: 5px; }
-  .headerStripMenu i { width: 16px; height: 1.5px; background: currentColor; }
 }
 @media (min-width: 1001px) and (prefers-reduced-motion: reduce) {
-  .header[data-immersive-header] {
+  .header[data-immersive-header],
+  .header[data-immersive-header]:not([data-revealed]) {
     --header-progress: 1;
-    --header-content: 1;
-    --header-strip: 0;
+    --header-visible: 1;
   }
-  .header[data-immersive-header] .headerStrip { display: none; }
 }
 .menuToggle {
   display: none;

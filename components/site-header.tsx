@@ -28,9 +28,7 @@ export function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
-  const headerContent = useRef<HTMLDivElement>(null);
-  const desktopToggle = useRef<HTMLButtonElement>(null);
-  useDesktopHeaderMorph(immersive, header, headerContent, desktopToggle);
+  useDesktopHeaderMorph(immersive, header);
   useEffect(() => {
     if (!immersive) return;
     const scroll = () => {
@@ -73,24 +71,7 @@ export function SiteHeader({
           }
         }}
       >
-        {immersive && (
-          <button
-            ref={desktopToggle}
-            type="button"
-            className={styles.headerStrip}
-            aria-label="Open navigation"
-            aria-controls="site-header-content"
-            aria-expanded="false"
-          >
-            <span className={styles.headerStripBrand}>
-              <BrandMark />Solortide
-            </span>
-            <span className={styles.headerStripMenu}>
-              Menu<span aria-hidden="true"><i /><i /></span>
-            </span>
-          </button>
-        )}
-        <div ref={headerContent} id="site-header-content" className={styles.headerInner}>
+        <div className={styles.headerInner}>
           <Link
             href={regionPath(country)}
             prefetch={false}
