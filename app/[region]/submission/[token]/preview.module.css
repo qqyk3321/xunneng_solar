@@ -284,17 +284,16 @@
 @media(max-width:600px) { .pageHeading { align-items:flex-start; gap:12px; margin-bottom:10px; } .pageHeading h1 { font-size:25px; } .pageHeading a { font-size:12px; white-space:nowrap; } }
 
 /* ── Brand layer: deep-teal band, hero quote tile, calmer cards ── */
-.page { position: relative; background: #eaf2f1; isolation: isolate; }
+.page { position: relative; background: #f2f7f6; isolation: isolate; }
 .page::before {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 300px; z-index: -1; pointer-events: none;
-  -webkit-mask-image: linear-gradient(#000 45%, transparent); mask-image: linear-gradient(#000 45%, transparent);
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px) 0 0 / 56px 56px,
-    linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px) 0 0 / 56px 56px,
-    radial-gradient(ellipse 60% 120% at 85% 0%, rgba(0,163,176,.35), transparent 70%),
-    linear-gradient(160deg, #0b2d34 0%, #12383e 60%, #0d4a52 100%);
+    linear-gradient(rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(#e6f0ee, #f2f7f6 420px);
+  -webkit-mask-image: none; mask-image: none;
 }
-.pageHeading h1 { color: #fff; font-size: 34px; }
+.pageHeading h1 { color: #0b2d34; font-size: 34px; }
 .sidebar { position: sticky; top: 100px; }
 .summary, .card { border-color: #d3e2e0; border-radius: 20px; box-shadow: 0 2px 4px #0b2d3408, 0 18px 44px -16px #0b2d3430; }
 .timeline dt { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #007a87; }
@@ -332,7 +331,6 @@
 .priceMetric .metricValue { color: #ffc667; }
 @media (max-width: 960px) { .sidebar { position: static; } }
 @media (max-width: 600px) {
-  .page::before { height: 210px; }
   .pageHeading h1 { font-size: 27px; }
   .estimateMetrics > div:not(.priceMetric)::before { top: 14px; bottom: 14px; }
   .priceMetric::after { inset: 8px; }

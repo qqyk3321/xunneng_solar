@@ -168,20 +168,14 @@
 }
 
 /* ── Brand layer: deep-teal band, overlapping card, unified controls ── */
-.page { position: relative; background: #eaf2f1; isolation: isolate; }
+.page { position: relative; background: #f2f7f6; isolation: isolate; }
 .page::before {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 340px; z-index: -1; pointer-events: none;
-  -webkit-mask-image: linear-gradient(#000 45%, transparent); mask-image: linear-gradient(#000 45%, transparent);
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px) 0 0 / 56px 56px,
-    linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px) 0 0 / 56px 56px,
-    radial-gradient(ellipse 60% 120% at 85% 0%, rgba(0,163,176,.35), transparent 70%),
-    linear-gradient(160deg, #0b2d34 0%, #12383e 60%, #0d4a52 100%);
-}
-.page::after {
-  content: ""; position: absolute; inset: 340px 0 auto 0; height: 160px; z-index: -1; pointer-events: none;
-  background: linear-gradient(rgba(0,122,135,.06) 1px, transparent 1px) 0 0 / 56px 56px;
-  -webkit-mask-image: linear-gradient(#000, transparent); mask-image: linear-gradient(#000, transparent);
+    linear-gradient(rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(#e6f0ee, #f2f7f6 420px);
+  -webkit-mask-image: none; mask-image: none;
 }
 .main { position: relative; width: min(760px, calc(100% - 64px)); padding: 56px 0 88px; }
 .formCard {
@@ -222,8 +216,6 @@
 .consent { padding: 14px 16px; border: 1px solid #d3e2e0; border-radius: 10px; background: #f6faf9; }
 .consentDialog { border-radius: 18px; }
 @media (max-width: 700px) {
-  .page::before { height: 230px; }
-  .page::after { inset-block-start: 230px; }
   .main { width: calc(100% - 24px); padding: 24px 0 40px; }
   .formCard { border-radius: 18px; }
   .progressHeader { padding: 20px 20px 16px; }
