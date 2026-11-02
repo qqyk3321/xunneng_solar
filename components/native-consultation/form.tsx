@@ -161,7 +161,7 @@ export function NativeConsultationForm({ country }: { country: Country }) {
     } catch { setNotice("We could not confirm the result. Your answers are saved. Retry to check this same submission."); }
     finally { busyRef.current = false; if (mounted.current) { setBusy(false); } }
   };
-  return <div className={styles.page}>
+  return <div className={styles.page} data-soft-enter="true">
     <SiteHeader variant="form" />
     <main className={styles.main}>
       <AssessmentCard step={draft?.step ?? 0}>

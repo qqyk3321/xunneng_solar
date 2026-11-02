@@ -206,6 +206,9 @@
 @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
   :global(html[data-site-loading="leaving"]) .overlay { animation: curtain 360ms cubic-bezier(.65,0,.35,1) both; }
 }
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  :global(html[data-site-loading="leaving"]:has([data-soft-enter])) .overlay { animation: leave 260ms ease both; }
+}
 @keyframes float {
   0%,
   100% {

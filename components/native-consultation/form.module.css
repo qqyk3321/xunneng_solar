@@ -187,7 +187,6 @@
 .formCard {
   position: relative; overflow: hidden; border-radius: 22px; border: 1px solid #d3e2e0;
   box-shadow: 0 2px 4px #0b2d3410, 0 28px 70px -12px #0b2d3438;
-  animation: cardIn .6s cubic-bezier(.2,.7,.2,1) both;
 }
 .formCard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, #007a87, #00a3b0 70%, #fea619); }
 .progressHeader { padding: 24px 40px 20px; background: linear-gradient(#f4f9f8, #fff); border-bottom: 1px solid #e3ecea; }
@@ -222,7 +221,6 @@
 .primary:focus-visible { outline: 3px solid #fea61988; outline-offset: 3px; }
 .consent { padding: 14px 16px; border: 1px solid #d3e2e0; border-radius: 10px; background: #f6faf9; }
 .consentDialog { border-radius: 18px; }
-@keyframes cardIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 700px) {
   .page::before { height: 230px; }
   .page::after { inset-block-start: 230px; }
@@ -235,6 +233,5 @@
   .actions { margin-top: 26px; padding-top: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .formCard { animation: none; }
   .progressTrack > span, .primary { transition: none; }
 }

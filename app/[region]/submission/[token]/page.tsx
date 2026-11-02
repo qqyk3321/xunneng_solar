@@ -41,7 +41,7 @@ export default async function ConsultationPreviewPage({
   const [previewQrSrc, whatsappQrSrc] = await Promise.all([qrDataUrl(customerUrl, QRCode, PNG), qrDataUrl(whatsappUrl, QRCode, PNG)]);
   return (
     <ConsultationContactProvider value={{ url: whatsappUrl, qrSrc: whatsappQrSrc, submissionId: submission.submission_id }}>
-    <div className={styles.page}>
+    <div className={styles.page} data-soft-enter="true">
       <RefreshOnReturn />
       <SiteHeader variant="form" />
       <main className={styles.content}>
