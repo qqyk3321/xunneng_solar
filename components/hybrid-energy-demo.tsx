@@ -240,7 +240,7 @@ export function HybridEnergyDemo() {
             ].map(([name, value]) => (
               <div key={name}>
                 <dt>{name}</dt>
-                <dd>{value}</dd>
+                <dd data-tone={/idle|no generation|disconnected/i.test(value) ? "idle" : "active"}>{value}</dd>
               </div>
             ))}
           </dl>
