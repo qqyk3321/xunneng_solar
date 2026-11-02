@@ -19,7 +19,7 @@ export async function querySupabaseKeepalive(
     throw new Error("Supabase keepalive is not configured");
   }
 
-  const requestUrl = new URL("/rest/v1/tally_form_submissions", supabaseUrl);
+  const requestUrl = new URL("/rest/v1/consultations", supabaseUrl);
   requestUrl.search = new URLSearchParams({
     select: "id",
     limit: "1",

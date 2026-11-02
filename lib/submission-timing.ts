@@ -1,4 +1,4 @@
-import { regionalTime } from "../supabase/functions/tally-webhook/submission-time";
+import { regionalTime } from "../supabase/functions/_shared/submission-time";
 
 export function submissionTiming(
   submittedAt: string,

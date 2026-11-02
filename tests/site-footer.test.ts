@@ -30,8 +30,8 @@ test("homepage and FAQ share a footer and one source of contact details", () => 
   assert.ok(footer.includes('href={regionPath(country, "/consultation")}'));
   assert.match(footer, /Get Your Free Assessment/);
   assert.ok(footer.includes("href={`${regionPath(country)}#contact-us`}"));
-  assert.match(footer, /<SocialIcons\s*\/>/);
-  assert.match(readFileSync("components/facebook-contact.tsx", "utf8"), /<WhatsAppContact linkOnly\s*\/>/);
+  assert.match(footer, /<SocialIcons\b[^>]*\/>/);
+  assert.match(readFileSync("components/facebook-contact.tsx", "utf8"), /<WhatsAppContact\b[^>]*\blinkOnly(?:\s|=)/);
   assert.doesNotMatch(footer, /SITE_CONTACT.address|SITE_CONTACT.phone/);
   assert.match(footer, /<Link href="\/" prefetch=\{false\}>Solortide<\/Link>/);
   assert.match(footer, /— solar & storage built around your home/);

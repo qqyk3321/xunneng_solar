@@ -4,8 +4,8 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const retired: { path: string; methods: string[] }[] = JSON.parse(readFileSync("tests/fixtures/retired-routes.json", "utf8"));
-const pageRoutes = ["/", "/privacy", "/[region]", "/[region]/consultation", "/[region]/faq", "/[region]/how-it-works", "/[region]/submission/[token]"];
-const apiRoutes = ["/api/contact", "/api/island-wishlist", "/api/cron/supabase-keepalive"];
+const pageRoutes = ["/", "/privacy", "/[region]", "/[region]/consultation", "/[region]/consultation/new", "/[region]/faq", "/[region]/how-it-works", "/[region]/submission/[token]"];
+const apiRoutes = ["/api/consultations", "/api/consultations/[token]", "/api/consultations/[token]/access", "/api/consultations/process-notifications", "/api/contact", "/api/island-wishlist", "/api/cron/supabase-keepalive"];
 
 function entries(directory: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {

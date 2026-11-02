@@ -1,0 +1,37 @@
+begin;
+do $$
+declare a uuid:=gen_random_uuid();b uuid:=gen_random_uuid();c uuid:=gen_random_uuid();r jsonb;before_count bigint;
+  payload jsonb:='{"schemaVersion":1,"country":"AG","name":"Source windows","email":"windows@example.test","phone":"+12685550101","phoneCountry":"AG","address":"Test","monthlyKwh":600,"profile":"daytime","answers":{},"privacyAccepted":true,"privacyVersion":"2026-10-30-native-v3"}';
+begin
+  perform submit_native_consultation(gen_random_uuid(),repeat('a',64),a,payload,encode(sha256(a::text::bytea),'hex'),'{"environment":{"ipGeo":{"countryCode":"DM"},"device":"mobile"}}');
+  perform submit_native_consultation(gen_random_uuid(),repeat('a',64),b,payload,encode(sha256(b::text::bytea),'hex'),'{"environment":{"ipGeo":{"countryCode":"DM"},"device":"desktop"}}');
+  perform submit_native_consultation(gen_random_uuid(),repeat('a',64),c,payload,encode(sha256(c::text::bytea),'hex'),'{"environment":{}}');
+  update consultation_submission_context set recorded_at='2090-01-01 23:02:30+08' where consultation_id=a;
+  update consultation_submission_context set recorded_at='2090-01-02 00:02:29.999+08' where consultation_id=b;
+  update consultation_submission_context set recorded_at='2090-01-02 00:02:30+08' where consultation_id=c;
+  r:=consultation_source_window('2090-01-01 23:02:30+08','2090-01-02 00:02:30+08',300);
+  assert r->>'total'='2','inclusive start, exclusive end at exact second';
+  assert jsonb_array_length(r->'series')=13,'partial first and last 5-minute buckets';
+  assert r#>>'{series,0,bucket}'='2090-01-01 23:02:30','first bucket clipped to start';
+  assert r#>>'{series,12,end}'='2090-01-02 00:02:30','last bucket clipped to end';
+  assert r#>>'{series,0,count}'='1' and r#>>'{series,12,count}'='1' and r#>>'{series,1,count}'='0','correct bucket assignment with zeros';
+  assert (select sum((value->>'count')::int) from jsonb_array_elements(r->'series'))=2,'series sum equals total';
+  assert (consultation_source_window('2090-01-01 23:02:30+08','2090-01-02 00:02:30+08',300,'DM','mobile')->>'total')='1','combined country device filter';
+  assert (consultation_source_window('2090-01-01 23:02:30+08','2090-01-02 00:02:30+08',300,'AG')->>'total')='0','IP country, not installation';
+  r:=consultation_source_window('2090-01-02 00:02:30+08','2090-01-02 00:03:00+08',300,'unknown','unknown');
+  assert r->>'total'='1' and jsonb_array_length(r->'series')=1,'sub-five-minute custom range supported';
+  r:=consultation_source_window('2090-01-01 00:00+08','2090-01-01 06:00+08',900);assert jsonb_array_length(r->'series')=24,'6 hours at 15 minutes';
+  r:=consultation_source_window('2090-01-01 00:00+08','2090-01-02 00:00+08',3600);assert jsonb_array_length(r->'series')=24,'day at hourly bins';
+  r:=consultation_source_window('2090-01-01 00:00+08','2090-01-08 00:00+08',21600);assert jsonb_array_length(r->'series')=28,'7 days at 6 hour bins';
+  r:=consultation_source_window('2090-01-01 00:00+08','2090-01-31 00:00+08',86400);assert jsonb_array_length(r->'series')=30,'30 days at daily bins';
+  begin perform consultation_source_window('2090-01-01','2091-01-03',86400);raise exception 'unbounded accepted';exception when invalid_parameter_value then null;end;
+  begin perform consultation_source_window('2090-01-01','2090-02-01',300);raise exception 'too many ticks accepted';exception when invalid_parameter_value then null;end;
+  begin perform consultation_source_window('2090-01-01','infinity',300);raise exception 'infinity accepted';exception when invalid_parameter_value then null;end;
+  begin perform consultation_source_window('2090-01-01','2090-01-01',300);raise exception 'empty interval accepted';exception when invalid_parameter_value then null;end;
+  assert not has_function_privilege('anon','public.consultation_source_window(timestamptz,timestamptz,integer,text,text)','execute'),'anonymous denied';
+  assert not has_function_privilege('authenticated','public.consultation_source_window(timestamptz,timestamptz,integer,text,text)','execute'),'direct browser denied';
+end $$;
+set local role service_role;
+select consultation_source_window('2090-01-01','2090-02-01',86400)->>'total' as server_total;
+rollback;
+select 'PASS exact rolling windows, partial bins, zero fill, compound filters, bounds and permissions' as result;

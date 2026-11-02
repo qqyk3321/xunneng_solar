@@ -6,6 +6,7 @@ import sharp from "sharp";
 import jsQR from "jsqr";
 import { consultationQrAttachment, PREVIEW_QR_CONTENT_ID, PREVIEW_QR_HTML, qrDataUrl } from "../supabase/functions/_shared/consultation-qr";
 import { consultationWhatsAppUrl } from "../supabase/functions/_shared/whatsapp";
+import { emailAccessToken } from "../lib/native-consultation/email-access-token";
 
 export async function decodeQr(png: Buffer, width = 200) {
   const { data, info } = await sharp(png).resize(width, width).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -30,5 +31,14 @@ test("WhatsApp QR preserves the reference and matches the clickable destination"
     const url = consultationWhatsAppUrl(id, "https://wa.me/12680000001");
     const png = Buffer.from((await qrDataUrl(url, QRCode, PNG)).split(",")[1], "base64");
     assert.equal(await decodeQr(png), url);
+  }
+});
+
+test("customer email QR with separate editing credential scans at its 200px display size", async () => {
+  for (const region of ["antigua", "dominica"]) {
+    const credential = emailAccessToken("test-record", "customer@example.com", "isolated-test-secret-at-least-32-characters");
+    const url = `https://www.solortide.com/${region}/submission/${"aB_1-".repeat(8)}abc#edit=${credential}`;
+    const attachment = await consultationQrAttachment(url, QRCode, PNG);
+    assert.equal(await decodeQr(Buffer.from(attachment.content, "base64")), url);
   }
 });

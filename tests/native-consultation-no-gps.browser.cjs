@@ -1,0 +1,19 @@
+const {chromium}=require('/tmp/pet-reference-browser/node_modules/playwright');const assert=require('node:assert/strict');
+const origin=process.env.NATIVE_TEST_ORIGIN||'http://127.0.0.1:3136';
+(async()=>{const browser=await chromium.launch(process.env.NATIVE_TEST_PROXY?{proxy:{server:process.env.NATIVE_TEST_PROXY}}:{});try{for(const mode of ['new','legacy-pending','lost-response']){
+ const country=mode==='new'?'AG':'DM',region=country==='AG'?'antigua':'dominica';const c=await browser.newContext({viewport:{width:mode==='new'?1440:390,height:900}});await c.route('**/knocket-sdk/**',r=>r.abort());await c.addInitScript(({mode,country})=>{
+ window.gpsCalls=0;const fail=()=>{window.gpsCalls++;throw Error('GPS must not be called')};navigator.geolocation.getCurrentPosition=fail;navigator.geolocation.watchPosition=fail;Object.defineProperty(navigator,'permissions',{value:{query:fail}});
+ const key='solortide:consultation:v1:'+country;if(sessionStorage.getItem('seeded'))return;sessionStorage.setItem('seeded','1');
+ const values={name:'No GPS check',email:'native-test@example.com',phone:'+12025550101',phoneCountry:'US',address:'123 Test Street',monthlyKwh:'650',profile:'evening',privacyAccepted:mode!=='new',answers:{motivations:[],otherMotivation:'',airConditioning:'',wifi:'',otherAppliances:''}};
+ const frozen={...values,monthlyKwh:650,privacyAccepted:true,schemaVersion:1,country,privacyVersion:'2026-10-30-native-v2'};
+ localStorage.setItem(key,JSON.stringify({version:1,country,requestId:crypto.randomUUID(),revision:crypto.randomUUID(),updatedAt:Date.now(),phase:mode==='legacy-pending'?'pending':'editing',step:1,values,frozen:mode==='legacy-pending'?frozen:undefined,location:{status:'captured',latitude:17.12,longitude:-61.84,accuracy:20,capturedAt:new Date().toISOString()}}));
+ },{mode,country});const p=await c.newPage(),bodies=[],errors=[];p.on('pageerror',e=>errors.push(e.message));await p.route('**/api/consultations',r=>{bodies.push(r.request().postDataJSON());if(mode==='lost-response'&&bodies.length===1)return r.abort('failed');return r.fulfill({json:{receipt:{id:'db4c0255-a03f-4570-b803-b140a33944d0'}}})});
+ await p.goto(origin+'/'+region+'/consultation',{waitUntil:'domcontentloaded'});await p.getByRole('button',{name:mode==='legacy-pending'?'Check submission':'Send assessment',exact:true}).waitFor();
+ assert.equal(await p.evaluate(country=>JSON.parse(localStorage.getItem('solortide:consultation:v1:'+country)).location,country),undefined);
+ const requestId=await p.evaluate(country=>JSON.parse(localStorage.getItem('solortide:consultation:v1:'+country)).requestId,country);
+ await p.getByRole('button',{name:mode==='legacy-pending'?'Check submission':'Send assessment',exact:true}).click();
+ if(mode==='new'){const consent=p.getByRole('dialog',{name:'Confirm your consent',exact:true});await consent.waitFor();assert.doesNotMatch(await consent.innerText(),/location|GPS/);await consent.getByRole('button',{name:'Agree and send',exact:true}).click()}
+ if(mode==='lost-response'){await p.getByRole('button',{name:'Check submission',exact:true}).waitFor();await p.reload();await p.getByRole('button',{name:'Check submission',exact:true}).click()}
+ await p.getByRole('dialog',{name:'Assessment submitted',exact:true}).waitFor();assert.equal(await p.evaluate(()=>window.gpsCalls),0);for(const body of bodies){assert.equal(body.requestId,requestId);assert.equal(body.location,undefined)}
+ if(mode==='lost-response')assert.deepEqual(bodies[0],bodies[1]);assert.equal(await p.evaluate(country=>localStorage.getItem('solortide:consultation:v1:'+country),country),null);assert.deepEqual(errors,[]);console.log('PASS '+mode+': no geolocation/permission calls, no coordinates in draft or POST, privacy and idempotent retry');await c.close();
+}}finally{await browser.close()}})().catch(e=>{console.error(e.message);process.exitCode=1});

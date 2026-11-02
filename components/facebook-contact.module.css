@@ -65,6 +65,11 @@
   padding-right: 4px;
   color: #b0edc9;
 }
+.compact a:first-child {
+  width: 44px;
+  justify-content: center;
+  padding-right: 0;
+}
 
 .icons :is(svg, img) {
   width: 18px;

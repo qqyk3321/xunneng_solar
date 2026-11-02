@@ -741,7 +741,7 @@
     --regional-screen: min(844px, 100svh);
     --regional-safe-bottom: env(safe-area-inset-bottom, 0px);
   }
-  .homepage[data-regional-home] .headerInner {
+  :is(.homepage[data-regional-home], .header[data-form-header]) .headerInner {
     min-height: clamp(56px, 10svh, 72px);
     padding-top: 0;
     padding-bottom: 0;

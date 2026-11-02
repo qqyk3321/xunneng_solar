@@ -1,0 +1,131 @@
+{
+  "date": "2026-09-19",
+  "rubric": "manifest.json",
+  "dimensions": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "weights": [
+    20,
+    20,
+    20,
+    15,
+    15,
+    10
+  ],
+  "experts": [
+    {
+      "expert": 1,
+      "scores": [
+        3,
+        5,
+        4,
+        4,
+        7,
+        4
+      ],
+      "total": 44.5
+    },
+    {
+      "expert": 2,
+      "scores": [
+        5,
+        6,
+        4,
+        4,
+        7,
+        4
+      ],
+      "total": 50.5
+    },
+    {
+      "expert": 3,
+      "scores": [
+        4,
+        6,
+        3,
+        5,
+        6,
+        5
+      ],
+      "total": 47.5
+    },
+    {
+      "expert": 4,
+      "scores": [
+        4,
+        6,
+        3,
+        5,
+        7,
+        5
+      ],
+      "total": 49
+    },
+    {
+      "expert": 5,
+      "scores": [
+        4,
+        7,
+        5,
+        4,
+        8,
+        4
+      ],
+      "total": 54
+    },
+    {
+      "expert": 6,
+      "scores": [
+        4,
+        6,
+        6,
+        6,
+        7,
+        4
+      ],
+      "total": 55.5
+    },
+    {
+      "expert": 7,
+      "scores": [
+        4,
+        6,
+        5,
+        5,
+        7,
+        4
+      ],
+      "total": 52
+    },
+    {
+      "expert": 8,
+      "scores": [
+        4,
+        6,
+        6,
+        5,
+        7,
+        4
+      ],
+      "total": 54
+    }
+  ],
+  "dimensionAverages": [
+    4,
+    6,
+    4.5,
+    4.75,
+    7,
+    4.25
+  ],
+  "totalMean": 50.875,
+  "displayMean": 50.9,
+  "min": 44.5,
+  "max": 55.5,
+  "arithmeticCorrection": "Expert 08 initially reported 54.5; original six scores imply 54.0. Dimension scores unchanged."
+}

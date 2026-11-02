@@ -12,10 +12,10 @@ export function MessengerIcon() {
   return <SocialBrandIcon brand="messenger" />;
 }
 
-export function SocialIcons() {
+export function SocialIcons({ compact = false }: { compact?: boolean } = {}) {
   return (
-    <nav className={`${styles.links} ${styles.icons} ${styles.dark}`} aria-label="Social media">
-      <WhatsAppContact linkOnly />
+    <nav className={`${styles.links} ${styles.icons} ${styles.dark}${compact ? ` ${styles.compact}` : ""}`} aria-label="Social media">
+      <WhatsAppContact linkOnly={!compact} iconOnly={compact} />
       <a href={SITE_CONTACT.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Solortide on Facebook" title="Facebook">
         <FacebookIcon size={18} />
       </a>

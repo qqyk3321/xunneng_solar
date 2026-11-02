@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow"><title>Sol &amp; Tide customer support</title><style>html,body{margin:0;background:transparent;overflow:hidden;font-family:Arial,sans-serif} .trtc-float-card{margin:0 24px 24px 0!important} .trtc-knocket-card{font-family:Arial,sans-serif}</style></head><body>
+<script>
+// The opaque sandbox cannot access site storage. Keep only the support SDK's
+// own session state in memory, so repeated reads use the same visitor identity.
+for (const name of ['localStorage', 'sessionStorage']) {
+  try { window[name].getItem('support-storage-check'); }
+  catch {
+    const values = new Map();
+    Object.defineProperty(window, name, { value: {
+      get length() { return values.size; },
+      key(index) { return [...values.keys()][index] ?? null; },
+      getItem(key) { return values.get(String(key)) ?? null; },
+      setItem(key, value) { values.set(String(key), String(value)); },
+      removeItem(key) { values.delete(String(key)); },
+      clear() { values.clear(); }
+    } });
+  }
+}
+</script>
+<script src="https://trtc.io/knocket-sdk/sdk.js?identifier=1b98aa22d69b1693f3&v=1792127892528" async referrerpolicy="no-referrer"></script>
+<script>
+(function () {
+  let previous;
+  const roots = new Set([document]);
+  const observer = new MutationObserver(update);
+  function queryAll(selector) { return [...roots].flatMap(root => [...root.querySelectorAll(selector)]); }
+  function update() {
+    for (const root of roots) for (const element of root.querySelectorAll('*')) {
+      if (element.shadowRoot && !roots.has(element.shadowRoot)) { roots.add(element.shadowRoot); observer.observe(element.shadowRoot, {childList:true, subtree:true, attributes:true, attributeFilter:['class','style']}); }
+    }
+    const card = queryAll('.trtc-knocket-card, .trtc-preview-card')[0];
+    const expanded = !!card && card.getBoundingClientRect().height > 0;
+    if (expanded !== previous) { previous = expanded; parent.postMessage({ type: 'solortide:support-size', expanded }, '*'); }
+    const launcher = queryAll('.trtc-float-card__content')[0];
+    if (launcher && !launcher.hasAttribute('aria-label')) {
+      launcher.setAttribute('role', 'button'); launcher.setAttribute('tabindex', '0'); launcher.setAttribute('aria-label', 'Open customer support');
+      launcher.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); launcher.click(); } });
+    }
+    queryAll('button:has(svg#close-pure)').forEach(button => button.setAttribute('aria-label', 'Close customer support'));
+  }
+  observer.observe(document.body, {childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style']});
+  window.addEventListener('keydown', event => { if (event.key === 'Escape') window.contactWidget?.hideChat?.(); });
+  update();
+})();
+</script></body></html>

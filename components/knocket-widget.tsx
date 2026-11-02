@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
-import { isKnocketWidgetPath } from "@/lib/knocket-widget";
+import { PrivateSupportWidget } from "./private-support-widget";
+import { isKnocketWidgetPath, isPrivateSupportPath } from "@/lib/knocket-widget";
 
 export function KnocketWidget() {
-  const allowed = isKnocketWidgetPath(usePathname());
+  const pathname = usePathname();
+  const allowed = isKnocketWidgetPath(pathname);
 
   useEffect(() => {
     // The SDK has no complete teardown API. A fresh document removes its code
@@ -16,7 +18,7 @@ export function KnocketWidget() {
     }
   }, [allowed]);
 
-  if (!allowed) return null;
+  if (!allowed) return isPrivateSupportPath(pathname) ? <PrivateSupportWidget /> : null;
   return (
     <Script
       id="knocket-widget"

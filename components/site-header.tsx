@@ -16,11 +16,13 @@ export function SiteHeader({
   accountSlot,
   immersive = false,
   caribbean = false,
+  variant = "default",
 }: {
   homeSectionsLocal?: boolean;
   accountSlot?: ReactNode;
   immersive?: boolean;
   caribbean?: boolean;
+  variant?: "default" | "form";
 }) {
   const { country, choose } = useSiteRegion();
   const pathname = usePathname();
@@ -28,9 +30,11 @@ export function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const menuToggle = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
-  useDesktopHeaderMorph(immersive, header);
+  const showImmediately = variant === "form";
+  const immersiveHeader = immersive && !showImmediately;
+  useDesktopHeaderMorph(immersiveHeader, header, showImmediately);
   useEffect(() => {
-    if (!immersive) return;
+    if (!immersiveHeader || showImmediately) return;
     const scroll = () => {
       if (window.scrollY > 80) setRevealed(true);
     };
@@ -41,7 +45,7 @@ export function SiteHeader({
       window.clearTimeout(revealTimer);
       window.removeEventListener("scroll", scroll);
     };
-  }, [immersive]);
+  }, [immersiveHeader, showImmediately]);
   function homeLink(id: string, label: string) {
     return homeSectionsLocal ? (
       <SectionAnchor href={`#${id}`}>{label}</SectionAnchor>
@@ -57,12 +61,14 @@ export function SiteHeader({
         ref={header}
         className={`tailwind-scope ${styles.homepage} ${styles.header}`}
         data-testid="home-header"
+        data-form-header={variant === "form" || undefined}
         data-caribbean-header={caribbean || undefined}
-        data-immersive-header={immersive || undefined}
-        data-revealed={revealed || undefined}
+        data-immersive-header={immersiveHeader || undefined}
+        data-revealed={showImmediately || revealed || undefined}
+        data-desktop-visible={showImmediately || undefined}
         data-menu-open={menuOpen || undefined}
         onFocusCapture={() => {
-          if (immersive) setRevealed(true);
+          if (immersiveHeader) setRevealed(true);
         }}
         onKeyDown={(event) => {
           if (event.key === "Escape" && menuOpen) {
@@ -126,7 +132,7 @@ export function SiteHeader({
                 FAQ
               </Link>
             )}
-            {caribbean ? (
+            {variant !== "form" && (caribbean ? (
               <button
                 className={styles.mobileAssessment}
                 onClick={() => choose("assessment")}
@@ -142,10 +148,10 @@ export function SiteHeader({
               >
                 Get Your Free Assessment
               </Link>
-            )}
+            ))}
           </nav>
           <div className={styles.headerActions}>
-            {caribbean ? (
+            {variant !== "form" && (caribbean ? (
               <button
                 className={`${styles.headerCta} ${styles.tailoredCta}`}
                 onClick={() => choose("assessment")}
@@ -162,8 +168,8 @@ export function SiteHeader({
               >
                 Get Your Free Assessment
               </Link>
-            )}
-            {!caribbean && <RegionSwitcher />}
+            ))}
+            {!caribbean && <RegionSwitcher preserveAssessment={variant === "form"} />}
             {accountSlot}
           </div>
           <button

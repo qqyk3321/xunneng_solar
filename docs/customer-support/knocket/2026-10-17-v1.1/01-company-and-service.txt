@@ -1,0 +1,108 @@
+SOL & TIDE ENERGY — CUSTOMER SUPPORT KNOWLEDGE
+Version: 1.1
+Company facts reviewed: 16 October 2026
+Bundled: 17 October 2026
+Language: English. Answers may be translated to the visitor's language.
+Scope: Public company information, assessments, support and website guidance. General solar and battery education is supplied in separate foundation files.
+
+COMPANY AND SERVICE AREAS
+
+Q: What does Sol & Tide do?
+A: Sol & Tide Energy provides solar and battery storage solutions for Caribbean homes. Its published services include home solar systems, battery backup, system support, panel cleaning and reinforcement. A proposed system is tailored to the property and the customer's electricity needs.
+Website: https://www.solortide.com/
+
+Q: Which locations do you serve?
+A: The website currently provides regional services and assessment pages for Antigua and Barbuda, and Dominica. Other islands are listed as planned locations; an installation or launch date there has not been confirmed in this knowledge base. Visitors elsewhere can check the location selector and register interest where that option is offered. Dominica and the Dominican Republic are different countries; the regional service here is Dominica.
+Choose a location: https://www.solortide.com/#countries
+Antigua and Barbuda: https://www.solortide.com/antigua
+Dominica: https://www.solortide.com/dominica
+
+PACKAGES, SAVINGS AND ASSESSMENT
+
+Q: What packages are available? Can you customise a system?
+A: Basic, Plus and Premium are starting options. Engineers review the roof, electricity-use patterns, appliances used together and backup priorities, then propose suitable panels, battery capacity and system design. The proposal confirms changes, included work and the final price. The live regional package page is the place to check currently published options and starting prices.
+Antigua packages: https://www.solortide.com/antigua#packages
+Dominica packages: https://www.solortide.com/dominica#packages
+
+Q: How much does installation cost? Is the website price a final quote?
+A: Website package prices are starting prices, not a final quote for every property. Configuration, included work and final pricing need to be confirmed in the proposal. This knowledge base does not contain a current price list, discount policy, financing offer or payment schedule. Check the regional packages page or request an assessment.
+Antigua packages: https://www.solortide.com/antigua#packages
+Dominica packages: https://www.solortide.com/dominica#packages
+Antigua assessment: https://www.solortide.com/antigua/consultation
+Dominica assessment: https://www.solortide.com/dominica/consultation
+
+Q: Can you guarantee my savings, payback time or electricity bill?
+A: No. Website savings and payback figures are planning scenarios based on stated assumptions. Actual results depend on the final system, usage, weather and site conditions, the applicable tariff and project costs. The suggested investment is not a quotation. A site-specific assessment is the next step for a purchase decision.
+
+Q: Where can I estimate savings? What should I enter?
+A: Use the calculator for the property's region. Antigua uses an APUA reference tariff; Dominica uses a separate dated DOMLEC reference. These are fixed planning references, not live electricity rates. Read the calculator's current assumptions on the page. Enter monthly electricity charges only, excluding overdue balances, water charges and unrelated services. The calculator uses a bill slider; monthly kWh is not required.
+Antigua calculator: https://www.solortide.com/antigua#calculator
+Dominica calculator: https://www.solortide.com/dominica#calculator
+
+Q: How do I request a free assessment or a quotation?
+A: Open the free assessment page for the property's region. Share the location, electricity needs and what you want to keep running during an outage so the team can discuss a suitable system. An assessment request is an enquiry; it is not a confirmed installation, site visit or calendar booking. The team must confirm the next steps.
+Antigua assessment: https://www.solortide.com/antigua/consultation
+Dominica assessment: https://www.solortide.com/dominica/consultation
+
+Q: What information should I prepare?
+A: A property location, a recent electricity bill and a list of appliances you want backed up are useful. Include typical operating times if known. Roof and installation-space photos can help. Leave out account numbers, identity documents and other unnecessary sensitive information. Use the assessment or contact channel for relevant project details rather than posting private access links in chat.
+
+Q: Do I need an account? Can I send photos?
+A: You can ask general questions in the website chat without creating an account. The calculator and assessment can also be started without signing in. An enquiry form asks for contact details so the team can reply. The website Contact us message form, when available, has an Add photos option accepting JPG, PNG and WebP. This does not confirm that photo upload or image understanding is enabled in the chatbot. If needed, tell the team you have photos to share.
+Antigua contact form: https://www.solortide.com/antigua#contact-us
+Dominica contact form: https://www.solortide.com/dominica#contact-us
+
+SUPPORT AND PROJECT QUESTIONS
+
+Q: Can you integrate an existing generator or expand my current system?
+A: In many cases these options can be assessed. Generator integration depends on the model, existing electrical setup, property needs and site assessment. Expansion depends on the existing design, compatible equipment, roof space and electrical capacity. Compatibility is not confirmed until engineers review the specific installation.
+
+Q: Is there a software or monitoring subscription fee?
+A: The published company FAQ says software services and the monitoring platform are included at no additional charge with Sol & Tide equipment. Remote monitoring requires a working WiFi network with internet access and connected equipment. Ask the team to confirm the monitoring arrangements for the proposed model.
+
+Q: Do you provide cleaning, reinforcement or replacement parts?
+A: Sol & Tide lists panel cleaning, reinforcement and Local Parts Stock among its services. The team must agree the service scope and confirm availability for the particular part and system model. This knowledge base does not show live stock or confirm a service appointment.
+
+Q: How long does installation take? What warranty, certification or utility approval applies?
+A: Installation timing varies with equipment availability, site preparation and any required approvals. Ask for a schedule and the exact warranty terms with the proposal. Equipment certificates and standards depend on the region and selected model; ask the team for the applicable documents. Certification references do not replace project-specific utility connection approval. No universal installation deadline, warranty duration or approval guarantee is supplied here.
+
+Q: I need help with a fault, an existing order, a complaint or a personal quotation.
+A: The team needs to handle project-specific questions. The chatbot has public information only; it cannot view personal orders, submission records, equipment telemetry, payments or service schedules. Share a brief description through the appropriate contact channel. It cannot confirm an order status, change a booking, issue a refund or claim a completed repair.
+Antigua contact form: https://www.solortide.com/antigua#contact-us
+Dominica contact form: https://www.solortide.com/dominica#contact-us
+WhatsApp: https://wa.me/8617605886812
+
+CONTACT AND WEBSITE DIRECTORY
+
+Company website and location selection: https://www.solortide.com/#countries
+
+Antigua and Barbuda:
+Home: https://www.solortide.com/antigua
+Packages: https://www.solortide.com/antigua#packages
+Savings calculator: https://www.solortide.com/antigua#calculator
+How solar and battery work: https://www.solortide.com/antigua/how-it-works
+FAQ: https://www.solortide.com/antigua/faq
+Free assessment: https://www.solortide.com/antigua/consultation
+Contact form: https://www.solortide.com/antigua#contact-us
+Support email: ag-support@solortide.com
+
+Dominica:
+Home: https://www.solortide.com/dominica
+Packages: https://www.solortide.com/dominica#packages
+Savings calculator: https://www.solortide.com/dominica#calculator
+How solar and battery work: https://www.solortide.com/dominica/how-it-works
+FAQ: https://www.solortide.com/dominica/faq
+Free assessment: https://www.solortide.com/dominica/consultation
+Contact form: https://www.solortide.com/dominica#contact-us
+Support email: dm-support@solortide.com
+
+WhatsApp: https://wa.me/8617605886812
+Facebook: https://www.facebook.com/1435499099637488
+Privacy policy: https://www.solortide.com/privacy
+
+Q: Can I talk to a person?
+A: Yes, you can contact the team on WhatsApp or use the relevant regional contact form or email. In-chat transfer depends on whether the operator has configured and enabled human handoff. Providing a contact link does not mean a handoff, notification or booking has been completed. Human availability and response time are not confirmed by this knowledge base.
+
+Q: Is this chat completely anonymous? How are my details handled?
+A: No account is required to ask a question here. That does not establish that no data is processed or that messages are never stored. See the published privacy policy and contact regional support for questions about your information. This knowledge base does not establish the chatbot provider's retention period. Avoid sending unnecessary sensitive information.
+Privacy policy: https://www.solortide.com/privacy

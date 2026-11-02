@@ -1,0 +1,2788 @@
+ENGLISH TEXT REFERENCE - I Am Your Battery Storage Guide
+Original author/publisher: State of New South Wales and Office of Environment and Heritage, 2016.
+Source: https://www.energy.nsw.gov.au/sites/default/files/2022-08/2021_08_NSW_TechGuide_BatteryStorageGuide.pdf
+Licence: https://creativecommons.org/licenses/by/4.0/
+Retrieved: 17 October 2026
+
+FORMAT CHANGE NOTICE
+This is a text extraction from the original PDF, not a new authored textbook.
+Images, diagrams, spatial layout and some mathematical formatting are omitted.
+Page boundaries are labelled below. Compare formulas and tables with the PDF.
+Original credits and notices remain in the extracted text. Separate third-party
+credits still apply. No author or publisher endorsement is implied.
+
+SCOPE FOR SOL & TIDE CUSTOMER SUPPORT
+This reference is general educational background. It does not define Sol & Tide
+products, prices, warranties, local tariffs or local installation requirements.
+Do not treat generic construction instructions as project-specific customer advice.
+Check the original publication date and confirm current product documentation.
+
+AGE AND AUDIENCE NOTICE
+Original publication: November 2016. Audience: businesses in New South Wales.
+Historical prices, product comparisons, tariffs, policies and standards require
+fresh verification and do not apply automatically to Antigua or Dominica.
+
+
+=== ORIGINAL PDF PAGE 2 ===
+
+The Office of Environment and Heritage (OEH) has compiled this document in good faith, exercising all
+due care and attention. No representation is made about the accuracy, completeness or suitability of the
+information in this publication for any particular purpose. OEH shall not be liable for any damage which
+may occur to any person or organisation taking action or not on the basis of this publication. Readers
+should seek appropriate advice when applying the information to their specific needs.
+All content in this publication is owned by OEH and is protected by Crown Copyright, unless credited
+otherwise. It is licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0), subject to
+the exemptions contained in the licence. The legal code for the licence is available at Creative Commons.
+OEH asserts the right to be attributed as author of the original material in the following manner: © State of
+New South Wales and Office of Environment and Heritage 2016.
+Cover photo: C. Harding/OEH
+
+Dedication
+In memory of James Robinson.
+OEH staff member, James Robinson, recently passed away from cancer. James worked with OEH since
+2011 and was a driving force behind the development of these battery storage resources. He made a large
+contribution to the emissions-reduction effort, and had a deep commitment to making a difference and
+changing how the NSW business community value and use energy.
+
+This publication would also not have been possible without input from – Julien Freed (Julien Freed
+Consulting), Evan Darmanin and Ed Darmanin (ChargeWorks), Samantha Christie, Manuel Weirich and Tim
+Stock (NSW Department of Industry), Sam Behrens (CSIRO), Richard Collins (Global Sustainable Energy
+Solutions), Luke Pickles (Clean Energy Council) and Mary Hendricks (Australian Energy Storage Alliance).
+© 2016 State of NSW and Office of Environment and Heritage
+
+Published by:
+Office of Environment and Heritage
+59 Goulburn Street, Sydney NSW 2000
+PO Box A290, Sydney South NSW 1232
+Phone: (02) 9995 5000 (switchboard)
+Phone: 131 555 (environment information and publications requests)
+Phone: 1300 361 967 (national parks, climate change and energy efficiency information, and publications
+requests)
+Fax: (02) 9995 5999
+TTY users: phone 133 677, then ask for 131 555
+Speak and listen users: phone 1300 555 727, then ask for 131 555
+Email: info@environment.nsw.gov.au
+Website: www.environment.nsw.gov.au
+Report pollution and environmental incidents
+Environment Line: 131 555 (NSW only) or info@environment.nsw.gov.au
+See also www.environment.nsw.gov.au
+
+ISBN 978-1-76039-571-1
+OEH2016/0675
+November 2016
+Printed on environmentally sustainable paper.
+
+
+
+=== ORIGINAL PDF PAGE 3 ===
+
+Contents
+List of acronyms and abbreviations.. .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ii
+About this guide.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+Resources to help you investigate battery storage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+How this guide will help you. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+How to use this guide.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+Further advice. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+Introduction – is battery storage right for your business?. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+Part 1: About battery storage.. . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+What is battery storage?. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+Why invest in battery storage?. . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+Is battery storage a new concept?. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+Battery storage terms and concepts. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+Battery terms.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+Power and energy terms. . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+Cycles and cycle life . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+How businesses pay for electricity... . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+Businesses applications for battery storage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Time-of-use tariff optimisation. . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+Reducing capacity charges . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+Maximising solar photovoltaic system. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+Basic back-up. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Uninterruptable power supply (UPS).. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Network constrained businesses. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+Off-grid systems.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+Sell power and ancillary services back to the grid .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+Solar photovoltaics and battery storage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+Financial considerations of solar photovoltaics with battery storage.. . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+Performance considerations of solar photovoltaics with battery storage. . . . . . . . . . . . . . . . . . . . . 24
+System configurations and components.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+Grid-connected business with battery storage. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+Grid-connected business with battery storage and solar photovoltaics. . . . . . . . . . . . . . . . . . . . . . . 28
+
+i am your battery storage guide
+
+i
+
+
+
+=== ORIGINAL PDF PAGE 4 ===
+
+Other components in battery storage systems.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+Installation requirements, risks and safety .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+Life expectancy vs warranty. . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+Battery degradation. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+Types of batteries. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+Which chemistry for which application?. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+Lead-acid and advanced lead-acid batteries.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+Lithium-ion batteries. . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+Flow batteries. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+Salt-water batteries.. . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+Part 2: Buyer’s toolkit. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+Gathering information. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+Step 1: Understanding your energy use and needs.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+Step 2: Choosing a battery storage application. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+Step 3: Analysing your energy consumption data. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+Step 4: Understanding your tariffs. . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+Assessing feasibility. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+Battery storage for business: investment decision tool. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+Feasibility considerations. . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+Understanding costs versus savings. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+Buyer’s checklists and template. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+Battery storage for business: price estimate template.. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 52
+Glossary......... . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+Useful links.. .. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+
+List of acronyms and abbreviations
+
+ii
+
+AC
+
+alternating current
+
+KWp
+
+kilowatt-peak
+
+DC
+
+direct current
+
+OEH
+
+Office of Environment and Heritage
+
+DoD
+
+depth of discharge
+
+PV
+
+photovoltaic
+
+kW
+
+kilowatt
+
+SoC
+
+state of charge
+
+kWh
+
+kilowatt hour
+
+UPS
+
+uninterruptible power supply
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 5 ===
+
+Photo: C. Harding/OEH
+
+About this guide
+Resources to help you investigate battery storage
+This guide is part of a set of resources designed to help businesses determine whether to invest in
+battery storage:
+yy Battery storage for business: the essentials – a quick overview
+yy i am your battery storage guide – greater detail about the technology and how it might apply to your
+business, and a buyer’s toolkit
+yy Battery storage for business: investment decision tool
+yy Battery storage for business: price estimate template.
+
+How this guide will help you
+i am your battery storage guide will help you decide whether battery storage is right for your business.
+It sets out:
+yy the basics of battery storage systems
+yy the potential business applications and benefits of battery storage
+yy a simple framework for making decisions about whether to invest in battery storage at your site.
+This guide alone can’t identify the best solution for your specific needs. Finding an appropriate
+solution for your site or project can only be achieved through an individualised and engineered design.
+
+i am your battery storage guide
+
+1
+
+
+
+=== ORIGINAL PDF PAGE 6 ===
+
+Photo: Shutterstock/OEH
+
+How to use this guide
+There are two parts to this guide:
+
+Part 1: About battery storage
+This section explains:
+yy key considerations for businesses
+yy technical terms used
+yy basic types of battery technologies available
+yy applications and configurations, and;
+yy how businesses can use battery storage to save on running costs or to obtain other benefits.
+
+Part 2: Buyer’s toolkit
+The buyer’s toolkit (Figure 1) contains:
+yy information gathering tools to help you evaluate your needs and identify the possible benefits,
+savings and payback of battery storage at your site
+yy feasibility assessment tools to help you consider whether battery storage is right for your
+business
+yy buyer’s checklists to help you define the scope of your project and collate the data you will need
+to obtain a design and quote from potential suppliers/installers.
+
+2
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 7 ===
+
+Figure 1: Buyer’s toolkit
+
+Further advice
+These resources are intended for business people who are interested in understanding the
+technology and evaluating its applicability to their site. They do not seek to provide any detailed
+engineering, nor financial analysis of the needs of a particular site.
+Every battery installation is unique, and the templates and tools provided in this guide do not
+substitute for the advice of a qualified engineer or legal counsel. Advice should be sought from
+suitably qualified professionals to ensure the solution is robust and compliant with all standards and
+requirements.
+We recommend that businesses interested in further investigating this technology attend the NSW
+Office of Environment and Heritage (OEH) battery storage training course. This training course is
+designed to help businesses understand potential project feasibility and define the next steps for their
+organisation.
+For more information visit the OEH webpage:
+www.environment.nsw.gov.au/business/battery-storage-training.htm
+i am your battery storage guide
+
+3
+
+
+
+=== ORIGINAL PDF PAGE 8 ===
+
+Introduction – is battery storage
+right for your business?
+Businesses in New South Wales can save money by being energy efficient and managing how
+and when they use energy. The use of batteries to store energy is an advanced stage of energy
+management that may allow a business to reduce electricity costs by shifting electricity consumption
+from the grid to time periods with lower associated costs.
+Many businesses are also choosing to investigate battery storage and solar photovoltaics (PV)
+together as a way of significantly increasing the amount of renewable energy they consume.
+Depending on their consumption and the availability of suitable roof space for PV, businesses can
+reduce their consumption of grid-supplied energy by up to 80% and use renewable energy generated
+on site instead.
+The feasibility of battery storage depends on how a business uses electricity and how it pays for
+electricity. A good understanding of both is essential for identifying if battery storage makes sense.
+
+The payback depends on your energy use and energy costs
+At the time of publication, a typical battery storage system could realise a payback in 10-15
+years due to relatively high battery prices. However, battery prices are expected to decline
+significantly in the near future. Depending on your business goals and energy costs, batteries
+may already be feasible.
+
+The challenge for decision-makers is that battery storage and solar PV has a long lifetime, sometimes
+in excess of 10 years. Businesses considering battery storage need to look at the return on
+investment over the longer term.
+
+4
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 9 ===
+
+Photo: iStock/OEH
+
+Part 1: About battery storage
+yy What is battery storage?
+yy Battery storage terms and concepts
+yy How businesses pay for electricity
+yy Business applications for battery storage
+yy Solar photovoltaics and battery storage
+yy System configurations and components
+yy Types of batteries
+
+i am your battery storage guide
+
+5
+
+
+
+=== ORIGINAL PDF PAGE 10 ===
+
+What is battery storage?
+Key points
+yy Battery storage is not about energy efficiency, it’s about resource efficiency and energy
+management.
+yy Battery storage should be just one element of a comprehensive energy management program.
+
+Battery storage involves the use of a battery to store energy for use when required. Technically, it is
+the conversion of electrical energy into chemical potential energy for storage followed by reconversion
+of chemical potential energy into electrical energy when desired.
+A battery storage system allows a business to obtain electricity at a time when it is relatively
+inexpensive, store it chemically, and then consume the energy electrically at a time when electricity is
+relatively expensive or unavailable.
+Other than a battery, there are multiple components in a battery storage system that enables the
+system to function. These include inverters, battery management systems and the installation of the
+batteries in a secure fire-rated battery room or enclosure.
+
+Why invest in battery storage?
+Financial benefits
+The primary reason businesses are considering implementing battery storage is to reduce costs
+through energy management.
+Energy management begins by identifying how a business uses and pays for energy (Figure 2). The
+next stage of energy management involves becoming more energy efficient, optimising the patterns of
+energy use and considering alternative sources of energy. In the case of battery storage systems the
+specific component of energy use is electricity.
+Understanding how your site uses and pays for energy is critical to making an informed and confident
+decision about the suitability of battery storage.
+The advantage of battery energy storage is that it enables a business to source energy at a lower
+cost from the grid, from renewable sources, or both. This may achieve cost savings by reducing the
+amount of electricity purchased when it is expensive, such as in peak tariff periods.
+Businesses that face difficulties in the reliability or capacity of their electricity supply can also reap
+benefits from battery storage. Costly upgrades to power infrastructure can potentially be deferred by
+using battery storage in addition to the main supply from the grid.
+Businesses that require on-site generation of energy using diesel or gas can also benefit from battery
+storage by optimising fuel consumption and reducing maintenance costs.
+
+6
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 11 ===
+
+Figure 2: Battery storage can help you take advantage of lower energy costs
+
+Environmental benefits
+Solar power in Australia makes sense – Australia has plenty of sunshine. Electricity generated by solar
+photovoltaics (PV) can directly offset electricity purchased from the grid, which means it can be a
+good way to reduce energy costs.
+The downward trend in the cost of solar panels and the increased cost of electricity means that solar
+PV systems are now more economical than ever. However, the benefits of solar PV are limited by the
+simple fact that the sun is only available during daytime and is most effective around midday.
+The electrical demand profile of a business will not exactly match the production profile of solar power
+throughout a day. For example, in the middle of the day (particularly in summer) solar production may
+exceed electrical consumption and excess solar power is supplied to the grid. On the other hand,
+early and late in the day (particularly in winter), or in periods of cloud cover, solar production may be
+less than consumption and electricity must be sourced from the grid. Batteries can get around this
+problem by enabling excess energy from solar power to be stored for later use.
+Battery storage, in combination with solar PV, enables a business to increase self-sufficiency by
+enabling solar PV systems with excess energy to meet energy needs outside solar PV generation
+periods. This also increases the overall amount of energy that is consumed from renewable sources.
+Larger solar PV systems that produce surplus energy during the day are able to offset a greater
+component of total daily usage instead of feeding excess power into the grid for a relatively low
+return. Battery storage makes it possible for businesses to deploy larger PV systems to maximise
+the environmental benefits of renewable energy and also realise a better financial return by selfconsuming more solar power.
+
+i am your battery storage guide
+
+7
+
+
+
+=== ORIGINAL PDF PAGE 12 ===
+
+Is battery storage a new concept?
+The use of batteries for energy storage is actually not new at all. Storage systems featuring leadacid batteries have been implemented for over a century in applications that include submarines,
+telephone exchanges, uninterruptible power supply (UPS) systems and off-grid solar power systems.
+In recent years consumer interest in battery storage has significantly increased.
+Large-scale investment in the development of this technology by several well-known international
+manufacturers improved the technical performance of batteries, and through extensive marketing
+transformed a relatively small industry into a highly competitive multi-billion dollar international market.
+What has changed lately is the rapid improvement of lithium-ion based battery technology for mass
+consumption in personal devices like smartphones and tablets. This has led to investments in
+increased production of batteries for electric vehicles and stationary battery storage for homes and
+businesses.
+Indirectly, the improvements and adoption of solar PV have increased consumer awareness of
+renewable energy and provided an incentive to store excess energy rather than feed it to the grid for
+relatively small return.
+This widespread adoption creates economies of scale for a dramatic reduction in per-unit costs, not
+just in lithium-ion, but also for other battery technologies including incumbent (lead-acid) technologies
+and other options (flow, advanced lead-acid and others).
+
+Battery storage is now more versatile
+Technical enhancements and the reduction in cost have now made it possible for businesses to
+consider battery storage for a range of applications that had previously been unfeasible.
+
+8
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 13 ===
+
+Photo: Shutterstock/OEH
+
+Battery storage terms and concepts
+There are a number of concepts that are critical to understanding battery storage, for example the
+difference between energy (kilowatt hours) and power (kilowatts).
+
+Battery terms
+A battery is a device that stores and releases energy.
+How much energy a battery can store is referred to as its energy capacity or battery capacity (Figure
+3). The more battery capacity it has the longer it can supply a load.
+
+Battery
+A device that stores and releases energy
+Battery capacity
+The total energy that can be stored in a battery
+Unit: kilowatt-hours (kWh)
+
+Figure 3: Battery capacity
+
+A battery is charged by applying an electrical current, and discharged by allowing electrical current to
+flow through a circuit (Figure 4).
+
+i am your battery storage guide
+
+9
+
+
+
+=== ORIGINAL PDF PAGE 14 ===
+
+Charge
+The process of storing electrical
+energy in the form of chemical
+energy.
+
+Discharge
+The process of converting chemical
+potential energy by allowing the flow of
+electrical energy.
+
+Figure 4: Battery charge and discharge
+
+Power and energy terms
+To compare different battery storage solutions you need to be familiar with the key battery concepts
+of power (kilowatts) and energy (kilowatt hours).
+The power output and power consumption of electrical equipment is usually expressed in kilowatts
+(kW). For example, an electrical kettle draws about 1.2kW when boiling water. The power output of a
+battery is also expressed in kilowatts. Power is the amount of flow of energy the battery can support
+at any one time. The maximum amount of power that can be delivered at any one time is expressed
+as the kilowatt-peak (kWp).
+Energy capacity is measured in kilowatt hours (kWh) and this is the unit in which energy is purchased
+from the electricity network. The energy capacity of a battery is how long it can supply energy to a
+certain load before running flat and depends on both power and time.
+These two concepts can be compared to a simple water tank.
+The nominal energy capacity of a battery (kWh) is similar to the amount of water that a water tank can
+hold.
+The peak power that a battery can deliver (kWp) is similar to the size of the outlet on the side of a
+water tank (Figure 5). The larger the size of the outlet, the greater the flow and the more power it has.
+
+Energy
+The ability to do work. A
+battery stores and releases
+an amount of energy.
+
+Rated power
+The maximum allowable
+power that can be continually
+supplied by a system.
+
+Unit: kilowatt hours (kWh)
+
+Ampere hour (Ah)
+Just like the kWh, the Ah is
+another common way to
+express battery capacity. It is
+a unit of energy equal to one
+amp continuously supplied
+for one hour at the battery’s
+nominal voltage.
+
+Power
+The rate of doing work.
+Power is also the rate at
+which a battery releases
+(or stores) energy.
+Unit: kilowatts (kW)
+Figure 5: Battery energy and power
+10
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 15 ===
+
+However, it is important to understand that most batteries are not normally discharged (emptied)
+completely, in order to improve their lifetime performance.
+Extending the analogy above, the outlet of the battery is not located at the bottom of the water tank,
+but part way up the side.
+The ‘usable’ capacity of a battery is the volume of the water in the tank above the outlet, where the
+height of the outlet represents the minimum recommended state of charge of the battery (Figure 6).
+
+Usable battery capacity
+The recommended amount of energy
+that can be discharged without
+adversely affecting the battery.
+Unit: kilowatt hours (kWh)
+
+Figure 6: Usable battery capacity
+
+State of charge (SoC) and depth of discharge (DoD) are terms for referring to how much usable
+battery capacity remains in a battery when it has been partially discharged (Figure 7).
+These terms are complementary. The SoC and DoD percentages add together to equal 100%.
+
+Depth of discharge (DoD)
+The proportion of the battery that has been
+discharged.
+Unit: % of total capacity
+State of charge (SoC)
+The proportion of the battery charge remaining.
+Unit: % of total capacity
+
+Figure 7: State of charge and depth of discharge
+
+i am your battery storage guide
+
+11
+
+
+
+=== ORIGINAL PDF PAGE 16 ===
+
+Cycles and cycle life
+A battery cycle refers to the alternation between charging and discharging of energy from the battery
+(Figure 8).
+
+Figure 8: Battery cycles
+
+Modern batteries that have been designed for daily cycling applications typically have a usable lifetime
+of 10 years or more (i.e. 3650 cycles).
+The degradation in performance over that lifetime is affected by five elements:
+1. how many charge and discharge cycles are completed
+2. to what depth of discharge the cycle is occurring
+3. the temperature of the battery in its operation
+4. the rate the battery is charged and discharged at
+5. activities to maintain the chemistry in the battery, if required.
+The greater the number of cycles and the more energy that is cycled into and out of the battery the
+more quickly a battery deteriorates (Figure 9). Deeply discharging some types of batteries can be very
+damaging to their lifetime performance and can diminish available capacity over time (see Types of
+batteries).
+The operating parameters of different batteries over their lifetime and the associated degradation
+should be considered when comparing batteries, as different battery types and manufacturers will
+achieve different levels of performance depending on how they are used.
+Cycle
+The process of completely
+charging and discharging a
+battery in its usable range.
+
+Charge
+Discharge
+
+Cycle
+
+Battery life (cycles)
+The number of cycles that
+can be expected before
+the battery can no longer
+effectively store energy.
+Unit: number of cycles
+
+Battery warranted life
+The number of cycles or fixed number
+of years a manufacturer guarantees.
+Unit: number of cycles or years,
+whichever comes first
+Battery warranted capacity
+The remaining usable capacity a
+manufacturer guarantees after a
+certain number of cycles.
+Unit: kilowatt hour (kWh)
+
+Figure 9: Battery cycle terms
+
+12
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 17 ===
+
+Photo: Shutterstock/OEH
+
+How businesses pay for electricity
+Key point
+Businesses must understand how they are charged for electricity before they can properly
+evaluate the value of battery storage.
+
+Time-of-use tariffs
+A business pays for electricity per kilowatt hour consumed. However, the rate paid per kilowatt hour
+usually depends on the time the kilowatt hour was purchased and this arrangement is referred to as a
+time-of-use tariff.
+The times when these periods occur vary and depend on the arrangement between a business and
+its electricity retailer.
+The periods are generally referred to as:
+yy peak period
+yy off-peak period
+yy shoulder period.
+Electricity rates can vary significantly between these periods. All electricity supplied by the electricity
+network is paid per kilowatt hour.
+
+i am your battery storage guide
+
+13
+
+
+
+=== ORIGINAL PDF PAGE 18 ===
+
+$/kilowatt hour
+Rate paid for electricity.
+Peak tariff
+The rate paid for electricity usage in peak time periods.
+Unit: $/kWh
+Off-peak tariff
+The rate paid for electricity usage in off-peak time periods.
+Unit: $/kWh
+
+Not all businesses are on time-of-use tariff structures, however, and it’s important to know which tariff
+you’re on so that you can make decisions about how a battery system can benefit you.
+Another common example of a tariff structure is known as a ‘block’ tariff. This is where electricity is
+charged at a tiered rate, and the rate you pay changes as your business hits certain usage thresholds.
+Businesses on this structure cannot use a battery for tariff optimisation.
+
+Capacity charges
+Capacity charges (also known as peak demand charges), on the other hand, are fees calculated based
+on maximum power usage in a given period, usually for the previous month or previous 12 months.
+
+Capacity charge
+Rate paid for the maximum power provided to a business in a period regardless of other usage.
+Unit: $/kilo volt-amp (kVA)
+
+Depending on the tariff, once a peak capacity is recorded, the amount that a business needs to pay
+for capacity charges each month may not reduce for up to 12 months.
+For example, a business may reach an isolated peak of energy use, and the capacity charge will
+remain at that peak level for 12 months, irrespective of how much energy is used during the rest of the
+billing period.
+A business pays capacity charges based on the cost of providing the availability of their peak usage
+requirements regardless of when they occur. This means that a business pays the grid operator to
+have the capacity to meet their peak demand, even if it is rarely reached. It is not uncommon for
+capacity charges to be the largest component of a business’s monthly electricity bill.
+
+14
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 19 ===
+
+Photo: iStock/OEH
+
+Businesses applications for battery storage
+Key point
+Before investing in a battery storage system a business needs to identify the battery storage
+application that best applies to their specific situation.
+
+Businesses can reduce their running costs by using battery storage:
+yy to get maximum benefit from a solar photovoltaic (PV) system
+yy to optimise usage in relation to time-of-use tariffs
+yy to reduce capacity charges.
+Businesses can also use battery storage to provide back-up power, to avoid paying for an expensive
+upgrade to grid infrastructure, to trade energy on the wholesale market or as part of an off-grid power
+supply system.
+The Buyer’s toolkit in Part 2 of this guide explains how to work out which application will best suit your
+situation.
+Batteries have a long lifetime and the cost savings over the life of the system make sense for some
+businesses. The increased ability to use renewable solar energy is an attractive bonus.
+
+Multiple applications?
+It may be possible that you can use the same battery storage system for different specific
+applications. However, caution should be applied as the different applications often require
+different performance characteristics. The chosen battery may compromise one or more of the
+selected applications.
+
+i am your battery storage guide
+
+15
+
+
+
+=== ORIGINAL PDF PAGE 20 ===
+
+Time-of-use tariff optimisation
+Tip
+This is applicable only for businesses that source energy at different prices at different times of
+the day.
+
+Batteries can be used to exploit the different cost of energy at different time periods. Energy can be
+sourced from solar PV or from the grid during off-peak tariff periods and consumed during peak tariff
+periods.
+Figures 10 and 11 show how one business (a registered club in this example) avoids using grid energy
+in peak periods by using a battery.
+
+Figure 10: Charging from the grid off-peak/discharging in peak
+
+16
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 21 ===
+
+Figure 11: Charging from both solar PV and from the grid off-peak/discharging in peak tariff period
+
+Application notes
+yy Power for battery charging can be sourced from any source, solar or otherwise.
+yy This approach is most effective when the peak tariff rate is high and the alternative source of energy
+is inexpensive.
+yy Larger energy users may find tariff optimisation is ineffective because they are charged much less
+for energy than smaller energy users.
+
+Reducing capacity charges
+Tip
+This is applicable only for businesses that pay capacity charges.
+Batteries can be used to avoid excess electricity being sourced from the grid when total usage
+approaches a maximum threshold. This is sometimes called ‘peak lopping’ or ‘peak shaving’.
+Figure 12 shows a business avoiding a higher capacity charge by using a battery and grid energy
+together to supply maximum power usage. The battery system needs to be sized to discharge and
+reliably ‘shave’ the peak to a certain chosen level at all times, not just on one day.
+
+i am your battery storage guide
+
+17
+
+
+
+=== ORIGINAL PDF PAGE 22 ===
+
+Figure 12: Peak shaving to reduce capacity charges
+
+Application notes
+yy This is suitable for larger energy users on applicable tariffs.
+yy Good knowledge of historical power usage is required for the system to be effective. The battery
+system needs to be specified to provide enough power to ‘lop the peak’ at all times of the year.
+yy Power for battery charging can be sourced from any source, solar or otherwise.
+yy This is most economical when high power usage occurs for short durations.
+
+Maximising solar photovoltaic system
+Tip
+This requires detailed load analysis and system sizing.
+
+Batteries can be used to enable businesses to self-consume more solar power by storing energy for
+when solar power is not available.
+This approach is used because solar energy is typically inexpensive compared to purchasing energy
+from the grid but energy usage can occur in times when solar is not available.
+Figure 13 shows a business with enough solar power to supply its daytime loads and charge a
+battery. In the evening, the business discharges the battery, thereby using the excess solar power.
+
+18
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 23 ===
+
+Figure 13: Increased self-consumption through battery charging
+
+Aside from the cost advantages of using more solar power, coupling solar PV generation and battery
+storage technology also provides businesses with the less-tangible benefits of consuming clean
+energy and improving self-sufficiency.
+The trade-off to consider when seeking to increase self-sufficiency is that larger systems for yearround performance will result in time periods when the capacity of solar PV and batteries is not fully
+used. Small increases in battery size (and associated costs) enable a relatively large increase in the
+self-consumption of solar PV, particularly in the summer months.
+The downside is that the return on investment is not as effective in winter because the reduced
+availability of solar energy means that a battery system may not be able to be fully charged and will be
+under-used.
+On the other hand, during summer if a battery is too small it will not be able to capture all of the
+surplus solar PV generation. System components and capacities are highly dependent on what the
+owner wants to achieve; professional guidance is recommended.
+
+Application notes
+yy This application is most economical for small to medium energy users.
+yy This is suitable for businesses interested in increasing the proportion of energy they consume from
+renewable sources, and for businesses interested in increasing their self-sufficiency.
+yy The system requires surplus solar PV generating capacity.
+
+i am your battery storage guide
+
+19
+
+
+
+=== ORIGINAL PDF PAGE 24 ===
+
+Basic back-up
+Tip
+This requires additional switching controls and equipment.
+
+A business whose operational continuity is important during a blackout or power failure may choose
+battery storage to help avert significant losses or opportunity costs.
+In this scenario a business may need to continue production when power is unavailable from the grid.
+There are specific requirements for the connection of batteries in this manner, primarily to ensure the
+battery does not back-feed onto the network.
+Any system that uses this type of back-up will need to be properly designed as such. There is a longstanding precedent for this kind of application where back-up generators or uninterruptable power
+supply (UPS) are used.
+
+Application notes
+yy This applies to businesses who obtain value from being able to switch to a temporary alternative
+energy supply if the grid is not sufficient.
+yy There will be a delay while cutting over from one power system to another.
+yy The requirements of this system are specific to the nature of the business.
+
+Uninterruptable power supply (UPS)
+Tip
+This is a highly specific application requiring additional switching controls.
+
+Distinctly different from basic back-up, a business whose operational continuity must not be
+interrupted at all can consider a specifically designed uninterruptable power supply.
+This is not typically a feature of the battery storage scenarios covered in this guide. The emerging
+technologies covered in this guide have largely not yet emerged within the UPS market.
+
+Application notes
+yy UPS is not a feature of most battery storage systems.
+yy UPS requires electrical energy to be continuously converted between alternating current (AC)
+and direct current (DC) and back to AC at all times, which has negative implications for energy
+efficiency.
+
+20
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 25 ===
+
+Network constrained businesses
+Tip
+This is useful for businesses faced with electrical upgrade costs to improve energy supply.
+
+Businesses that cannot service all of their power needs from the grid (e.g. due to premises expansion)
+may be faced with infrastructure upgrade costs. Battery storage may be a more economical alternative.
+Battery storage potentially provides an alternative option of charging batteries with power from the
+grid in periods of low usage and drawing on both grid and batteries in periods of high usage.
+
+Application notes
+yy Appropriately sized battery solutions may be a cost-effective alternative to infrastructure upgrades
+and allow a business to save money in this way.
+yy Professional advice for designing this system is essential.
+
+Off-grid systems
+Businesses that source part or all of their power needs off-grid, whether normally provided by wind,
+solar or fossil fuel-based generation such as diesel, can benefit from introducing an optimised battery
+storage system.
+Power generation from wind and solar sources is by nature variable. Periods of darkness or low wind
+speed mean that power must be provided by alternative generation or battery storage, or both, for
+reliable power to be provided.
+The business case for introducing new or additional battery storage will depend on existing power
+generation and battery storage infrastructure and measures for controlling consumption loads.
+There may be a viable business case for some off-grid systems if battery storage can be shown to be
+more economical than installing additional generation capacity.
+Configurations of off-grid systems vary based on whether the solar PV and battery system is the
+primary power source or complementary to a fossil fuel generator (table 1). Each has different design
+parameters that need to be considered.
+Table 1: Off-grid power configurations
+Configuration
+
+Advantage
+
+Disadvantage
+
+1
+
+Solar photovoltaic (PV) and battery storage used as
+the primary power source with generator back-up
+
+Very high renewable
+energy self-consumption
+
+A generator might be
+required in the event of
+extended bad weather
+
+2
+
+Solar PV and battery storage in parallel with
+generators which are the primary power source
+
+Reduced fuel usage and
+maintenance
+
+Requires generators at
+all times
+
+3
+
+Battery storage to facilitate the purchase of a
+smaller generator. The two power sources work
+together to service peak loads and the generator
+recharges the battery during periods of low usage
+
+Reduces capital cost for
+generators
+
+Requires good load
+management to ensure
+the battery can supply
+power when required
+
+i am your battery storage guide
+
+Improves fuel efficiency
+of the generator
+
+21
+
+
+
+=== ORIGINAL PDF PAGE 26 ===
+
+Sell power and ancillary services back to the grid
+A business may make arrangements to sell services from the battery back to the electricity grid.
+These services might include exporting power during high price periods or providing ‘ancillary
+services’ such as frequency support and reactive power support.
+
+Tip
+Requires appropriate electricity network connection arrangements.
+
+Application notes
+yy Businesses will need to make agreements or contracts with outside organisations such as
+electricity retailers, electricity network businesses or other third party service providers in order to
+access this use of a battery system. A business may agree to let the outside organisation control
+their battery during specified situations and receive payment for this service.
+yy Ancillary service applications are not yet widespread but may become more common in the future.
+yy These applications will require particular design characteristics for the battery management system
+and inverter, and will require an appropriate connection to the electricity network.
+
+22
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 27 ===
+
+Photo: C. Harding/OEH
+
+Solar photovoltaics and battery storage
+Solar photovoltaics (PV) and battery storage are often considered complementary technologies. This
+makes sense because one produces electricity from a variable source and the other stores it for use
+when most beneficial.
+The daily and seasonal variability of solar production is an important element of the design and
+implementation of battery storage systems that use solar PV as an energy source.
+
+Financial considerations of solar photovoltaics with battery storage
+The financial benefit of solar PV depends on the cost of purchasing electricity from the network. Solar
+PV by itself is most cost effective if the price of electricity during the middle of the day is relatively high
+compared to the levelised cost of the solar panels.
+Excess energy generated by solar PV can be fed back into the grid for a small credit, however, this is
+often less financially effective than self-consumption. For example, a credit of 6c / kWh exported is not
+as valuable as avoiding paying 24c / kWh during a peak tariff time when the sun is not shining.
+A correctly designed and specified battery storage system means that a business can increase the
+size of solar PV and self-consume through storage. In this way, the overall proportion of total energy
+consumed on site from renewable sources can be significantly increased.
+
+Levelised cost of energy
+Levelised cost of energy (LCOE) is a way to express the average cost of an energy source, taking
+into account lifetime costs, economic factors, and the lifetime energy output of the system. It is
+expressed in $/kWh.
+
+i am your battery storage guide
+
+23
+
+
+
+=== ORIGINAL PDF PAGE 28 ===
+
+Performance considerations of solar photovoltaics with battery storage
+The amount of available energy produced by a stationary solar panel varies considerably depending
+on the time of day and the month of the year.
+The graph below shows the comparison of solar energy on a flat surface in Sydney between summer
+and winter.
+
+Figure 14: Typical solar energy on a horizontal surface (Sydney)
+
+Midday solar energy per square metre on a horizontal surface is much greater than at other times.
+The energy available for a horizontal surface is approximately double in summer compared to winter
+(Figure 14). This can be improved by tilting panels to optimise how much they face the sun throughout
+the year.
+The best year-round tilted angle is equal to the latitude of the site’s location (in Sydney this is 34
+degrees) facing due north. Figure 15 shows that the solar energy on a surface can be improved
+significantly in winter for a small reduction in summer.
+
+24
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 29 ===
+
+Figure 15: Typical solar energy on a tilted vs horizontal panel (Sydney)
+
+The overall yearly generation from a solar panel is improved by approximately 10% when tilted.
+The winter production is improved most significantly, by 46% compared to a horizontal position.
+The concepts of daily variation, seasonal variation and the impact of solar array tilt are important for
+a business to understand when considering solar PV and batteries because of the fluctuation in daily
+and monthly production.
+It is important to include this seasonal variation information in the business’s plans for solar selfconsumption versus consumption from the grid and the associated tariffs to fully assess the financial
+benefits of solar PV and the incentive for using battery storage.
+For example, a business that uses most electricity during hot summer days is a candidate for
+considering only solar PV (without batteries) because the load closely matches production. On the
+other hand, a business that has low daytime usage but high evening usage (such as a restaurant) may
+not realise much benefit from solar, but with the addition of a battery can realise these benefits.
+
+i am your battery storage guide
+
+25
+
+
+
+=== ORIGINAL PDF PAGE 30 ===
+
+Photo: CSIRO/OEH
+
+System configurations and components
+Key point
+There is no single answer on how to apply battery storage to your site. You need a holistic
+understanding of all of the interrelated components of a complete system.
+
+A battery is one component of a storage system and can be arranged either with solar photovoltaics
+(PV) or separately.
+
+Grid-connected business with battery storage
+A battery storage system can be integrated into the electrical infrastructure of a typical grid-connected
+business in the following way.
+Electricity is usually supplied to businesses in New South Wales at 230 volts AC single-phase or 400
+volts three-phase.
+
+AC
+
+Electrical
+AC equipment
+
+230V
+
+Figure 16: Typical grid connection
+
+26
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 31 ===
+
+A battery system converts AC electricity, via an inverter, into DC electricity that charges a battery.
+
+Inverter/rectifier/battery charger
+The devices that operate a battery, including the conversion of AC to DC (rectification) and DC
+to AC (inversion), as well as the management of the battery to ensure its correct charging and
+discharging (battery charger), are typically integrated and referred to as ‘inverters’.
+When the industry refers to ‘inverters’, these may include any or all of the above componentry.
+
+Figure 17: Grid connection with battery storage
+
+A grid-connected battery storage system (Figure 17) is designed to cycle between storing energy
+(charging) when the cost to do so is low and using the energy (discharging) when the benefit is high,
+for example, when the price of electricity is relatively high.
+
+i am your battery storage guide
+
+27
+
+
+
+=== ORIGINAL PDF PAGE 32 ===
+
+Grid-connected business with battery storage and solar photovoltaics
+A battery system can function with or without solar PV, but together, businesses can optimise the use
+of low cost renewable energy at times that produce the greatest financial benefit.
+Solar PV converts sunlight directly into electricity. Solar power is instantaneous – it needs to be used
+at the moment it is generated, either by your business or by the grid. A battery allows excess solar
+power to be stored for consumption at a later time.
+
+Figure 18: Grid connection with battery storage and solar PV
+
+The configuration in Figure 18 shows an AC-coupled system with two separate inverters: one for the
+battery and one for the solar PV. Some inverters, known as hybrid inverters, can perform the function
+of both a solar inverter and a battery inverter. This employs a configuration which is known as DCcoupling.
+
+Other components in battery storage systems
+A battery storage system requires more than just the battery or batteries.
+
+Inverters
+An inverter converts direct current (DC) electricity into alternating current (AC) electricity. Some
+inverters, particularly those used in the battery storage industry, can also convert AC electricity into
+DC electricity. Inverters are designed either to supply single-phase loads or three-phase loads.
+All batteries store energy as DC, and in order to power AC devices, it requires a battery inverter that
+manages the transformation and the output voltage. A battery inverter must be able to charge and
+discharge a battery according to the operating parameters of the battery and loads.
+A solar inverter is similar in that it converts DC electricity into AC electricity; however, there are no
+circumstances where power is required to go the other way.
+
+28
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 33 ===
+
+Most systems have separate solar inverters and battery inverters that are coupled on the AC side.
+Some inverters, known as hybrid inverters, are capable of managing both solar and battery electricity.
+An inverter will have a rated peak power output which is the maximum power that it can deliver. When
+choosing a set of inverters you need to make sure it is capable of delivering the required amount of
+power to match both the business operational load and the battery charging load.
+For systems operating from batteries only (no grid), the batteries and inverter must be capable of
+supplying both a maximum continuous power supply and also sufficient starting current for devices
+containing motors, to allow them to start.
+
+Battery management system
+A battery management system (BMS) is required to control how and when a battery is charged and
+discharged and needs to be set up to ensure the system targets the goals of the business. It also
+protects the batteries from overheating.
+A battery management system will monitor the state of charge of the battery and ensure that it works
+within the operating parameters. More recently, some battery brands are being developed with inbuilt battery management systems and sometimes also include inverters as an all-in-one device.
+Some batteries require a maintenance cycle to prolong their usable life and this is implemented by
+the battery management system. A maintenance cycle means for a period of time – up to a day – the
+battery is unusable because it is performing self-management checks and won’t allow discharge
+past a certain rate for a period. It is important that all components are approved for use with each
+other, preferably by direct communication to control charge and discharge. We recommend that
+responsibility for correct selection of components be placed on the suppliers/installers. We also
+suggest that the end user seeks the advice of a suitably qualified person to verify that all components
+are properly matched.
+
+Monitoring
+Monitoring devices are critical for managing the operation of a battery system, especially one coupled
+with solar PV. The use of monitoring, especially visualisation of daily production and consumption,
+is a very useful tool for energy management and helps decision-makers to better manage loads to
+improve the system’s performance.
+For example, a business may monitor the production of solar power to choose to run processes when
+there is abundant solar generation.
+A business investing in this technology may use monitoring to ensure the system is functioning as
+intended. Furthermore, most billing information lacks the detail required to make informed energy
+management decisions that system monitoring can provide.
+Battery storage with monitoring has the effect of increasing user awareness of energy consumption
+on their site. The benefits of the battery system is enhanced by other energy management strategies,
+such as load shifting and more energy efficient behaviours. Monitoring can provide users with
+feedback showing the impact of these activities.
+
+Installation requirements, risks and safety
+There are a number of potential hazards associated with battery storage, including electrical and fire
+hazards. Best practice calls for a dedicated, secure, fire-rated battery room or enclosure.
+The Clean Energy Council and the Australian Energy Storage Council have issued installation guides
+and battery guides recommending methods of battery installation to minimise risks to businesses,
+ahead of Australian Standards being made available for all battery chemistries. (See Useful links)
+
+i am your battery storage guide
+
+29
+
+
+
+=== ORIGINAL PDF PAGE 34 ===
+
+The Clean Energy Council has identified the following hazards relating to battery storage:
+yy electric shock hazards
+yy energy hazards
+yy chemical hazards
+yy explosion and flammable emission hazards
+yy fire hazards
+yy gravitational hazards.
+Other factors that should be considered in planning for battery storage include:
+yy theft
+yy heat, cold and humidity
+yy corrosion
+yy water ingress
+yy dust ingress
+yy physical impact
+yy vermin
+yy external fire.
+The presence of these factors may increase the risk of the hazards.
+
+Risk management
+A business needs to manage risks presented by any technology, including battery storage.
+A secure, fire-rated battery room or enclosure is one way that a business can manage a number
+of the risks identified above.
+
+Life expectancy vs warranty
+Currently we are not aware of a single testing methodology that is used by all battery manufacturers to
+establish the performance and lifecycles of their products. Predicting the life expectancy of a product
+is likely to be inaccurate and most likely inconsistent between different manufacturers.
+Many organisations will refer to the manufacturer’s warranty to establish the period that the
+manufacturers feel comfortable supporting their product. The drawback with this approach is that the
+manufacturers place many complicated caveats on the warranty and long term performance of their
+batteries, making comparison difficult.
+It would be rational to establish some criteria that relate your site conditions to the advertised
+performance of a battery. For example, if your particular project requires a large number of cycles per
+year (say three cycles per day for the year), then you would require a battery that will deliver a large
+number of cycles over a long period of time. This battery may be more expensive than one advertised
+to operate for fewer cycles. However, the cheaper battery may represent a false economy as it might
+not last long enough to be viable for your project.
+
+30
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 35 ===
+
+Conversely, where you have a project that requires a small number of cycles per year, a cheaper
+battery that is not required to deliver a high number of cycles may better suit your application.
+The way in which you compare battery offers for a particular project can be developed once the
+particular characteristics of the site have been established. This will determine the most important
+criteria for battery performance and create a level playing field for comparing different products.
+If we simply view the warranty information provided by manufacturers, the following becomes the only
+metric by which comparison can be carried out.
+Most batteries in the market today offer a warranty of up to 10 years. Within this 10-year period, some
+batteries offer warranties with 3650 cycles (one cycle per day), while other batteries have warranties
+of 8000 cycles or more (if used more than one cycle per day).
+It can be argued that batteries designed for high numbers of cycles could potentially last longer than
+the 10-year warranty period if cycled only once per day. In this case a battery warranted for 8000
+cycles will not have reached even half the designed number of cycles (3650 out of 8000).
+
+Battery degradation
+Battery degradation defines the useful life of a battery. A manufacturer will specify the warranted
+battery performance over a number of years and will include the details of battery degradation. For
+example, a battery may only be warranted to provide 80% of its nominal kilowatt hour capacity after
+three years, and 50% of nominal kilowatt hour capacity after five years.
+This degradation needs to be considered when evaluating performance and benefit of the battery
+storage systems that are being compared.
+
+i am your battery storage guide
+
+31
+
+
+
+=== ORIGINAL PDF PAGE 36 ===
+
+Photo: Shutterstock/OEH
+
+Types of batteries
+Key point
+Understanding the type of battery and how it may work within your business is an important
+aspect of the overall process for choosing a suitable battery storage solution for your site.
+
+There are four battery chemistries that are typically put forward by suppliers for the applications
+discussed in this guide.
+
+Which chemistry for which application?
+yy Any of the chemistries currently on offer are capable of providing appropriate performance in each
+application. However, some chemistries perform some functions more effectively than others.
+yy Your system design process needs to include an assessment of the unique characteristics of your
+site so you can identify and specify the chemistry which will provide the best performance.
+
+Which is best for your business?
+This guide alone can’t identify the best solution for your specific needs. Finding an appropriate
+solution for your site or project can only be achieved through an individualised and engineered
+design.
+
+32
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 37 ===
+
+Lead-acid and advanced lead-acid batteries
+Lead-acid batteries are the most established battery type in the industry (Figure 19).
+
+Chemistry
+A lead-acid battery consists of a positive cathode, a negative anode, and an electrolyte. In its charged
+state, a lead-acid battery has the potential for a chemical reaction between these three components.
+
+Figure 19: Lead-acid battery
+
+Connecting the battery into a circuit to power a load allows electrons to flow and the chemical
+reaction can occur. When the reaction is complete the two electrodes are the same material.
+The battery is re-charged by applying a voltage which forces the reaction to be reversed.
+
+Background
+Lead-acid batteries have been used extensively in uninterruptable power supplies (UPS) and other
+storage applications for decades.
+Because these batteries have been used for a long time there are formal Australian Standards for the
+installation of battery storage using this battery chemistry.
+
+Current Australian Standards for lead-acid batteries
+yy AS2676 – Installation and maintenance of batteries in buildings (1983)
+yy AS3011 – Secondary batteries installed in buildings (1992)
+yy AS4509 – Stand-alone power systems (2002)
+yy AS4086 – Secondary batteries for SPS
+yy AS4777 – Grid connection of energy systems via inverters (2005)
+yy AS62040 – Uninterruptable Power Systems (UPS) (2003)
+yy AS3000 – Electrical installations (AS/NZS Wiring Rules - 2007)
+
+i am your battery storage guide
+
+33
+
+
+
+=== ORIGINAL PDF PAGE 38 ===
+
+Characteristics
+Lead-sulfate can accumulate on the electrodes over time and can be difficult to remove. The battery
+cannot rapidly alternate between charging and discharging without affecting lifetime performance.
+This is a significant drawback for this battery type because the load profile of a business may require
+erratic charge and discharge.
+Advanced lead-acid batteries feature a large capacitor to mitigate this disadvantage. The capacitor
+performs the short-term charge and discharge duty while the lead-acid battery provides the energy
+storage capacity and longer term charge and discharge power.
+Lead-acid batteries have the ability to supply high current relative to their overall capacity and in
+comparison to other battery chemistries, generally are able to supply high power. This can make them
+more appropriate where the specific site characteristics call for a substantial amount of power over a
+short period of time without the need for a large storage capacity.
+There are well established Australian Standards, understood hazards and procedures to deal with fires,
+personal injury, etc. are in place with authorities. Recycling supply chains are generally well-established.
+There is usually no cost to dispose of the lead and rebates for recycling are sometimes available.
+Lead-acid batteries require stringent management of their state of charge, charging and discharging
+by a battery management system specific to the chemistry. Battery life can be significantly diminished
+by inappropriate management of these operating parameters. Furthermore, the expected battery life
+can be a trade-off to the desired usable storage capacity, i.e. choosing a greater depth of discharge
+range will result in fewer cycles as a component of operating life.
+Lead-acid batteries are heavier and larger than lithium-ion batteries per kilowatt hour, and this needs
+to be considered as part of their installation requirements. The potential risk of hydrogen emission and
+cell leakage means that ventilation and containment also need to be considered.
+
+Future outlook
+Lead-acid is likely to be overtaken by new types of battery technologies that are being rapidly
+improved and becoming more affordable and are marketed heavily.
+Advanced lead-acid batteries, which feature a large integrated capacitor, present an opportunity for
+this technology to remain competitive.
+
+Lithium-ion batteries
+Lithium technology development and the marketing of lithium-ion battery products has created great
+interest in energy storage. There is a rapidly growing suite of lithium-ion products available in the
+market.
+
+Chemistry
+A lithium-ion battery consists of a positive cathode that is a type of lithium-metal (figure 20). The exact
+material used can differ between different manufacturers and each has associated advantages and
+disadvantages. The variations available in commercial batteries include:
+Chemistry
+
+Lithium nickel manganese
+cobalt oxide
+
+Lithium iron phosphate
+
+Lithium manganese oxide
+
+Frequency
+
+Most common
+
+Alternative
+
+Least common
+
+Key
+characteristics
+
+Potential for thermal runaway,
+high energy density
+
+Stable and longer life, less
+energy density
+
+Stable, high power density,
+less energy density
+
+34
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 39 ===
+
+Lithium-ion batteries feature a negative anode of graphite carbon, and an electrolyte.
+In its charged state, a lithium-ion battery has electrical potential due to the accumulation of lithiumions at the anode.
+
+Figure 20: Lithium-ion battery
+
+Connecting the battery into a circuit to power a load allows electrons to flow and the positively
+charged ions can migrate to a lower potential in the lithium metal.
+The battery is re-charged by applying a voltage which forces lithium-ions to the anode.
+
+Background
+Lithium-ion batteries are rapidly improving in performance and price.
+Large automotive manufacturers developing electric vehicles, and the associated development and
+widespread marketing of lithium-ion batteries, have significantly increased the awareness and demand
+for battery storage.
+Since this type of battery has not yet been used extensively for stationary power storage, there are
+limited installation standards.
+
+Characteristics
+Lithium-ion batteries are able to operate at a lower state of charge compared to lead-acid batteries,
+however, completely discharging the battery can adversely affect its operating life.
+This chemistry also requires stringent battery management to ensure that the battery’s overall
+longevity is maintained. The relationship between useful operating life and operating conditions
+(including depth of discharge, rate of charge/discharge and temperature) varies significantly between
+manufacturers. In principle, lithium-ion batteries have characteristics better suited to high cycling
+applications than the other chemistries discussed in this guide. This statement is based on the
+information provided by manufacturers about their own products.
+Most lithium-ion batteries on the market are unable to deliver the same high power relative to their
+overall capacity as lead-acid. Where an application requires high power characteristics, a brand or
+model of lithium-ion battery may be available to meet that need but the documentation should be
+scrutinised.
+Lithium-ion batteries are lighter and smaller than the other technologies presented in this guide per
+kilowatt hour of storage. The risks associated with thermal runaway from short circuiting, incorrect
+i am your battery storage guide
+
+35
+
+
+
+=== ORIGINAL PDF PAGE 40 ===
+
+charging and discharging or puncture require specific installation considerations. Some lithium-ion
+batteries have particular temperature sensitivity and, depending on the site characteristics, this may
+also have implications for battery selection and management.
+At the time of publication, the existing Australian Standards do not cover the specific characteristics
+relevant to emerging technologies. However, standards are due to be published in relation to these
+technologies and their application.
+The methods for dealing with fire and other safety hazards are not clear at this time, however,
+there are best practice guides from industry bodies that address some of these issues (See Useful
+links). Recycling practices are not well established in Australia for this battery chemistry. Lithium-ion
+batteries present challenges in disposal because their salvage value is currently less than the cost of
+processing.
+
+Future outlook
+There are predictions that the prices of batteries, particularly lithium-ion batteries are set to fall
+dramatically over the next few years.
+Mass production of lithium batteries for electric vehicles is expected to increase production to a level
+that can create economies of scale to reduce production costs and drive global prices down.
+
+Flow batteries
+Flow batteries are an alternative battery type in the industry (Figure 21).
+
+Chemistry
+Flow batteries consist of two large separate tanks containing a liquid electrolyte. The battery operates
+by pumping the two separate electrolytes through a cell to allow ion transfer between the two liquids.
+A membrane prevents the two liquids from mixing.
+The two most common types of flow batteries are similar in design but use different electrolytes:
+yy zinc bromide flow batteries
+yy vanadium redox flow batteries.
+
+Figure 21: Flow battery
+
+36
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 41 ===
+
+Background
+There are relatively few flow battery manufacturers. An Australian manufacturer has developed a flow
+battery which features a zinc bromide chemistry.
+A different type of flow battery, using a vanadium redox chemistry was developed in Australia in the
+1980s. It has recently become available commercially as batteries have become more desirable to
+consumers.
+
+Characteristics
+Flow batteries have a 100% usable depth of discharge range, which means their operating life is not
+adversely affected if the battery is completely discharged. The chemicals used in flow batteries are
+able to be processed to recycle the liquid for re-use. The liquids used are inherently more stable than
+lead-acid and lithium batteries and the chemicals themselves do not present a fire hazard.
+Since the storage medium is a liquid, the storage capacity can simply be increased by increasing the
+tank volume. Liquid storage has the potential risk of chemical leakage and due consideration should
+be given to containment, either included as part of the battery itself, or as an additional component of
+installation.
+Flow batteries are limited in the amount of current supplied relative to their overall capacity, and in
+comparison to lead-acid batteries will supply less power. Flow batteries have characteristics well
+suited to high cycling applications compared to lead-acid and are comparable to some lithiumion batteries. This statement is based on information provided by manufacturers about their own
+products.
+At the time of publication, the existing Australian Standards do not cover the specific characteristics
+relevant to emerging technologies including flow batteries. However, standards are due to be
+published in relation to these technologies and their application.
+
+Future outlook
+The commercial efforts of local manufacturers in developing and marketing zinc bromide flow
+batteries for home and business storage has created demand for this technology in Australia.
+This technology is in relatively early stages of development compared to other battery technologies.
+Improvements in storage capacity, power delivery and cost of manufacturing may occur in the future.
+
+Salt-water batteries
+Salt-water batteries (also known as sodium-ion batteries) are an alternative battery type in the
+industry.
+
+Chemistry
+Salt-water batteries are very similar to lithium-ion batteries because sodium shares many properties
+with lithium (Figure 22). Both are metals and can join the structure of graphite in a process called
+intercalation.
+An electric charge forces sodium-ions to intercalate into a battery’s anode and creates a potential.
+
+i am your battery storage guide
+
+37
+
+
+
+=== ORIGINAL PDF PAGE 42 ===
+
+Figure 22: Salt-water battery
+
+Connecting the battery into a circuit to power a load allows electrons to flow and the positively
+charged ions can migrate to a lower potential in the cathode.
+
+Background
+The salt-water battery was invented in 2008 and has only been in commercial production for a few
+years. Since then it has seen applications in both home storage and large grid-scale batteries.
+
+Characteristics
+Salt-water batteries are limited in the amount of current supplied relative to their overall capacity and
+in comparison to lead-acid batteries will supply less power. Salt-water batteries have a 100% usable
+depth of discharge range, which means their operating life is not adversely affected if the battery is
+completely discharged.
+The materials used are inherently more stable than lead-acid and lithium batteries and the chemicals
+themselves do not present a fire hazard. The chemicals within these batteries are highly recyclable
+and non-toxic.
+Salt-water batteries are heavier and larger than the other technologies per kilowatt hour, including
+lead-acid, and this should be considered as part of their installation requirements. The potential risk of
+hydrogen emission means that ventilation also needs to be considered.
+At the time of publication, the existing Australian Standards do not cover the specific characteristics
+relevant to emerging technologies, including salt-water batteries. However, standards are due to be
+published in relation to these technologies and their application.
+
+Future outlook
+The development and marketing of a salt-water battery for home and business storage has created
+demand for the technology in Australia, as it’s made from highly abundant materials and is easily
+recycled.
+This makes salt-water batteries an appealing alternative provided that key performance criteria for
+specific projects can be met.
+Salt-water battery chemistry is relatively new, but it has the potential to improve in performance
+significantly.
+
+38
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 43 ===
+
+Photo: iStock/OEH
+
+Part 2: Buyer’s toolkit
+yy Gathering information
+yy Assessing feasibility
+yy Buyer’s checklists and template
+
+i am your battery storage guide
+
+39
+
+
+
+=== ORIGINAL PDF PAGE 44 ===
+
+Gathering information
+Key point
+Developing a system for gathering and documenting information about your site will help you to
+communicate your requirements to potential suppliers/installers.
+
+Step 1: Understanding your energy use and needs
+The best place for a business to start when considering battery storage is to understand how and
+when it uses energy, and to think about what changes it would like to make. Table 2 sets out key
+considerations in regard to energy use and objectives. You could use this as a starting point to help
+define your energy objectives and the scope of a battery storage system for your business.
+Table 2: Energy objectives
+Key considerations
+
+Example responses
+
+Motivation
+
+What is your reason for
+considering battery storage?
+
+yy Reducing electricity bills
+yy Shift consumption to renewables
+yy Need more power than the grid can supply
+
+Current
+energy use
+
+How much energy does your site
+consume? (e.g. in kWh/year)
+
+yy Financial year 2015/2016 the site used on average 500
+
+Current
+power use
+
+What is your site’s demand
+profile? (i.e. its maximum
+demand in kVA or kW)
+
+yy The kVA charges for the past 12 months are based on
+
+Future view
+
+Any changes that may
+increase or decrease electricity
+consumption in the future?
+
+yy Future usage is expected to be similar to current usage
+yy Future usage is expected to be 20% more than current
+
+Seasonal
+variation
+
+Does your business observe
+large changes in power usage
+depending on the time of year?
+
+yy The business pumps water only in summer
+yy The business has a high heating load in winter
+
+Load balance
+
+What is your site load/energy
+balance (i.e. the percentages
+used by different systems)?
+
+yy HVAC represents 50% of our energy use
+yy There are significant 24/7 lighting loads
+yy Electric forklift charging once per day
+
+Aspirations
+
+Is there a business objective
+to source a proportion of this
+energy from renewables?
+
+yy We want 50% of the energy we use to be generated on
+
+40
+
+kWh per day (183,000 kWh per year)
+
+80kVA
+
+usage
+
+site by renewables
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 45 ===
+
+Step 2: Choosing a battery storage application
+You may already have an idea about the type of battery storage system you need, and the scope
+of the system’s design. The decision tree in Figure 23 can be used to help you investigate the best
+application of battery storage for your business.
+For more information see Business applications for battery storage.
+
+Figure 23: Battery storage application – decision tree
+
+i am your battery storage guide
+
+41
+
+
+
+=== ORIGINAL PDF PAGE 46 ===
+
+Step 3: Analysing your energy consumption data
+Tip
+Consider at least 12 months’ worth of electricity consumption data, preferably 24 months.
+
+Detailed energy usage information is vital for deciding how battery storage can be applied to your site.
+You will need to obtain an accurate picture of how you use electricity either through monitoring or by
+asking your electricity retailer, or both.
+Ask your electricity retailer for 15 or 30-minute interval electricity consumption data, if available, for
+each electricity meter installed on site. You will need to provide the National Meter Identifier (NMI) for
+each meter when you ask the retailer for electricity consumption data.
+Once you have obtained your usage information you may be able to identify what opportunities or
+constraints for battery storage may apply to your site. Table 3 lists some factors to consider when
+analysing your usage data. You should address each focus area and list your high-level findings.
+Table 3: High-level energy data analysis considerations
+Focus
+area
+
+Key considerations
+
+Example findings
+
+Daily
+variation
+
+Is usage mainly daytime or at
+night?
+
+yy Daytime usage is much higher than night time.
+yy There is a 5kW base load at all times
+
+Weekly
+variation
+
+Is usage constant or does it
+vary significantly from day to
+day?
+
+yy The highest power usage of the week is always on Saturday
+
+Seasonal
+variation
+
+Is there much fluctuation in
+winter and summer?
+
+yy The usage in winter is much greater than other times of the
+
+Peak
+demand
+charges
+
+What days, months and
+hourly periods represent your
+highest energy demand?
+
+yy The highest annual peaks usually occur in June/July
+
+Solar
+generation
+
+Is there on-site solar power
+generated and not selfconsumed?
+
+yy All solar power is self-consumed
+yy The gross feed-in scheme means all solar power is exported
+
+42
+
+night
+
+yy Energy usage is constant 24/7
+year because of winter heating
+
+between 6–8pm up to 100kW
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 47 ===
+
+Step 4: Understanding your tariffs
+Once you have an idea of your business energy usage, you need to understand how your business is
+charged for electricity:
+yy How much energy is used per year?
+yy How much does your electricity cost (i.e. in $/kWh and $/kVA or kW)?
+yy Does the business pay peak demand charges? If so how much?
+yy Does the business pay based on the time of use of energy?
+yy How much is paid per kWh in each time period?
+You can use the tables provided here as templates to help identify the important elements of your
+tariff structure.
+Although your bill may consist of both energy usage charges and network charges, these need to be
+separated to understand how your business could use battery storage.
+In the previous step, you analysed the different opportunities or constraints for battery storage that
+may apply to your site due to your energy usage. Table 4 is a template for a more detailed analysis
+that will help quantify this usage and should match your bill.
+Use this table to document your energy and power information and identify how much energy storage
+capacity you may require to meet your objectives. Product and service providers typically need this
+information to be able to provide an accurate proposal.
+
+Alternative tariffs
+Some businesses are on a flat rate or block tariff that does not vary based on the time of use.
+If you are on this tariff, simply fill in the ‘Total consumed’ column only. Note: tariff optimisation
+using off-peak electricity cannot be achieved on this tariff.
+Some businesses do not pay capacity charges. If you are on a tariff without capacity charges,
+simply leave this column blank. Note: Peak shaving cannot be achieved by businesses that
+don’t pay capacity charges.
+
+i am your battery storage guide
+
+43
+
+
+
+=== ORIGINAL PDF PAGE 48 ===
+
+Table 4: Energy consumption summary
+Month
+
+Peak quantity
+(kWh)
+
+Shoulder
+quantity (kWh)
+
+Off-peak
+quantity (kWh)
+
+Total consumed
+(kWh)
+
+Capacity
+charges (kVA)
+
+January
+February
+March
+April
+May
+June
+July
+August
+September
+October
+November
+December
+Total
+Note: kWh = kilowatt hours.
+
+Figure 24 shows a typical electricity bill, and where you can find this usage information.
+
+Quantity of electricity
+consumed in kWh.
+
+Quantity of power
+capacity in kVA
+
+Figure 24: Typical electricity bill
+44
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 49 ===
+
+You will also need to know when the peak, shoulder, and off-peak periods occur. This will be in the
+contract or the terms and conditions document from your electricity retailer. Table 5 is a template that
+can be used to identify the important timing elements of your tariff.
+Table 5: Tariff period information
+Item
+
+Example information
+
+Time of peak periods
+
+Weekdays 7am–9am and 5pm–8pm
+
+Time of shoulder periods
+
+Weekdays 9am–5pm
+
+Time of off-peak periods
+
+All other times
+
+Number of peak periods in a week
+
+10
+
+Reading your bill correctly
+It’s important to add all components of your bill that contribute to the cost of energy per
+kilowatt hour.
+Use Table 6 to add up all of the components that contribute to the cost per kilowatt hour for each
+tariff period.
+The rate paid for energy in each period is critical for calculating potential savings.
+Table 6: Tariff rate information
+Item
+
+Energy charges
+($/kWh)
+
+Network charges
+($/kWh)
+
+Other charges
+($/kWh)
+
+Peak
+
+A
+
+D
+
+X
+
+Shoulder
+
+B
+
+E
+
+X
+
+Off-peak
+
+C
+
+F
+
+X
+
+Total rate
+($/kWh)
+
+Note: kWh = kilowatt hours.
+
+Figure 25 shows a typical electricity bill, and where you can find this usage information.
+You also need to know how much you pay for capacity charges per month:
+Table 7: Capacity rate information
+Item
+
+Capacity charges ($/kVA/month)
+
+Capacity charge
+
+Y
+
+i am your battery storage guide
+
+45
+
+
+
+=== ORIGINAL PDF PAGE 50 ===
+
+B
+
+E
+Y
+
+A
+C
+D
+F
+
+X
+
+Figure 25: Typical electricity bill
+
+At the completion of this step you should have the following information:
+yy a list of business objectives
+yy a battery storage application category
+yy a high-level analysis of your energy usage data
+yy a detailed summary of your energy consumption
+yy a list of the tariff periods that apply to your business
+yy a list of the tariff rates that you pay for energy.
+
+46
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 51 ===
+
+Photo: TransGrid/OEH
+
+Assessing feasibility
+Key points
+Using the tools in this guide and the Battery storage for business: investment decision tool
+you can develop a high-level business case for battery storage based on your specific site
+conditions.
+A detailed analysis of your needs should be carried out by a suitably qualified engineer before
+you make an approach to suppliers or installers.
+
+Battery storage for business: investment decision tool
+The companion tool for this guide is the OEH Battery storage for business: investment decision
+tool. This tool can be used by grid-connected businesses that are considering tariff optimisation or
+reducing capacity charges (peak shaving). It helps to identify the expected payback periods for these
+battery storage applications.
+
+Tips
+yy The investment decision tool is used to identify showstoppers and potential payback periods.
+It does not assist in sizing a battery storage system.
+yy The investment decision tool does not address off-grid or back-up power solutions. These will
+require detailed analysis by a suitably qualified engineer.
+
+You may download the tool and use it to assess the feasibility of battery storage applications.
+www.environment.nsw.gov.au/business/battery-storage.htm (See Useful links section)
+
+i am your battery storage guide
+
+47
+
+
+
+=== ORIGINAL PDF PAGE 52 ===
+
+Feasibility considerations
+Table 8 lists items for consideration that may be obstacles for battery storage.
+Table 8: Key battery storage project showstoppers
+Focus area
+
+Key considerations
+
+Payback
+expectations
+
+yy Be aware that battery storage rarely pays back in less than 10 years
+(as at November 2016)
+
+yy Battery storage systems have a long lifetime and the returns on investment occur over
+this longer term. The expected payback period may be longer than the warranty period.
+
+yy Any electricity price increases in the future will impact payback calculations.
+Business
+objectives
+
+yy Be aware that businesses that have aspirations other than purely financial return are
+more likely to identify batteries as feasible.
+
+yy Goals such as increasing renewable energy use and improving the reliability of power
+may reduce the focus purely on payback.
+Budget
+constraints
+
+yy Be aware that batteries and associated electronics are initially capital intensive and
+provide benefits over a long lifetime.
+
+yy Will your business be able to afford the upfront cost or will you require finance?
+Physical
+constraints
+
+yy A secure fire-rated battery room or enclosure is best practice or mandatory in some
+cases for installing battery storage.
+
+yy Do you have space and permission to construct this room or enclosure?
+yy If solar PV is also under consideration you will require sufficient suitable roof space in
+terms of direct sunlight, orientation and structural integrity.
+Electrical
+services
+constraints
+
+yy A battery storage system will need to integrate with your existing electrical infrastructure.
+yy Leased buildings may prohibit substantial changes to electrical infrastructure.
+yy Do you have permission to modify your electrical infrastructure?
+
+Regulatory
+constraints
+
+yy The Building Code of Australia (BCA) as part of the National Construction Code (NCC)
+and various Australian Standards will need to be complied with.
+
+yy The electricity network provider will need to be consulted for any grid-connected battery
+storage system and will most likely stipulate any requirements specific to your site.
+
+Understanding costs versus savings
+Use the following steps to calculate the potential savings from battery storage:
+1. Identify the business objective.
+2. If your objective has a financial component you need to quantify the possible savings.
+3. Quantify these savings per year and multiply this by what you consider the minimum number of
+years for simple payback.
+4. For the system to be feasible, the total installed cost and forecast maintenance costs must be less
+than this amount.
+
+48
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 53 ===
+
+Tip
+Understand what your business is prepared to accept in terms of payback duration. Consider
+focusing on the lifetime benefit of batteries rather than the short-term payback.
+
+The following examples provide detailed steps on how to calculate the potential savings from the two
+most common applications of battery storage for businesses.
+
+Calculating the potential savings from time-of-use optimisation
+1. Identify the difference between the high price of energy and the low price of energy per kWh.
+2. Calculate the difference between these two values to find the maximum saving per storage cycle
+per kWh.
+3. Identify the number of times the battery can be cycled in a week.
+4. Calculate the total number of cycles that will occur in a year.
+5. Multiply this number by the rate difference found in Step 2 to find yearly savings per kWh.
+6. Compare this value to the average cost per kWh to purchase a system.
+
+Working example:
+Calculating the potential savings from time-of-use optimisation
+The site owner estimated that batteries could save the business $101 every year per kWh of
+storage installed using the following calculations:
+Step 1
+
+Peak tariff rate
+
+$0.26/kWh
+
+Off-peak tariff rate
+
+$0.07/kWh
+
+Solar feed-in rate
+
+$0.06/kWh
+
+Savings per cycle per kWh (off-peak)
+
+$0.19/kWh
+
+Savings per cycle per kWh (solar)
+
+$0.20/kWh
+
+Peak period 7–9am, 5–8pm weekdays
+
+2 peaks per day
+
+Charge off-peak/discharge peak cycles
+
+5 cycles per week
+
+Charge from solar/discharge peak cycles
+
+5 cycles per week
+
+Step 4
+
+Cycles per year
+
+520 cycles
+
+Step 5
+
+Savings per year per kWh (off peak)
+
+$49
+
+Savings per year per kWh (solar)
+
+$52
+
+Savings per year total
+
+$101
+
+Step 2
+
+Step 3
+
+Note: kWh = kilowatt hours.
+
+i am your battery storage guide
+
+49
+
+
+
+=== ORIGINAL PDF PAGE 54 ===
+
+This business decided the longest duration it is willing to accept for simple payback is 10 years.
+The business identified a number of batteries in the market with a warranty of 8000 cycles, (or
+10 years, whichever comes first). Since the battery will be cycled an estimated 5200 times over
+10 years, it is possible the battery’s usable life will exceed the warranty by 5 years.
+Based on this calculation a 50% return on investment is possible.
+Step 6
+
+Maximum payback duration
+
+10 years
+
+Savings per year
+
+$101/kWh
+
+Maximum price for system
+
+$1010/kWh
+
+Assumed lifetime (cycles)
+
+7800
+
+Assumed lifetime (years)
+
+15 years
+
+Total expected benefits
+
+$1515/kWh
+
+Net expected benefits
+
+$505
+
+Return on investment
+
+50%
+
+Tip
+This method is a simple payback method. Your business may require different financial
+metrics such as return on investment to evaluate feasibility.
+
+Calculating the potential savings from reducing capacity charges
+1. Identify the maximum expected peak in kVA.
+2. Identify the rate paid in terms of $/kVA.
+3. Compare this peak to other periods of usage.
+4. Referring to usage interval data, identify a threshold value which is rarely reached and will be the
+point at which batteries will begin to supply power.
+5. Calculate the difference between the peak value and the threshold value.
+6. Multiply this number by the rate difference found in Step 2 to find yearly savings if the peak is
+reduced to the threshold value.
+7. Calculate the amount of energy consumed above this threshold to estimate the battery size.
+
+What if tariffs change in the future?
+These calculations assume constant electricity tariff price and conditions for many years.
+Although electricity price rises may increase the savings of battery storage, price falls or tariff
+restructuring with higher fixed-charge components may reduce the expected returns.
+Be aware of the risk that if the tariff rules change significantly in the future, some strategies for
+battery storage may become ineffective.
+
+50
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 55 ===
+
+Working example: Calculating the potential savings from peak shaving
+The site owner estimated that batteries could save the business $18,000 every year per kWh of
+storage installed using the following calculations:
+Peak capacity charge
+
+1620 kVA
+
+Rate per kVA per month
+
+$12.50
+
+Threshold value
+
+1500 kVA
+
+Difference in peak and threshold
+
+120 kVA
+
+Savings per year
+
+$18,000
+
+Length of peak
+
+1.5 hours
+
+Energy needed to be supplied by battery
+
+180 kWh
+
+This business decided the longest duration it is willing to accept for simple payback is 10 years.
+The business identified a number of batteries in the market with a warranty of 3650 cycles,
+or 10 years, whichever comes first. The business estimated it will need the battery to lop
+approximately 50 peaks per year, mainly in winter. It estimated the battery will last a long time
+past the warranty since the number of cycles will be small, but decided 15 years is a reasonable
+estimate.
+It therefore estimated it can realise a 50% return on investment.
+Maximum payback duration
+
+10 years
+
+Savings per year
+
+$18,000
+
+Maximum price for system
+
+$180,000
+
+Minimum usable battery capacity at end of life
+
+180 kWh
+
+Maximum price for system
+
+$1000/kWh
+
+Minimum lifetime
+
+15 years
+
+Total expected benefits
+
+$270,000
+
+Net expected benefits
+
+$90,000
+
+Return on investment
+
+50%
+
+Tip
+This method is a simple payback method. Your business may require different financial
+metrics to evaluate feasibility.
+
+i am your battery storage guide
+
+51
+
+
+
+=== ORIGINAL PDF PAGE 56 ===
+
+Photo: C. Harding/OEH
+
+Buyer’s checklists and template
+Key point
+Asking suppliers/installers the right questions is the most effective way of ensuring your needs
+will be properly met.
+
+Battery storage for business: price estimate template
+The companion template for this guide is the OEH Battery storage for business: price estimate
+template. This template and the following checklists can help you define the scope of your project.
+Including what you need to ask for to obtain a design and quote for the supply and installation of a
+battery storage system from potential suppliers. We recommend you attend the OEH Battery storage
+for business training course as this will give you the opportunity to go through the template step by
+step with a technical expert. Visit the OEH webpage for more information (see Useful links).
+Consider the following checklist items as part of your procurement process. Not all of these elements
+will be required but the more information you can provide about your requirements, the better the
+response will be from the market.
+
+52
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 57 ===
+
+Table 9: Lifetime and warranty checklist
+Focus area
+
+Key considerations
+
+Battery chemistry
+
+Do you have a preference for a particular battery chemistry?
+
+Operating voltage
+
+Do you have a preference for a particular battery operating voltage?
+
+Energy capacity
+
+Do you know how much storage capacity you need (kWh)?
+
+Power capacity
+
+Do you know the minimum amount of power output you need (kWp)?
+
+Degradation
+
+Do you know how much degradation you can accept over time?
+
+System warranty
+
+Do you know how long you require the total system to be warranted for?
+
+Battery warranty
+
+Do you know how long you require the battery to be warranted in years?
+
+Battery warranty
+
+Do you know how many cycles you require the battery to be warranted for?
+
+Lifetime expectation
+
+Other than warranty, how long do you want the system to last in years?
+
+Lifetime expectation
+
+Other than warranty, how many cycles do you want the system to deliver?
+
+Operating temperature
+
+Do you have maximum operating temperature conditions?
+
+Storage temperature
+
+Do you have maximum storage temperature conditions?
+
+Table 10: Battery inverter checklist
+Focus area
+
+Key considerations
+
+Power capacity
+
+Do you know the minimum amount of power output you need (kWp)?
+
+Product warranty
+
+Do you know how long you require the inverter to be warranted in years?
+
+Operating temperature
+
+Do you have maximum operating temperature conditions?
+
+Zero export conditions
+
+Do you require the inverter to limit power export to the grid?
+
+Grid charging
+
+Do you require the inverter to charge batteries from the grid?
+
+Programmable control
+
+Do you require the inverter to charge/discharge based on specific criteria?
+
+Peak demand trigger
+
+Do you require the inverter to deliver peak shaving functionality?
+
+i am your battery storage guide
+
+53
+
+
+
+=== ORIGINAL PDF PAGE 58 ===
+
+Table 11: Solar photovoltaic checklist
+Focus area
+
+Key considerations
+
+Solar capacity
+
+Do you know the amount of solar power capacity you need (kW)?
+
+Watts/panel
+
+Do you require high efficiency panels to save space?
+
+Degradation
+
+Do you know how much degradation you can accept over time?
+
+System warranty
+
+Do you know how long you require the total system to be warranted for?
+
+Performance warranty
+
+Do you know what level of performance warranty you require?
+
+Table 12: Solar inverter checklist
+Focus area
+
+Key considerations
+
+Power capacity
+
+Do you know the minimum amount of power you need (kWp)?
+
+Product warranty
+
+Do you know how long you require the inverter to be warranted in years?
+
+Operating temperature
+
+Do you have maximum operating temperature conditions?
+
+Zero export conditions
+
+Do you require the inverter to limit power export to the grid?
+
+Table 13: Documentation checklist
+Focus area
+
+Key considerations
+
+Standards compliance
+
+Have you nominated standards to which the system must comply?
+
+Data sheets
+
+Have you requested technical data sheets for all system components?
+
+System control
+
+Have you requested confirmation that the proposed battery inverter/
+management system will communicate with the solar inverter?
+
+Battery management
+system
+
+Have you requested confirmation that the proposed inverters are approved
+for the battery technology/management system?
+
+Warranty statements
+
+Have you requested warranty statements for all system components?
+
+Warranty conditions
+
+Have you nominated an installation warranty period?
+
+Warranty conditions
+
+Have you specified the conditions for replacing failed equipment?
+
+References
+
+Have you asked the installer to provide relevant references?
+
+Exclusions/ inclusions
+
+Have you specified any other desired inclusions or exclusions?
+
+54
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 59 ===
+
+Glossary
+Alternating Current (AC)
+
+An electric current, where the flow of electric charge periodically
+reverses direction.
+
+Ampere hour (Ah)
+
+A unit of energy capacity equal to one amp continuously supplied
+for one hour at the battery’s nominal voltage.
+
+Battery
+
+A device that stores and releases energy.
+
+Battery capacity
+
+The total energy that can be stored in a battery.
+Unit: kilowatt hours (kWh)
+
+Battery life (cycles)
+
+The number of cycles that can be expected before the battery can
+no longer effectively store energy. Unit: number of cycles
+
+Battery Management System
+
+An electronic control system that monitors and controls the charging
+and discharging of the battery
+
+Battery storage
+
+The reversible conversion of electrical energy into chemical potential
+energy for later use.
+
+Battery system
+
+A complete system of components needed to operate batteries,
+including inverters, BMS, circuit protection, etc
+
+Battery warranted capacity
+
+The remaining usable capacity a manufacturer guarantees after a
+certain number of cycles. Unit: kilowatt hours (kWh)
+
+Battery warranted life
+
+The number of cycles a manufacturer guarantees or fixed number of
+years. Unit: number of cycles or years, whichever comes first.
+
+Capacity charge
+
+Rate paid for the maximum power provided to a business in a
+period regardless of other usage. Unit: $/kVA
+
+Charge
+
+The process of creating chemical potential energy using electrical
+energy.
+
+Cycle
+
+The process of completely charging and discharging a battery in its
+usable range.
+
+Direct Current (DC)
+
+An electric current, where the flow of electric charge is only in one
+direction.
+
+Depth of discharge (DoD)
+
+The proportion of the battery that has been discharged.
+Unit: % of total capacity
+
+Discharge
+
+The process of releasing chemical potential by allowing the flow of
+electrical energy.
+
+Dollars/kilowatt hour ($/kWh)
+
+Rate paid for energy.
+
+Energy
+
+The ability to do work. A battery stores and releases an amount of
+energy. Unit: kilowatt hours (kWh)
+
+i am your battery storage guide
+
+55
+
+
+
+=== ORIGINAL PDF PAGE 60 ===
+
+Flow battery
+
+Battery chemistry that features two tanks of electrolyte separated by
+a membrane to facilitate ion transfer.
+
+Inverter
+
+An electronic device that converts DC power to AC power.
+Colloquially an inverter refers to a device which includes the inverter
+itself and multiple other components including a rectifier and
+(sometimes) a BMS.
+
+Kilowatt (kW)
+
+The rate of doing work equal to 1000 joules per second.
+
+Kilowatt peak (kWp)
+
+The maximum amount of power that can be supplied by a system.
+
+Kilowatt hour (kWh)
+
+A unit of energy equal to the amount of work one kilowatt does in
+one hour.
+
+Lead-acid battery
+
+Battery chemistry that features lead, lead-dioxide and sulfuric acid
+to form an electrical potential.
+
+Levelised cost of energy
+($/kWh)
+
+The average cost of energy calculated by dividing the total system
+cost by the lifetime energy output.
+
+Lithium-ion battery
+
+Battery chemistry that features the intercalation of lithium-ions on
+graphite to form an electrical potential.
+
+Off-peak tariff
+
+The rate paid for energy usage in off-peak time periods. Unit: $/kWh
+
+Peak tariff
+
+The rate paid for energy usage in peak time periods. Unit: $/kWh
+
+Peak lopping or shaving
+
+When a battery system supplies electrical energy after total usage
+approaches a maximum threshold.
+
+Power
+
+The rate of doing work. Power is also the rate at which a battery
+releases (or stores) energy. Unit: kilowatts (kW)
+
+Rated power
+
+The maximum allowable power that can be continually supplied by
+a system.
+
+Rectifier
+
+An electronic device that converts AC power to DC power. In the
+context of battery storage this device is usually integrated into the
+inverter.
+
+Salt-water battery
+
+Battery chemistry that features the intercalation of sodium-ions on
+graphite to form an electrical potential.
+
+State of charge (SOC)
+
+The proportion of the battery charge remaining.
+Unit: % of total capacity.
+
+Thermal runaway
+
+An uncontrolled reaction where an increase in temperature (usually
+through over or under charging) causes further increases in
+temperature, which may ultimately lead to destruction of the battery.
+
+Usable battery capacity
+
+The recommended amount of energy that can be discharged
+without adversely deteriorating the battery.
+Unit: kilowatt hours (kWh).
+
+56
+
+Office of Environment and Heritage
+
+
+
+=== ORIGINAL PDF PAGE 61 ===
+
+Useful links
+Office of Environment and Heritage – Battery storage for business training course
+http://www.environment.nsw.gov.au/business/battery-storage-training.htm
+Office of Environment and Heritage – Battery storage for business resources (Price estimate template
+and investment decision tool)
+http://www.environment.nsw.gov.au/business/battery-storage.htm
+Australian Energy Storage Council
+https://www.energystorage.org.au/
+Australian Energy Storage Council – The Australian battery guide
+https://www.energystorage.org.au/the-australian-battery-guide/
+Clean Energy Council
+https://www.cleanenergycouncil.org.au/technologies/energy-storage.html
+Clean Energy Council – battery storage installation guidelines
+http://www.solaraccreditation.com.au/installers/becoming-accredited/battery-storage-endorsement.
+html
+Clean Energy Council – Installer accreditation guidelines
+https://www.solaraccreditation.com.au/installers/compliance-and-standards/accreditation-guidelines.
+html
+Clean Energy Council - Battery storage safety
+http://fpdi.cleanenergycouncil.org.au/reports/storage-safety-study.html
+
+i am your battery storage guide
+
+57
+

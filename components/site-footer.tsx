@@ -12,11 +12,13 @@ import styles from "./site-footer.module.css";
 
 export function SiteFooter({
   caribbean = false,
-}: { caribbean?: boolean } = {}) {
+  variant = "default",
+}: { caribbean?: boolean; variant?: "default" | "form" } = {}) {
   const { country: selectedCountry, choose } = useSiteRegion();
   const country = caribbean ? null : selectedCountry;
+  const compact = variant === "form";
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer}${compact ? ` ${styles.compact}` : ""}`}>
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.identity}>
@@ -29,7 +31,7 @@ export function SiteFooter({
               <BrandMark />
               Sol<span>&</span>Tide <small>Energy</small>
             </Link>
-            <p className={styles.description}>
+            {!compact && <p className={styles.description}>
               Solar and battery storage for Caribbean homes.
               {country && (
                 <>
@@ -39,7 +41,7 @@ export function SiteFooter({
                     : "Serving homes in Antigua."}
                 </>
               )}
-            </p>
+            </p>}
             <div className={styles.contactArea}>
               {caribbean ? (
                 <div className={styles.countryLinks}>
@@ -55,18 +57,20 @@ export function SiteFooter({
                   <RegionSwitcher
                     variant="text"
                     className={styles.locationSelector}
+                    preserveAssessment={compact}
                   />
                   <address className={styles.contacts}>
                     <RegionalSupportLink />
                   </address>
                 </>
               )}
-              <SocialIcons />
+              <SocialIcons compact={compact} />
             </div>
           </div>
           <div className={styles.middle}>
-            <h2 className={styles.sectionTitle}>Explore</h2>
+            {!compact && <h2 className={styles.sectionTitle}>Explore</h2>}
             <nav className={styles.links} aria-label="Footer navigation">
+              {!compact && <>
               {caribbean ? (
                 <button type="button" onClick={() => choose("how-it-works")} aria-haspopup="dialog">
                   How it works
@@ -115,13 +119,14 @@ export function SiteFooter({
                   Contact us
                 </Link>
               )}
+              </>}
               <PrivacyLink />
             </nav>
             <div className={styles.settings}>
               <HomePrivacyNotice />
             </div>
           </div>
-          <div className={styles.invitation}>
+          {!compact && <div className={styles.invitation}>
             <h2>
               Ready for your <br />
               next step?
@@ -144,17 +149,17 @@ export function SiteFooter({
                 Get Your Free Assessment
               </Link>
             )}
-          </div>
+          </div>}
         </div>
         <div className={styles.bottom}>
           <p className={styles.copyright}>
             © {new Date().getFullYear()} Sol &amp; Tide Energy. All rights
             reserved.
           </p>
-          <span className={styles.signature}>
+          {!compact && <span className={styles.signature}>
             <Link href="/" prefetch={false}>Solortide</Link>
             {" — solar & storage built around your home."}
-          </span>
+          </span>}
         </div>
       </div>
     </footer>

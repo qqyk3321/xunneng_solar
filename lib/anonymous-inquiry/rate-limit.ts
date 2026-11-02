@@ -49,7 +49,7 @@ export function contactUpstashEnabled(
 
 export async function checkContactLimit(
   request: Request,
-  scope: "contact" | "wishlist" = "contact",
+  scope: "contact" | "wishlist" | "consultation" | "consultation-edit" | "consultation-recovery" = "contact",
 ) {
   // This switch only controls Redis-backed limits, not other request validation.
   if (!contactUpstashEnabled()) return;
@@ -77,7 +77,7 @@ export async function checkContactLimit(
       source: new Ratelimit({
         ...options,
         prefix: `${prefix}:source`,
-        limiter: Ratelimit.slidingWindow(5, "10 m"),
+        limiter: Ratelimit.slidingWindow(scope === "consultation-edit" ? 30 : 5, "10 m"),
       }),
       total: new Ratelimit({
         ...options,

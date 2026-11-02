@@ -1,0 +1,282 @@
+SOL & TIDE CUSTOMER EDUCATION — HOME BATTERIES AND HYBRID ENERGY
+Version: 1.2 | Prepared: 17 October 2026
+Scope: General homeowner education about residential battery storage and coordinated solar, battery and grid operation. A generic capability is not proof that a quoted product supports it. Use approved company information for services and obtain model-specific engineering confirmation for implementation.
+References B01–B23 identify the source register at the end of this file.
+
+STORAGE, POWER AND ENERGY
+
+BAT01
+Q: What is a home battery energy storage system, or BESS?
+A: It stores electrical energy for later use, with battery cells, management and compatible power-conversion equipment. It can help move solar energy from daytime to evening or support backup when designed for that purpose. A storage system needs an energy source to recharge; it does not create electricity.
+Reference: B01
+
+BAT02
+Q: Does a home battery require solar panels?
+A: Not always. Some systems can charge from the grid without solar, if the equipment, settings and local arrangements allow it. A battery-only system still needs electricity to recharge. Whether this is a useful or available option for a particular project must be confirmed with the team.
+Reference: B02
+
+BAT03
+Q: What is the difference between battery capacity in kWh and power in kW?
+A: kWh describes stored energy; kW describes the rate of charging or discharging. Energy capacity affects how long a load may be supported, while power limits affect which loads can operate together. A high-capacity battery does not necessarily have high output power.
+Reference: B03
+
+BAT04
+Q: What are nominal capacity and usable capacity?
+A: Nominal capacity describes the battery's stated total energy capacity. Usable capacity is the amount made available under its operating limits. The difference depends on the product and settings. Check which figure a quotation uses before comparing batteries or estimating runtime.
+Reference: B04
+
+BAT05
+Q: What does SOC mean?
+A: State of charge, or SOC, estimates how full a battery is relative to its reference capacity, usually as a percentage. It is different from its power limit and long-term health. A displayed percentage alone does not tell you how many hours your household can run.
+Reference: B03
+
+BAT06
+Q: What is depth of discharge, or DoD?
+A: DoD describes how much battery capacity has been discharged relative to a reference full capacity. Deeper discharge uses more of the stored energy. Allowable operating ranges depend on the product; a generic DoD definition is not permission to change protection settings or fully empty a battery.
+Reference: B03
+
+BAT07
+Q: What is state of health, or SOH? Is it the same as SOC?
+A: SOC concerns the current charge level; SOH concerns the battery's condition relative to a reference new state. A battery can report full charge while holding less energy than when new. Health and available performance depend on the product's measurement method and operating history.
+Reference: B05
+
+BAT08
+Q: What is a battery cycle? Does every small discharge count as a full cycle?
+A: A cycle describes charging and discharging under defined conditions. A partial discharge is not necessarily one equivalent full cycle; the accounting method matters. When comparing a cycle-life claim, check the stated discharge depth, temperature and end-of-life criterion rather than comparing cycle numbers alone.
+Reference: B06
+
+BAT09
+Q: What is battery energy throughput?
+A: Throughput is the cumulative energy charged or delivered over time, according to the stated definition. Warranties may limit throughput as well as years or cycles. Check the exact terms, including which direction of energy flow is counted; throughput is not the battery's one-time capacity.
+Reference: B07
+
+BAT10
+Q: Can a battery age even if it is not used every day?
+A: Yes. Battery ageing includes time-related changes as well as changes associated with cycling. Storage conditions and use both matter. A low cycle count alone does not establish remaining life, and dividing a quoted cycle count by one cycle per day is not a guaranteed service-life calculation.
+Reference: B08
+
+BAT11
+Q: What is round-trip efficiency? Why do charging and discharging lose energy?
+A: Round-trip efficiency compares recovered energy with the energy put into storage over a defined cycle. Losses occur in the battery and conversion equipment. Results depend on the measurement boundary and conditions, so compare like-for-like figures and do not assume all charged energy reaches household loads.
+Reference: B09
+
+BAT12
+Q: How many years will a battery last?
+A: There is no universal lifetime for all home batteries. Check the model's warranty, retained-capacity condition, operating limits and any cycle or throughput limits. A warranty duration is not a promise of unchanged capacity or a precise replacement date. Sol & Tide's specific terms need confirmation in the proposal.
+Reference: B10
+
+CHEMISTRY, CONTROLS AND OPERATING MODES
+
+BAT13
+Q: What are LFP and LiFePO4? Is LFP a lithium-ion battery?
+A: LFP stands for Lithium Iron Phosphate, also written LiFePO4. It is a lithium-ion battery chemistry used in stationary energy storage. Chemistry is only part of system selection: equipment quality, management, installation, operating limits and support still matter. Capacity and life are model-specific.
+Reference: B11
+
+BAT14
+Q: Does an LFP battery eliminate all safety risk?
+A: No battery chemistry eliminates all system risk. Appropriate design, protective controls, location and installation remain necessary. General comparisons of chemistry do not establish a particular product's certification or make it suitable for any indoor or outdoor location. Request the relevant equipment and installation documentation.
+Reference: B11
+
+BAT15
+Q: What does a battery management system, or BMS, do?
+A: A BMS monitors battery operating conditions and helps enforce protection limits, such as permitted charging and discharging. Its functions and communication with the inverter are product-specific. It is not a substitute for a compatible installation, and customers should not bypass it or change protection thresholds through general chat advice.
+Reference: B12
+
+BAT16
+Q: What is C-rate? Can temperature affect battery power?
+A: C-rate expresses a charge or discharge rate relative to battery capacity. Higher current and operating temperature can affect available performance and limits. Use the manufacturer's specifications for the actual unit; a chemistry name or energy-capacity figure does not establish permissible charging power or temperature limits.
+Reference: B05
+
+BAT17
+Q: What is a hybrid inverter? Does that name guarantee backup?
+A: A hybrid inverter coordinates solar and battery conversion in a compatible design. Backup also depends on isolation, control equipment, wiring and the supported circuits. Do not infer whole-house backup, generator support or uninterrupted transfer from the word hybrid alone; confirm the exact system functions.
+Reference: B13
+
+BAT18
+Q: What do AC-coupled and DC-coupled storage mean?
+A: With AC coupling, the solar and storage systems connect through the AC side, with conversion equipment for each. With DC coupling, solar and storage share a DC-side arrangement with suitable conversion equipment. These are design approaches, not universal rankings of quality or compatibility. The installation must suit the equipment and site.
+Reference: B04
+
+BAT19
+Q: Can I add a battery to solar I already own?
+A: Compatibility needs assessment of the existing inverter, controls, electrical layout and backup requirements. The team should review the current equipment before recommending an upgrade. A matching brand or voltage alone does not confirm compatibility.
+Reference: B14
+
+BAT20
+Q: Can a battery charge from the grid as well as solar?
+A: Some systems support both, subject to equipment, permitted settings and local arrangements. Grid charging consumes purchased electricity and has losses. It should not be presented as free energy or an automatic savings feature. Ask the team to confirm availability and the purpose of the proposed operating mode.
+Reference: B02
+
+BAT21
+Q: What does self-consumption or self-powered battery mode do?
+A: In a supported configuration, surplus solar charges the battery for later household use, reducing grid imports. The system's reserve, available charge and power limits still apply. Exact priorities and export behaviour depend on the selected equipment and settings; this is not proof that the home becomes off-grid.
+Reference: B15
+
+BAT22
+Q: What is time-of-use optimisation? Is it useful with every electricity tariff?
+A: A supported system may shift charging and use between differently priced periods. Benefits depend on the actual tariff, losses and costs. A foreign time-of-use example does not establish an offer in Antigua or Dominica.
+Reference: B16
+
+BAT23
+Q: What is a backup reserve? Should it always be set to the maximum?
+A: A reserve can hold energy for outages rather than routine use. A higher reserve can leave more energy available if an outage starts, but may reduce energy used for everyday savings. Supported settings and outage behaviour are model-specific; agree the balance with the installer rather than assuming one percentage suits every home.
+Reference: B17
+
+BACKUP, APPLIANCES AND RUNTIME
+
+BAT24
+Q: Does adding any battery guarantee power during an outage?
+A: No. Backup requires a design that can safely separate the supported circuits from the utility and operate them with suitable equipment. A battery installed only for other operating purposes may not provide outage power. The quotation should explicitly state what is backed up and under what limits.
+Reference: B18
+
+BAT25
+Q: What is essential-load backup versus whole-home backup?
+A: Essential-load backup supplies selected circuits, such as agreed lighting or refrigeration. Whole-home arrangements include more circuits but still have power and energy limits. Neither term guarantees every appliance can run simultaneously. Ask which circuits and phases are included and how large loads will be managed.
+Reference: B04
+
+BAT26
+Q: Why can a motor or air conditioner fail to start when enough battery charge remains?
+A: Starting demand can exceed normal running demand. The battery, inverter and supported circuit must accommodate the relevant power requirement, not just the stored energy. Starting capability needs equipment-specific assessment; a remaining-charge percentage or large kWh figure alone cannot establish it.
+Reference: B19
+
+BAT27
+Q: Can my air conditioner run all night on batteries?
+A: It depends on the air conditioner's actual energy use, operating hours, starting needs, other loads and the proposed system's available power and usable energy. There is no standard overnight guarantee. Identify which units and appliances need backup so the team can assess a realistic configuration.
+Reference: B19
+
+BAT28
+Q: How do I calculate a basic battery runtime estimate?
+A: For a simplified constant-load illustration, runtime in hours equals energy available to the load in kWh divided by average load in kW. Both numbers must describe the same operating boundary. Reserve, conversion losses, self-consumption, changing loads and solar input can change the result, and power limits must also be satisfied.
+References: B03, B20; the equation is an explanatory calculation.
+
+BAT29
+Q: Does a 10 kWh battery automatically provide ten hours of backup?
+A: No. In an ideal arithmetic example, 10 kWh delivered to a steady 1 kW load equals 10 hours. That assumes 10 kWh is actually available at the load. A product's nominal capacity, reserves, losses and changing demand can make real runtime different. This is not a Sol & Tide performance promise.
+Reference: B20; hypothetical example, not equipment data.
+
+BAT30
+Q: How long does solar take to recharge a battery?
+A: A simple illustration divides energy required by average net charging power. Household loads may consume part of solar generation first, and charging limits and losses also matter. A panel nameplate rating is not continuous charging power. A day of weak sunlight may not fully recharge the battery.
+Reference: B01; the equation is an explanatory calculation.
+
+BAT31
+Q: Can solar and a battery cover several cloudy days or a long outage?
+A: They can support loads only while sufficient energy and power are available. A larger battery stores more, but cannot create the missing recharge energy. Multi-day autonomy requires a site-specific design considering low-sun periods and any supported additional energy source; it is not an automatic capability of home storage.
+Reference: B01
+
+BAT32
+Q: Can a generator work with solar and a battery?
+A: Sol & Tide can assess generator integration. Compatibility depends on the generator, inverter, controls and electrical layout. This does not confirm every generator is compatible or authorise a customer to connect one themselves.
+Reference: B14
+
+BAT33
+Q: Is a home battery the same as a UPS? Will computers never restart?
+A: Do not assume uninterrupted power from a general backup claim. Transfer behaviour and the loads supported depend on the system. If interruption-sensitive equipment matters, ask for the specific transfer performance and whether additional suitable protection is needed. No universal zero-interruption promise is supplied here.
+Reference: B18; product-specific transfer performance remains unconfirmed.
+
+BAT34
+Q: If the battery shuts down empty, will it automatically restart when the sun rises?
+A: Restart behaviour depends on the equipment and configuration, including how the system starts without the grid. Do not assume every installation can recover from any empty-battery state on its own. Ask the installer to explain low-energy behaviour and the approved operating instructions for the proposed system.
+Reference: B18; restart capability requires model confirmation.
+
+BAT35
+Q: Will one battery back up every phase of a multi-phase home?
+A: Not necessarily. Backup coverage depends on the inverter, battery system and circuit arrangement. A system connected to one phase should not be assumed to back up all phases. Confirm the property's supply and the proposed backed-up circuits; the chatbot should not infer the electrical arrangement from a street address.
+Reference: B21
+
+MONITORING, EXPANSION AND OWNERSHIP
+
+BAT36
+Q: Does losing WiFi mean the battery stops working?
+A: Remote monitoring needs its supported communications connection, but an app going offline does not by itself prove power operation has stopped. Local operation and any internet-dependent functions vary by product. Check the model's instructions or ask support instead of assuming all functionality either continues or fails.
+Reference: B22
+
+BAT37
+Q: What should I look at in a battery-monitoring app?
+A: Useful information can include charge level, charging or discharging power, solar generation, household use, grid flows and alerts. Available readings depend on the equipment and installed metering. Check periods and units before comparing figures; a dashboard number alone is not a complete diagnosis.
+Reference: B22
+
+BAT38
+Q: Can I add more batteries later? Can I mix batteries?
+A: Sol & Tide can assess expansion based on the design, equipment compatibility and electrical capacity. Do not assume any battery can be added, or that more energy capacity automatically increases inverter output power.
+Reference: B14
+
+BAT39
+Q: Can a home battery be installed anywhere indoors or outdoors?
+A: No. The model's environmental rating, location restrictions and local installation requirements matter. The installer must assess the proposed position and protection. General storage education does not establish suitability for a bedroom, enclosed cupboard, flood-prone location or direct weather exposure.
+Reference: B04
+
+BAT40
+Q: Is a battery always the best way to reduce bills?
+A: No. Value depends on energy shifted, the tariff, costs, losses and the customer's goals. Backup may be valuable even with weaker financial payback. Compare options against actual needs rather than assuming a return from capacity alone.
+Reference: B16
+
+BAT41
+Q: What should I check in a battery warranty?
+A: Check the covered equipment, term, retained-capacity requirement, throughput or cycle limits, exclusions and operating conditions. Ask who handles a claim and which costs are covered. Generic industry examples are not Sol & Tide's warranty; obtain the proposed model's exact written terms.
+Reference: B10
+
+BAT42
+Q: Does low-maintenance mean I can ignore alerts or repair the battery myself?
+A: No. Follow the equipment's maintenance guidance and ask qualified support about faults or alerts. Monitoring helps identify changes but is not a substitute for assessment. The customer chatbot should not provide enclosure-opening, wiring, protection-bypass or internal repair instructions.
+Reference: B23
+
+BAT43
+Q: What should I tell the team when asking about home storage?
+A: Give the location, electricity use, backup appliances and operating times, plus relevant existing equipment. These help the team discuss an assessment. Leave out account numbers and unnecessary sensitive details.
+Reference: B14
+
+BAT44
+Q: Can general storage advice establish my final battery size, price or guaranteed hours?
+A: No. Configuration requires the property's needs, compatible equipment and a proposal. Use Sol & Tide's assessment or contact routes for a specific project. This education file contains no live price, stock or engineering approval.
+Reference: B14
+
+SOURCE REGISTER — GENERAL EDUCATION, NOT AN OFFERED PRODUCT LIST
+Sources consulted 17 October 2026. Manufacturer sources illustrate technical concepts or design dependencies only; they do not mean Sol & Tide supplies those brands or that their specifications apply to Sol & Tide equipment. Foreign tariffs, incentives, warranty durations and installation rules are not company policy.
+B01 — U.S. Department of Energy, Solar Energy and Storage Basics:
+https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics
+B02 — Australian Government, Solar Glossary:
+https://www.energy.gov.au/solar/glossary
+B03 — NREL, Fundamentals of Energy Storage:
+https://www.nrel.gov/docs/fy23osti/84500.pdf
+B04 — Australian Government, Batteries:
+https://www.energy.gov.au/solar/get-know-solar-technology/batteries
+B05 — Victron Energy, Lithium SuperPack NG: Operation. Terminology and model-dependent limits only:
+https://www.victronenergy.com/media/pg/Lithium_SuperPack_NG/en/operation.html
+B06 — NREL, Renewable Energy for Rural Schools: glossary. Basic terminology only; historical application context not adopted:
+https://docs.nrel.gov/docs/fy01osti/26222.pdf
+B07 — NREL, Technology Tips for Solar + Storage:
+https://www.nrel.gov/docs/fy24osti/90582.pdf
+B08 — U.S. Department of Energy, Grid Energy Storage Technology Cost and Performance Assessment. Calendar and cycle-life concepts only; costs not adopted:
+https://www.energy.gov/cmei/2022-grid-energy-storage-technology-cost-and-performance-assessment
+B09 — NREL, Technoeconomic Modeling of Battery Energy Storage:
+https://nrel.gov/docs/fy15osti/64641.pdf
+B10 — Australian Government, Warranties and Insurance:
+https://www.energy.gov.au/solar/get-know-solar-technology/warranties-and-insurance
+B11 — U.S. Department of Energy, Energy Storage Safety Strategic Plan:
+https://www.energy.gov/sites/default/files/2024-05/EED_2827_FIG_SafetyStrategy%20240505v2.pdf
+B12 — Victron Energy, System Design and BMS Selection Guide. Protection concept only; installation instructions not reproduced:
+https://www.victronenergy.com/media/pg/Lithium_Battery_Smart/en/system-design-and-bms-selection-guide.html
+B13 — U.S. Department of Energy, Inverters and Grid Services Basics:
+https://www.energy.gov/cmei/systems/solar-integration-inverters-and-grid-services-basics
+B14 — Sol & Tide, company FAQ and approved customer-support knowledge, checked 16 October 2026:
+https://www.solortide.com/antigua/faq
+https://www.solortide.com/dominica/faq
+B15 — Tesla, Self-Powered. General operating-mode example only:
+https://www.tesla.com/support/energy/powerwall/mobile-app/self-powered
+B16 — Australian Government, How Solar Pays for Itself and Batteries Reduce Bills:
+https://www.energy.gov.au/solar/financial-benefits-solar/how-solar-pays-itself-and-batteries-reduce-bills
+B17 — Tesla, Backup Reserve. General reserve trade-off only; no settings percentages adopted:
+https://www.tesla.com/support/energy/powerwall/mobile-app/backup-reserve
+B18 — U.S. Department of Energy, Solar and Resilience Basics. Specific transfer/restart capabilities are left for model confirmation:
+https://www.energy.gov/cmei/systems/solar-and-resilience-basics
+B19 — Tesla, Backup Loads Supported per Powerwall Quantity. Equipment-dependent load limits only:
+https://energylibrary.tesla.com/docs/Public/EnergyStorage/Powerwall/3/SystemDesign/en-us/GUID-981C7C77-F13D-4ECC-9A25-A8211957A4B9.html
+B20 — NREL, Residential Battery Storage ATB. Power/energy duration distinction only; calculations above are hypothetical:
+https://atb.nrel.gov/electricity/2024/residential_battery_storage
+B21 — Australian Government, Inverters. Phase-dependent backup concept only:
+https://www.energy.gov.au/solar/get-know-solar-technology/inverters
+B22 — Australian Government, Monitor Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/monitor-your-solar-system
+B23 — Australian Government, Look After Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system

@@ -18,9 +18,11 @@ email/*
 !email/package-lock.json
 !email/README.md
 !email/tsconfig.json
+!email/.env.example
 !email/templates/
 email/templates/*
 !email/templates/consultation-received.tsx
+!email/templates/wishlist-received.tsx
 !email/src/
 email/src/*
 !email/src/push-template.ts
@@ -35,11 +37,15 @@ supabase/tests/*
 !supabase/tests/quote_pricing_settings.sql
 !supabase/tests/consultation_email_resends.sql
 !supabase/tests/consultation_contacts.sql
+!supabase/tests/consultation_source_statistics.sql
+!supabase/tests/consultation_source_time_windows.sql
+!supabase/tests/island_wishlist_locations.sql
 !supabase/tests/wishlist_confirmation.sql
 supabase/functions/*
 !supabase/functions/_shared/
 supabase/functions/_shared/*
 !supabase/functions/_shared/whatsapp.ts
+!supabase/functions/_shared/submission-time.ts
 !supabase/functions/_shared/consultation-qr.ts
 !supabase/functions/_shared/consultation-qr-logo.ts
 !supabase/functions/_shared/wishlist.ts
@@ -73,3 +79,11 @@ tsconfig.tsbuildinfo
 /design/
 /exports/
 /deprecated/
+
+# Keep the retired consultation implementation for manual recovery only.
+!/deprecated/
+/deprecated/*
+!/deprecated/tally-20261030/
+/deprecated/tally-20261030/*
+!/deprecated/tally-20261030/README.md
+!/deprecated/tally-20261030/source-backup.tar.gz

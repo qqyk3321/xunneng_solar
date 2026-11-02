@@ -1,0 +1,94 @@
+Sol & Tide 客服知识库 v1.2
+整理日期：2026-10-17
+本版本新增“你是谁”的身份问答、多种中英文问法及系统身份指令。公司信息沿用 2026-10-16 核对的资料；身份文案按 2026-10-17 的本次要求整理。未新增商业承诺。
+当前状态：本地资料已准备；没有替你上传、启用模型或修改远程客服配置。
+
+一、上传哪些文件
+
+在 Knowledge > 文件 中上传：
+01-company-and-service.txt：助手身份、公司服务、地区、免费评估、套餐与价格边界、网站入口和联系渠道，共 19 个问答。身份条目包含“你是谁、你是真人吗、你能帮我做什么”等中英文近义问法。
+02-solar-pv-foundations.txt：太阳能、光伏发电、功率与电量、日照、组件、逆变器、屋顶、发电与用电、并网与备电等 36 个问答。
+03-home-battery-and-hybrid-foundations.txt：容量、SOC/DoD/SOH、循环与寿命、BMS、储能模式、混合供电、备电负载、时长估算、充电、监控与扩容等 44 个问答。
+三份知识文件共 99 个问答。
+
+04-system-prompt.txt：复制到 Setting > Bot > System Prompt，不作为知识文件上传。
+05-upload-and-maintenance-zh.txt：本文件只供内部操作，不上传。
+06-priority-faq-10.txt：在 Knowledge > 常见问题中逐条填写的十对英文问答，不作为额外文件上传。第 4 条改为助手身份，替换旧的注册问答，始终保持十条；无需注册的说明仍保留在公司知识文件里。
+
+从 v1.1 更新时：替换公司知识文件 01，更新系统指令 04，将手动 FAQ 第 4 条替换为身份问答。基础科普 02/03 的正文没有变化，无需为此次身份调整重复上传。本地已保留 v1.1 供回看。
+
+如果还没上传旧版，直接使用以上三个新版资料文件。
+如果已经上传 2026-10-16-v1 的 01-knowledge-base.txt，请在切换时用这三个文件替换它。确认新版文件均已索引，再移除旧版索引；切换完成前不将结果视作稳定版本。
+本地保留旧版用于回看，不把多个历史版本长期同时放进检索库。
+重点 FAQ 按 06-priority-faq-10.txt 配置，共十条。与知识文件同步维护，不要留下互相冲突的回答。
+URL 标签页暂时可以留空。提供给客户点击的网页链接，不要求同时添加为 URL 抓取来源。
+
+二、为什么分三份
+
+公司文件回答“我们提供什么、客户去哪里”。科普文件回答“这些技术是什么、原理和限制是什么”。
+普通术语和工作原理较稳定，公司服务和网址则需要随业务变化更新。
+三份文件共同供平台检索，不是要求每个客户把所有资料读一遍，也不是把全部正文塞进每次回复。
+TXT 文件占空间很小是正常的。知识质量看覆盖范围、准确性、条目能否检索和实际回答表现，不以 MB 数作为目标。
+
+三、资料边界
+
+科普依据政府能源部门、国家实验室资料及少量制造商的一手技术说明整理，使用自己的简短问答表述，未复制整篇网页或手册。
+文件末尾有来源目录。引用某个厂商只是说明通用概念或“能力取决于设备”的事实，不代表公司销售该厂商产品。
+没有把美国或澳大利亚的补贴、电价、标准户型、法定接线规则、朝向建议或保修期限当成本地公司政策。
+没有新增我们必定支持某种电网接入、备电相数、零中断切换、自动空电重启、所有发电机兼容或任意电池混用的承诺。
+文件中的算术示例明确是假设。客户的最终配置、工期、保修、报价和备电表现仍需确认。
+太阳能与光伏的基础放在同一份文件：前者是能源来源，后者是用它发电的一种技术，不重复写成两套相同教材。
+本版本仍是面向客户的基础知识，不是完整工程教材；后续根据真实问题补充模块，不靠堆砌资料增加体积。
+
+四、上传后怎么验证
+
+先确认三个文件都显示“已索引 / Indexed”，再核对模型连接和 Web Widget 渠道已启用。
+逐条提问，确认回答命中正确概念，不仅检查回复是否流畅：
+
+身份专项：Who are you? / Are you a real person? / What can you help me with? / 你是谁？/ 你是 AI 吗？/ 你能帮我做什么？
+应回答“Sol & Tide Energy 专门为客户定制的 AI 咨询助手”，说明太阳能、户储、网站与评估引导能力；不冒充真人，不编造自主研发底层模型或具体模型供应商。多问法只是增加资料覆盖，实际召回仍要在平台测试。
+
+1. What is the difference between solar PV and solar water heating?
+应区别发电和集热，不能把两者说成同一种设备。
+2. Is a 5 kW inverter the same as a 5 kWh battery?
+应区别功率和能量。
+3. Will a 450 W panel make 450 W all day?
+应说明额定测试条件和实际变化。
+4. Does hotter weather always mean more solar electricity?
+应区别光照和电池片温度。
+5. Should panels in Dominica face the same direction recommended by an Australian guide?
+应要求按本地屋顶评估，不能照搬南半球建议。
+6. What are MPPT and inverter clipping?
+应解释功能与限功率，不引导修改接线。
+7. What is SOC compared with SOH and DoD?
+应区别当前电量、健康状态与放电深度。
+8. Does every small discharge count as a full battery cycle?
+应说明要看等效循环和测试定义，不能按充电次数计寿命。
+9. Is a 10 kWh battery guaranteed to run my home for ten hours?
+应说明负载与可用电量，明确例子不保证实际表现。
+10. What if my appliances total 4 kW but the battery can only deliver 3 kW?
+应识别功率不足，即使储能还有电也不能据此承诺全部带动；实际功率来源取决于配置及是否有电网。
+11. Can I add any cheap battery to my system if the voltage matches?
+应要求兼容性评估，不认可仅凭电压匹配混用。
+12. Will a hybrid inverter definitely give zero-interruption backup on every phase?
+应拒绝从“混合”名称推断完整备电能力。
+13. Does LFP mean no safety risk?
+应否定绝对安全承诺，不给拆机或绕过保护指导。
+14. If my monitoring app loses WiFi, has my power definitely stopped?
+应区别远程监控与本地供电，要求按型号确认。
+15. Since your source mentions Tesla or Victron, do you sell those products?
+应说明引用不是公司产品清单，不编造在售品牌。
+16. I'm in Antigua and want a custom solar and battery quote.
+应给 Antigua 评估入口或团队联系途径，不使用国外价格。
+17. How can I contact your team? / I want to talk to a human.
+两种表达分别测试，确认平台 Handoff 拦截后的真实接待路径和 WhatsApp 退路。
+
+记录答错的问法、实际回答和期望事实。先判断是缺资料、索引没命中、模型理解错误还是指令/平台规则造成，再改对应部分。
+本地检查只覆盖文件结构、引用一致性、提示词长度和计算示例；还没有验证真实模型检索质量。
+
+五、以后怎样维护
+
+公司事实变化时更新 01；基础概念发现错误或新增高频问题时更新 02/03；接待方式改变时修改 04。
+给新版保留日期和版本，在平台里替换索引；本地文件不会自动同步远程平台。
+不把客户私人订单、账单账号、内部报价、密钥或私人查询链接加入通用知识库。
+网页版 FAQ 的展示内容、Knowledge > FAQ、文件知识和系统指令分别检查，不假设配置会自动互相同步。

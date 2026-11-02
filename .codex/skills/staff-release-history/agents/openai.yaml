@@ -1,0 +1,4 @@
+interface:
+  display_name: "员工站版本记录"
+  short_description: "员工站代码更新与发布时，维护数据库中的平台及页面版本和中英文更新历史"
+  default_prompt: "使用 $staff-release-history 检查本次员工站改动的版本范围，并在正式发布成功后追加、核对数据库更新记录。"

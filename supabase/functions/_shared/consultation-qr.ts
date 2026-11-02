@@ -14,6 +14,15 @@ export const PREVIEW_QR_CONTENT_ID = "consultation-preview-qr";
 // HTML variable keeps old stored retry payloads free of missing CID images.
 export const PREVIEW_QR_HTML = `<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 28px"><tr><td align="center"><img src="cid:${PREVIEW_QR_CONTENT_ID}" width="200" height="200" alt="Scan to view your preliminary quote on your phone" style="display:block;width:200px;height:200px;margin:0 auto;border:0;border-radius:24px" /></td></tr></table>`;
 
+/** Native customer email QR: clickable on the same device as the mailbox. */
+export function linkedPreviewQrHtml(url: string) {
+  const parsed = new URL(url);
+  if (!["https:", "http:"].includes(parsed.protocol)) throw Error("Invalid preview URL");
+  const href = parsed.href.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  return PREVIEW_QR_HTML.replace("<img ", `<a href="${href}" style="display:inline-block"><img `).replace("</td>", "</a></td>");
+}
+
+
 const BACKGROUND = [234, 243, 239] as const; // Sea salt green, #eaf3ef.
 const TEAL = [0, 122, 135] as const; // Brand teal, #007a87.
 

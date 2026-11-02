@@ -1,0 +1,24 @@
+.reference { min-width: 0; max-width: 100%; }
+.value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #183c43;
+  font: 500 17px/1.4 "Space Grotesk", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.value > span { overflow-wrap: anywhere; }
+.value > svg { flex: none; color: #58716c; }
+.value:hover, .value:hover > svg { color: #007a87; }
+.value:active { opacity: .7; }
+.value:focus-visible, .manualCopy input:focus-visible { outline: 2px solid #007a87; outline-offset: 4px; }
+.manualCopy p { margin: 6px 0; font: 400 13px/1.5 "Plus Jakarta Sans", sans-serif; color: #58716c; }
+.manualCopy input { width: 100%; min-width: 0; min-height: 44px; padding: 8px; border: 1px solid #b6c5c6; border-radius: 6px; font: 400 16px/1.5 "Plus Jakarta Sans", sans-serif; color: #183c43; background: #fff; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

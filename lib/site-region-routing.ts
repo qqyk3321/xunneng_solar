@@ -24,6 +24,9 @@ export function switchedRegionPath(pathname: string, country: ServiceCountry) {
   const parts = pathname.split("/").filter(Boolean);
   if (countryFromSlug(parts[0] ?? "")) parts.shift();
   if (parts.length === 1 && parts[0] === "privacy") return "/privacy";
+  if (parts.length === 2 && parts[0] === "consultation" && parts[1] === "new") {
+    return regionPath(country, "/consultation");
+  }
   const suffix =
     parts.length === 1 && ["faq", "privacy", "consultation", "how-it-works"].includes(parts[0])
       ? `/${parts[0]}`

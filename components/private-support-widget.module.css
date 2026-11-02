@@ -1,0 +1,3 @@
+.frame { position:fixed; z-index:120; right:0; bottom:env(safe-area-inset-bottom, 0px); width:96px; height:96px; border:0; background:transparent; color-scheme:light; }
+.expanded { right:16px; bottom:max(16px, env(safe-area-inset-bottom, 0px)); width:min(400px, calc(100vw - 32px)); height:min(700px, calc(100dvh - 104px)); border-radius:20px; box-shadow:0 12px 40px #102d3026; }
+@media (max-width:600px) { .expanded { right:8px; bottom:max(8px, env(safe-area-inset-bottom, 0px)); width:calc(100vw - 16px); height:calc(100dvh - 88px); border-radius:16px; } }

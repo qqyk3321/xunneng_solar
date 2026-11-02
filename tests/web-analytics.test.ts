@@ -11,7 +11,7 @@ test("analytics includes all ten canonical public pages", () => {
 });
 
 test("excluded paths, including nested lookalikes and sensitive links, never produce events", () => {
-  for (const path of [null, "/consultation", "/faq", "/dominica/privacy", "/solar-analysis", "/solar-analysis/visit", "/antigua/submission/secret/extra", "/antigua/submission/", "/other/submission/secret", "/submission-preview-test", "/test-pages", "/unknown", "/consultation/private", "/antigua-other", "/dominica/consultation/secret"]) {
+  for (const path of ["/antigua/consultation/manage", "/dominica/consultation/manage", null, "/consultation", "/faq", "/dominica/privacy", "/solar-analysis", "/solar-analysis/visit", "/antigua/submission/secret/extra", "/antigua/submission/", "/other/submission/secret", "/submission-preview-test", "/test-pages", "/unknown", "/consultation/private", "/antigua-other", "/dominica/consultation/secret"]) {
     assert.equal(isAnalyticsPath(path), false);
     if (path !== null) assert.equal(beforeSendAnalytics({ type: "pageview", url: `https://www.solortide.com${path}?token=secret` }), null);
   }

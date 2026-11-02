@@ -137,7 +137,9 @@ function NavigationEvents() {
       if (
         !anchor ||
         anchor.target === "_blank" ||
-        anchor.hasAttribute("download")
+        anchor.hasAttribute("download") ||
+        // Links with their own pending feedback must not also start a full-screen loader.
+        anchor.dataset.navigationLoading === "inline"
       )
         return;
       const destination = new URL(anchor.href, window.location.href);

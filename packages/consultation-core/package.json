@@ -1,0 +1,7 @@
+{
+  "name": "@solortide/consultation-core",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./index.ts", "./tokens": "./tokens.ts" }
+}

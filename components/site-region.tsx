@@ -27,7 +27,7 @@ const RegionContext = createContext<{
   country: ServiceCountry | null;
   ready: boolean;
   open: boolean;
-  choose: (intent?: RegionIntent) => void;
+  choose: (intent?: RegionIntent, options?: { preserveAssessment?: boolean }) => void;
 }>({ country: null, ready: false, open: false, choose: () => {} });
 export const useSiteRegion = () => useContext(RegionContext);
 
@@ -90,25 +90,11 @@ function RegionForPath({
   }
   function selectCountry(nextCountry: ServiceCountry) {
     if (navigating) return;
-    if (
-      country &&
-      nextCountry !== country &&
-      pathname.endsWith("/consultation") &&
-      !window.confirm(
-        "Changing location restarts your assessment and clears the current unsent form. Continue?",
-      )
-    ) {
-      return;
-    }
-    setManual(false);
-    // Native modal dialogs sit above every CSS z-index. Close before showing
-    // the already-mounted loader, then give the browser a frame to paint it.
-    dialog.current?.close();
     const destination = intent
       ? regionIntentPath(nextCountry, intent)
       : switchedRegionPath(pathname, nextCountry);
     const hash =
-      intent === "savings" ? "#calculator" : intent ? "" : window.location.hash;
+      intent === "savings" ? "#calculator" : intent || pathname.includes("/submission/") ? "" : window.location.hash;
     if (destination === pathname) return;
     setNavigating(true);
     window.dispatchEvent(
@@ -215,16 +201,18 @@ function RegionForPath({
 export function RegionSwitcher({
   variant = "default",
   className = "",
+  preserveAssessment = false,
 }: {
   variant?: "default" | "text";
   className?: string;
+  preserveAssessment?: boolean;
 } = {}) {
   const { country, choose } = useSiteRegion();
   return (
     <button
       type="button"
       className={`${styles.switcher} ${className}`}
-      onClick={() => choose()}
+      onClick={() => choose(undefined, { preserveAssessment })}
       aria-haspopup="dialog"
       aria-label="Change installation location"
     >

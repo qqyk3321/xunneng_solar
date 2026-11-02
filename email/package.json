@@ -1,0 +1,37 @@
+{
+  "name": "xunneng-email-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node --import tsx src/server.ts",
+    "template:dev": "email dev --dir ./templates",
+    "template:build": "email build --dir ./templates",
+    "template:export": "email export --dir ./templates",
+    "template:push": "node --import tsx src/push-template.ts"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.1.0",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "pngjs": "7.0.0",
+    "qrcode": "1.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-email": "^6.9.3",
+    "resend": "^6.0.1"
+  },
+  "devDependencies": {
+    "@react-email/ui": "^6.9.3",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "@types/pngjs": "^6.0.5",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-19",
+  "site": "https://www.solortide.com",
+  "scope": "Public website installer pre-sales review for Antigua and Dominica",
+  "method": "8 distinct AI subagent sessions, fork_turns=none; independent review without reading previous or peer reviews. Random crypto.randomBytes(64).toString('hex') identifiers, 128 characters each; professional perspectives assigned explicitly. Not 8 human licensed experts and not statistical sampling.",
+  "rubric": {
+    "A": {
+      "label": "真实性与可验证证据",
+      "weight": 20
+    },
+    "B": {
+      "label": "工程说明与承诺边界",
+      "weight": 20
+    },
+    "C": {
+      "label": "收益/报价估算透明度",
+      "weight": 20
+    },
+    "D": {
+      "label": "当地适配与合规说明",
+      "weight": 15
+    },
+    "E": {
+      "label": "客户理解与咨询体验",
+      "weight": 15
+    },
+    "F": {
+      "label": "售后责任及隐私清晰度",
+      "weight": 10
+    }
+  },
+  "formula": "total=(20A+20B+20C+15D+15E+10F)/10; A..F=0..10; total=0..100",
+  "experts": [
+    {
+      "n": 1,
+      "role": "安提瓜 EPC 交付与并网",
+      "seed": "e51e6a5d1c9b574df34280590ae09f90b13ebe8e45fc36451b7f567af0ad293a41a5adba2eebd05b1c2d8aaea9eeb5eca9606031ea9c8a0cdc78bf0d6fb5a92f",
+      "record": "expert-01.md"
+    },
+    {
+      "n": 2,
+      "role": "多米尼克本地化与监管",
+      "seed": "dff88fe6a7c06f526e9ed40e6604b55787d3aac68fcdea450dd6ea83aba4b36a4b8800e9600d2cdbe0f6f855f935fbac58243f7040c72ccb782e2b8d1e23ad8b",
+      "record": "expert-02.md"
+    },
+    {
+      "n": 3,
+      "role": "光伏储能工程与安全",
+      "seed": "7da63cd3cf768b82eeb582afd43d498eaba99710e4fc49bf13ee0772d460de9c7b8a88aa631b3d45ce7d5da1120b97d0806f063b6a587c40a0291c0a3bb1692e",
+      "record": "expert-03.md"
+    },
+    {
+      "n": 4,
+      "role": "能源经济与报价审计",
+      "seed": "4a466de2789fa71c74223408a4d6ca13007d4e23f3dc6f9366cec2088b9453555ed43f44222968a939d5788e3dd0379666d4e975a26f2524fe179816e88f0d66",
+      "record": "expert-04.md"
+    },
+    {
+      "n": 5,
+      "role": "谨慎家庭业主采购",
+      "seed": "3a707f465c380299cd959a6ec4b130bb3ad7b83b86971605f2ebfd2d3a6ccf59f44320ff7906e8f0e2114f3401ebb4fca98eef1d51ede056a521316af5bea3fd",
+      "record": "expert-05.md"
+    },
+    {
+      "n": 6,
+      "role": "移动端 UX 与咨询转化",
+      "seed": "a5095cf0ef8bb259ab428eade8ad01a7205bcdec0e16b1c0493c260f5d606ea8e3e08dab144d924ed743181a6fa9465c9a47901e0a862f9d00502607bf80df6b",
+      "record": "expert-06.md"
+    },
+    {
+      "n": 7,
+      "role": "售后履约与责任边界",
+      "seed": "ba8d12e6fc76bb1334cfcf6e12f6725ebb903b4cbaaab114fbe8503e9282cd4a16e40624c3b0580e3ecbbc49569e17ef5fd4d1c216dbb23033af2951cd1a2d8a",
+      "record": "expert-07.md"
+    },
+    {
+      "n": 8,
+      "role": "隐私透明度与品牌内容",
+      "seed": "7dee9e9912ffc12310e8e13b6b4cfddf5f2a54f3c0683c69b263b254c1f1a6d65b6941a7d86145f2e99c9dbe40c05388de2a45ab8cc23913d51b59db843e3526",
+      "record": "expert-08.md"
+    }
+  ]
+}

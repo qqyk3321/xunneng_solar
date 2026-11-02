@@ -1,7 +1,7 @@
+import { PRIVACY_VERSION as NATIVE_PRIVACY_VERSION } from "@solortide/consultation-core";
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { PRIVACY_VERSION } from "@/lib/consultation-intake";
 import styles from "./privacy.module.css";
 import { siteUrl, socialMetadata } from "@/lib/region-seo";
 import { SUPPORT_EMAILS, SITE_CONTACT } from "@/lib/site-contact";
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           Barbuda and Dominica.
         </p>
         <p className={styles.version}>
-          Last updated: 12 October 2026 · Version {PRIVACY_VERSION}
+          Last updated: 30 October 2026 · Version {NATIVE_PRIVACY_VERSION}
         </p>
         </header>
         <div className={styles.layout}>
@@ -74,7 +74,7 @@ export default function PrivacyPage() {
         <section id="services">
           <h2>3. Services involved in your visit</h2>
           <p>
-            Tally hosts the assessment details form. Website hosting, security
+            Sol &amp; Tide operates the assessment form directly. Website hosting, security
             and data-storage providers also process information needed to
             operate the site. Loading external services, fonts or images can
             disclose technical information such as your IP address and browser
@@ -94,8 +94,7 @@ export default function PrivacyPage() {
             us through WhatsApp, your message is handled through that service.
           </p>
           <p>
-            In the consultation flow, Tally loads when you open the details form
-            after the privacy acknowledgement. Providers may process data
+            Providers may process data
             outside your country and have their own privacy practices. A
             complete provider and transfer review is pending.
           </p>
@@ -107,15 +106,15 @@ export default function PrivacyPage() {
             >
               Google privacy information (fonts and images)
             </a>{" "}
-            ·{" "}
-            <a
-              href="https://tally.so/help/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Tally privacy information
-            </a>
           </p>
+        </section>
+        <section id="native-consultation">
+          <h2>Assessment drafts on this device</h2>
+          <p>Assessment notice version {NATIVE_PRIVACY_VERSION}. Our directly operated assessment form saves your answers and current step in this browser, so you can refresh or return without starting again. Drafts expire after seven days and are cleared when you next open the form. They stay on this device until you submit them. Anyone using the same browser may be able to see them. Clear the browser’s site data to remove a draft.</p>
+          <p>When you submit, we save a request identifier with your answers to prevent duplicate submissions. After confirmation, the browser draft is deleted. Your private viewing link is sent by email. A submission awaiting confirmation retains its answers so the result can be recovered safely. Clearing browser data does not delete an enquiry already submitted to us.</p>
+          <p>When you submit or save changes, we record the request’s IP address and its estimated country, region, city and time zone when available, plus browser, operating system, device type and time to help our staff review activity and investigate technical or security issues. These details are estimates, not proof of identity.</p>
+          <p>We do not request browser location permission or collect device coordinates. IP-based areas can reflect a network provider or VPN exit and are not your verified installation address. Operation records are available only to authorised staff, under the enquiry retention and deletion arrangements below.</p>
+          <p>We use your contact and installation details to prepare your assessment and follow up, and our email provider sends a confirmation. Phone and email format checks do not verify that you own those contact details. Contact our team below to request a correction or deletion.</p>
         </section>
         <section id="cookies">
           <h2>4. Cookies and browser storage</h2>

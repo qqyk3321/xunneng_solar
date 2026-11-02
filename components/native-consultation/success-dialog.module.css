@@ -1,0 +1,11 @@
+.dialog { box-sizing:border-box; width:min(420px,calc(100vw - 32px)); max-height:calc(100svh - 32px); margin:auto; padding:36px 32px 28px; overflow:auto; border:1px solid #dbe5e3; border-radius:18px; background:#fff; color:#102d30; text-align:center; font-family:"Plus Jakarta Sans",sans-serif; box-shadow:0 16px 48px #102d301a; }
+.dialog::backdrop { background:#102d304d; }
+.close { position:absolute; top:8px; right:8px; display:grid; place-items:center; width:36px; height:36px; padding:0; border:0; background:none; color:#536568; cursor:pointer; }
+.mark { display:grid; place-items:center; width:44px; height:44px; margin:0 auto 18px; border-radius:50%; background:#eaf5f3; color:#007a87; }
+.dialog h2 { margin:0 0 10px; font:500 26px/1.25 "Space Grotesk",sans-serif; letter-spacing:-.6px; }
+.dialog h2:focus { outline:none; }
+.dialog p { margin:0 auto 24px; max-width:300px; color:#536568; font-size:14px; line-height:1.7; }
+.home { display:flex; align-items:center; justify-content:center; min-height:46px; padding:10px 20px; border-radius:7px; background:#007a87; color:#fff; font-size:14px; font-weight:600; text-decoration:none; }
+.home:hover { background:#006773; }
+.home:focus-visible,.close:focus-visible { outline:2px solid #007a87; outline-offset:3px; }
+@media (max-width:400px) { .dialog { padding:32px 24px 24px; } .dialog h2 { font-size:24px; } }

@@ -1,0 +1,23 @@
+SOL & TIDE — FIVE PRIORITY FAQ PAIRS
+Version: 1.0 | Prepared: 16 October 2026
+Operator note: Add each Question and Answer separately in AI Agent > Knowledge > FAQ. Do not copy this note into an answer. These answers summarise 01-knowledge-base.txt; update both together when a shared fact changes. This is separate from the FAQ block displayed on the popup home page.
+
+1.
+Question: Where does Sol & Tide provide solar and battery services?
+Answer: Our website currently provides solar and battery service and assessment pages for Antigua and Barbuda, and Dominica. Other listed islands are planned locations, with availability to be confirmed. Dominica is different from the Dominican Republic. Choose your installation location at https://www.solortide.com/#countries.
+
+2.
+Question: Can solar and batteries keep my appliances running during a power cut?
+Answer: A correctly configured backup system can supply selected appliances using available solar and battery energy. What can run, and for how long, depends on the inverter, usable battery charge, sunlight and the appliances running together. Solar panels alone do not establish that you have outage backup, and we cannot guarantee whole-house or overnight air-conditioning backup without assessing the system.
+
+3.
+Question: How do I get a free solar and battery assessment?
+Answer: Start a free assessment for your property's region and share your electricity needs and backup priorities. Antigua and Barbuda: https://www.solortide.com/antigua/consultation. Dominica: https://www.solortide.com/dominica/consultation. The team will discuss the configuration and final quote with you. Submitting the form starts an enquiry; it does not confirm a site visit or installation booking.
+
+4.
+Question: Do I need to create an account before asking a question?
+Answer: No account is needed for general questions in this chat or to start the website calculator or assessment. If you want follow-up, you can choose WhatsApp or provide the contact details requested by the enquiry form. Please avoid sending account numbers, identity documents or other unnecessary sensitive information. No account requirement does not mean messages are never processed or stored.
+
+5.
+Question: How can I contact the Sol & Tide team about my project?
+Answer: You can message the team on WhatsApp at https://wa.me/8617605886812. For Antigua and Barbuda, email ag-support@solortide.com; for Dominica, email dm-support@solortide.com. The team can confirm project-specific quotes, equipment, installation arrangements and support needs. Sharing a contact link does not mean a transfer or booking has already been completed.

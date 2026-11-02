@@ -1,0 +1,320 @@
+PRACTICAL CUSTOMER SCENARIOS — EDITORIAL SOURCE MODULE
+Prepared: 17 October 2026
+These scenarios apply the approved company information and general electrical principles. Calculations are hypothetical, not site estimates or product specifications. Company service commitments remain subject to the company section. Source IDs are internal references.
+
+PRACTICAL HOUSEHOLD LOADS AND ROUTINES
+
+LOAD01
+Q: Why can't I size refrigerator backup by multiplying the label wattage by 24 hours?
+A: A refrigerator cycles and its energy use depends on conditions and the model. Annual or measured consumption can help estimate average daily energy, while starting power still needs a separate check. Nameplate power multiplied by 24 is not automatically actual daily consumption.
+References: X01
+
+LOAD02
+Q: Can I use an air conditioner's BTU/h rating as its electrical consumption?
+A: No. BTU/h describes cooling output, not electrical input power. Check the actual model's input power or measured energy use and operating conditions. Two units with the same cooling capacity can have different electricity requirements.
+References: X02
+
+LOAD03
+Q: Does an inverter air conditioner automatically work with any solar inverter?
+A: No. An appliance described as inverter-type is not a compatibility certificate for a solar system. Its supply requirements, running and starting demand, operating hours and the proposed backup configuration still need review.
+References: Company and foundation synthesis
+
+LOAD04
+Q: Will lights, WiFi, a laptop and a television be easier to back up than the whole house?
+A: A smaller selected group of loads can reduce the energy and power required, but list the actual equipment and desired hours. A router also needs an available internet connection from its provider; electrical backup alone does not guarantee internet service.
+References: Original load-planning inference
+
+LOAD05
+Q: Can a kettle or microwave overload a system even if it runs only briefly?
+A: Yes. A short operating time can mean modest energy use while instantaneous demand is still high. Check simultaneous power as well as daily kWh. Running several high-power appliances together can exceed limits even when the battery is not empty.
+References: X03
+
+LOAD06
+Q: Can I move electric water heating or laundry to sunny hours?
+A: Where appliance controls and household needs allow it, moving flexible use to periods of available solar can increase direct use. Confirm actual power requirements and supported scheduling. Do not assume a timer makes a load suitable for an undersized inverter.
+References: Company and foundation synthesis
+
+LOAD07
+Q: How should I plan solar use for a pool pump or water pump?
+A: Record the pump model, operating power, daily operating times and starting requirements. Pool-pump speed and controls can affect consumption. Scheduling must still meet the pump's practical purpose; the chatbot should not prescribe filtration or water-supply settings.
+References: X04
+
+LOAD08
+Q: Should I mention a future electric vehicle before choosing my home system?
+A: Yes. Vehicle charging adds a load whose power and energy depend on the charger and driving needs. Share the intended charging schedule and equipment. Adequate household electrical capacity and compatibility need assessment; home battery backup of the charger is not automatic.
+References: X05
+
+LOAD09
+Q: I work from home. Could solar be useful even if I do not need long overnight backup?
+A: Daytime loads may use solar directly, while the desired outage protection is a separate design goal. Describe work equipment, daytime consumption and the hours that matter. This supports discussing panels and storage without assuming that everyone needs the largest battery.
+References: Original scenario based on foundation energy flow
+
+LOAD10
+Q: I am away all day and mainly cook and cool the house at night. What should I tell the team?
+A: Explain the evening appliance combination and operating hours, not just the monthly bill. The design must consider energy generated earlier, storage available later and simultaneous loads. A large battery alone cannot guarantee sufficient recharge or cooking and cooling power.
+References: Original scenario based on foundation sizing
+
+LOAD11
+Q: Can you recommend a system from the number of bedrooms or occupants alone?
+A: Those details give context but do not establish electricity demand. Homes with the same room count can have very different air conditioning, water heating and other loads. Use consumption records and a load list for a meaningful assessment.
+References: X13; original household-planning inference
+
+LOAD12
+Q: What should a useful backup appliance list include?
+A: List the equipment, its input power if known, desired operating hours and which appliances must run together. Note motors or compressors separately. Include priorities so the team can distinguish essential loads from optional loads without collecting unnecessary personal information.
+References: Original load-planning worksheet
+
+ADDITIONAL PANEL, BATTERY AND CONVERSION CONCEPTS
+
+TECH01
+Q: What are crystalline-silicon and thin-film solar panels?
+A: They use different photovoltaic semiconductor structures and manufacturing methods. Crystalline-silicon and thin-film are broad technology families, not complete quality rankings. Compare the actual module's specifications, suitability and documents; this explanation does not identify Sol & Tide's offered models.
+References: X07
+
+TECH02
+Q: What is a bifacial panel? Does it generate twice as much electricity?
+A: A bifacial design can collect light from both front and rear surfaces. Extra yield depends on rear illumination, reflection and the mounting environment. The name does not promise double generation or a fixed percentage gain on every roof.
+References: X08
+
+TECH03
+Q: Can I convert a battery's amp-hours into kilowatt-hours?
+A: A simplified nominal-energy calculation is nominal volts multiplied by amp-hours, divided by 1,000. For example, 48 V multiplied by 100 Ah gives 4.8 kWh nominal. Actual usable AC energy depends on the product, operating range and losses; this is not a quoted battery specification.
+References: Original explanatory arithmetic
+
+TECH04
+Q: Is a higher-voltage battery automatically better for my home?
+A: No. Voltage is a compatibility and design parameter, not a complete measure of value, energy or backup power. The battery, inverter, controls and protective equipment must form a supported system. Do not mix equipment or change wiring on the basis of a voltage comparison.
+References: Company and foundation synthesis
+
+TECH05
+Q: What is the difference between continuous and peak output power?
+A: Continuous output concerns sustained operation under stated conditions. Peak or surge output applies only under its specified duration and conditions. Do not use a short peak rating as an all-night running capability or assume it covers every motor start.
+References: Foundation power-limit synthesis
+
+TECH06
+Q: Does a battery's usable-capacity figure already include inverter losses?
+A: Check the measurement boundary. A DC battery figure is not automatically energy delivered at household AC circuits. Compare like-for-like specifications and avoid both ignoring losses and subtracting the same allowance twice. Ask what the quoted capacity includes.
+References: Original specification-comparison guidance
+
+TECH07
+Q: Are inverter efficiency and battery round-trip efficiency the same number?
+A: No. They describe different conversions or measurement boundaries. Round-trip efficiency compares recovered energy with charging energy, while an inverter efficiency concerns its conversion under stated conditions. One advertised efficiency does not establish the whole system's delivered-energy efficiency.
+References: X09
+
+TECH08
+Q: If two compatible batteries double stored energy, do they also double the inverter's output?
+A: Not necessarily. Supported expansion may add energy while the inverter, battery power limits or circuit arrangement still cap output. Adding capacities is not proof of safe compatibility or doubled whole-system power. Have the team confirm the proposed expansion's actual capabilities.
+References: Original expansion inference
+
+PROJECT PLANNING AND QUOTATION QUESTIONS
+
+PLAN01
+Q: Is my monthly bill amount enough to design a system?
+A: It is a useful starting point, but tariffs and fixed charges mean money is not the same as energy use. Billing-period consumption and the timing of loads give more context. Backup design also needs the appliances and simultaneous loads to be supported.
+References: X13; company calculator and assessment guidance
+
+PLAN02
+Q: Which parts of my bill or photos should I share for an assessment?
+A: Share relevant electricity charges or consumption, the billing period and the property location. The company guidance asks you to leave out account numbers and other unnecessary sensitive details. Relevant roof or installation-space photos can help explain the project.
+References: Company knowledge
+
+PLAN03
+Q: Can Basic, Plus or Premium be changed to fit my priorities?
+A: The published packages are starting options. Engineers can review your needs and discuss an appropriate configuration, with included work and the final price confirmed in the proposal. A package name alone does not guarantee a particular backup result for your home.
+References: Company knowledge
+
+PLAN04
+Q: How should I choose between the lowest budget and longer outage backup?
+A: Start with the loads and hours that matter most, then identify optional loads. More required energy or power may change the configuration and cost. Ask for a proposal explaining the trade-offs rather than treating the largest system as the automatic answer.
+References: Original project-planning guidance
+
+PLAN05
+Q: How do I compare two solar and battery quotations fairly?
+A: Compare panel capacity, inverter power, usable battery energy, backed-up circuits, site work, monitoring, warranties and the assumptions behind estimates. A lower headline price may cover a different scope. Ask each team to explain unclear items in writing.
+References: X10
+
+PLAN06
+Q: Are installation work, electrical upgrades, delivery, permits or taxes always included?
+A: Do not assume they are. Ask the team to identify included work, exclusions and any site-dependent costs in the proposal. This knowledge base does not establish a universal inclusion policy or authorise the assistant to promise that every possible extra is covered.
+References: X10; company pricing boundary
+
+PLAN07
+Q: Does completing the free assessment form reserve an installation date?
+A: No. It starts an enquiry so the team can review your needs. Any site visit, schedule, equipment allocation or installation commitment needs confirmation. The assistant should provide the correct regional form without reporting that a booking has already been made.
+References: Company knowledge
+
+PLAN08
+Q: I rent or share the property. Can I still discuss solar?
+A: You can ask general questions and describe the property. Installation planning should include the relevant owner or property decision-makers and permission arrangements. The team must review the actual project; this chat does not establish your authority to approve roof or electrical work.
+References: Original enquiry-planning guidance
+
+PLAN09
+Q: We are building or renovating. When should we raise solar and storage plans?
+A: Discuss them while roof layout, equipment locations and electrical planning can still be coordinated. Ask the project professionals what information they need. Early discussion can reveal space and access issues; it is not a substitute for the eventual design and installation review.
+References: X11
+
+PLAN10
+Q: Should an older solar system be replaced completely or upgraded?
+A: It depends on condition, performance, remaining warranties, roof plans and compatibility with new equipment. Keep existing documentation and production history for the assessment. Do not assume replacement or a simple battery addition is always the best solution.
+References: X12
+
+PLAN11
+Q: Can you confirm service for an apartment, a ground-mounted array or a business?
+A: The published company information focuses on homes in the listed service regions. Describe the project type and island so the team can confirm whether it can help. The chatbot should not infer that every installation type or commercial project is an available company service.
+References: Company service-scope boundary
+
+PLAN12
+Q: Do you offer finance, discounts, instalments or a particular cancellation policy?
+A: These terms are not confirmed in the approved knowledge. Ask the team for the current written offer and applicable terms. The assistant can explain that a proposal is needed, but cannot create a discount, payment agreement, refund decision or cancellation promise.
+References: Company pricing and support boundaries
+
+UNDERSTANDING REAL SYSTEM OPERATION AND SUPPORT
+
+OPS01
+Q: Why might my home use grid power while the sun is shining?
+A: Available solar may be below current demand, and equipment or reserve settings can limit battery contribution. Sunlight alone does not establish adequate power for every load. Look at the actual flows and configuration before concluding that the system is faulty.
+References: Company and foundation energy-flow synthesis
+
+OPS02
+Q: Why can solar output reduce when the battery is full?
+A: If household demand is low and export is limited or unavailable, there may be nowhere for additional generation to go. The system may limit output. This can be normal for the configuration and should be distinguished from a fault or unexpected underperformance.
+References: Company and foundation export-limit synthesis
+
+OPS03
+Q: Why might the system use the grid while the battery still shows charge?
+A: Some stored energy may be reserved, and other operating or power limits can apply. A visible charge percentage does not prove all that energy is currently available to household loads. Ask the team to explain the intended mode before treating the behaviour as a defect.
+References: Company and foundation reserve synthesis
+
+OPS04
+Q: Why might a battery charge from the grid?
+A: A supported configuration may replenish a reserve or follow an agreed operating strategy. This uses purchased electricity. Whether that behaviour is intended depends on the equipment and settings; general chat cannot verify live operation or authorise a settings change.
+References: Company and foundation operating-mode synthesis
+
+OPS05
+Q: Do two batteries at 50% charge contain the same usable energy?
+A: Not if their capacities or operating references differ. A percentage needs context. Compare the product's usable capacity and the definition of the displayed charge, then account for power limits and losses when considering delivered energy. Percentage alone is not a runtime estimate.
+References: Original capacity arithmetic inference
+
+OPS06
+Q: Can you give a simple example of solar, loads and battery charging at the same time?
+A: In a hypothetical loss-free snapshot, 6 kW of solar could supply 2 kW of loads, charge storage at 3 kW and export the remaining 1 kW if permitted and supported. Actual priorities, limits and measurements vary. This illustrates power balance, not a promised system setting.
+References: Original illustrative power balance
+
+OPS07
+Q: Can you show a basic example of how simultaneous appliance use affects backup?
+A: If hypothetical loads require 2 kW and 1.5 kW at the same time, they total 3.5 kW before starting demand or losses. A 3 kW-only backup source cannot be assumed to supply them both. Actual additional sources and limits depend on configuration.
+References: Original illustrative power arithmetic
+
+OPS08
+Q: Why does an app show both kW and kWh graphs?
+A: A kW reading shows power at a moment or over a sampling interval; a kWh total shows accumulated energy. Compare the same quantity and period. A brief high-power spike does not by itself establish high daily energy use.
+References: Original unit interpretation
+
+OPS09
+Q: Why can app savings or totals differ from my utility bill?
+A: Check the date range, tariff assumptions and whether the display measures generation, consumption, imports or exports. Estimated savings are not the same as billing charges. A difference requires like-for-like review rather than an immediate conclusion of a faulty meter.
+References: X13
+
+OPS10
+Q: One day's solar generation was lower. Does that prove a panel has failed?
+A: No. Weather, shading and the comparison period matter. Compare similar conditions and look for reported alerts or a persistent change. Share observations with support; a chatbot without site measurements cannot diagnose which component has failed.
+References: X14
+
+OPS11
+Q: What should I send when reporting a system problem?
+A: Describe what happened, when it started, the affected equipment and any visible alert or error text. Relevant monitoring screenshots may help through a supported contact channel. Avoid passwords, account numbers and private access links. Support must assess the issue before confirming a fault or repair.
+References: Company support guidance; X14
+
+OPS12
+Q: Does the AI need my monitoring password or access to my account to answer?
+A: No. General explanations do not require your password. The assistant has no live equipment or private-order access in this setup. Use the team's approved support channel for case handling, and do not share login credentials in this chat.
+References: Company access boundary
+
+WEATHER, OWNERSHIP AND LONG-TERM CARE
+
+CARE01
+Q: Does a panel test certificate guarantee the entire roof installation will withstand a hurricane?
+A: No. Storm resilience also depends on mounting, attachments, roof condition and site-specific engineering. Request the applicable equipment documents and design approach. A component test is not a universal whole-installation storm guarantee.
+References: X15
+
+CARE02
+Q: Does an outdoor or IP rating mean equipment can be submerged or survive any flood?
+A: No universal conclusion follows. An IP code concerns specified enclosure protection, not every environmental hazard or an entire installation. Suitability depends on the exact rating, model instructions and site. Flood exposure needs professional assessment rather than a generic waterproof claim.
+References: X16, X17
+
+CARE03
+Q: Does suitability for a coastal location depend only on water resistance?
+A: No. Environmental assessment should consider the selected equipment, mounting, exposure and material durability. Do not equate a general outdoor label with a salt-corrosion guarantee. Ask for relevant product documents and a site-appropriate proposal.
+References: Engineering assessment boundary; X15
+
+CARE04
+Q: What if my roof needs repairs after solar is installed?
+A: Coordinate roof work with qualified professionals and the solar team so equipment, access and any removal or reinstatement can be assessed. Ask about scope, costs and warranty implications. The assistant cannot confirm those arrangements or provide disconnection instructions.
+References: X18
+
+CARE05
+Q: What documents should I keep after a solar and battery installation?
+A: Ask for the final equipment list, agreed scope, warranty and support information, operating guidance and relevant handover records. Keep approved settings and monitoring access arrangements available for future professional support. Specific documentation must be agreed with the installer.
+References: X10, X19
+
+CARE06
+Q: What should I check when buying a home that already has solar and a battery?
+A: Request equipment details, installation history, ownership or contract information, warranties and available generation records. Confirm how support and any applicable warranty transfer work. Existing hardware alone does not establish its present condition or which obligations transfer with the property.
+References: X20
+
+CARE07
+Q: Can this AI confirm an existing order, payment, warranty claim or technician visit?
+A: No. It can explain public information and direct you to the team, but cannot access personal records or confirm those actions. Contact the relevant support channel with a brief description. Do not paste a private submission-access URL into general chat.
+References: Company support and access boundaries
+
+CARE08
+Q: What should happen to old panels, inverters or batteries?
+A: Ask the installer and suitable local collection or recycling providers about safe handling and available options. Do not assume household disposal is appropriate or that Sol & Tide includes a take-back service. Recycling and replacement arrangements need confirmation for the actual equipment and location.
+References: X21, X22
+
+SOURCE REGISTER — EXPANDED SCENARIOS
+Sources consulted 17 October 2026. Examples and editorial planning suggestions are identified separately from external technical facts. Foreign laws, rates, subsidies, product offerings and performance figures are not local company policy.
+X01 — EPA ENERGY STAR — Refrigerators product finder; annual energy-use units only, no product recommendation.
+https://www.energystar.gov/productfinder/product/certified-residential-refrigerators/results
+X02 — U.S. DOE — Purchasing Energy-Efficient Residential Central Air Conditioners; cooling capacity versus electricity input.
+https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-central-air-conditioners
+X03 — U.S. DOE — Energy Efficiency at Home; power and duration concepts only.
+https://www1.eere.energy.gov/education/pdfs/lesson301.pdf
+X04 — EPA ENERGY STAR — Pool Pumps Key Product Criteria; variable operating speeds only, no savings figure adopted.
+https://www.energystar.gov/products/pool_pumps/key_product_criteria
+X05 — U.S. DOE AFDC — Charging Electric Vehicles at Home; equipment and electrical-capacity considerations only.
+https://afdc.energy.gov/fuels/electricity-charging-home
+X06 — Australian Government — Size Your Solar System; usage-pattern assessment, no Australian averages or tariff rules adopted.
+https://www.energy.gov.au/solar/solar-system-design/size-your-solar-system
+X07 — U.S. DOE — Solar Photovoltaic Cell Basics; technology families only.
+https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics
+X08 — U.S. DOE — PV Cells 101; bifacial reflection concept only.
+https://www.energy.gov/cmei/systems/articles/pv-cells-101-primer-solar-photovoltaic-cell
+X09 — NREL — Technoeconomic Modeling of Battery Energy Storage; energy-efficiency boundaries.
+https://nrel.gov/docs/fy15osti/64641.pdf
+X10 — Australian Government — Choose Your Solar Retailer and Installer; quote comparison and written scope, not local legal or certification rules.
+https://www.energy.gov.au/solar/solar-retailers-and-installation/choose-your-solar-retailer-and-installer
+X11 — U.S. DOE — Renewable Energy Ready Home: Solar Photovoltaic Specifications; early planning and professional design.
+https://www.energy.gov/cmei/buildings/articles/renewable-energy-ready-home-solar-photovoltaic-specifications
+X12 — U.S. DOE — Should I Replace My Rooftop Solar System?
+https://www.energy.gov/cmei/systems/articles/should-i-replace-my-rooftop-solar-system
+X13 — Australian Government — Understand Your Energy Use; bills versus on-site generation.
+https://www.energy.gov.au/business/energy-management-business/1-understand-your-energy-use
+X14 — Australian Government — Look After Your Solar System; monitoring observations and professional support.
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system
+X15 — U.S. DOE — Severe Weather Resilience in Solar Photovoltaic System Design; complete installation resilience, no construction procedure reproduced.
+https://www.energy.gov/cmei/femp/severe-weather-resilience-solar-photovoltaic-system-design
+X16 — IEC — IEC 60529, Degrees of Protection Provided by Enclosures; public scope only, no universal interpretation of a specific code.
+https://webstore.iec.ch/en/publication/2452
+X17 — U.S. DOE — Preventing and Mitigating Flood Damage to Solar Photovoltaic Systems; environmental suitability only.
+https://www.energy.gov/cmei/femp/preventing-and-mitigating-flood-damage-solar-photovoltaic-systems
+X18 — U.S. DOE — Homeowner's Guide to Solar; roof and installation planning.
+https://www.energy.gov/cmei/systems/homeowners-guide-solar
+X19 — U.S. DOE — Life Cycle of Photovoltaic Systems: Install and Commission; professional handover and commissioning context.
+https://www.energy.gov/cmei/femp/life-cycle-photovoltaic-systems-install-and-commission-photovoltaic-system
+X20 — U.S. DOE — A Consumer's Guide to Buying a House with Solar Panels.
+https://www.energy.gov/cmei/systems/consumers-guide-buying-house-solar-panels
+X21 — US EPA — Solar Panel Recycling; general end-of-life options only, no U.S. waste law adopted as local policy.
+https://www.epa.gov/hw/solar-panel-recycling
+X22 — US EPA — Lithium-Ion Battery Recycling; professional collection and recycling concept only.
+https://www.epa.gov/hw/lithium-ion-battery-recycling

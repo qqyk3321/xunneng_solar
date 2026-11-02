@@ -13,7 +13,7 @@ test("performance monitoring includes public pages in both regions", () => {
 });
 
 test("staff, internal and unknown routes cannot send performance data", () => {
-  for (const path of ["/consultation", "/faq", "/how-it-works", "/antigua/privacy", "/dominica/privacy", "/antigua/submission", "/dominica/submission/token/extra", "/submission-preview-test", "/quote-settings", "/solar-analysis", "/test-pages", "/api/contact", "/staff", "/unknown"]) {
+  for (const path of ["/antigua/consultation/manage", "/dominica/consultation/manage", "/consultation", "/faq", "/how-it-works", "/antigua/privacy", "/dominica/privacy", "/antigua/submission", "/dominica/submission/token/extra", "/submission-preview-test", "/quote-settings", "/solar-analysis", "/test-pages", "/api/contact", "/staff", "/unknown"]) {
     assert.equal(isSpeedInsightsPath(path), false);
     assert.equal(beforeSendSpeedInsights({ type: "vital", url: `https://www.solortide.com${path}` }), null);
   }

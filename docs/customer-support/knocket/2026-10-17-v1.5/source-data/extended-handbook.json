@@ -1,0 +1,1547 @@
+{
+  "version": "1.5",
+  "prepared": "2026-10-17",
+  "chapters": [
+    {
+      "id": "G01",
+      "en": "Electrical quantities: reading power, energy, voltage and apparent power",
+      "intents": "W, kW, kWh, V, A, Ah, VA, kVA, power factor; power, energy, volts, amps, ampere-hours, apparent power",
+      "foundation": "Power is a rate; energy accumulates over time. Voltage and current describe different electrical quantities. In AC equipment, real-power and apparent-power limits may differ, so a kW rating and a kVA rating should not be assumed interchangeable. Power factor relates real power to apparent power under the stated conditions. [D01]",
+      "body": [
+        "Read a number together with its unit and its purpose. A panel's kW rating describes a generating capability at reference conditions; an inverter's kW describes a conversion or output limit; a battery's kWh describes stored energy at a defined boundary. These can all appear on the same proposal while answering different questions. Converting all of them into a single 'system size' loses important information.",
+        "For a constant load, energy equals power multiplied by elapsed time. If power varies, add the energy in successive intervals or use a representative measured total. Nameplate input may describe a maximum or test condition rather than a continuously drawn load. A refrigerator, air conditioner and water pump can each spend time in different operating states.",
+        "Amp-hours describe charge, not complete household energy. Nominal volts multiplied by amp-hours can provide an approximate nominal Wh figure. The result needs the correct battery or bank boundary: do not use one cell's voltage with the entire bank's claimed Ah, or treat a nominal DC figure as usable AC output. Voltage varies and the equipment specification remains the reference.",
+        "Apparent power is relevant when reviewing equipment that carries separate VA and W limits. If a hypothetical load has real power of 1.2 kW and power factor 0.8, the corresponding apparent power is 1.5 kVA. That arithmetic is an explanation, not a recommendation for a customer's circuit or UPS. Starting behaviour, harmonics and equipment limits still need professional assessment.",
+        "A good customer explanation keeps these layers separate: how much power is needed at once, how much energy is needed over a period, and which supply and equipment characteristics must be compatible. This lets the customer describe a goal without being asked to perform electrical measurements or expose wiring."
+      ],
+      "check": "Ask for a model label or manufacturer specification where available, the operating hours and which loads run together. Never ask the customer to open an electrical enclosure to obtain a reading.",
+      "summary": "Start with the units and the equipment being described. kW measures power at a moment; kWh measures energy over time. Ah cannot be treated as usable household energy without voltage and other relevant information. Battery energy capacity, inverter output and panel rated power answer different questions. For equipment rated in kVA, distinguish real power from apparent power. The assistant can explain ratings; engineers must confirm electrical compatibility."
+    },
+    {
+      "id": "G02",
+      "en": "Solar resource: daylight, irradiance, daily energy and weather uncertainty",
+      "intents": "sun hours, irradiance, insolation, peak sun hours, seasons, forecast; daylight, cloudy conditions, seasonal variation",
+      "foundation": "Solar-performance models distinguish weather inputs, the light reaching the panel plane and the conditions influencing electrical output. A measurement at one instant is different from energy integrated across a day. Effective irradiance further accounts for optical effects such as soiling and angle of incidence. [D02, D03]",
+      "body": [
+        "Day length is not a promise of rated generation throughout those hours. Morning, midday and late afternoon can have very different light intensity. A rooftop may also move into and out of shade. This is why a useful energy forecast is based on a time profile rather than panel capacity multiplied by every daylight hour.",
+        "Equivalent full-sun hours compress a changing daily light profile into an energy-equivalent number. They do not mean that the roof receives an unchanging peak intensity for that exact continuous period. When using an illustrative number in a conversation, label it as an assumption rather than a measured fact about the customer's island or roof.",
+        "Distinguish location-level resource from site-level access. A sunny region can still contain a deeply shaded roof. Nearby structures, trees, roof orientation and the usable installation area affect what the proposed array receives. A regional forecast does not substitute for a layout assessment.",
+        "An annual average is useful for planning but cannot describe every day, month or outage event. A design chosen for average bill reduction may need a different reserve or backup strategy for several weak-sun days. Weather-year data, actual future weather and a single forecast are different kinds of evidence.",
+        "A practical conversation starts with the customer's objective. Someone mainly concerned with bill reduction may want an annual estimate and its assumptions. Someone worried about long outages needs an explanation of low-generation periods, storage and any supported additional energy source. The assistant should not turn a regional sunshine statement into an autonomy guarantee."
+      ],
+      "check": "Ask which period and objective the customer is discussing: an instant, a typical day, an annual estimate or a specific outage. Use local site information before giving a project forecast.",
+      "summary": "Daylight duration, irradiance and daily solar energy are different quantities. Peak sun hours are an equivalent-energy measure, not a promise of fixed hours at full output every day. A sunny region does not prove that a particular roof is unshaded. Annual generation estimates and backup through consecutive cloudy days require separate analysis. Do not promise a fixed yield without appropriate roof and weather data."
+    },
+    {
+      "id": "G03",
+      "en": "Photovoltaic cells and module technologies: understanding comparisons",
+      "intents": "silicon, monocrystalline, polycrystalline, thin film, bifacial, tandem; module efficiency, cell technology",
+      "foundation": "Photovoltaic cells use semiconductor structures to convert light into electrical energy. Crystalline silicon and thin-film technologies are broad families. Bifacial collection and tandem structures describe different design features; a technology label alone is not a complete system specification. [D04]",
+      "body": [
+        "A cell is the converting element; a module packages many cells into an outdoor generating product. The resulting module still needs appropriate electrical conversion, mounting and system controls. A strong laboratory cell result does not establish a particular rooftop product's dimensions, price, availability or lifetime performance.",
+        "Customers often hear several labels at once and assume they are competing descriptions of the same property. Some refer to the semiconductor material, some to how the cell is constructed, some to how light is collected, and others to module packaging. Ask for the exact proposed model rather than inferring every feature from one marketing term.",
+        "Compare products at the level that matters to the roof. Relevant information includes rated output, physical size, efficiency, temperature behaviour, applicable tests and the terms covering equipment and output. On a constrained roof, power per available area may matter; on another project, layout or shading can dominate the decision.",
+        "A bifacial module can only benefit from light that actually reaches its rear. Roof colour, clearance and mounting geometry influence that opportunity. 'Two sides' is not an instruction to double the estimate. Likewise, a research report about a tandem cell is not proof that a quoted module uses that technology or is available through Sol & Tide.",
+        "A useful response to 'Which technology is best?' is to identify the comparison goal. Is the customer short of roof area, concerned about hot operating conditions, trying to fit an unusual roof, or comparing warranty documents? The assistant can explain those criteria and direct the model-specific choice to the proposal."
+      ],
+      "check": "Use the company's confirmed equipment information for offered products. Treat external manufacturers and research examples as educational references, not an approved supplier list.",
+      "summary": "Panel terminology may describe the material, cell structure, module construction or method of collecting light. One technology label cannot establish the quality of an entire system. Laboratory cell efficiency is not the same as the benefit of a rooftop module. Compare actual models, output, dimensions, temperature behavior, test documentation and warranty terms. Bifacial modules need useful rear-side light; they do not automatically double generation."
+    },
+    {
+      "id": "G04",
+      "en": "Reading a panel datasheet without turning it into a wiring plan",
+      "intents": "Pmax, Voc, Isc, Vmp, Imp, STC, NMOT, temperature coefficient; open-circuit voltage, short-circuit current, maximum power point, standard test conditions",
+      "foundation": "A module's current-voltage relationship includes short-circuit current, open-circuit voltage and a maximum-power operating point. These quantities vary with conditions, including irradiance and cell temperature. A datasheet's reference conditions must therefore accompany its numerical values. [D05]",
+      "body": [
+        "Pmax is a power rating at stated conditions. Vmp and Imp describe voltage and current at the maximum-power operating point; their product is associated with that power. Voc describes open-circuit voltage, while Isc describes short-circuit current under the relevant conditions. These are not interchangeable versions of one operating current or voltage.",
+        "A customer reading the largest number on each row may accidentally combine values that do not occur together. Multiplying open-circuit voltage by short-circuit current does not describe the module's normal useful output. The operating point lies on a relationship between current and voltage, not a menu from which maximum values can be independently selected.",
+        "Test-condition ratings help make controlled comparisons. Operating conditions on a real roof differ. A hot sunny afternoon, a cooler bright period and a cloudy morning can each produce a different electrical state. Where a datasheet offers additional operating-temperature or performance information, ask the designer how it was used in the site estimate.",
+        "Temperature coefficients indicate a direction and scale of change for a specified parameter and reference. Do not apply a power coefficient to voltage or a voltage coefficient to energy without the appropriate model. A simplified example can teach sensitivity, but it is not a final performance calculation.",
+        "Input-voltage, current and MPPT constraints belong to the complete design. The support assistant may explain what these headings mean, but should not instruct a visitor to choose a string length, rearrange connectors or override an inverter limit. The model, site extremes and professional design all matter."
+      ],
+      "check": "For a model-specific question, request the published model designation or datasheet through an appropriate channel. Do not infer compatibility from wattage alone or direct a customer to make open-circuit or short-circuit tests.",
+      "summary": "Pmax, Vmp, Imp, Voc and Isc describe different operating conditions. Do not multiply unrelated maximum values and present the result as normal operating power. Understand ratings together with their test conditions; roof operation depends on irradiance and cell temperature. Explain the terms without giving customers instructions for string wiring, short-circuit current measurements or electrical modifications."
+    },
+    {
+      "id": "G05",
+      "en": "Inverters, MPPT, conversion limits and the meaning of compatible operation",
+      "intents": "inverter, MPPT, clipping, grid following, grid forming, hybrid; power limiting, grid connection, grid-forming operation",
+      "foundation": "MPPT is a control function that seeks a useful maximum-power operating point as conditions change. The array, converter and AC output each have limits. A control function does not create sunlight or remove those limits. [D06]",
+      "body": [
+        "Think of the inverter as part of a conversion and control chain. It must work with the available solar input, supported battery arrangement and the household or grid interface. The nameplate output is important, but it is not a complete description of charging limits, backup coverage, generator behaviour or transfer performance.",
+        "Different functions can be combined into one enclosure or provided by separate devices. This changes neither the need to check compatibility nor the need to identify each function. A hybrid label may indicate coordinated solar and battery operation, but a proposal still needs to state what happens in grid-connected operation and during an outage.",
+        "An inverter can limit output for more than one reason. A conversion ceiling, battery charging limit, export constraint, selected mode or protective operating condition may all influence measured output. A flat section on a graph alone does not establish which condition is responsible. Ask for context before naming it a fault.",
+        "DC panel capacity and AC conversion capacity need not match numerically. A designer may balance better use during lower-light periods against some capped output during strong conditions. That trade-off is different from exceeding a manufacturer's allowed input range. The assistant can explain the distinction without recommending equipment changes.",
+        "When a visitor compares two inverters, organise the question around the intended job: required simultaneous load, battery interface, desired backup circuits, supply arrangement, supported monitoring and future plans. A higher headline kW rating is useful only if the rest of the proposed system and site can use it."
+      ],
+      "check": "Keep the distinction between a general operating concept and a verified capability of a specific model. Refer unusual source-combination or backup questions to the project team.",
+      "summary": "An inverter converts energy and coordinates operation with panels, batteries, the grid and loads. MPPT helps find an appropriate operating point but does not create additional solar energy. Limited output on a graph can have several causes and does not, by itself, prove a fault. The label 'hybrid inverter' does not replace confirmation of backup circuits, transfer performance and equipment compatibility."
+    },
+    {
+      "id": "G06",
+      "en": "Site assessment: the roof, usable space, access and equipment location",
+      "intents": "roof assessment, renovation, flat roof, access, battery location; structural condition, usable installation space",
+      "foundation": "Professional assessment considers the actual site, not only the desired capacity. Layout, installation access, roof condition and equipment location can affect design and scope. This guide describes information to discuss, not a structural certificate or local installation rule. [D07]",
+      "body": [
+        "Separate gross area from usable area. A large roof can contain obstacles, incompatible surfaces, shaded sections and access needs. The useful layout is not obtained by dividing roof area by one panel's dimensions and ignoring everything between them. Two properties with the same floor area can support very different layouts.",
+        "Roof condition is a lifecycle issue. If substantial work is already planned, installation timing should be coordinated so that removal and reinstatement are considered early. The assistant should not promise that roof work is included, that every roof can carry the equipment, or that one photograph settles structural suitability.",
+        "Equipment space has several dimensions: physical fit, environmental suitability, permitted access and how the proposed system connects with the property's infrastructure. A battery's footprint is not the same as the complete installation envelope. A sheltered-looking location also needs model-specific assessment.",
+        "Photos can help the team understand a site, but do not request unsafe access. Useful images are those the customer can share without climbing or opening equipment. State what the image is intended to show, such as the overall roof or the proposed ground-level area. Do not treat an image as proof of hidden structure or wiring.",
+        "Present unknown site details as questions for the assessment, not obstacles that the assistant has already diagnosed. A concise enquiry might establish the island, whether the building is existing or under construction, the main goal and whether relevant photos are available. The project team can determine which additional information is needed."
+      ],
+      "check": "Ask what is known, record what remains unverified, and keep preliminary discussions separate from a final design. Local requirements and model-specific location limits need confirmation.",
+      "summary": "A site assessment considers shading, structural condition, maintenance access, planned roof work and the equipment environment as well as roof area. Battery dimensions alone do not define the required installation space. Photographs can provide context but cannot establish hidden structural or electrical conditions. Do not ask customers to climb onto a roof or open equipment to gather evidence."
+    },
+    {
+      "id": "G07",
+      "en": "Battery construction, chemistry and protective control layers",
+      "intents": "cell, module, pack, LFP, NMC, BMS, EMS, cell balancing; lithium iron phosphate, battery management",
+      "foundation": "Battery cells, their managed grouping and system controls perform different jobs. A battery management system monitors and constrains battery operation, while wider controls coordinate energy use. A favourable chemistry description is not a complete safety or compatibility evaluation. [D08]",
+      "body": [
+        "An individual cell is not the whole home-storage product. Cells may be assembled into modules and a larger pack or bank with monitoring, protection, enclosures and interfaces. A comparison that quotes a cell's laboratory characteristic may not describe energy delivered by the installed system at household circuits.",
+        "Chemistry names are useful categories, but customers usually need an application-level comparison. Ask which documented usable energy, output limits, operating environment, support and warranty apply to the proposed product. Avoid a universal statement that one chemistry never ages or removes every risk.",
+        "Protective controls are not optional conveniences. A limit on charging or discharging may be related to conditions reported by the battery and the rest of the system. The fact that a customer wants more output does not establish that a protective limit is unnecessary. General support should not suggest defeating it.",
+        "Balancing and battery-state estimation are different ideas. Keeping cells within their intended operating relationship does not mean every displayed charge percentage must be exact at every instant. Equally, a changed percentage alone cannot identify a failed cell or justify a replacement recommendation from the chatbot.",
+        "Where equipment is modular, expansion still needs a supported combination. Communication, firmware compatibility, permissible configuration and manufacturer requirements matter alongside nominal capacity and voltage. The assistant can help the customer gather model information while leaving the actual compatibility decision to the team."
+      ],
+      "check": "For chemistry or BMS questions, explain the role of the component and use confirmed product documents for actual limits. Do not name a control threshold, chemistry advantage or compatibility promise that has not been verified.",
+      "summary": "Cells, modules, battery packs and complete home storage systems are different levels of equipment. Chemistry is one classification; protection, control, output capability, environment, warranty and support also matter. A BMS provides protective management, while system-level energy scheduling has a separate role. Do not recommend bypassing protection or mixing unconfirmed batteries to obtain more power."
+    },
+    {
+      "id": "G08",
+      "en": "Storage performance over time: SOC, SOH, cycles, throughput and reserve",
+      "intents": "SOC, SOH, DoD, battery ageing, calendar life, cycle life; state of charge, state of health, depth of discharge, degradation",
+      "foundation": "Calendar ageing and cycling describe different influences on storage life. Temperature, state of charge and operating profile can affect the result. Years, cycles and cumulative energy are therefore different ways to describe a battery's use and limitations. [D09]",
+      "body": [
+        "SOC describes the present charge estimate relative to a reference. SOH describes condition relative to another reference, often an earlier or nominal state. A fully charged older battery can therefore hold less energy than when it was new. Neither percentage by itself states the permitted discharge power.",
+        "Depth of discharge describes how much of a reference capacity has been used. An equivalent full-cycle measure aggregates partial use according to a defined method; it is not necessarily a counter incremented every time a charger starts. When reviewing a lifecycle figure, ask about its conditions and endpoint.",
+        "Throughput concerns accumulated energy over many operations. A warranty can use years, throughput, cycles or a combination. Compare the applicable written terms rather than dividing a laboratory cycle figure by the number of calendar days and reporting the result as a guaranteed service life.",
+        "Backup reserve and usable capacity need clear boundaries. A reserve held for a future outage may reduce routine daily discharge, but it is not the same as a product's permanent inaccessible capacity. Settings and outage behaviour differ. Explain the purpose of the reserve before discussing a customer preference.",
+        "Health estimates are useful context, not a replacement for support evaluation. If a customer reports an unexpected change, gather the visible observation and circumstances through the appropriate channel. Do not prescribe calibration cycles, deeply discharge a battery or reset a monitor in order to make a percentage look right."
+      ],
+      "check": "Clarify which quantity is being compared, the reference capacity, and whether the question is about present runtime, routine operation or warranty conditions.",
+      "summary": "SOC estimates the present charge level, SOH describes health relative to a reference, and DoD describes the discharged proportion. Cycles, elapsed years and energy throughput have different definitions and are not interchangeable. A backup reserve is also different from permanently unavailable capacity. Record unusual readings and refer them to support; do not ask customers to deep-discharge or reset a system for calibration."
+    },
+    {
+      "id": "G09",
+      "en": "Energy-management modes and the trade-offs between savings and resilience",
+      "intents": "self-consumption, reserve, time of use, grid charge, export control; backup reserve, grid charging",
+      "foundation": "Energy-management controls decide when supported sources and storage contribute. The available modes depend on the selected equipment and arrangements. The word optimisation does not establish a local tariff, external control programme or free-energy opportunity. [Company scope and approved foundations]",
+      "body": [
+        "Self-consumption aims to use more generated energy within the property. The system may use solar directly, charge storage with a surplus and discharge later within its limits. This is an energy-flow strategy; the financial result still depends on the tariff, costs and what would otherwise happen to the energy.",
+        "Backup reserve prioritises a later event that may or may not occur. Holding more energy can improve preparedness when an outage begins, while leaving less storage available for daily shifting. Discuss this as a customer objective rather than declaring one percentage correct for all households.",
+        "Time-based operation only has its intended economic meaning when the relevant prices and permissions exist. A system might be technically able to charge from the grid but have no attractive price difference to exploit. Losses, usage changes and purchase conditions belong in the comparison.",
+        "Export limits or low demand can influence how much solar is used at a moment. If a battery is full and household demand is small, unused generating potential may be limited rather than visibly produced and discarded. A low app value therefore needs context before it is called a hardware failure.",
+        "Automatic modes should be understood through their documented priorities. Ask the installer to explain normal operation, outage operation and low-energy behaviour. The assistant can translate those concepts into plain language, but cannot confirm a live setting or authorise a parameter change without the actual model and support process."
+      ],
+      "check": "Separate the customer's goal from the setting they propose. Ask whether the priority is daily savings, selected backup loads or readiness for longer interruptions.",
+      "summary": "The same battery can support daily self-consumption or retain more energy for an outage. Keeping a larger reserve creates a trade-off with daily usable energy. Time-of-use strategies require an applicable tariff and supported equipment functions. Grid charging is not free energy. Clarify the customer's objective before explaining modes, and do not change equipment settings on the customer's behalf."
+    },
+    {
+      "id": "G10",
+      "en": "System architectures: AC/DC coupling, backup boundaries and additional sources",
+      "intents": "AC coupling, DC coupling, essential loads, whole house, generator, phase, restart; backup circuits, phase count, restart after depletion",
+      "foundation": "The location of conversion stages and control equipment determines how sources interact. A backup system also needs an appropriate separation from the utility and support for its intended circuits. A diagram that includes all devices does not by itself establish a supported operating arrangement. [Approved architecture foundations]",
+      "body": [
+        "AC-coupled and DC-coupled describe connection approaches at a system level. Either may be relevant to a particular project, especially where solar already exists. The useful comparison is the supported energy path, conversion, controls and integration scope, not a claim that one acronym is universally superior.",
+        "An existing installation adds constraints that a new design may not have. Identify the present inverter and battery equipment, the customer's desired change and any backup requirement. Do not assume a new battery can be attached merely because its nominal voltage appears compatible.",
+        "Backup has a boundary. Essential-load arrangements identify selected circuits; wider arrangements still have energy, power and phase-dependent limits. Ask the proposal to explain what is inside that boundary and what happens when several large appliances request power together.",
+        "Generator integration is another compatibility question, not a default accessory. The generator, inverter, controls and electrical arrangement need review. Sol & Tide can assess the question according to its published service information, but the assistant cannot approve every generator or provide connection instructions.",
+        "Restart and transfer are separate behaviours. The speed of switching from a healthy grid does not establish what happens after low-energy shutdown, and neither establishes uninterrupted service to every sensitive load. Ask for the documented behaviour that matches the customer's concern rather than using a broad 'backup' label."
+      ],
+      "check": "A useful architecture enquiry states what is already installed, which sources are intended, which circuits matter and the required operating situations. Detailed design and connection work remain professional tasks.",
+      "summary": "AC and DC coupling describe connection and conversion arrangements, rather than a universal ranking of system quality. Backup scope must identify supported circuits, phases and combinations of loads. Generator compatibility, transfer time and restart after depletion are separate capabilities that require confirmation. A 'hybrid' label does not establish that every one of these capabilities is available."
+    },
+    {
+      "id": "G11",
+      "en": "Household load profiles: appliances, coincidence and daily routines",
+      "intents": "load profile, air conditioning, refrigerator, cooking, pump, EV; household consumption, appliance demand",
+      "foundation": "A useful load description distinguishes input power, accumulated energy and the time of use. Cooling output is not electrical input, and intermittent or variable-speed operation makes a nameplate-only energy estimate uncertain. [D10]",
+      "body": [
+        "Build a load picture around activities. Breakfast, work, cooling, laundry and evening cooking create different combinations. A monthly total hides those combinations. Two homes using the same monthly kWh may need different solar-to-storage balances because their demand occurs at different times.",
+        "Air conditioning requires more than a count of units or their cooling ratings. Relevant information includes the actual electrical characteristics, expected operating hours, cycling or variable operation and whether units start or run together. The question 'Can it run an air conditioner?' must therefore be narrowed to a meaningful operating scenario.",
+        "Refrigeration is often an important backup priority, but its compressor does not necessarily operate continuously at a single power level. A documented or measured energy total helps with the energy side; starting capability still needs a separate check. Do not turn a yearly label average into a guarantee for every hot day or outage.",
+        "Short-duration appliances can matter to output power even when their daily energy is modest. Conversely, a modest continuous load can become significant across many hours. Compare both dimensions before deciding which appliances are optional during backup.",
+        "Future loads belong in the discussion. An EV, additional cooling equipment or a new household routine can change the demand profile. The assistant should record these plans as inputs for the team, not automatically enlarge every package or promise that existing wiring and equipment can accommodate them."
+      ],
+      "check": "Use a simple list: appliance or activity, input power if known, desired operating period, must-run priority, and simultaneous-use notes. Avoid requesting unsafe measurements or a lengthy compulsory intake before answering basic questions.",
+      "summary": "Assess household demand by power, duration, timing and simultaneous use. Air-conditioning cooling capacity is not its electrical input power; a refrigerator's average energy consumption does not establish its starting demand. Brief high-power loads and small continuous loads both affect sizing. Tell the team about planned electric vehicles, additional air conditioning and changes in household routines."
+    },
+    {
+      "id": "G12",
+      "en": "A sizing method: objectives, constraints and scenario comparison",
+      "intents": "system sizing, battery sizing, budget, roof limit, essential loads; backup duration, design constraints",
+      "foundation": "Project sizing combines a generating profile, load profile, storage behaviour and equipment constraints. No single number, such as room count, monthly spend or battery capacity, establishes all of these. The workflow below is an original customer-facing planning framework.",
+      "body": [
+        "Start with the objective. Reducing routine grid purchases, supporting essentials during an outage and aiming for longer autonomy are related but different goals. State which is primary and what level of performance the customer hopes to discuss. Avoid assuming a budget enquiry means whole-house outage protection.",
+        "Then separate the constraints: usable installation area, site conditions, electrical compatibility, required simultaneous power, energy required over the target period and budget. Some constraints cannot be exchanged for one another. More stored energy, for example, does not remove a converter power ceiling.",
+        "Compare scenarios with the same assumptions. A basic comparison might hold the essential loads and target hours constant while changing storage. Another might hold equipment constant while distinguishing daytime-heavy and evening-heavy use. If both equipment and assumptions change, explain which change drives the result.",
+        "Treat average use and difficult conditions explicitly. An annual energy balance can look favourable while a particular evening or weak-sun period still requires grid energy. Outage planning also depends on the charge available when the outage begins. State the starting conditions before presenting a result.",
+        "Translate the comparison into questions for the proposal. Which loads are included? What energy and power boundary is being quoted? Which scope is confirmed and which site details remain uncertain? The assistant's role is to prepare a clearer assessment conversation, not to produce a final engineering design from incomplete chat information."
+      ],
+      "check": "When a customer asks for a recommendation, identify the missing fact with the greatest effect and ask one focused question. Use a package as a discussion starting point, not as a confirmed fit.",
+      "summary": "Define the objective, list the constraints and then compare options using consistent assumptions. Bill savings, essential-load backup and prolonged off-grid operation are different objectives. Roof area, simultaneous power, required energy and budget impose different constraints. The assistant can structure the comparison, but final equipment selection requires site and product information."
+    },
+    {
+      "id": "G13",
+      "en": "Calculation discipline: units, boundaries, assumptions and uncertainty",
+      "intents": "calculate runtime, battery charging, solar energy, losses, reserves; runtime, charging losses, assumptions",
+      "foundation": "Energy accounting requires consistent units, time periods and measurement boundaries. Calculations in this chapter are original hypothetical teaching examples. They are not measured local data, a Sol & Tide configuration or an installation recommendation.",
+      "body": [
+        "Define what each input represents before multiplying it. Is battery energy nominal DC capacity, usable DC capacity or energy actually available at the load? Is a power figure rated, measured at a moment or averaged over a period? These distinctions often matter more than adding more decimal places.",
+        "For a constant load, E = P × t. If power changes, add the energy of the separate periods. A load using 0.4 kW for three hours and 0.8 kW for two hours consumes 2.8 kWh in that simplified profile. The calculation does not include unspecified appliances or conversion losses.",
+        "Runtime = available delivered energy / average load is a useful teaching relationship. It does not prove that the output equipment can start or sustain the load. Check the power constraint separately. A large energy figure can coexist with insufficient instantaneous power.",
+        "Apply a loss or reserve allowance once, at the boundary for which it is defined. If an input is already usable delivered energy, subtracting the same allowance again understates it. If a quoted figure is nominal, ignoring a relevant limit can overstate it. State uncertainty when the boundary is not known.",
+        "Charging time needs net charging power, not array nameplate capacity. Household demand, available sunlight and the charging limit may constrain it. A five-hour arithmetic result at constant charging power does not mean every cloudy day will replenish the battery in five clock hours.",
+        "Present scenarios rather than false precision. Changing demand, starting SOC, reserve or available solar can each alter the result. Where important inputs are unknown, explain the relationship and ask the team to confirm the actual values instead of fabricating a precise backup duration."
+      ],
+      "check": "Every numerical answer should state its inputs and assumptions, distinguish hypothetical from actual data, and mention any separate power constraint relevant to the question.",
+      "summary": "Every calculation needs clear units and boundaries. Do not interchange rated values, instantaneous measurements and averages, or nominal battery energy and usable energy at the load. Avoid counting losses or reserves twice. Check power capability separately from runtime, and calculate charging from the net power remaining after loads. Teaching examples are not evidence of a customer's actual system performance."
+    },
+    {
+      "id": "G14",
+      "en": "Electricity bills and project economics: a transparent comparison",
+      "intents": "bill, tariff, payback, return, fixed charge, export, finance; electricity price, export value, financing",
+      "foundation": "Simple payback is a limited comparison that does not include the time value of money. Wider economic comparisons may account for future cash flows and costs. Storage economics also depend on energy throughput, replacement and operating assumptions. [D11, D12]",
+      "body": [
+        "Begin with the bill boundary. Grid energy, fixed charges, taxes or unrelated services are not interchangeable inputs. A solar system can change one part without eliminating the whole invoice. The company calculator is a planning aid with stated assumptions, not a live tariff feed or a substitute for a proposal.",
+        "Distinguish the financial use of each unit of solar energy. Energy used directly, energy shifted through a battery and energy exported may have different values. A stored kWh is not automatically an additional free kWh, because charging, losses and the alternative use of the energy matter.",
+        "Compare alternatives incrementally. If a battery is added to a solar proposal, compare the extra battery cost with the extra benefit it creates rather than attributing all solar savings to the battery. At the same time, acknowledge that outage preparedness can have value the customer does not measure only through a bill.",
+        "Use internally consistent hypothetical values when explaining arithmetic. A project cost of 20,000 currency units and annual net savings of 2,000 would give a ten-year simple payback under a constant-savings assumption. Those numbers are not local prices or a forecast, and the calculation omits financing and changing conditions unless explicitly added.",
+        "Ask about uncertainty before reporting a return. Tariffs, weather, usage, maintenance and replacement can change outcomes. A more detailed model also needs a stated period and financial assumptions. The assistant should explain what is missing rather than inventing a discount rate, finance offer or guaranteed return."
+      ],
+      "check": "For a personal purchase decision, use the correct regional calculator and a tailored proposal. Do not transplant a foreign subsidy, export credit, time-of-use tariff or financing term into company advice.",
+      "summary": "Separate the components of the electricity bill and distinguish the value of direct solar use, stored energy used later and exported energy. Evaluate a battery's additional cost against its additional benefit; do not attribute all solar savings to the battery. Simple payback is not a complete investment analysis or a guarantee of returns. Backup value can be discussed separately."
+    },
+    {
+      "id": "G15",
+      "en": "Monitoring literacy: what the dashboard can and cannot prove",
+      "intents": "monitoring, graph, kW, kWh, import, export, SOC, timestamp; energy monitoring, grid imports, self-consumption",
+      "foundation": "Monitoring systems can report different quantities at different boundaries and update intervals. A local display, an inverter portal and the utility bill need not show the same thing. Battery-state and runtime displays also depend on the product's estimation method and available data. [D13]",
+      "body": [
+        "Read the metric name before interpreting the number. Generation is not household consumption; grid import is not all energy used; export is not all unused sunlight; battery charging power is not its stored capacity. Comparing unrelated metrics can create the appearance of a problem when the readings are simply about different flows.",
+        "Align time periods. A daily total, a live reading and a billing-period total cannot be directly compared. Also check whether a graph is cumulative energy or sampled power, and whether its timestamps and timezone match the period the customer is discussing.",
+        "A power-flow diagram is a simplified representation. Devices may update at different moments, and some data may be estimated. Small or transient discrepancies require context. A screenshot alone is not proof of faulty metering, an electrical defect or unauthorised energy use.",
+        "Treat app savings as an estimate with tariff and measurement assumptions. The utility bill can include charges the app does not model, and it may not show all behind-the-meter use. Ask which values and dates are being compared before concluding that expected savings have disappeared.",
+        "When collecting a support report, ask for observable facts: what changed, when it happened, which devices or readings were affected and whether an alert is shown. Use a supported channel for relevant screenshots. Passwords, private access links and unnecessary account information are not required for a general explanation."
+      ],
+      "check": "The assistant cannot log into equipment or inspect live telemetry in this setup. Interpret the concept, record the observation and direct case-specific verification to support.",
+      "summary": "Read monitoring data with its metric name, time range, unit and measurement boundary. Solar generation is not total household consumption, and grid imports are not the household's only energy source. Instantaneous power, daily energy totals and billing-period figures cannot be compared without aligning their scope. A screenshot can provide clues but cannot prove that a component has failed or that a utility meter is inaccurate."
+    },
+    {
+      "id": "G16",
+      "en": "Operation and maintenance: observations, professional checks and support",
+      "intents": "maintenance, cleaning, low output, fault, alarm, commissioning; cleaning, low generation, alarms, troubleshooting",
+      "foundation": "Professional operating and maintenance practices consider performance, condition, documentation and site risks over time. Planned care and meaningful records help distinguish normal variation from changes that need investigation. This is a customer-awareness guide, not a maintenance procedure. [D14]",
+      "body": [
+        "Describe a performance concern before naming its cause. A lower daily yield may coincide with weather, shade, changed operating limits or an equipment issue. An alert is useful information, but the exact meaning and required response belong to the model's documentation and support process.",
+        "Use comparisons that answer a real question. A persistent change under comparable conditions deserves a different discussion from one cloudy afternoon. Record the time and visible behaviour instead of repeatedly changing settings to see whether the graph improves.",
+        "Cleaning decisions depend on the site and equipment. Dirt or debris can affect light access, but the assistant should not prescribe climbing, washing methods, tools or chemicals. Ask the team about a suitable scope and qualified service, including any access constraints.",
+        "Keep a handover record and a history of significant observations. Equipment model, installation documentation, relevant error text and the agreed support contact can be more useful than a large batch of unlabelled screenshots. Do not erase history or reset equipment just to simplify the report.",
+        "Separate explanation from action. A chatbot can explain an alert category in general terms without confirming that it has diagnosed the actual event. It cannot claim a repair, technician appointment or warranty approval has been completed when no corresponding workflow has confirmed it.",
+        "Sol & Tide's published services include support, cleaning and reinforcement, but the scope and current arrangements must be confirmed with the team. A general maintenance chapter does not create an additional contract or a fixed inspection schedule."
+      ],
+      "check": "Gather observable facts through a supported contact channel, respect the equipment instructions and escalate case-specific decisions. Do not provide enclosure-opening, disconnection, protection-bypass or repair steps.",
+      "summary": "Describe the observed behavior before assigning a cause or deciding whether professional investigation is needed. Useful maintenance information includes model details, timestamps, alarms and changes in operation. Do not clear history or reset equipment merely to obtain a simpler screenshot. Cleaning and inspection depend on the equipment and site. The assistant can explain concepts and organize questions, but cannot claim that repair, dispatch or warranty approval has occurred."
+    },
+    {
+      "id": "G17",
+      "en": "Caribbean conditions: heat, humidity, salt exposure, wind and flooding",
+      "intents": "Caribbean, heat, humidity, salt, hurricane, wind, flood, corrosion; Caribbean environment, salt exposure, wind loading",
+      "foundation": "Corrosion risks can involve several system materials and components, while severe-weather resilience depends on the complete installation. An enclosure rating does not establish every environmental capability. Site-specific engineering and appropriate operating practices remain important. [D15, D16]",
+      "body": [
+        "Discuss environmental concerns as separate exposures. A shaded equipment location may still experience humidity; a coastal property may require attention to materials; a roof can be suitable for energy collection while presenting challenging wind conditions. One favourable label does not answer all of these questions.",
+        "Component certificates and installation performance are different evidence. The module, its mounting, roof attachments, other equipment and the site's exposure form a system. A tested panel alone is not a whole-property hurricane guarantee, and a description such as waterproof is too broad to settle flood suitability.",
+        "Hot conditions affect more than comfort. They can influence both electrical performance and the operating environment of equipment. Ask how the proposed design addresses its stated temperature and environmental limits, without inventing a universal reduction percentage or a company's thermal specification.",
+        "Preparation and recovery need approved procedures. The assistant can help a customer identify which instructions and contacts to have available, but must not improvise shutdown, reconnection or inspection steps before or after severe weather. The actual equipment condition matters.",
+        "Keep country-specific rules separate from general climate education. Information from U.S. or Australian technical sources helps explain risk categories, not local approval or insurance coverage. Antigua and Barbuda and Dominica require their own project discussions; the assistant should not assert a local permitting outcome from a foreign reference."
+      ],
+      "check": "Ask what exposure concerns the customer and direct them to the team for the relevant product documents and site design. Never promise immunity to a category of weather.",
+      "summary": "Heat, humidity, salt exposure, wind and flooding are distinct environmental conditions. An 'outdoor' label does not establish suitability for all of them. Module testing and enclosure ratings are different from the wind or flood resilience of an entire installed system. Caribbean projects need site-specific assessment of the roof, materials and equipment. Overseas references explain concepts and do not establish local approval, insurance or disaster-resilience guarantees."
+    },
+    {
+      "id": "G18",
+      "en": "From enquiry to proposal and handover: understanding each project stage",
+      "intents": "assessment, quotation, site visit, proposal, payment, installation, warranty; site survey, handover, project stages",
+      "foundation": "A preliminary enquiry, an assessment, a written proposal, confirmed scheduling and completed handover are different stages. This chapter is an original explanation of useful project distinctions, not a newly promised Sol & Tide workflow or service deadline.",
+      "body": [
+        "The first enquiry establishes enough context to discuss the project: location, main electricity needs, backup priorities and any existing equipment. It should not require the customer to understand every technical parameter before receiving basic help.",
+        "Assessment reduces uncertainty. The team may need property and equipment information to decide what can be proposed. A preliminary calculation or package choice is not the same as confirming roof suitability, connection arrangements or all installation work.",
+        "A proposal should make the particular offer clear. Customers can ask about equipment, supported loads, scope, exclusions, assumptions, warranty responsibilities, commercial terms and the steps still requiring confirmation. The assistant should explain these categories without making up their contents.",
+        "Scheduling follows actual commitments and available arrangements. Sending a form or opening a link does not allocate equipment, reserve a date or approve a technician visit. If the customer asks whether something has been booked, the assistant must use the company's contact route rather than pretending to inspect an internal calendar.",
+        "Handover is about understanding the installed system and how to obtain support. Ask for the relevant operating information, monitoring arrangements and written records. Customer education should explain which documents to keep, while the team confirms what is actually provided.",
+        "Throughout the journey, changing requirements may change the scope. A request for another air conditioner on backup is not merely a wording edit if it alters energy and power needs. Record the change and have it reviewed instead of silently extending an old estimate."
+      ],
+      "check": "Identify which stage the customer is at and what evidence confirms it. Refer personal order, payment, schedule or warranty questions to the team.",
+      "summary": "An enquiry, assessment, formal proposal, installation schedule and completed handover represent different project stages. Submitting a form does not confirm an appointment, and an indicative package does not establish site suitability. A quotation should identify equipment, scope, assumptions, commercial terms and unresolved matters. Changes to the customer's needs require reassessment rather than automatic extension of the original estimate."
+    },
+    {
+      "id": "G19",
+      "en": "Customer decision journeys and useful next steps",
+      "intents": "beginner, comparison, first solar, existing system, rental, new home; rental property, new-build home, consultation",
+      "foundation": "Useful guidance responds to the customer's current question before asking for more data. This chapter applies the company's public information to common decision situations; it does not add service availability or authorise access to personal records.",
+      "body": [
+        "For a newcomer, start with the difference between generation, storage and the grid. Connect the explanation to a concern such as evening use or outages. Offer the relevant regional how-it-works page when it helps; do not require registration or a full electricity bill to explain the basics.",
+        "For someone comparing options, organise the comparison around needs and boundaries. Clarify whether the headline figure is panel power, inverter output or battery energy. Encourage a consistent scope and ask the team about the actual proposal rather than recommending a brand that appears only in an educational source.",
+        "For a customer ready for an assessment, use the property's island already established in the conversation. Offer the appropriate regional consultation page or WhatsApp according to their preference. Ask only the next useful question instead of repeating known details or imposing a long chat questionnaire.",
+        "For an existing-system enquiry, separate a general concept from a case-specific decision. An expansion, generator integration or fault needs actual equipment context. The assistant can help the customer describe the issue but cannot inspect live operation or promise a compatible modification.",
+        "For an unsupported or uncertain situation, be specific about what is unknown. A project outside the listed regions, an unconfirmed commercial application or a financing question should go to the team for confirmation. Avoid turning uncertainty into either a fabricated offer or a claim that service is definitely impossible.",
+        "When a person is requested, distinguish a contact link from an actual transfer. WhatsApp is another channel; platform-native handoff may have its own behaviour. The customer should receive a truthful next step rather than a claim that someone has already been notified when that has not been confirmed."
+      ],
+      "check": "Answer first, use known context, offer one relevant next step and state which decisions require the team. Identity questions should use the approved company-customised AI identity.",
+      "summary": "For a beginner, explain the principles first. When comparing proposals, clarify the metrics. When someone is ready to enquire, provide the appropriate regional route. For an existing system, gather the actual equipment context. Explain which unknown service conditions need team confirmation. Sharing a WhatsApp link is different from executing the platform's human handoff; a reply must not imply that the team has been notified or an appointment booked when that has not happened."
+    },
+    {
+      "id": "G20",
+      "en": "Long-term ownership, sustainability and future changes",
+      "intents": "lifecycle, recycling, replacement, moving, warranty transfer, future loads; warranty transfer, future demand, end of life",
+      "foundation": "Solar and storage equipment has an operating life and an eventual management or replacement stage. Recovery and recycling options depend on equipment, location and available services. General environmental benefits do not establish a company take-back promise or a quantified emissions result. [D17]",
+      "body": [
+        "View the system as a long-term asset with records and responsibilities. Keep the agreed equipment and scope information, applicable warranties, support details and relevant operating history. This helps future professional work and makes it easier to distinguish an original promise from a later assumption.",
+        "Components need not have identical lifetimes or replacement conditions. A module performance warranty, an equipment defect warranty, a battery retained-capacity term and installation coverage answer different questions. The assistant should help the customer read those distinctions, not invent one universal 'system warranty'.",
+        "A change in property ownership raises questions that hardware alone cannot answer. Ask about equipment ownership, existing contracts, documentation and any transfer conditions. The presence of installed solar is not proof that every obligation or service arrangement automatically transfers.",
+        "Future needs can change. More cooling, an EV, a home office or different occupancy may affect both energy and power requirements. Expansion depends on the existing design and compatibility, not just buying a larger battery. Capture the intended change and have it assessed.",
+        "Environmental comparisons also need boundaries. A claim about avoided emissions requires a stated baseline and relevant assumptions; it should not be inferred from a generic kWh figure using an invented factor. Similarly, do not describe a product as impact-free simply because it operates without fuel combustion on the roof.",
+        "At end of life, ask qualified providers and the local team about safe handling and available options. The knowledge base does not confirm local collection services or that Sol & Tide takes back every panel or battery. Do not replace professional removal and disposal planning with a DIY procedure."
+      ],
+      "check": "For ownership, warranty, replacement or environmental questions, separate documented facts from assumptions and confirm the actual local service arrangements.",
+      "summary": "Long-term ownership benefits from equipment, scope, warranty, support and operating records. Different components and warranties do not necessarily share the same terms. Moving home or transferring ownership does not automatically transfer every service. New loads and expansion require reassessment. Carbon estimates need a stated baseline and assumptions; recycling and replacement depend on confirmed local arrangements. Do not invent a company take-back commitment."
+    }
+  ],
+  "glossary": [
+    {
+      "id": "T001",
+      "en": "Energy",
+      "definition": "An accumulated quantity that can be generated, transferred, stored or used; specify the time period and measurement boundary."
+    },
+    {
+      "id": "T002",
+      "en": "Electrical power",
+      "definition": "The rate of electrical energy transfer at a moment or under defined operating conditions."
+    },
+    {
+      "id": "T003",
+      "en": "Watt (W)",
+      "definition": "A unit of power; read it with the device and condition to which the rating or measurement refers."
+    },
+    {
+      "id": "T004",
+      "en": "Kilowatt (kW)",
+      "definition": "One thousand watts; used for generating, charging, discharging or load power, not stored energy."
+    },
+    {
+      "id": "T005",
+      "en": "Megawatt (MW)",
+      "definition": "One thousand kilowatts; a scale unit, not a different kind of electricity."
+    },
+    {
+      "id": "T006",
+      "en": "Watt-hour (Wh)",
+      "definition": "Energy corresponding to one watt sustained for one hour; a measure of quantity rather than instantaneous rate."
+    },
+    {
+      "id": "T007",
+      "en": "Kilowatt-hour (kWh)",
+      "definition": "One thousand watt-hours; commonly used for household consumption, generation and battery energy."
+    },
+    {
+      "id": "T008",
+      "en": "Peak rated power (kWp)",
+      "definition": "A solar power rating at reference conditions, not a guarantee of continuous roof output."
+    },
+    {
+      "id": "T009",
+      "en": "Direct current (DC)",
+      "definition": "Electrical operation with current in one direction; the DC side still needs compatible voltage, current and protection."
+    },
+    {
+      "id": "T010",
+      "en": "Alternating current (AC)",
+      "definition": "Electrical operation with periodically changing direction; household compatibility includes the relevant supply characteristics."
+    },
+    {
+      "id": "T011",
+      "en": "Voltage (V)",
+      "definition": "An electrical potential difference; matching a nominal voltage alone does not establish complete equipment compatibility."
+    },
+    {
+      "id": "T012",
+      "en": "Current (A)",
+      "definition": "The rate of electric-charge flow; a current rating requires the corresponding equipment and conditions."
+    },
+    {
+      "id": "T013",
+      "en": "Amp-hour (Ah)",
+      "definition": "A charge quantity; nominal voltage is also needed for an approximate nominal-energy calculation."
+    },
+    {
+      "id": "T014",
+      "en": "Volt-ampere (VA)",
+      "definition": "A unit of apparent power in AC equipment; do not automatically treat its numerical value as watts."
+    },
+    {
+      "id": "T015",
+      "en": "Kilovolt-ampere (kVA)",
+      "definition": "One thousand VA; compare both real-power and apparent-power constraints where specified."
+    },
+    {
+      "id": "T016",
+      "en": "Power factor",
+      "definition": "The relationship between real and apparent power under the stated conditions; relevant to some equipment ratings."
+    },
+    {
+      "id": "T017",
+      "en": "Nominal value",
+      "definition": "A stated reference or naming value, not necessarily the exact live reading or usable delivered quantity."
+    },
+    {
+      "id": "T018",
+      "en": "Rated value",
+      "definition": "A specified performance or limit under defined conditions; those conditions belong with the number."
+    },
+    {
+      "id": "T019",
+      "en": "Continuous output",
+      "definition": "Output supported over the stated operating duration and conditions, distinct from a temporary peak."
+    },
+    {
+      "id": "T020",
+      "en": "Surge or peak output",
+      "definition": "A temporary capability subject to its permitted duration and conditions, not sustained running power."
+    },
+    {
+      "id": "T021",
+      "en": "Load",
+      "definition": "An appliance or group consuming power; identify both instantaneous needs and energy over time."
+    },
+    {
+      "id": "T022",
+      "en": "Simultaneous demand",
+      "definition": "The power needed by loads operating together; different from simply adding their daily energy totals."
+    },
+    {
+      "id": "T023",
+      "en": "Duty cycle",
+      "definition": "The pattern of operation and rest or different power states; relevant when estimating energy use."
+    },
+    {
+      "id": "T024",
+      "en": "Base load",
+      "definition": "Demand that persists across much of the period being studied; its actual level is site-dependent."
+    },
+    {
+      "id": "T025",
+      "en": "Load profile",
+      "definition": "The changing demand over time, used to understand both coincidence and energy."
+    },
+    {
+      "id": "T026",
+      "en": "Essential loads",
+      "definition": "The agreed subset of appliances or circuits prioritised for backup; inclusion must be confirmed."
+    },
+    {
+      "id": "T027",
+      "en": "Runtime",
+      "definition": "The period a defined load can be supplied under stated energy, power and operating assumptions."
+    },
+    {
+      "id": "T028",
+      "en": "Autonomy",
+      "definition": "Time supported without the external source being considered; the assumed weather and starting energy matter."
+    },
+    {
+      "id": "T029",
+      "en": "Starting demand",
+      "definition": "An appliance's demand while starting, which may differ from its normal running requirement."
+    },
+    {
+      "id": "T030",
+      "en": "Cooling capacity",
+      "definition": "Thermal cooling output; not the same as an air conditioner's electrical input."
+    },
+    {
+      "id": "T031",
+      "en": "BTU per hour",
+      "definition": "A thermal rate commonly used for cooling capacity; it does not directly specify electrical consumption."
+    },
+    {
+      "id": "T032",
+      "en": "Electrical input",
+      "definition": "Electricity required by equipment under stated conditions, distinct from thermal or mechanical output."
+    },
+    {
+      "id": "T033",
+      "en": "EV charging",
+      "definition": "A household load with charger, vehicle, timing and energy requirements; backup capability is not automatic."
+    },
+    {
+      "id": "T034",
+      "en": "Storage system (BESS)",
+      "definition": "Battery storage together with management, conversion and other required equipment for the intended application."
+    },
+    {
+      "id": "T035",
+      "en": "Battery cell",
+      "definition": "An individual electrochemical unit; its characteristics are not automatically the whole system's delivered performance."
+    },
+    {
+      "id": "T036",
+      "en": "Battery module",
+      "definition": "A product-specific grouping of cells; compatibility and management depend on the equipment design."
+    },
+    {
+      "id": "T037",
+      "en": "Battery pack or bank",
+      "definition": "An assembled storage unit or supported grouping; distinguish its limits from those of one cell."
+    },
+    {
+      "id": "T038",
+      "en": "Photovoltaic (PV)",
+      "definition": "Conversion of light into electricity using photovoltaic materials and devices."
+    },
+    {
+      "id": "T039",
+      "en": "Solar thermal",
+      "definition": "Use of solar energy as heat; different equipment and output from a PV electrical system."
+    },
+    {
+      "id": "T040",
+      "en": "Solar cell",
+      "definition": "An individual photovoltaic converting element, usually packaged with others in a module."
+    },
+    {
+      "id": "T041",
+      "en": "PV module or panel",
+      "definition": "A packaged photovoltaic generating product containing cells and protective construction."
+    },
+    {
+      "id": "T042",
+      "en": "PV array",
+      "definition": "An arrangement of multiple modules forming the generating portion of a system."
+    },
+    {
+      "id": "T043",
+      "en": "Crystalline silicon",
+      "definition": "A broad photovoltaic material family; the exact module model still determines specifications."
+    },
+    {
+      "id": "T044",
+      "en": "Monocrystalline",
+      "definition": "A crystalline-material description; not a complete guarantee of yield, durability, price or suitability."
+    },
+    {
+      "id": "T045",
+      "en": "Polycrystalline",
+      "definition": "A material-structure description; compare actual products and conditions rather than the label alone."
+    },
+    {
+      "id": "T046",
+      "en": "Thin-film PV",
+      "definition": "A family using thin photovoltaic material layers; technology category does not establish an offered company product."
+    },
+    {
+      "id": "T047",
+      "en": "Bifacial module",
+      "definition": "A module designed to collect useful light from both sides; extra yield depends on rear illumination."
+    },
+    {
+      "id": "T048",
+      "en": "Tandem cell",
+      "definition": "A cell structure combining conversion layers; research capability is not proof of a quoted product's availability."
+    },
+    {
+      "id": "T049",
+      "en": "Inverter",
+      "definition": "Power-conversion equipment used to provide an appropriate AC output from a compatible DC source."
+    },
+    {
+      "id": "T050",
+      "en": "Solar inverter",
+      "definition": "An inverter serving the PV conversion function; storage or backup support must be separately established."
+    },
+    {
+      "id": "T051",
+      "en": "Battery inverter-charger",
+      "definition": "Compatible equipment for battery charging and household AC supply; product functions differ."
+    },
+    {
+      "id": "T052",
+      "en": "Hybrid inverter",
+      "definition": "Equipment combining or coordinating supported solar and battery functions; the label alone does not guarantee every backup feature."
+    },
+    {
+      "id": "T053",
+      "en": "String inverter",
+      "definition": "An inverter converting energy from groups of panels; layout and operating conditions affect the design."
+    },
+    {
+      "id": "T054",
+      "en": "Microinverter",
+      "definition": "Panel-level conversion equipment; compatibility, monitoring and costs remain model-specific."
+    },
+    {
+      "id": "T055",
+      "en": "Power optimiser",
+      "definition": "Panel-level DC control used with a compatible system; it does not create missing sunlight."
+    },
+    {
+      "id": "T056",
+      "en": "MPPT",
+      "definition": "A control process seeking a useful array operating point as electrical and environmental conditions change."
+    },
+    {
+      "id": "T057",
+      "en": "Maximum power point",
+      "definition": "An operating point on a current-voltage relationship at which available electrical power is maximised."
+    },
+    {
+      "id": "T058",
+      "en": "DC coupling",
+      "definition": "A system architecture connecting solar and storage through a supported DC-side arrangement."
+    },
+    {
+      "id": "T059",
+      "en": "AC coupling",
+      "definition": "An architecture where solar and storage conversion systems interact through an AC-side arrangement."
+    },
+    {
+      "id": "T060",
+      "en": "Grid-connected",
+      "definition": "Operating alongside a utility supply under the relevant equipment and connection arrangement."
+    },
+    {
+      "id": "T061",
+      "en": "Off-grid",
+      "definition": "Operating independently of the utility; adequate generation, storage and other sources need specific design."
+    },
+    {
+      "id": "T062",
+      "en": "Islanding",
+      "definition": "Operation of a separated electrical area; supported backup requires a controlled and appropriate boundary."
+    },
+    {
+      "id": "T063",
+      "en": "Anti-islanding",
+      "definition": "Protection associated with preventing unintended independent energisation; not a user setting to bypass."
+    },
+    {
+      "id": "T064",
+      "en": "Grid-following",
+      "definition": "Operation referenced to an existing supply signal; do not infer independent backup capability."
+    },
+    {
+      "id": "T065",
+      "en": "Grid-forming",
+      "definition": "A supported ability to establish a local electrical reference; applicability depends on the complete design."
+    },
+    {
+      "id": "T066",
+      "en": "Black start",
+      "definition": "Starting a system without the external reference or supply being considered; exact capability is model-specific."
+    },
+    {
+      "id": "T067",
+      "en": "Transfer time",
+      "definition": "The interruption or transition performance between operating situations; not necessarily zero."
+    },
+    {
+      "id": "T068",
+      "en": "UPS",
+      "definition": "Equipment intended for specified backup and power-continuity functions; compare actual ratings and topology."
+    },
+    {
+      "id": "T069",
+      "en": "Phase coverage",
+      "definition": "Which parts of a property's supply and circuits are supported; one connection does not establish all-phase backup."
+    },
+    {
+      "id": "T070",
+      "en": "Export limit",
+      "definition": "A constraint on electricity sent to the utility under the applicable arrangement."
+    },
+    {
+      "id": "T071",
+      "en": "Curtailment",
+      "definition": "Reduction of generating output when available energy cannot or should not be converted or used."
+    },
+    {
+      "id": "T072",
+      "en": "Shading",
+      "definition": "Reduced light access from an obstruction; the effect depends on timing, layout and equipment."
+    },
+    {
+      "id": "T073",
+      "en": "Irradiance",
+      "definition": "Solar power incident per unit area at a moment; distinguish it from accumulated solar energy."
+    },
+    {
+      "id": "T074",
+      "en": "Irradiation or insolation",
+      "definition": "Solar energy received per area over a stated period; the period must be specified."
+    },
+    {
+      "id": "T075",
+      "en": "Equivalent sun hours",
+      "definition": "An energy-equivalent representation of changing sunlight, not a fixed interval of continuous peak generation."
+    },
+    {
+      "id": "T076",
+      "en": "Plane of array (POA)",
+      "definition": "The orientation plane at which light relevant to the array is considered or measured."
+    },
+    {
+      "id": "T077",
+      "en": "Direct irradiance",
+      "definition": "Light arriving along the direct solar path, distinguished from diffuse components."
+    },
+    {
+      "id": "T078",
+      "en": "Diffuse irradiance",
+      "definition": "Light reaching a surface after atmospheric scattering; cloud conditions change its contribution."
+    },
+    {
+      "id": "T079",
+      "en": "Reflected light",
+      "definition": "Light redirected by surrounding surfaces; geometry and materials affect whether it reaches a module."
+    },
+    {
+      "id": "T080",
+      "en": "Albedo",
+      "definition": "A surface-reflection characteristic used in modelling; not a guaranteed bifacial gain."
+    },
+    {
+      "id": "T081",
+      "en": "Azimuth",
+      "definition": "A directional description used with a defined convention; specify the convention before comparing values."
+    },
+    {
+      "id": "T082",
+      "en": "Tilt",
+      "definition": "An installation's inclination relative to a reference plane; part of the site and layout assessment."
+    },
+    {
+      "id": "T083",
+      "en": "Soiling",
+      "definition": "Deposited material affecting light access or operation; cleaning decisions remain site and equipment dependent."
+    },
+    {
+      "id": "T084",
+      "en": "Cell temperature",
+      "definition": "The temperature relevant to cell behaviour; it is not automatically the weather report's ambient temperature."
+    },
+    {
+      "id": "T085",
+      "en": "Ambient temperature",
+      "definition": "The surrounding air condition, distinct from internal cell or component temperatures."
+    },
+    {
+      "id": "T086",
+      "en": "STC",
+      "definition": "Reference conditions used for specified photovoltaic ratings; not a description of every rooftop hour."
+    },
+    {
+      "id": "T087",
+      "en": "Operating-temperature reference",
+      "definition": "A stated modelling or test reference that must be interpreted with its conditions and equipment."
+    },
+    {
+      "id": "T088",
+      "en": "Open-circuit voltage (Voc)",
+      "definition": "Voltage at the open-circuit point under specified conditions; not a normal power-producing operating point."
+    },
+    {
+      "id": "T089",
+      "en": "Short-circuit current (Isc)",
+      "definition": "Current at a defined short-circuit test point; not a measurement the chatbot should ask a visitor to perform."
+    },
+    {
+      "id": "T090",
+      "en": "Maximum-power voltage (Vmp)",
+      "definition": "Voltage at the relevant maximum-power point, paired with the corresponding current."
+    },
+    {
+      "id": "T091",
+      "en": "Maximum-power current (Imp)",
+      "definition": "Current at the maximum-power point, paired with its operating voltage."
+    },
+    {
+      "id": "T092",
+      "en": "Maximum power (Pmax)",
+      "definition": "A power value at specified conditions; do not form it from unrelated voltage and current maxima."
+    },
+    {
+      "id": "T093",
+      "en": "Temperature coefficient",
+      "definition": "The change of a specified parameter with temperature under the stated reference and units."
+    },
+    {
+      "id": "T094",
+      "en": "Clipping",
+      "definition": "Capping of output at a relevant conversion limit when available input would exceed it."
+    },
+    {
+      "id": "T095",
+      "en": "Energy yield",
+      "definition": "Electrical energy produced over the stated period and boundary; distinguish gross generation from grid export."
+    },
+    {
+      "id": "T096",
+      "en": "Specific yield",
+      "definition": "Energy divided by the relevant installed capacity over a stated period; assumptions and boundaries still matter."
+    },
+    {
+      "id": "T097",
+      "en": "Performance comparison",
+      "definition": "An evaluation using matched units, periods and conditions rather than isolated headline numbers."
+    },
+    {
+      "id": "T098",
+      "en": "Availability",
+      "definition": "The extent a system or function is available during the defined period, distinct from energy produced."
+    },
+    {
+      "id": "T099",
+      "en": "Battery energy capacity",
+      "definition": "Stored-energy capability at a stated boundary and condition; not instantaneous output power."
+    },
+    {
+      "id": "T100",
+      "en": "Usable capacity",
+      "definition": "Capacity made available within the specified product or operating boundary."
+    },
+    {
+      "id": "T101",
+      "en": "Nominal capacity",
+      "definition": "A stated reference capacity that may differ from usable energy delivered to loads."
+    },
+    {
+      "id": "T102",
+      "en": "SOC",
+      "definition": "An estimate of current charge relative to the applicable capacity reference."
+    },
+    {
+      "id": "T103",
+      "en": "SOH",
+      "definition": "A condition estimate relative to an earlier or nominal reference; its method is product-specific."
+    },
+    {
+      "id": "T104",
+      "en": "Depth of discharge (DoD)",
+      "definition": "The proportion used relative to the stated capacity reference during the period or cycle."
+    },
+    {
+      "id": "T105",
+      "en": "Equivalent full cycle",
+      "definition": "An accounting measure aggregating battery use under a defined method, not necessarily every charge event."
+    },
+    {
+      "id": "T106",
+      "en": "Energy throughput",
+      "definition": "Cumulative energy charged or delivered over time according to the stated definition."
+    },
+    {
+      "id": "T107",
+      "en": "Calendar ageing",
+      "definition": "Changes associated with time and conditions, distinct from counting cycles alone."
+    },
+    {
+      "id": "T108",
+      "en": "Cycle life",
+      "definition": "A test- or condition-dependent use measure to an identified endpoint, not an unconditional year guarantee."
+    },
+    {
+      "id": "T109",
+      "en": "Round-trip efficiency",
+      "definition": "Recovered energy divided by charging energy for a defined cycle and measurement boundary."
+    },
+    {
+      "id": "T110",
+      "en": "Conversion loss",
+      "definition": "Energy not delivered through a conversion stage; apply its allowance only at the relevant boundary."
+    },
+    {
+      "id": "T111",
+      "en": "Standby consumption",
+      "definition": "Energy used while equipment remains in a low-power or ready state."
+    },
+    {
+      "id": "T112",
+      "en": "BMS",
+      "definition": "Battery monitoring and protective management; its limits are not to be bypassed through general advice."
+    },
+    {
+      "id": "T113",
+      "en": "EMS",
+      "definition": "Higher-level coordination of supported energy sources, storage and loads."
+    },
+    {
+      "id": "T114",
+      "en": "Cell balancing",
+      "definition": "A product-specific management function addressing cell-state differences; not proof of exact SOC estimation."
+    },
+    {
+      "id": "T115",
+      "en": "Backup reserve",
+      "definition": "Energy held for a possible outage under supported settings; distinguish it from a permanent unusable margin."
+    },
+    {
+      "id": "T116",
+      "en": "Local control",
+      "definition": "Functions carried out by the installed equipment, distinct from remote visibility or cloud-dependent features."
+    },
+    {
+      "id": "T117",
+      "en": "Firmware",
+      "definition": "Device software with model-specific support and update requirements."
+    },
+    {
+      "id": "T118",
+      "en": "Telemetry",
+      "definition": "Reported measurements or status; data access is not available to this assistant in the current setup."
+    },
+    {
+      "id": "T119",
+      "en": "Monitoring interval",
+      "definition": "The period or update pattern behind reported data, relevant to interpreting graphs."
+    },
+    {
+      "id": "T120",
+      "en": "Metering boundary",
+      "definition": "Where and what a measurement includes, such as inverter output, household loads or grid exchange."
+    },
+    {
+      "id": "T121",
+      "en": "Grid import",
+      "definition": "Energy or power received from the utility at the relevant measurement boundary."
+    },
+    {
+      "id": "T122",
+      "en": "Grid export",
+      "definition": "Energy or power sent to the utility under a supported and permitted arrangement."
+    },
+    {
+      "id": "T123",
+      "en": "Self-consumption",
+      "definition": "Solar energy used within the property under an identified definition and boundary."
+    },
+    {
+      "id": "T124",
+      "en": "Self-sufficiency",
+      "definition": "The portion of the household's defined demand supplied by the considered on-site sources."
+    },
+    {
+      "id": "T125",
+      "en": "Tariff",
+      "definition": "The actual charging structure applying to the property; a foreign example does not establish it."
+    },
+    {
+      "id": "T126",
+      "en": "Fixed charge",
+      "definition": "A bill component not simply proportional to the kWh under discussion."
+    },
+    {
+      "id": "T127",
+      "en": "Usage charge",
+      "definition": "A bill component calculated from relevant measured use under the tariff."
+    },
+    {
+      "id": "T128",
+      "en": "Export credit",
+      "definition": "Compensation, if applicable, under the actual utility arrangement; not an automatic company promise."
+    },
+    {
+      "id": "T129",
+      "en": "Time-of-use pricing",
+      "definition": "Prices varying by defined periods; its existence and terms must be confirmed locally."
+    },
+    {
+      "id": "T130",
+      "en": "Simple payback",
+      "definition": "Initial cost divided by a defined annual net benefit under stated assumptions; it omits several financial effects."
+    },
+    {
+      "id": "T131",
+      "en": "Discount rate",
+      "definition": "An assumed rate used to compare cash flows across time; the assistant must not invent it for a personal project."
+    },
+    {
+      "id": "T132",
+      "en": "Net present value",
+      "definition": "Present-valued future net cash flows less the relevant investment under stated assumptions."
+    },
+    {
+      "id": "T133",
+      "en": "Incremental benefit",
+      "definition": "The extra benefit of one change compared with a defined baseline, distinct from the whole project's benefit."
+    },
+    {
+      "id": "T134",
+      "en": "Project scope",
+      "definition": "The equipment and work actually included in a particular agreed offer."
+    },
+    {
+      "id": "T135",
+      "en": "Exclusion",
+      "definition": "A stated item outside the agreed scope; it should not be silently assumed included."
+    },
+    {
+      "id": "T136",
+      "en": "Product warranty",
+      "definition": "Written coverage for specified equipment conditions or defects, subject to its terms."
+    },
+    {
+      "id": "T137",
+      "en": "Performance warranty",
+      "definition": "Written coverage for specified output or retention conditions, not a universal yield or bill promise."
+    },
+    {
+      "id": "T138",
+      "en": "Workmanship coverage",
+      "definition": "Written coverage addressing specified installation work; confirm actual responsibilities and terms."
+    },
+    {
+      "id": "T139",
+      "en": "Retained capacity",
+      "definition": "A capacity condition measured relative to a stated reference and under stated criteria."
+    },
+    {
+      "id": "T140",
+      "en": "Warranty transfer",
+      "definition": "Whether and how written coverage can apply after an ownership change; do not assume automatic transfer."
+    },
+    {
+      "id": "T141",
+      "en": "Commissioning",
+      "definition": "Professional verification and setup for the intended installation, distinct from merely powering a device."
+    },
+    {
+      "id": "T142",
+      "en": "Handover",
+      "definition": "The transfer of relevant operating information and records, according to the agreed project."
+    },
+    {
+      "id": "T143",
+      "en": "IP code",
+      "definition": "A classification of specified enclosure protection, not proof against every environmental exposure."
+    },
+    {
+      "id": "T144",
+      "en": "Corrosion",
+      "definition": "Material deterioration affected by the environment and component interactions."
+    },
+    {
+      "id": "T145",
+      "en": "Galvanic corrosion",
+      "definition": "An electrochemical risk involving dissimilar materials under suitable conditions; assessment belongs to qualified design and care."
+    },
+    {
+      "id": "T146",
+      "en": "Wind loading",
+      "definition": "Forces relevant to the complete mounting and structure, not just a panel's power rating."
+    },
+    {
+      "id": "T147",
+      "en": "Mounting system",
+      "definition": "The equipment and arrangements securing the array; site-specific suitability must be assessed."
+    },
+    {
+      "id": "T148",
+      "en": "Site assessment",
+      "definition": "Review of relevant property, electrical and environmental conditions for the proposed project."
+    },
+    {
+      "id": "T149",
+      "en": "Datasheet",
+      "definition": "A model-specific technical document whose conditions and definitions accompany its values."
+    },
+    {
+      "id": "T150",
+      "en": "Certification document",
+      "definition": "Evidence applicable to a defined product or test scope; not automatic project approval."
+    },
+    {
+      "id": "T151",
+      "en": "Compatibility",
+      "definition": "Supported operation of the complete equipment combination, not merely matching a nominal label."
+    },
+    {
+      "id": "T152",
+      "en": "Enquiry",
+      "definition": "A request to discuss needs; it does not itself confirm a booking or installation."
+    },
+    {
+      "id": "T153",
+      "en": "Preliminary estimate",
+      "definition": "An assumption-based planning result before all project details are confirmed."
+    },
+    {
+      "id": "T154",
+      "en": "Proposal or quotation",
+      "definition": "A particular written offer or scope that must be reviewed on its actual terms."
+    },
+    {
+      "id": "T155",
+      "en": "Confirmed booking",
+      "definition": "An arrangement requiring real confirmation, not just a submitted form or a chatbot statement."
+    },
+    {
+      "id": "T156",
+      "en": "Hypothetical example",
+      "definition": "Invented inputs used to teach a relationship; not measured data or an actual offer."
+    },
+    {
+      "id": "T157",
+      "en": "Sensitivity analysis",
+      "definition": "Comparing outcomes when selected assumptions change while identifying what remains fixed."
+    },
+    {
+      "id": "T158",
+      "en": "AI assistant identity",
+      "definition": "Sol & Tide Energy's specially customised customer AI assistant, distinct from a human teammate."
+    },
+    {
+      "id": "T159",
+      "en": "Human handoff",
+      "definition": "An actual platform action if configured, distinct from merely providing a contact link."
+    },
+    {
+      "id": "T160",
+      "en": "Regional contact route",
+      "definition": "The approved website, form or email appropriate to the property's island."
+    },
+    {
+      "id": "T161",
+      "en": "Case-specific support",
+      "definition": "Team review of personal or equipment-specific matters beyond public educational answers."
+    }
+  ],
+  "cases": [
+    {
+      "id": "C01",
+      "title": "Daily energy from several loads",
+      "given": "Hypothetical loads: 0.08 kW of lighting for 5 hours, 0.12 kW of electronics for 4 hours, and 0.6 kW of another load for 2 hours.",
+      "steps": "Calculate each energy separately and add: 0.08 × 5 = 0.4 kWh; 0.12 × 4 = 0.48 kWh; 0.6 × 2 = 1.2 kWh. Total = 2.08 kWh.",
+      "checks": [
+        [
+          "0.08*5+0.12*4+0.6*2",
+          2.08
+        ]
+      ],
+      "meaning": "The energy total says nothing by itself about whether all loads run together. Their simultaneous running power would be 0.8 kW if all three were on, before any separate starting requirement.",
+      "limit": "Do not apply these invented appliance powers to a customer's actual equipment.",
+      "summary": "Multiply each load's power by its duration, then add the results to obtain 2.08 kWh. Assess simultaneous power separately from the energy total."
+    },
+    {
+      "id": "C02",
+      "title": "Equal daily energy, different output-power needs",
+      "given": "Home A uses a constant 0.5 kW for 8 hours. Home B uses 2 kW for 2 hours. Ignore all other loads and losses.",
+      "steps": "Both consume 4 kWh: 0.5 × 8 = 4 and 2 × 2 = 4.",
+      "checks": [
+        [
+          "0.5*8",
+          4
+        ],
+        [
+          "2*2",
+          4
+        ]
+      ],
+      "meaning": "An energy-only comparison treats the homes as equal, but the specified simultaneous demand is four times higher in B. This is why a monthly kWh total alone cannot establish inverter sizing.",
+      "limit": "These are intentionally simplified load profiles, not representative usage assumptions for a region.",
+      "summary": "Both scenarios use 4 kWh, but the second requires a higher operating power. Monthly energy consumption alone cannot determine inverter capacity."
+    },
+    {
+      "id": "C03",
+      "title": "A defined battery energy window and delivered energy",
+      "given": "A hypothetical storage reference is 10 kWh DC. The agreed example uses the window from 80% to 20% on that same reference. Conversion to the load is assumed to be 90%.",
+      "steps": "Energy in the chosen window = 10 × (0.8 − 0.2) = 6 kWh DC. Delivered energy = 6 × 0.9 = 5.4 kWh.",
+      "checks": [
+        [
+          "10*(0.8-0.2)",
+          6
+        ],
+        [
+          "10*(0.8-0.2)*0.9",
+          5.4
+        ]
+      ],
+      "meaning": "The calculation illustrates why a capacity label, operating window and delivered-energy boundary must be identified separately. At a constant 0.6 kW load, this modelled energy would correspond to 9 hours.",
+      "limit": "Do not reuse the window or efficiency as a product's actual settings, or deduct them again from a figure that already includes them.",
+      "summary": "Apply the stated 80% to 20% battery window first, then the assumed efficiency, giving 5.4 kWh at the load. Do not deduct reserves or losses again if they are already included."
+    },
+    {
+      "id": "C04",
+      "title": "Available energy versus a power ceiling",
+      "given": "The load-side energy available in an example is 8 kWh. A constant load asks for 4 kW, but the only supported source has a 3 kW continuous output limit.",
+      "steps": "The energy-only ratio would be 8 ÷ 4 = 2 hours, but the proposed operating point fails the 3 kW power constraint.",
+      "checks": [
+        [
+          "8/4",
+          2
+        ],
+        [
+          "4-3",
+          1
+        ]
+      ],
+      "meaning": "The two-hour arithmetic is not a feasible runtime promise under the stated source limit. A design review must address the load or supported sources before using that ratio as an outcome.",
+      "limit": "Do not assume the grid or another converter will supply the shortfall unless that operating arrangement exists.",
+      "summary": "Although 8 kWh divided by 4 kW equals two hours, a 4 kW load exceeds the only source's 3 kW output limit. The calculation cannot support a promise of two hours of operation."
+    },
+    {
+      "id": "C05",
+      "title": "Net charging power after daytime loads",
+      "given": "Solar supplies a hypothetical constant 4 kW. Loads use 1.5 kW. The charging path can accept the remaining power, and 5 kWh is required at the same energy boundary. Ignore losses.",
+      "steps": "Net charging power = 4 − 1.5 = 2.5 kW. Arithmetic charging time = 5 ÷ 2.5 = 2 hours.",
+      "checks": [
+        [
+          "4-1.5",
+          2.5
+        ],
+        [
+          "5/(4-1.5)",
+          2
+        ]
+      ],
+      "meaning": "Using all 4 kW as charging power would ignore the loads. A real charging estimate also needs changing sunlight, supported charging power and the relevant losses.",
+      "limit": "Constant power is a teaching assumption, not a forecast of two clock hours on any particular day.",
+      "summary": "The 4 kW solar output supplies the 1.5 kW load first, leaving 2.5 kW for charging. Actual charging also depends on changing sunlight and charging limits."
+    },
+    {
+      "id": "C06",
+      "title": "Variable air-conditioning power over an evening",
+      "given": "A hypothetical appliance averages 0.4 kW for 4 hours and 1 kW for another 2 hours.",
+      "steps": "Energy = 0.4 × 4 + 1 × 2 = 3.6 kWh.",
+      "checks": [
+        [
+          "0.4*4+1*2",
+          3.6
+        ]
+      ],
+      "meaning": "One constant-power assumption could overstate one period and understate another. A measured or well-supported average over each period is more useful than substituting cooling capacity for electrical input.",
+      "limit": "The numbers are not a typical consumption figure for any air-conditioner size or a statement about overnight backup.",
+      "summary": "Calculate the time intervals separately to obtain 3.6 kWh. Do not substitute cooling capacity for electrical input power or treat the example as measured consumption of a particular air conditioner."
+    },
+    {
+      "id": "C07",
+      "title": "Using an annual appliance label cautiously",
+      "given": "A hypothetical label states 365 kWh per year under its defined test method.",
+      "steps": "The arithmetic annual-average daily energy is 365 ÷ 365 = 1 kWh per day.",
+      "checks": [
+        [
+          "365/365",
+          1
+        ]
+      ],
+      "meaning": "This gives a reference average, not the consumption of every actual day. Temperature, use and operating conditions can differ, and the annual figure does not establish starting or instantaneous power.",
+      "limit": "Do not infer that a battery delivering 1 kWh will always support that appliance for a full day.",
+      "summary": "An annual energy label can provide a reference daily average, but not a guarantee of identical daily use. It does not establish starting power or, by itself, backup duration."
+    },
+    {
+      "id": "C08",
+      "title": "Vehicle energy versus electricity required at the charging boundary",
+      "given": "A hypothetical vehicle needs 10 kWh added at the defined vehicle boundary. The assumed total charging efficiency from the chosen supply boundary is 90%.",
+      "steps": "Supply energy required = 10 ÷ 0.9 ≈ 11.111 kWh.",
+      "checks": [
+        [
+          "10/0.9",
+          11.11111111111111
+        ]
+      ],
+      "meaning": "Dividing by the fraction, rather than multiplying the requirement by it, accounts for the extra input. The result says nothing about supported charging rate or whether a home backup design includes the charger.",
+      "limit": "The efficiency is illustrative; use the actual vehicle, charger and measurement boundary for a project estimate.",
+      "summary": "To deliver 10 kWh to the vehicle at the assumed 90% efficiency, the supply side must provide approximately 11.11 kWh. Efficiency and power limits require separate consideration."
+    },
+    {
+      "id": "C09",
+      "title": "Panel-count arithmetic is a rating, not a daily yield",
+      "given": "An example array has ten modules each rated at 450 W under the same reference conditions.",
+      "steps": "Rated DC capacity = 10 × 450 ÷ 1,000 = 4.5 kW.",
+      "checks": [
+        [
+          "10*450/1000",
+          4.5
+        ]
+      ],
+      "meaning": "The result describes the sum of rated module powers. It does not state roof energy production, inverter output at every moment, battery capacity or the number of appliances that can run.",
+      "limit": "The example is not a Sol & Tide module or package specification.",
+      "summary": "Ten 450 W modules have a combined rated capacity of 4.5 kW. This alone does not establish daily generation, backup duration or a supported appliance list."
+    },
+    {
+      "id": "C10",
+      "title": "Temperature sensitivity with an explicitly hypothetical coefficient",
+      "given": "Use a hypothetical power reference of 500 W, a power coefficient of −0.3% per degree C and a 30 degree C increase relative to its reference. Hold other factors fixed.",
+      "steps": "Relative change = −0.003 × 30 = −0.09. Simplified adjusted power = 500 × (1 − 0.09) = 455 W.",
+      "checks": [
+        [
+          "-0.003*30",
+          -0.09
+        ],
+        [
+          "500*(1-0.003*30)",
+          455
+        ]
+      ],
+      "meaning": "The example teaches coefficient units and reference differences. It is not a complete PV model and should not be applied to another parameter such as voltage without its own coefficient.",
+      "limit": "Neither the coefficient nor the temperature difference is a verified specification or local weather assumption.",
+      "summary": "Apply the temperature difference and coefficient to the corresponding reference quantity. The example gives 455 W. Do not apply a power coefficient indiscriminately to voltage or whole-system financial benefits."
+    },
+    {
+      "id": "C11",
+      "title": "A simplified resource-to-energy illustration",
+      "given": "Use a hypothetical 4 kW rating, 4 equivalent full-sun hours and a single assumed overall energy factor of 0.8 for this example.",
+      "steps": "Illustrative energy = 4 × 4 × 0.8 = 12.8 kWh.",
+      "checks": [
+        [
+          "4*4*0.8",
+          12.8
+        ]
+      ],
+      "meaning": "This is a deliberately compressed model showing why rated power, integrated resource and a stated factor are different inputs. A site forecast requires appropriate data and a clearer treatment of system conditions.",
+      "limit": "Four sun hours and the 0.8 factor are not published assumptions for Antigua, Dominica or a company package.",
+      "summary": "The 4 kW array, four equivalent sun hours and 0.8 factor are teaching assumptions. They explain the calculation, not a local generation promise or the performance of a company package."
+    },
+    {
+      "id": "C12",
+      "title": "Sequential efficiency stages are multiplied",
+      "given": "A hypothetical path has one stage at 95% efficiency followed by a different stage at 90%, with 10 kWh entering the first stage.",
+      "steps": "Combined fraction = 0.95 × 0.9 = 0.855. Output = 10 × 0.855 = 8.55 kWh.",
+      "checks": [
+        [
+          "0.95*0.9",
+          0.855
+        ],
+        [
+          "10*0.95*0.9",
+          8.55
+        ]
+      ],
+      "meaning": "The second stage acts on the output of the first. The calculation should not be used if a quoted round-trip figure already includes both stages, because that would count the same losses twice.",
+      "limit": "These assumed percentages do not describe any offered equipment.",
+      "summary": "Sequential conversion stages act one after another, producing 8.55 kWh in this example. If a total efficiency already includes those stages, do not deduct them again."
+    },
+    {
+      "id": "C13",
+      "title": "Self-consumption and self-sufficiency use different denominators",
+      "given": "Over the same hypothetical period without storage, PV generates 20 kWh, 12 kWh is used directly at home, and total household demand is 30 kWh.",
+      "steps": "Direct solar self-consumption = 12 ÷ 20 = 60%. On-site contribution to total demand = 12 ÷ 30 = 40%.",
+      "checks": [
+        [
+          "12/20",
+          0.6
+        ],
+        [
+          "12/30",
+          0.4
+        ]
+      ],
+      "meaning": "Both percentages can be correct because they answer different questions. The first concerns use of generation; the second concerns supply of demand. Define boundaries again if storage is included.",
+      "limit": "Do not describe either percentage as bill savings without the tariff and other costs.",
+      "summary": "The ratio 12/20 describes the fraction of generation used on site; 12/30 describes the fraction of total demand supplied by on-site solar. Neither ratio directly equals the reduction in the electricity bill."
+    },
+    {
+      "id": "C14",
+      "title": "The incremental value of shifting surplus energy through storage",
+      "given": "Hypothetically, 5 kWh would otherwise be exported at 0.10 currency units/kWh. Storage later delivers 4.5 kWh that avoids purchases at 0.30 currency units/kWh.",
+      "steps": "Avoided purchase cost = 4.5 × 0.30 = 1.35. Forgone export value = 5 × 0.10 = 0.50. Difference = 0.85 currency units before other costs.",
+      "checks": [
+        [
+          "4.5*0.30",
+          1.35
+        ],
+        [
+          "5*0.10",
+          0.5
+        ],
+        [
+          "4.5*0.30-5*0.10",
+          0.85
+        ]
+      ],
+      "meaning": "Count the alternative use of the charging energy and the output boundary. The difference still excludes storage purchase, ageing, maintenance and any other relevant charges.",
+      "limit": "The example assumes export is available and gives invented prices. It does not establish a local tariff or an investment return.",
+      "summary": "When assessing incremental storage benefits, account for the export value forgone and the energy actually delivered after conversion losses. The illustrative prices are not local tariffs."
+    },
+    {
+      "id": "C15",
+      "title": "A shared conversion ceiling can constrain combined sources",
+      "given": "An abstract example has a shared AC output ceiling of 5 kW. The current solar contribution is 4.8 kW and household demand is 6 kW. Other limits are ignored.",
+      "steps": "Headroom within the shared ceiling is 5 − 4.8 = 0.2 kW. Even if the battery could contribute more on its own, this example's combined path cannot exceed 5 kW.",
+      "checks": [
+        [
+          "5-4.8",
+          0.2
+        ],
+        [
+          "6-5",
+          1
+        ]
+      ],
+      "meaning": "Adding independent source ratings would miss a shared bottleneck. Any remaining demand requires another supported source or a different demand arrangement; the assistant cannot infer either.",
+      "limit": "This is a conceptual limit example, not the wiring or operation of a specific hybrid inverter.",
+      "summary": "Do not simply add the separate solar and battery output ratings. If they share a path limited to 5 kW, combined output remains subject to that limit."
+    },
+    {
+      "id": "C16",
+      "title": "Whole-project payback versus incremental battery payback",
+      "given": "Hypothetical solar-only cost is 20,000 currency units with annual benefit 2,000. Solar-plus-storage cost is 30,000 with annual benefit 2,400. Hold values constant and omit other costs.",
+      "steps": "Simple ratios are 20,000 ÷ 2,000 = 10 years and 30,000 ÷ 2,400 = 12.5 years. Incremental storage ratio is (30,000 − 20,000) ÷ (2,400 − 2,000) = 25 years.",
+      "checks": [
+        [
+          "20000/2000",
+          10
+        ],
+        [
+          "30000/2400",
+          12.5
+        ],
+        [
+          "(30000-20000)/(2400-2000)",
+          25
+        ]
+      ],
+      "meaning": "Attributing all project benefit to the battery would conceal the incremental comparison. Backup resilience is a separate customer objective that this simple money-only calculation does not value.",
+      "limit": "This is not a quotation, forecast, recommendation or complete investment model.",
+      "summary": "Evaluate storage using its additional cost and additional benefit, rather than assigning all solar benefits to the battery. Backup value is also separate from this simple-payback calculation."
+    },
+    {
+      "id": "C17",
+      "title": "Discounting one future cash flow",
+      "given": "Assume a hypothetical benefit of 1,000 currency units one year from now and an illustrative discount rate of 5%.",
+      "steps": "Present value = 1,000 ÷ 1.05 ≈ 952.381 currency units.",
+      "checks": [
+        [
+          "1000/1.05",
+          952.3809523809523
+        ]
+      ],
+      "meaning": "The example shows that cash flows at different times can be compared using an explicitly chosen financial assumption. A real analysis would need its full horizon, costs, benefits and a justified rate.",
+      "limit": "Five percent is not a company financing offer, a required discount rate or a prediction of inflation.",
+      "summary": "The discount rate is an analytical assumption that must be stated. The example's 5% is not a financing rate, inflation forecast or recommended rate for a customer's project."
+    },
+    {
+      "id": "C18",
+      "title": "Integrating a time-based power profile",
+      "given": "A hypothetical trace is exactly 1.5 kW for 2 hours and 0.5 kW for 4 hours.",
+      "steps": "Energy = 1.5 × 2 + 0.5 × 4 = 5 kWh.",
+      "checks": [
+        [
+          "1.5*2+0.5*4",
+          5
+        ]
+      ],
+      "meaning": "This relationship holds for the defined intervals. A few screenshots taken during a day do not establish that power stayed constant between them. Meter or monitoring energy totals can provide a different kind of evidence.",
+      "limit": "Do not integrate sparse observations as if they were complete measured intervals.",
+      "summary": "Accumulate energy by interval only when each interval's power and duration are known. A few screenshots do not establish that power remained constant between captures."
+    },
+    {
+      "id": "C19",
+      "title": "Full charge on a reduced capacity reference",
+      "given": "A hypothetical battery began with a 10 kWh energy reference. For this illustration its present relevant full-capacity reference is 90% of that original value.",
+      "steps": "Present full reference = 10 × 0.9 = 9 kWh.",
+      "checks": [
+        [
+          "10*0.9",
+          9
+        ]
+      ],
+      "meaning": "A display of full charge can refer to the current capacity while health compares with an earlier reference. The example does not define the actual manufacturer's SOC or SOH method.",
+      "limit": "Do not infer a replacement decision or warranty result from this invented percentage.",
+      "summary": "A current full-charge reading and original capacity use different reference points. This example explains the distinction between SOC and health-related capacity; it cannot determine replacement or warranty eligibility."
+    },
+    {
+      "id": "C20",
+      "title": "Prioritising essential energy in a defined outage window",
+      "given": "Assume 6 kWh is already available at the load, essentials need 0.25 kW for 8 hours, and an optional load would draw 1 kW. Ignore other energy use and require the separate power limit to be satisfied.",
+      "steps": "Essential energy = 0.25 × 8 = 2 kWh. Remaining energy = 6 − 2 = 4 kWh, corresponding to 4 hours of the optional 1 kW load in this ideal model.",
+      "checks": [
+        [
+          "0.25*8",
+          2
+        ],
+        [
+          "6-0.25*8",
+          4
+        ],
+        [
+          "(6-0.25*8)/1",
+          4
+        ]
+      ],
+      "meaning": "A priority plan can distinguish essential service from discretionary use rather than assuming every load runs for the whole outage. Starting demand and simultaneous power remain separate questions.",
+      "limit": "The example is not an operational instruction, appliance recommendation or actual backup promise.",
+      "summary": "Calculate essential-load energy first, then examine how much optional demand the remaining energy could support. Check output and starting limits separately. The example is not an actual operating plan."
+    }
+  ],
+  "sources": {
+    "D01": [
+      "Schneider Electric — Unity Output Power Factor, real versus apparent power; general concepts only, no product offer.",
+      "https://www.se.com/au/en/faqs/FA157434/"
+    ],
+    "D02": [
+      "Sandia PVPMC — Irradiance and Insolation; model inputs and periods.",
+      "https://pvpmc.sandia.gov/modeling-guide/1-weather-design-inputs/irradiance-insolation/"
+    ],
+    "D03": [
+      "Sandia PVPMC — Effective Irradiance; light at the array and optical modifiers.",
+      "https://pvpmc.sandia.gov/modeling-guide/2-dc-module-iv/effective-irradiance/"
+    ],
+    "D04": [
+      "U.S. DOE — Solar Photovoltaic Cell Basics; semiconductor and technology-family definitions.",
+      "https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics"
+    ],
+    "D05": [
+      "Sandia PVPMC — Sandia PV Array Performance Model; IV operating points and reference conditions.",
+      "https://pvpmc.sandia.gov/modeling-guide/2-dc-module-iv/point-value-models/sandia-pv-array-performance-model/"
+    ],
+    "D06": [
+      "Sandia PVPMC — Array Utilization; maximum-power-point control.",
+      "https://pvpmc.sandia.gov/modeling-guide/3-dc-array-iv/array-utilization/"
+    ],
+    "D07": [
+      "U.S. DOE — Renewable Energy Ready Home: Solar Photovoltaic Specifications; site and planning categories only.",
+      "https://www.energy.gov/cmei/buildings/articles/renewable-energy-ready-home-solar-photovoltaic-specifications"
+    ],
+    "D08": [
+      "U.S. DOE — Energy Storage Safety Strategic Plan; controls and chemistry boundaries only.",
+      "https://www.energy.gov/sites/default/files/2024-05/EED_2827_FIG_SafetyStrategy%20240505v2.pdf"
+    ],
+    "D09": [
+      "PNNL — Energy Storage Subsystems and Definitions; calendar and cycle-life concepts.",
+      "https://www.pnnl.gov/projects/esgc-cost-performance/subsystems-definitions"
+    ],
+    "D10": [
+      "U.S. DOE — Purchasing Energy-Efficient Residential Central Air Conditioners; electrical versus cooling quantities only.",
+      "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-central-air-conditioners"
+    ],
+    "D11": [
+      "NREL — Simple Photovoltaic Economic Calculations; simple-payback limitations, no historical costs or incentives adopted.",
+      "https://www1.eere.energy.gov/solar/pdfs/simple_pv_economic_calculations_mi.pdf"
+    ],
+    "D12": [
+      "PNNL — LCOS Estimates; storage-cost comparison boundaries, no numerical technology cost adopted.",
+      "https://www.pnnl.gov/projects/esgc-cost-performance/lcos-estimates"
+    ],
+    "D13": [
+      "Victron Energy — Commissioning, Operation and Monitoring; examples of monitored quantities, not instructions or company equipment specifications.",
+      "https://www.victronenergy.com/media/pg/Lynx_Smart_BMS_NG/en/commissioning%2C-operation-and-monitoring.html"
+    ],
+    "D14": [
+      "U.S. DOE — Operate and Maintain an Existing Photovoltaic System; professional O&M categories.",
+      "https://www.energy.gov/cmei/femp/life-cycle-photovoltaic-systems-operate-and-maintain-existing-photovoltaic-system"
+    ],
+    "D15": [
+      "U.S. DOE — Managing and Mitigating Solar PV Corrosion; environmental risk categories.",
+      "https://www.energy.gov/cmei/femp/managing-and-mitigating-solar-pv-corrosion"
+    ],
+    "D16": [
+      "U.S. DOE — PV System Owner's Guide to Weather Vulnerabilities, Risks and Impacts; complete-system risk and approved procedures.",
+      "https://www.energy.gov/cmei/femp/articles/pv-system-owners-guide-identifying-assessing-and-addressing-weather"
+    ],
+    "D17": [
+      "US EPA — Solar Panel Recycling; lifecycle concept only, no local take-back service or U.S. legal requirement adopted.",
+      "https://www.epa.gov/hw/solar-panel-recycling"
+    ]
+  },
+  "editorial_notes": "Core factual foundations identify primary references. Planning frameworks, comparisons, hypothetical calculations and English summaries are original editorial explanations. Existing company commitments remain limited to approved company knowledge. No private or live company data has been added."
+}

@@ -13,7 +13,7 @@ const origin = process.env.KNOCKET_TEST_ORIGIN || 'http://127.0.0.1:3103';
         let sdkRequests = 0;
         page.on('pageerror', error => errors.push(error.message));
         page.on('request', request => {
-          if (request.url().startsWith('https://trtc.io/knocket-sdk/sdk.js?')) sdkRequests++;
+          if (request.url().startsWith('https://trtc.io/knocket-sdk/sdk.js?') && request.frame() === page.mainFrame()) sdkRequests++;
         });
         await page.goto(`${origin}/${region}`, { waitUntil: 'domcontentloaded' });
         const launcher = page.locator('#contact-widget-auto .trtc-float-card__content');
@@ -67,11 +67,12 @@ const origin = process.env.KNOCKET_TEST_ORIGIN || 'http://127.0.0.1:3103';
           await page.waitForFunction(() => window.__knocketTestDocument === undefined);
           await page.waitForLoadState('networkidle');
           assert.equal(await page.locator('#contact-widget-auto').count(), 0);
+          assert.equal(await page.locator('iframe[title="Customer support"]').count(), 1);
           assert.equal(await page.locator('script[src*="knocket-sdk/sdk.js"]').count(), 0);
-          assert.equal(sdkRequests, 1, 'Private navigation never reloads the third-party SDK');
+          assert.equal(sdkRequests, 1, 'Private navigation never loads the top-level third-party SDK');
           await page.reload({ waitUntil: 'networkidle' });
           assert.equal(await page.locator('script[src*="knocket-sdk/sdk.js"]').count(), 0);
-          assert.equal(sdkRequests, 1, 'Direct private visits do not request the SDK');
+          assert.equal(sdkRequests, 1, 'Direct private visits only load support in the isolated frame');
           console.log('PASS private URL exclusion and fresh-document navigation:', region);
         }
         await page.close();

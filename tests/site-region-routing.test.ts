@@ -50,3 +50,12 @@ test("country selection opens the chosen business page", () => {
     assert.equal(regionPath(country, "/privacy"), "/privacy");
   }
 });
+
+test("native assessment location changes keep the form, removed management routes return home", () => {
+  assert.equal(switchedRegionPath("/antigua/consultation/manage", "DM"), "/dominica");
+  assert.equal(switchedRegionPath("/dominica/consultation/manage", "AG"), "/antigua");
+  assert.equal(switchedRegionPath("/antigua/consultation/new", "DM"), "/dominica/consultation");
+  assert.equal(switchedRegionPath("/dominica/consultation/new", "AG"), "/antigua/consultation");
+  assert.equal(switchedRegionPath("/antigua/consultation", "DM"), "/dominica/consultation");
+  assert.equal(switchedRegionPath("/antigua/submission/private-token", "DM"), "/dominica");
+});

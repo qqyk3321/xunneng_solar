@@ -1,8 +1,9 @@
+import { canManage } from "@/lib/native-consultation/management";
+import { EmailAssessment } from "@/components/native-consultation/email-access";
+import { ReferenceValue } from "@/components/native-consultation/reference-value";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { SubmissionPreviewFrame } from "@/components/submission-preview-frame";
-import { tallyPreviewUrl } from "@/lib/tally-preview-url";
 import { submissionTiming } from "@/lib/submission-timing";
 import { loadConsultationPreview } from "@/lib/consultation-preview";
 import { countryFromSlug } from "@/lib/site-region-routing";
@@ -20,7 +21,7 @@ import styles from "./preview.module.css";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-export const metadata = { robots: { index: false, follow: false } };
+export const metadata = { robots: { index: false, follow: false }, referrer: "no-referrer" as const };
 
 export default async function ConsultationPreviewPage({
   params,
@@ -32,20 +33,19 @@ export default async function ConsultationPreviewPage({
   const submission = await loadConsultationPreview(token);
   if (!country || !submission || submission.country_code !== country)
     notFound();
-  const previewUrl = tallyPreviewUrl(submission.preview_url);
+  const editable = submission.consultation_id ? await canManage(submission.consultation_id) : false;
   const timing = submissionTiming(submission.submitted_at, country);
   const estimate = await loadCurrentConsultationEstimate(submission);
   const customerUrl = siteUrl(`/${region}/submission/${token}`);
   const whatsappUrl = consultationWhatsAppUrl(submission.submission_id, process.env.WHATSAPP_BASE_URL || undefined);
   const [previewQrSrc, whatsappQrSrc] = await Promise.all([qrDataUrl(customerUrl, QRCode, PNG), qrDataUrl(whatsappUrl, QRCode, PNG)]);
-  const profileLabels = { daytime: "Daytime use", rush: "Daytime peak", evening: "Evening peak", night: "Nighttime peak" };
-  const profileLabel = submission.consumption_profile ? profileLabels[submission.consumption_profile] : null;
   return (
     <ConsultationContactProvider value={{ url: whatsappUrl, qrSrc: whatsappQrSrc, submissionId: submission.submission_id }}>
     <div className={styles.page}>
       <RefreshOnReturn />
-      <SiteHeader />
+      <SiteHeader variant="form" />
       <main className={styles.content}>
+        <header className={styles.pageHeading}><h1>Your assessment</h1></header>
         <div className={styles.quoteSection}>
           <CurrentEstimate estimate={estimate} />
         </div>
@@ -53,12 +53,12 @@ export default async function ConsultationPreviewPage({
           <SubmissionContactActions previewUrl={customerUrl} previewQrSrc={previewQrSrc} whatsappUrl={whatsappUrl} whatsappQrSrc={whatsappQrSrc} />
           <section className={styles.summary} aria-labelledby="preview-title">
             <div className={styles.summaryBody}>
-              <h1 id="preview-title" className={styles.srOnly}>Your submission</h1>
+              <h2 id="preview-title" className={styles.srOnly}>Your submission</h2>
               <div className={styles.timeline}>
                 <dl>
-                  <div className={styles.reference}>
+                  <div className={styles.nativeReference}>
                     <dt>Submission ID</dt>
-                    <dd>{submission.submission_id}</dd>
+                    <dd><ReferenceValue value={submission.submission_id} /></dd>
                   </div>
                   <div>
                     <dt>Submitted</dt>
@@ -73,30 +73,13 @@ export default async function ConsultationPreviewPage({
                       )}
                     </dd>
                   </div>
-                  <div>
-                    <dt>Electricity use pattern</dt>
-                    <dd data-testid="submission-energy-profile">{profileLabel || "Not provided"}</dd>
-                  </div>
-                  <div>
-                    <dt>Monthly electricity use</dt>
-                    <dd data-testid="submission-monthly-kwh">{submission.monthly_kwh !== null && Number.isFinite(submission.monthly_kwh)
-                      ? `${submission.monthly_kwh.toLocaleString("en-US", { maximumFractionDigits: 2 })} kWh`
-                      : "Not provided"}</dd>
-                  </div>
                 </dl>
               </div>
             </div>
           </section>
         </aside>
         <div className={styles.results}>
-          {previewUrl ? (
-            <SubmissionPreviewFrame previewUrl={previewUrl} />
-          ) : (
-            <section className={styles.card} role="status">
-              <h2>Your preview is not available yet.</h2>
-              <p>Please contact our team using the contact details on this page.</p>
-            </section>
-          )}
+          <EmailAssessment submission={submission} token={token} editable={editable} />
         </div>
       </main>
       <SiteFooter />

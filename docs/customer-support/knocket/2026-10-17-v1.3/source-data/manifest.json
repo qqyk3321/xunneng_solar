@@ -1,0 +1,25 @@
+{
+  "version": "1.3",
+  "questions": 149,
+  "section_questions": {
+    "COMPANY, SERVICES AND AI IDENTITY": 17,
+    "SOLAR AND PHOTOVOLTAIC FOUNDATIONS": 36,
+    "HOME BATTERY AND HYBRID FOUNDATIONS": 44,
+    "HOUSEHOLD SCENARIOS, PROJECT PLANNING AND OWNERSHIP": 52
+  },
+  "bytes": 75697,
+  "prompt_characters": 1972,
+  "company_facts_reviewed": "2026-10-16",
+  "combined_on": "2026-10-17",
+  "previous_question_count_correction": "v1.2 has 97 Q/A records; its old count of 99 included two FAQ directory labels.",
+  "live_platform_tested": false,
+  "validation": {
+    "complete_qa_records": 149,
+    "unique_questions": 149,
+    "source_reference_ids": 64,
+    "priority_faq_count": 10,
+    "prompt_characters": 1972,
+    "live_platform_tested": false,
+    "errors": []
+  }
+}

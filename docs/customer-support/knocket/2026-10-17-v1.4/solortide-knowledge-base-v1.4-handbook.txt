@@ -1,0 +1,2433 @@
+SOL & TIDE ENERGY — CUSTOMER SOLAR AND HOME STORAGE HANDBOOK
+VERSION 1.4 | ASSEMBLED 17 OCTOBER 2026
+
+This single upload contains the company's approved public support information,
+149 customer Q&A records, 20 extended topic guides, a 161-term English-Chinese
+glossary and 20 independent hypothetical calculation cases.
+
+Use the company section for identity, service scope, contacts and website routes.
+The longer guides explain concepts and customer decision methods. They do not
+add company products, certifications, installation commitments or commercial terms.
+Company service facts were reviewed on 16 October 2026. Identity wording and
+technical education were prepared on 17 October 2026.
+
+All worked-case inputs are invented teaching assumptions, not local tariffs,
+company prices, equipment specifications or actual customer performance data.
+Referenced manufacturers illustrate concepts, not a Sol & Tide supplier list.
+Source notes identify primary factual foundations; the comparisons, planning
+frameworks, examples and bilingual explanations are original editorial material.
+Use confirmed model documents and the project team for implementation decisions.
+
+CONTENTS
+BOOK I — Company support information and the 149-question reference
+BOOK II — Twenty extended topic guides
+BOOK III — English-Chinese technical glossary
+BOOK IV — Worked calculation cases
+BOOK V — Primary source registers
+
+============================================================================
+BOOK I — COMPANY SUPPORT AND CUSTOMER Q&A
+============================================================================
+
+PART 1: COMPANY, SERVICES AND AI IDENTITY
+========================================================================
+
+AI ASSISTANT IDENTITY
+
+Q: Who are you, and how can you help me?
+Related questions: Who am I chatting with? Are you an AI? Are you a real person? Is this a bot? What can you help me with? 你是谁？你是 AI 吗？你是真人吗？你能帮我做什么？你是哪家公司的客服？
+A: I'm Sol & Tide Energy's AI assistant, specially customised to help our customers with solar energy and home battery storage. I can explain the basics, answer questions using our company information, help you find relevant website pages and guide you towards a free assessment or our team. I'm an AI assistant; our team handles final project assessments and quotations.
+Chinese equivalent: 我是 Sol & Tide Energy 专门为客户定制的 AI 咨询助手，主要帮助您了解太阳能和家庭储能，解答常见问题，并找到相关网站资料、免费评估入口或联系团队。具体项目的评估和最终报价由我们的团队确认。
+Identity customisation note: 17 October 2026. This describes the company-customised assistant, not an independently developed or trained foundation model. Underlying provider or model details must not be invented.
+
+COMPANY AND SERVICE AREAS
+
+Q: What does Sol & Tide do?
+A: Sol & Tide Energy provides solar and battery storage solutions for Caribbean homes. Its published services include home solar systems, battery backup, system support, panel cleaning and reinforcement. A proposed system is tailored to the property and the customer's electricity needs.
+Website: https://www.solortide.com/
+
+Q: Which locations do you serve?
+A: The website currently provides regional services and assessment pages for Antigua and Barbuda, and Dominica. Other islands are listed as planned locations; an installation or launch date there has not been confirmed in this knowledge base. Visitors elsewhere can check the location selector and register interest where that option is offered. Dominica and the Dominican Republic are different countries; the regional service here is Dominica.
+Choose a location: https://www.solortide.com/#countries
+Antigua and Barbuda: https://www.solortide.com/antigua
+Dominica: https://www.solortide.com/dominica
+
+PACKAGES, SAVINGS AND ASSESSMENT
+
+Q: What packages are available? Can you customise a system?
+A: Basic, Plus and Premium are starting options. Engineers review the roof, electricity-use patterns, appliances used together and backup priorities, then propose suitable panels, battery capacity and system design. The proposal confirms changes, included work and the final price. The live regional package page is the place to check currently published options and starting prices.
+Antigua packages: https://www.solortide.com/antigua#packages
+Dominica packages: https://www.solortide.com/dominica#packages
+
+Q: How much does installation cost? Is the website price a final quote?
+A: Website package prices are starting prices, not a final quote for every property. Configuration, included work and final pricing need to be confirmed in the proposal. This knowledge base does not contain a current price list, discount policy, financing offer or payment schedule. Check the regional packages page or request an assessment.
+Antigua packages: https://www.solortide.com/antigua#packages
+Dominica packages: https://www.solortide.com/dominica#packages
+Antigua assessment: https://www.solortide.com/antigua/consultation
+Dominica assessment: https://www.solortide.com/dominica/consultation
+
+Q: Can you guarantee my savings, payback time or electricity bill?
+A: No. Website savings and payback figures are planning scenarios based on stated assumptions. Actual results depend on the final system, usage, weather and site conditions, the applicable tariff and project costs. The suggested investment is not a quotation. A site-specific assessment is the next step for a purchase decision.
+
+Q: Where can I estimate savings? What should I enter?
+A: Use the calculator for the property's region. Antigua uses an APUA reference tariff; Dominica uses a separate dated DOMLEC reference. These are fixed planning references, not live electricity rates. Read the calculator's current assumptions on the page. Enter monthly electricity charges only, excluding overdue balances, water charges and unrelated services. The calculator uses a bill slider; monthly kWh is not required.
+Antigua calculator: https://www.solortide.com/antigua#calculator
+Dominica calculator: https://www.solortide.com/dominica#calculator
+
+Q: How do I request a free assessment or a quotation?
+A: Open the free assessment page for the property's region. Share the location, electricity needs and what you want to keep running during an outage so the team can discuss a suitable system. An assessment request is an enquiry; it is not a confirmed installation, site visit or calendar booking. The team must confirm the next steps.
+Antigua assessment: https://www.solortide.com/antigua/consultation
+Dominica assessment: https://www.solortide.com/dominica/consultation
+
+Q: What information should I prepare?
+A: A property location, a recent electricity bill and a list of appliances you want backed up are useful. Include typical operating times if known. Roof and installation-space photos can help. Leave out account numbers, identity documents and other unnecessary sensitive information. Use the assessment or contact channel for relevant project details rather than posting private access links in chat.
+
+Q: Do I need an account? Can I send photos?
+A: You can ask general questions in the website chat without creating an account. The calculator and assessment can also be started without signing in. An enquiry form asks for contact details so the team can reply. The website Contact us message form, when available, has an Add photos option accepting JPG, PNG and WebP. This does not confirm that photo upload or image understanding is enabled in the chatbot. If needed, tell the team you have photos to share.
+Antigua contact form: https://www.solortide.com/antigua#contact-us
+Dominica contact form: https://www.solortide.com/dominica#contact-us
+
+SUPPORT AND PROJECT QUESTIONS
+
+Q: Can you integrate an existing generator or expand my current system?
+A: In many cases these options can be assessed. Generator integration depends on the model, existing electrical setup, property needs and site assessment. Expansion depends on the existing design, compatible equipment, roof space and electrical capacity. Compatibility is not confirmed until engineers review the specific installation.
+
+Q: Is there a software or monitoring subscription fee?
+A: The published company FAQ says software services and the monitoring platform are included at no additional charge with Sol & Tide equipment. Remote monitoring requires a working WiFi network with internet access and connected equipment. Ask the team to confirm the monitoring arrangements for the proposed model.
+
+Q: Do you provide cleaning, reinforcement or replacement parts?
+A: Sol & Tide lists panel cleaning, reinforcement and Local Parts Stock among its services. The team must agree the service scope and confirm availability for the particular part and system model. This knowledge base does not show live stock or confirm a service appointment.
+
+Q: How long does installation take? What warranty, certification or utility approval applies?
+A: Installation timing varies with equipment availability, site preparation and any required approvals. Ask for a schedule and the exact warranty terms with the proposal. Equipment certificates and standards depend on the region and selected model; ask the team for the applicable documents. Certification references do not replace project-specific utility connection approval. No universal installation deadline, warranty duration or approval guarantee is supplied here.
+
+Q: I need help with a fault, an existing order, a complaint or a personal quotation.
+A: The team needs to handle project-specific questions. The chatbot has public information only; it cannot view personal orders, submission records, equipment telemetry, payments or service schedules. Share a brief description through the appropriate contact channel. It cannot confirm an order status, change a booking, issue a refund or claim a completed repair.
+Antigua contact form: https://www.solortide.com/antigua#contact-us
+Dominica contact form: https://www.solortide.com/dominica#contact-us
+WhatsApp: https://wa.me/8617605886812
+
+CONTACT AND WEBSITE DIRECTORY
+
+Company website and location selection: https://www.solortide.com/#countries
+
+Antigua and Barbuda:
+Home: https://www.solortide.com/antigua
+Packages: https://www.solortide.com/antigua#packages
+Savings calculator: https://www.solortide.com/antigua#calculator
+How solar and battery work: https://www.solortide.com/antigua/how-it-works
+FAQ: https://www.solortide.com/antigua/faq
+Free assessment: https://www.solortide.com/antigua/consultation
+Contact form: https://www.solortide.com/antigua#contact-us
+Support email: ag-support@solortide.com
+
+Dominica:
+Home: https://www.solortide.com/dominica
+Packages: https://www.solortide.com/dominica#packages
+Savings calculator: https://www.solortide.com/dominica#calculator
+How solar and battery work: https://www.solortide.com/dominica/how-it-works
+FAQ: https://www.solortide.com/dominica/faq
+Free assessment: https://www.solortide.com/dominica/consultation
+Contact form: https://www.solortide.com/dominica#contact-us
+Support email: dm-support@solortide.com
+
+WhatsApp: https://wa.me/8617605886812
+Facebook: https://www.facebook.com/1435499099637488
+Privacy policy: https://www.solortide.com/privacy
+
+Q: Can I talk to a person?
+A: Yes, you can contact the team on WhatsApp or use the relevant regional contact form or email. In-chat transfer depends on whether the operator has configured and enabled human handoff. Providing a contact link does not mean a handoff, notification or booking has been completed. Human availability and response time are not confirmed by this knowledge base.
+
+Q: Is this chat completely anonymous? How are my details handled?
+A: No account is required to ask a question here. That does not establish that no data is processed or that messages are never stored. See the published privacy policy and contact regional support for questions about your information. This knowledge base does not establish the chatbot provider's retention period. Avoid sending unnecessary sensitive information.
+Privacy policy: https://www.solortide.com/privacy
+
+========================================================================
+PART 2: SOLAR AND PHOTOVOLTAIC FOUNDATIONS
+========================================================================
+
+SOLAR ENERGY AND ELECTRICITY
+
+PV01
+Q: What is solar energy?
+A: Solar energy is energy arriving from the sun. Different technologies use it to produce electricity or heat. Rooftop photovoltaic panels generate electricity from light; they do not need to burn fuel. The available sunlight changes with location, season, time of day and weather.
+Reference: S01
+
+PV02
+Q: Are photovoltaic panels and solar water heaters the same thing?
+A: No. Photovoltaic, or PV, panels make electricity. Solar thermal equipment collects heat, for example to heat water. A home may have either or both, but their equipment and outputs differ. A PV system can power an electric water heater if the electrical system is designed for that load.
+Reference: S01
+
+PV03
+Q: What are a solar cell, a module and an array?
+A: A solar cell is a small device that converts light into electricity. Cells are assembled into a module, commonly called a panel. Multiple panels form an array. These words describe different levels of the generating equipment, not battery storage capacity.
+Reference: S02
+
+PV04
+Q: What equipment is in a home solar system besides panels?
+A: A complete system includes panels, mounting equipment, an inverter, electrical connections and protective equipment. A storage or backup design also needs compatible batteries and control equipment. The exact components depend on the roof, electricity supply and intended operation; a panel count alone does not describe a complete installation.
+Reference: S02
+
+PV05
+Q: What are DC and AC, and why is an inverter needed?
+A: Panels generate direct-current electricity, or DC. Ordinary household circuits use alternating current, or AC. An inverter performs the conversion. A battery also stores energy through DC electrical connections, so its usable connection to household circuits depends on compatible power-conversion equipment.
+Reference: S19
+
+PV06
+Q: What do W, kW and kWp mean?
+A: Watts and kilowatts measure power; 1 kW equals 1,000 W. Panel ratings are often described as peak power, written Wp or kWp, under defined test conditions. A system's power rating is different from how much energy it generates over a day or stores in a battery.
+References: S03, S08
+
+PV07
+Q: What does kWh mean? Is it the same as kW?
+A: kWh measures energy, while kW measures power. A steady 1 kW load running for 2 hours uses 2 kWh. Real appliances may vary their power while running, so actual energy use depends on their operating pattern as well as their rated power.
+Reference: S03
+
+PV08
+Q: Will a panel always generate the wattage on its label?
+A: No. The label is a rating under standard test conditions. Actual power changes with sunlight, panel temperature, orientation, shading and system conditions. For example, a 450 W panel is not a promise of 450 W throughout daylight hours. This example is not a Sol & Tide equipment specification.
+Reference: S08
+
+PV09
+Q: Does twelve hours of daylight mean twelve hours at full solar output?
+A: No. Sunlight is weaker around sunrise and sunset and varies during the day. Daily solar energy accounts for changing intensity over time. A generation estimate needs local sunlight data and system losses, rather than multiplying the panel rating by all daylight hours.
+Reference: S01
+
+PV10
+Q: Can you tell daily solar generation from system size alone?
+A: Not reliably. The same panel capacity can produce different daily energy at different sites. A useful estimate considers local sunlight, roof layout, shading, season and losses. Ask what assumptions an estimate uses; do not treat a sunny-day example as a guaranteed daily or annual yield.
+Reference: S07
+
+PV11
+Q: Do solar panels generate on cloudy days? Do they work at night?
+A: Panels can use diffuse daylight under cloud cover, usually with reduced output. The amount varies with conditions. At night they do not have useful sunlight for normal household generation; evening electricity must come from another source, such as previously stored battery energy or the grid.
+Reference: S08
+
+PV12
+Q: Does hotter weather always mean more solar electricity?
+A: No. Strong sunlight helps generation, but higher cell temperature generally reduces a panel's electrical conversion performance. A hot panel can produce less power than a cooler panel receiving the same light. System design should consider both sunlight and operating temperature.
+Reference: S04
+
+PV13
+Q: Why does shading matter? Can one shaded panel affect others?
+A: Shade reduces light reaching the affected cells. Its wider effect depends on the panel layout and electrical design. String arrangements, bypass devices and panel-level electronics respond differently. An installer should assess moving shade; it is inaccurate to promise either that one shadow disables everything or that shade never affects other panels.
+References: S05, S06
+
+ROOF, PANEL SELECTION AND SYSTEM SIZE
+
+PV14
+Q: Which direction should panels face?
+A: The best layout depends on location, roof geometry, shading and when electricity is needed. East-facing areas tend to produce earlier and west-facing areas later. Do not automatically apply a roof-direction recommendation written for another hemisphere to Antigua or Dominica; assess the actual property.
+Reference: S05
+
+PV15
+Q: Does roof angle matter? Can panels go on a flat roof?
+A: Tilt affects sunlight exposure and layout. A flat or gently sloping roof may use an appropriate mounting arrangement, but row spacing, shading, wind loads and roof condition still need assessment. There is no universal tilt or mounting solution suitable for every home.
+References: S05, S10
+
+PV16
+Q: How much roof space is needed, and does the roof's condition matter?
+A: Available space is more than the visible roof area. Obstacles, shade, access and mounting requirements affect the layout. Panel dimensions vary. Roof condition and any near-term repairs should be reviewed before installation, along with whether the structure is suitable for the proposed system.
+References: S05, S10
+
+PV17
+Q: How do I estimate an appliance's electricity consumption?
+A: For a steady load, energy in kWh equals power in kW multiplied by hours. A hypothetical 100 W device used for 5 hours consumes 0.5 kWh. Cycling appliances need measured or representative average consumption. This arithmetic explains energy use; it does not by itself establish inverter or backup sizing.
+Reference: S03
+
+PV18
+Q: What does panel efficiency mean? Is the highest percentage always the best choice?
+A: Efficiency describes how much incoming light energy becomes electrical energy. Higher efficiency can help where roof space is limited, but the whole system's yield also depends on layout, temperature and losses. Compare output, usable roof area, equipment suitability and the proposal rather than one percentage.
+Reference: S04
+
+PV19
+Q: Are all panels with the same wattage equivalent?
+A: The power label alone is not a full comparison. Panels can differ in size, efficiency and performance under operating conditions. Check the proposed model's datasheet and warranty documents. A larger physical panel is not automatically more efficient, and a rated wattage does not establish suitability for your roof.
+Reference: S08
+
+PV20
+Q: Should I put as many panels as possible on the roof?
+A: Extra generation is useful when it matches consumption, storage or permitted export. It also adds cost and must fit the roof and inverter limits. A suitable design balances present and expected future use, available space, sunlight and budget. Bigger is not automatically the best value.
+Reference: S07
+
+INVERTERS AND ELECTRICITY FLOW
+
+PV21
+Q: Does a more powerful inverter automatically make the panels generate more?
+A: No. An inverter converts the energy available from the panels; it does not create additional sunlight. Its rating limits how much AC power it can deliver. Panels, inverter and storage must be designed together, so a higher inverter rating alone does not establish higher daily generation.
+References: S06, S07
+
+PV22
+Q: What is MPPT?
+A: MPPT means Maximum Power Point Tracking. It adjusts the electrical operating point of a solar input to harvest useful power as conditions change. It may be built into an inverter or charge controller. It cannot replace missing sunlight, and allowable panel arrangements depend on the specific equipment.
+Reference: S09
+
+PV23
+Q: How do string inverters, microinverters and optimisers differ?
+A: A string inverter converts power from groups of panels. Microinverters convert power at individual panels. Optimisers provide panel-level DC control with a compatible inverter. These approaches differ in layout flexibility, shade response, monitoring and cost. No one type is automatically best for every property.
+Reference: S19
+
+PV24
+Q: Why can panel capacity be larger than inverter capacity? What is clipping?
+A: Panels do not always operate at their full rating, so a designed system may use more rated DC panel capacity than AC inverter capacity. If available power exceeds the inverter's conversion limit, output is capped; this is called clipping. Equipment input limits still apply, and the trade-off should be assessed rather than improvised.
+Reference: S07
+
+PV25
+Q: Why is the generation shown in an app different from my electricity bill?
+A: Solar generation, household consumption and grid imports are different measurements. Electricity used directly from solar does not appear as grid purchases. Monitoring may also show exports and battery flows. Compare the same dates and measurement boundaries; a difference alone does not prove a fault or billing error.
+Reference: S13
+
+PV26
+Q: What is solar self-consumption?
+A: Self-consumption means using solar electricity within the property, directly or after storage. Using suitable loads during sunny hours can reduce grid purchases. Savings depend on consumption and the tariff.
+Reference: S14
+
+PV27
+Q: What happens to excess solar electricity? Will the utility pay me for it?
+A: Excess may charge a battery, be exported or be curtailed, depending on the configuration and permission. Credit rates and connection conditions need local confirmation; another country's arrangements do not establish yours.
+Reference: S14
+
+PV28
+Q: Does installing solar guarantee a zero electricity bill?
+A: No. Grid imports and tariff charges may remain. Savings depend on the system, usage and local arrangements. Storage also has costs and losses, so neither zero bills nor a fixed payback is guaranteed.
+Reference: S14
+
+GRID CONNECTION, BACKUP AND OWNERSHIP
+
+PV29
+Q: Do panels lose performance as they age?
+A: Panel output can gradually decline over time. A performance warranty sets model-specific conditions for warranted output; it is not a guarantee of a household's energy yield or bill savings. Ask for the proposed product's documents rather than assuming one degradation rate applies to every panel.
+Reference: S11
+
+PV30
+Q: What is the difference between grid-connected, hybrid and off-grid solar?
+A: Grid-connected systems operate alongside the utility. A hybrid design coordinates solar with storage and potentially other sources. Off-grid systems operate independently and must be designed around periods of low generation. These labels alone do not prove backup capability or indefinite energy independence.
+References: S16, S06
+
+PV31
+Q: Why might solar stop when the electricity grid fails?
+A: Ordinary grid-following solar generally shuts down during an outage to avoid supplying an uncontrolled island. Backup needs suitable equipment and a design that isolates supported circuits from the utility. A correctly configured solar-and-storage system can provide backup within its energy and power limits; solar panels alone are not a backup guarantee.
+Reference: S17
+
+PV32
+Q: Is a panel's performance warranty the same as its product or installation warranty?
+A: No. Product warranties address covered equipment defects, performance warranties address specified output conditions, and installation warranties concern covered workmanship. Coverage and exclusions differ. These general categories do not specify Sol & Tide's warranty; request the exact proposed terms in writing.
+Reference: S11
+
+PV33
+Q: Are panels automatically suitable for hurricanes, coastal weather or any roof?
+A: No universal suitability follows from calling a panel outdoor equipment. The selected equipment, mounting, roof and local site conditions need assessment. Ask the team for applicable model documents and the proposed structural approach. Do not infer a storm rating, corrosion guarantee or approval from general solar education.
+Reference: X15; engineering suitability requires project assessment.
+
+PV34
+Q: Does a battery mean I no longer need enough solar panels?
+A: A battery stores energy; it does not generate it. If the aim is to recharge it from solar while also powering daytime loads, generation must cover both within the available hours and charging limits. More storage alone cannot compensate for an ongoing shortage of energy input.
+Reference: S18
+
+PV35
+Q: Are solar panels maintenance-free? Should I clean them myself?
+A: Dirt, debris and faults can reduce performance, so follow the equipment's maintenance guidance and monitor output. Professional cleaning may be appropriate for the site. Arrange qualified help for roof or electrical work; general chat should not provide climbing, wiring or repair instructions.
+Reference: S12
+
+PV36
+Q: What should I prepare before discussing a solar system?
+A: Identify the property location, recent electricity use, daytime and evening routines, backup priorities and any expected new loads. Roof condition and available photos can help the discussion. These details support an assessment; they do not replace the site's engineering review or a final proposal.
+References: S10, S15
+
+========================================================================
+PART 3: HOME BATTERY AND HYBRID FOUNDATIONS
+========================================================================
+
+STORAGE, POWER AND ENERGY
+
+BAT01
+Q: What is a home battery energy storage system, or BESS?
+A: It stores electrical energy for later use, with battery cells, management and compatible power-conversion equipment. It can help move solar energy from daytime to evening or support backup when designed for that purpose. A storage system needs an energy source to recharge; it does not create electricity.
+Reference: B01
+
+BAT02
+Q: Does a home battery require solar panels?
+A: Not always. Some systems can charge from the grid without solar, if the equipment, settings and local arrangements allow it. A battery-only system still needs electricity to recharge. Whether this is a useful or available option for a particular project must be confirmed with the team.
+Reference: B02
+
+BAT03
+Q: What is the difference between battery capacity in kWh and power in kW?
+A: kWh describes stored energy; kW describes the rate of charging or discharging. Energy capacity affects how long a load may be supported, while power limits affect which loads can operate together. A high-capacity battery does not necessarily have high output power.
+Reference: B03
+
+BAT04
+Q: What are nominal capacity and usable capacity?
+A: Nominal capacity describes the battery's stated total energy capacity. Usable capacity is the amount made available under its operating limits. The difference depends on the product and settings. Check which figure a quotation uses before comparing batteries or estimating runtime.
+Reference: B04
+
+BAT05
+Q: What does SOC mean?
+A: State of charge, or SOC, estimates how full a battery is relative to its reference capacity, usually as a percentage. It is different from its power limit and long-term health. A displayed percentage alone does not tell you how many hours your household can run.
+Reference: B03
+
+BAT06
+Q: What is depth of discharge, or DoD?
+A: DoD describes how much battery capacity has been discharged relative to a reference full capacity. Deeper discharge uses more of the stored energy. Allowable operating ranges depend on the product; a generic DoD definition is not permission to change protection settings or fully empty a battery.
+Reference: B03
+
+BAT07
+Q: What is state of health, or SOH? Is it the same as SOC?
+A: SOC concerns the current charge level; SOH concerns the battery's condition relative to a reference new state. A battery can report full charge while holding less energy than when new. Health and available performance depend on the product's measurement method and operating history.
+Reference: B05
+
+BAT08
+Q: What is a battery cycle? Does every small discharge count as a full cycle?
+A: A cycle describes charging and discharging under defined conditions. A partial discharge is not necessarily one equivalent full cycle; the accounting method matters. When comparing a cycle-life claim, check the stated discharge depth, temperature and end-of-life criterion rather than comparing cycle numbers alone.
+Reference: B06
+
+BAT09
+Q: What is battery energy throughput?
+A: Throughput is the cumulative energy charged or delivered over time, according to the stated definition. Warranties may limit throughput as well as years or cycles. Check the exact terms, including which direction of energy flow is counted; throughput is not the battery's one-time capacity.
+Reference: B07
+
+BAT10
+Q: Can a battery age even if it is not used every day?
+A: Yes. Battery ageing includes time-related changes as well as changes associated with cycling. Storage conditions and use both matter. A low cycle count alone does not establish remaining life, and dividing a quoted cycle count by one cycle per day is not a guaranteed service-life calculation.
+Reference: B08
+
+BAT11
+Q: What is round-trip efficiency? Why do charging and discharging lose energy?
+A: Round-trip efficiency compares recovered energy with the energy put into storage over a defined cycle. Losses occur in the battery and conversion equipment. Results depend on the measurement boundary and conditions, so compare like-for-like figures and do not assume all charged energy reaches household loads.
+Reference: B09
+
+BAT12
+Q: How many years will a battery last?
+A: There is no universal lifetime for all home batteries. Check the model's warranty, retained-capacity condition, operating limits and any cycle or throughput limits. A warranty duration is not a promise of unchanged capacity or a precise replacement date. Sol & Tide's specific terms need confirmation in the proposal.
+Reference: B10
+
+CHEMISTRY, CONTROLS AND OPERATING MODES
+
+BAT13
+Q: What are LFP and LiFePO4? Is LFP a lithium-ion battery?
+A: LFP stands for Lithium Iron Phosphate, also written LiFePO4. It is a lithium-ion battery chemistry used in stationary energy storage. Chemistry is only part of system selection: equipment quality, management, installation, operating limits and support still matter. Capacity and life are model-specific.
+Reference: B11
+
+BAT14
+Q: Does an LFP battery eliminate all safety risk?
+A: No battery chemistry eliminates all system risk. Appropriate design, protective controls, location and installation remain necessary. General comparisons of chemistry do not establish a particular product's certification or make it suitable for any indoor or outdoor location. Request the relevant equipment and installation documentation.
+Reference: B11
+
+BAT15
+Q: What does a battery management system, or BMS, do?
+A: A BMS monitors battery operating conditions and helps enforce protection limits, such as permitted charging and discharging. Its functions and communication with the inverter are product-specific. It is not a substitute for a compatible installation, and customers should not bypass it or change protection thresholds through general chat advice.
+Reference: B12
+
+BAT16
+Q: What is C-rate? Can temperature affect battery power?
+A: C-rate expresses a charge or discharge rate relative to battery capacity. Higher current and operating temperature can affect available performance and limits. Use the manufacturer's specifications for the actual unit; a chemistry name or energy-capacity figure does not establish permissible charging power or temperature limits.
+Reference: B05
+
+BAT17
+Q: What is a hybrid inverter? Does that name guarantee backup?
+A: A hybrid inverter coordinates solar and battery conversion in a compatible design. Backup also depends on isolation, control equipment, wiring and the supported circuits. Do not infer whole-house backup, generator support or uninterrupted transfer from the word hybrid alone; confirm the exact system functions.
+Reference: B13
+
+BAT18
+Q: What do AC-coupled and DC-coupled storage mean?
+A: With AC coupling, the solar and storage systems connect through the AC side, with conversion equipment for each. With DC coupling, solar and storage share a DC-side arrangement with suitable conversion equipment. These are design approaches, not universal rankings of quality or compatibility. The installation must suit the equipment and site.
+Reference: B04
+
+BAT19
+Q: Can I add a battery to solar I already own?
+A: Compatibility needs assessment of the existing inverter, controls, electrical layout and backup requirements. The team should review the current equipment before recommending an upgrade. A matching brand or voltage alone does not confirm compatibility.
+Reference: B14
+
+BAT20
+Q: Can a battery charge from the grid as well as solar?
+A: Some systems support both, subject to equipment, permitted settings and local arrangements. Grid charging consumes purchased electricity and has losses. It should not be presented as free energy or an automatic savings feature. Ask the team to confirm availability and the purpose of the proposed operating mode.
+Reference: B02
+
+BAT21
+Q: What does self-consumption or self-powered battery mode do?
+A: In a supported configuration, surplus solar charges the battery for later household use, reducing grid imports. The system's reserve, available charge and power limits still apply. Exact priorities and export behaviour depend on the selected equipment and settings; this is not proof that the home becomes off-grid.
+Reference: B15
+
+BAT22
+Q: What is time-of-use optimisation? Is it useful with every electricity tariff?
+A: A supported system may shift charging and use between differently priced periods. Benefits depend on the actual tariff, losses and costs. A foreign time-of-use example does not establish an offer in Antigua or Dominica.
+Reference: B16
+
+BAT23
+Q: What is a backup reserve? Should it always be set to the maximum?
+A: A reserve can hold energy for outages rather than routine use. A higher reserve can leave more energy available if an outage starts, but may reduce energy used for everyday savings. Supported settings and outage behaviour are model-specific; agree the balance with the installer rather than assuming one percentage suits every home.
+Reference: B17
+
+BACKUP, APPLIANCES AND RUNTIME
+
+BAT24
+Q: Does adding any battery guarantee power during an outage?
+A: No. Backup requires a design that can safely separate the supported circuits from the utility and operate them with suitable equipment. A battery installed only for other operating purposes may not provide outage power. The quotation should explicitly state what is backed up and under what limits.
+Reference: B18
+
+BAT25
+Q: What is essential-load backup versus whole-home backup?
+A: Essential-load backup supplies selected circuits, such as agreed lighting or refrigeration. Whole-home arrangements include more circuits but still have power and energy limits. Neither term guarantees every appliance can run simultaneously. Ask which circuits and phases are included and how large loads will be managed.
+Reference: B04
+
+BAT26
+Q: Why can a motor or air conditioner fail to start when enough battery charge remains?
+A: Starting demand can exceed normal running demand. The battery, inverter and supported circuit must accommodate the relevant power requirement, not just the stored energy. Starting capability needs equipment-specific assessment; a remaining-charge percentage or large kWh figure alone cannot establish it.
+Reference: B19
+
+BAT27
+Q: Can my air conditioner run all night on batteries?
+A: It depends on the air conditioner's actual energy use, operating hours, starting needs, other loads and the proposed system's available power and usable energy. There is no standard overnight guarantee. Identify which units and appliances need backup so the team can assess a realistic configuration.
+Reference: B19
+
+BAT28
+Q: How do I calculate a basic battery runtime estimate?
+A: For a simplified constant-load illustration, runtime in hours equals energy available to the load in kWh divided by average load in kW. Both numbers must describe the same operating boundary. Reserve, conversion losses, self-consumption, changing loads and solar input can change the result, and power limits must also be satisfied.
+References: B03, B20; the equation is an explanatory calculation.
+
+BAT29
+Q: Does a 10 kWh battery automatically provide ten hours of backup?
+A: No. In an ideal arithmetic example, 10 kWh delivered to a steady 1 kW load equals 10 hours. That assumes 10 kWh is actually available at the load. A product's nominal capacity, reserves, losses and changing demand can make real runtime different. This is not a Sol & Tide performance promise.
+Reference: B20; hypothetical example, not equipment data.
+
+BAT30
+Q: How long does solar take to recharge a battery?
+A: A simple illustration divides energy required by average net charging power. Household loads may consume part of solar generation first, and charging limits and losses also matter. A panel nameplate rating is not continuous charging power. A day of weak sunlight may not fully recharge the battery.
+Reference: B01; the equation is an explanatory calculation.
+
+BAT31
+Q: Can solar and a battery cover several cloudy days or a long outage?
+A: They can support loads only while sufficient energy and power are available. A larger battery stores more, but cannot create the missing recharge energy. Multi-day autonomy requires a site-specific design considering low-sun periods and any supported additional energy source; it is not an automatic capability of home storage.
+Reference: B01
+
+BAT32
+Q: Can a generator work with solar and a battery?
+A: Sol & Tide can assess generator integration. Compatibility depends on the generator, inverter, controls and electrical layout. This does not confirm every generator is compatible or authorise a customer to connect one themselves.
+Reference: B14
+
+BAT33
+Q: Is a home battery the same as a UPS? Will computers never restart?
+A: Do not assume uninterrupted power from a general backup claim. Transfer behaviour and the loads supported depend on the system. If interruption-sensitive equipment matters, ask for the specific transfer performance and whether additional suitable protection is needed. No universal zero-interruption promise is supplied here.
+Reference: B18; product-specific transfer performance remains unconfirmed.
+
+BAT34
+Q: If the battery shuts down empty, will it automatically restart when the sun rises?
+A: Restart behaviour depends on the equipment and configuration, including how the system starts without the grid. Do not assume every installation can recover from any empty-battery state on its own. Ask the installer to explain low-energy behaviour and the approved operating instructions for the proposed system.
+Reference: B18; restart capability requires model confirmation.
+
+BAT35
+Q: Will one battery back up every phase of a multi-phase home?
+A: Not necessarily. Backup coverage depends on the inverter, battery system and circuit arrangement. A system connected to one phase should not be assumed to back up all phases. Confirm the property's supply and the proposed backed-up circuits; the chatbot should not infer the electrical arrangement from a street address.
+Reference: B21
+
+MONITORING, EXPANSION AND OWNERSHIP
+
+BAT36
+Q: Does losing WiFi mean the battery stops working?
+A: Remote monitoring needs its supported communications connection, but an app going offline does not by itself prove power operation has stopped. Local operation and any internet-dependent functions vary by product. Check the model's instructions or ask support instead of assuming all functionality either continues or fails.
+Reference: B22
+
+BAT37
+Q: What should I look at in a battery-monitoring app?
+A: Useful information can include charge level, charging or discharging power, solar generation, household use, grid flows and alerts. Available readings depend on the equipment and installed metering. Check periods and units before comparing figures; a dashboard number alone is not a complete diagnosis.
+Reference: B22
+
+BAT38
+Q: Can I add more batteries later? Can I mix batteries?
+A: Sol & Tide can assess expansion based on the design, equipment compatibility and electrical capacity. Do not assume any battery can be added, or that more energy capacity automatically increases inverter output power.
+Reference: B14
+
+BAT39
+Q: Can a home battery be installed anywhere indoors or outdoors?
+A: No. The model's environmental rating, location restrictions and local installation requirements matter. The installer must assess the proposed position and protection. General storage education does not establish suitability for a bedroom, enclosed cupboard, flood-prone location or direct weather exposure.
+Reference: B04
+
+BAT40
+Q: Is a battery always the best way to reduce bills?
+A: No. Value depends on energy shifted, the tariff, costs, losses and the customer's goals. Backup may be valuable even with weaker financial payback. Compare options against actual needs rather than assuming a return from capacity alone.
+Reference: B16
+
+BAT41
+Q: What should I check in a battery warranty?
+A: Check the covered equipment, term, retained-capacity requirement, throughput or cycle limits, exclusions and operating conditions. Ask who handles a claim and which costs are covered. Generic industry examples are not Sol & Tide's warranty; obtain the proposed model's exact written terms.
+Reference: B10
+
+BAT42
+Q: Does low-maintenance mean I can ignore alerts or repair the battery myself?
+A: No. Follow the equipment's maintenance guidance and ask qualified support about faults or alerts. Monitoring helps identify changes but is not a substitute for assessment. The customer chatbot should not provide enclosure-opening, wiring, protection-bypass or internal repair instructions.
+Reference: B23
+
+BAT43
+Q: What should I tell the team when asking about home storage?
+A: Give the location, electricity use, backup appliances and operating times, plus relevant existing equipment. These help the team discuss an assessment. Leave out account numbers and unnecessary sensitive details.
+Reference: B14
+
+BAT44
+Q: Can general storage advice establish my final battery size, price or guaranteed hours?
+A: No. Configuration requires the property's needs, compatible equipment and a proposal. Use Sol & Tide's assessment or contact routes for a specific project. This education file contains no live price, stock or engineering approval.
+Reference: B14
+
+========================================================================
+PART 4: HOUSEHOLD SCENARIOS, PROJECT PLANNING AND OWNERSHIP
+========================================================================
+
+PRACTICAL HOUSEHOLD LOADS AND ROUTINES
+
+LOAD01
+Q: Why can't I size refrigerator backup by multiplying the label wattage by 24 hours?
+A: A refrigerator cycles and its energy use depends on conditions and the model. Annual or measured consumption can help estimate average daily energy, while starting power still needs a separate check. Nameplate power multiplied by 24 is not automatically actual daily consumption.
+References: X01
+
+LOAD02
+Q: Can I use an air conditioner's BTU/h rating as its electrical consumption?
+A: No. BTU/h describes cooling output, not electrical input power. Check the actual model's input power or measured energy use and operating conditions. Two units with the same cooling capacity can have different electricity requirements.
+References: X02
+
+LOAD03
+Q: Does an inverter air conditioner automatically work with any solar inverter?
+A: No. An appliance described as inverter-type is not a compatibility certificate for a solar system. Its supply requirements, running and starting demand, operating hours and the proposed backup configuration still need review.
+References: Company and foundation synthesis
+
+LOAD04
+Q: Will lights, WiFi, a laptop and a television be easier to back up than the whole house?
+A: A smaller selected group of loads can reduce the energy and power required, but list the actual equipment and desired hours. A router also needs an available internet connection from its provider; electrical backup alone does not guarantee internet service.
+References: Original load-planning inference
+
+LOAD05
+Q: Can a kettle or microwave overload a system even if it runs only briefly?
+A: Yes. A short operating time can mean modest energy use while instantaneous demand is still high. Check simultaneous power as well as daily kWh. Running several high-power appliances together can exceed limits even when the battery is not empty.
+References: X03
+
+LOAD06
+Q: Can I move electric water heating or laundry to sunny hours?
+A: Where appliance controls and household needs allow it, moving flexible use to periods of available solar can increase direct use. Confirm actual power requirements and supported scheduling. Do not assume a timer makes a load suitable for an undersized inverter.
+References: Company and foundation synthesis
+
+LOAD07
+Q: How should I plan solar use for a pool pump or water pump?
+A: Record the pump model, operating power, daily operating times and starting requirements. Pool-pump speed and controls can affect consumption. Scheduling must still meet the pump's practical purpose; the chatbot should not prescribe filtration or water-supply settings.
+References: X04
+
+LOAD08
+Q: Should I mention a future electric vehicle before choosing my home system?
+A: Yes. Vehicle charging adds a load whose power and energy depend on the charger and driving needs. Share the intended charging schedule and equipment. Adequate household electrical capacity and compatibility need assessment; home battery backup of the charger is not automatic.
+References: X05
+
+LOAD09
+Q: I work from home. Could solar be useful even if I do not need long overnight backup?
+A: Daytime loads may use solar directly, while the desired outage protection is a separate design goal. Describe work equipment, daytime consumption and the hours that matter. This supports discussing panels and storage without assuming that everyone needs the largest battery.
+References: Original scenario based on foundation energy flow
+
+LOAD10
+Q: I am away all day and mainly cook and cool the house at night. What should I tell the team?
+A: Explain the evening appliance combination and operating hours, not just the monthly bill. The design must consider energy generated earlier, storage available later and simultaneous loads. A large battery alone cannot guarantee sufficient recharge or cooking and cooling power.
+References: Original scenario based on foundation sizing
+
+LOAD11
+Q: Can you recommend a system from the number of bedrooms or occupants alone?
+A: Those details give context but do not establish electricity demand. Homes with the same room count can have very different air conditioning, water heating and other loads. Use consumption records and a load list for a meaningful assessment.
+References: X13; original household-planning inference
+
+LOAD12
+Q: What should a useful backup appliance list include?
+A: List the equipment, its input power if known, desired operating hours and which appliances must run together. Note motors or compressors separately. Include priorities so the team can distinguish essential loads from optional loads without collecting unnecessary personal information.
+References: Original load-planning worksheet
+
+ADDITIONAL PANEL, BATTERY AND CONVERSION CONCEPTS
+
+TECH01
+Q: What are crystalline-silicon and thin-film solar panels?
+A: They use different photovoltaic semiconductor structures and manufacturing methods. Crystalline-silicon and thin-film are broad technology families, not complete quality rankings. Compare the actual module's specifications, suitability and documents; this explanation does not identify Sol & Tide's offered models.
+References: X07
+
+TECH02
+Q: What is a bifacial panel? Does it generate twice as much electricity?
+A: A bifacial design can collect light from both front and rear surfaces. Extra yield depends on rear illumination, reflection and the mounting environment. The name does not promise double generation or a fixed percentage gain on every roof.
+References: X08
+
+TECH03
+Q: Can I convert a battery's amp-hours into kilowatt-hours?
+A: A simplified nominal-energy calculation is nominal volts multiplied by amp-hours, divided by 1,000. For example, 48 V multiplied by 100 Ah gives 4.8 kWh nominal. Actual usable AC energy depends on the product, operating range and losses; this is not a quoted battery specification.
+References: Original explanatory arithmetic
+
+TECH04
+Q: Is a higher-voltage battery automatically better for my home?
+A: No. Voltage is a compatibility and design parameter, not a complete measure of value, energy or backup power. The battery, inverter, controls and protective equipment must form a supported system. Do not mix equipment or change wiring on the basis of a voltage comparison.
+References: Company and foundation synthesis
+
+TECH05
+Q: What is the difference between continuous and peak output power?
+A: Continuous output concerns sustained operation under stated conditions. Peak or surge output applies only under its specified duration and conditions. Do not use a short peak rating as an all-night running capability or assume it covers every motor start.
+References: Foundation power-limit synthesis
+
+TECH06
+Q: Does a battery's usable-capacity figure already include inverter losses?
+A: Check the measurement boundary. A DC battery figure is not automatically energy delivered at household AC circuits. Compare like-for-like specifications and avoid both ignoring losses and subtracting the same allowance twice. Ask what the quoted capacity includes.
+References: Original specification-comparison guidance
+
+TECH07
+Q: Are inverter efficiency and battery round-trip efficiency the same number?
+A: No. They describe different conversions or measurement boundaries. Round-trip efficiency compares recovered energy with charging energy, while an inverter efficiency concerns its conversion under stated conditions. One advertised efficiency does not establish the whole system's delivered-energy efficiency.
+References: X09
+
+TECH08
+Q: If two compatible batteries double stored energy, do they also double the inverter's output?
+A: Not necessarily. Supported expansion may add energy while the inverter, battery power limits or circuit arrangement still cap output. Adding capacities is not proof of safe compatibility or doubled whole-system power. Have the team confirm the proposed expansion's actual capabilities.
+References: Original expansion inference
+
+PROJECT PLANNING AND QUOTATION QUESTIONS
+
+PLAN01
+Q: Is my monthly bill amount enough to design a system?
+A: It is a useful starting point, but tariffs and fixed charges mean money is not the same as energy use. Billing-period consumption and the timing of loads give more context. Backup design also needs the appliances and simultaneous loads to be supported.
+References: X13; company calculator and assessment guidance
+
+PLAN02
+Q: Which parts of my bill or photos should I share for an assessment?
+A: Share relevant electricity charges or consumption, the billing period and the property location. The company guidance asks you to leave out account numbers and other unnecessary sensitive details. Relevant roof or installation-space photos can help explain the project.
+References: Company knowledge
+
+PLAN03
+Q: Can Basic, Plus or Premium be changed to fit my priorities?
+A: The published packages are starting options. Engineers can review your needs and discuss an appropriate configuration, with included work and the final price confirmed in the proposal. A package name alone does not guarantee a particular backup result for your home.
+References: Company knowledge
+
+PLAN04
+Q: How should I choose between the lowest budget and longer outage backup?
+A: Start with the loads and hours that matter most, then identify optional loads. More required energy or power may change the configuration and cost. Ask for a proposal explaining the trade-offs rather than treating the largest system as the automatic answer.
+References: Original project-planning guidance
+
+PLAN05
+Q: How do I compare two solar and battery quotations fairly?
+A: Compare panel capacity, inverter power, usable battery energy, backed-up circuits, site work, monitoring, warranties and the assumptions behind estimates. A lower headline price may cover a different scope. Ask each team to explain unclear items in writing.
+References: X10
+
+PLAN06
+Q: Are installation work, electrical upgrades, delivery, permits or taxes always included?
+A: Do not assume they are. Ask the team to identify included work, exclusions and any site-dependent costs in the proposal. This knowledge base does not establish a universal inclusion policy or authorise the assistant to promise that every possible extra is covered.
+References: X10; company pricing boundary
+
+PLAN07
+Q: Does completing the free assessment form reserve an installation date?
+A: No. It starts an enquiry so the team can review your needs. Any site visit, schedule, equipment allocation or installation commitment needs confirmation. The assistant should provide the correct regional form without reporting that a booking has already been made.
+References: Company knowledge
+
+PLAN08
+Q: I rent or share the property. Can I still discuss solar?
+A: You can ask general questions and describe the property. Installation planning should include the relevant owner or property decision-makers and permission arrangements. The team must review the actual project; this chat does not establish your authority to approve roof or electrical work.
+References: Original enquiry-planning guidance
+
+PLAN09
+Q: We are building or renovating. When should we raise solar and storage plans?
+A: Discuss them while roof layout, equipment locations and electrical planning can still be coordinated. Ask the project professionals what information they need. Early discussion can reveal space and access issues; it is not a substitute for the eventual design and installation review.
+References: X11
+
+PLAN10
+Q: Should an older solar system be replaced completely or upgraded?
+A: It depends on condition, performance, remaining warranties, roof plans and compatibility with new equipment. Keep existing documentation and production history for the assessment. Do not assume replacement or a simple battery addition is always the best solution.
+References: X12
+
+PLAN11
+Q: Can you confirm service for an apartment, a ground-mounted array or a business?
+A: The published company information focuses on homes in the listed service regions. Describe the project type and island so the team can confirm whether it can help. The chatbot should not infer that every installation type or commercial project is an available company service.
+References: Company service-scope boundary
+
+PLAN12
+Q: Do you offer finance, discounts, instalments or a particular cancellation policy?
+A: These terms are not confirmed in the approved knowledge. Ask the team for the current written offer and applicable terms. The assistant can explain that a proposal is needed, but cannot create a discount, payment agreement, refund decision or cancellation promise.
+References: Company pricing and support boundaries
+
+UNDERSTANDING REAL SYSTEM OPERATION AND SUPPORT
+
+OPS01
+Q: Why might my home use grid power while the sun is shining?
+A: Available solar may be below current demand, and equipment or reserve settings can limit battery contribution. Sunlight alone does not establish adequate power for every load. Look at the actual flows and configuration before concluding that the system is faulty.
+References: Company and foundation energy-flow synthesis
+
+OPS02
+Q: Why can solar output reduce when the battery is full?
+A: If household demand is low and export is limited or unavailable, there may be nowhere for additional generation to go. The system may limit output. This can be normal for the configuration and should be distinguished from a fault or unexpected underperformance.
+References: Company and foundation export-limit synthesis
+
+OPS03
+Q: Why might the system use the grid while the battery still shows charge?
+A: Some stored energy may be reserved, and other operating or power limits can apply. A visible charge percentage does not prove all that energy is currently available to household loads. Ask the team to explain the intended mode before treating the behaviour as a defect.
+References: Company and foundation reserve synthesis
+
+OPS04
+Q: Why might a battery charge from the grid?
+A: A supported configuration may replenish a reserve or follow an agreed operating strategy. This uses purchased electricity. Whether that behaviour is intended depends on the equipment and settings; general chat cannot verify live operation or authorise a settings change.
+References: Company and foundation operating-mode synthesis
+
+OPS05
+Q: Do two batteries at 50% charge contain the same usable energy?
+A: Not if their capacities or operating references differ. A percentage needs context. Compare the product's usable capacity and the definition of the displayed charge, then account for power limits and losses when considering delivered energy. Percentage alone is not a runtime estimate.
+References: Original capacity arithmetic inference
+
+OPS06
+Q: Can you give a simple example of solar, loads and battery charging at the same time?
+A: In a hypothetical loss-free snapshot, 6 kW of solar could supply 2 kW of loads, charge storage at 3 kW and export the remaining 1 kW if permitted and supported. Actual priorities, limits and measurements vary. This illustrates power balance, not a promised system setting.
+References: Original illustrative power balance
+
+OPS07
+Q: Can you show a basic example of how simultaneous appliance use affects backup?
+A: If hypothetical loads require 2 kW and 1.5 kW at the same time, they total 3.5 kW before starting demand or losses. A 3 kW-only backup source cannot be assumed to supply them both. Actual additional sources and limits depend on configuration.
+References: Original illustrative power arithmetic
+
+OPS08
+Q: Why does an app show both kW and kWh graphs?
+A: A kW reading shows power at a moment or over a sampling interval; a kWh total shows accumulated energy. Compare the same quantity and period. A brief high-power spike does not by itself establish high daily energy use.
+References: Original unit interpretation
+
+OPS09
+Q: Why can app savings or totals differ from my utility bill?
+A: Check the date range, tariff assumptions and whether the display measures generation, consumption, imports or exports. Estimated savings are not the same as billing charges. A difference requires like-for-like review rather than an immediate conclusion of a faulty meter.
+References: X13
+
+OPS10
+Q: One day's solar generation was lower. Does that prove a panel has failed?
+A: No. Weather, shading and the comparison period matter. Compare similar conditions and look for reported alerts or a persistent change. Share observations with support; a chatbot without site measurements cannot diagnose which component has failed.
+References: X14
+
+OPS11
+Q: What should I send when reporting a system problem?
+A: Describe what happened, when it started, the affected equipment and any visible alert or error text. Relevant monitoring screenshots may help through a supported contact channel. Avoid passwords, account numbers and private access links. Support must assess the issue before confirming a fault or repair.
+References: Company support guidance; X14
+
+OPS12
+Q: Does the AI need my monitoring password or access to my account to answer?
+A: No. General explanations do not require your password. The assistant has no live equipment or private-order access in this setup. Use the team's approved support channel for case handling, and do not share login credentials in this chat.
+References: Company access boundary
+
+WEATHER, OWNERSHIP AND LONG-TERM CARE
+
+CARE01
+Q: Does a panel test certificate guarantee the entire roof installation will withstand a hurricane?
+A: No. Storm resilience also depends on mounting, attachments, roof condition and site-specific engineering. Request the applicable equipment documents and design approach. A component test is not a universal whole-installation storm guarantee.
+References: X15
+
+CARE02
+Q: Does an outdoor or IP rating mean equipment can be submerged or survive any flood?
+A: No universal conclusion follows. An IP code concerns specified enclosure protection, not every environmental hazard or an entire installation. Suitability depends on the exact rating, model instructions and site. Flood exposure needs professional assessment rather than a generic waterproof claim.
+References: X16, X17
+
+CARE03
+Q: Does suitability for a coastal location depend only on water resistance?
+A: No. Environmental assessment should consider the selected equipment, mounting, exposure and material durability. Do not equate a general outdoor label with a salt-corrosion guarantee. Ask for relevant product documents and a site-appropriate proposal.
+References: Engineering assessment boundary; X15
+
+CARE04
+Q: What if my roof needs repairs after solar is installed?
+A: Coordinate roof work with qualified professionals and the solar team so equipment, access and any removal or reinstatement can be assessed. Ask about scope, costs and warranty implications. The assistant cannot confirm those arrangements or provide disconnection instructions.
+References: X18
+
+CARE05
+Q: What documents should I keep after a solar and battery installation?
+A: Ask for the final equipment list, agreed scope, warranty and support information, operating guidance and relevant handover records. Keep approved settings and monitoring access arrangements available for future professional support. Specific documentation must be agreed with the installer.
+References: X10, X19
+
+CARE06
+Q: What should I check when buying a home that already has solar and a battery?
+A: Request equipment details, installation history, ownership or contract information, warranties and available generation records. Confirm how support and any applicable warranty transfer work. Existing hardware alone does not establish its present condition or which obligations transfer with the property.
+References: X20
+
+CARE07
+Q: Can this AI confirm an existing order, payment, warranty claim or technician visit?
+A: No. It can explain public information and direct you to the team, but cannot access personal records or confirm those actions. Contact the relevant support channel with a brief description. Do not paste a private submission-access URL into general chat.
+References: Company support and access boundaries
+
+CARE08
+Q: What should happen to old panels, inverters or batteries?
+A: Ask the installer and suitable local collection or recycling providers about safe handling and available options. Do not assume household disposal is appropriate or that Sol & Tide includes a take-back service. Recycling and replacement arrangements need confirmation for the actual equipment and location.
+References: X21, X22
+
+========================================================================
+
+============================================================================
+BOOK II — EXTENDED TOPIC GUIDES
+============================================================================
+
+G01 — Electrical quantities: reading power, energy, voltage and apparent power
+电气量基础：功率、电量、电压与视在功率
+G02 — Solar resource: daylight, irradiance, daily energy and weather uncertainty
+太阳能资源：日照、辐照度、每日能量与天气变化
+G03 — Photovoltaic cells and module technologies: understanding comparisons
+光伏电池与组件技术：怎样理解技术路线
+G04 — Reading a panel datasheet without turning it into a wiring plan
+看懂组件参数表：额定值、工作点与测试条件
+G05 — Inverters, MPPT, conversion limits and the meaning of compatible operation
+逆变器与 MPPT：转换、限功率和兼容性
+G06 — Site assessment: the roof, usable space, access and equipment location
+现场评估：屋顶、可用空间、施工通道与设备位置
+G07 — Battery construction, chemistry and protective control layers
+电池结构、化学体系与保护层级
+G08 — Storage performance over time: SOC, SOH, cycles, throughput and reserve
+储能随时间变化：电量、健康、循环、吞吐量和预留
+G09 — Energy-management modes and the trade-offs between savings and resilience
+能量管理模式：节省电费与备电韧性的取舍
+G10 — System architectures: AC/DC coupling, backup boundaries and additional sources
+系统架构：交直流耦合、备电边界与其他电源
+G11 — Household load profiles: appliances, coincidence and daily routines
+家庭负载画像：家电、同时使用与生活节奏
+G12 — A sizing method: objectives, constraints and scenario comparison
+选型方法：目标、约束与场景对比
+G13 — Calculation discipline: units, boundaries, assumptions and uncertainty
+计算方法：单位、边界、假设与不确定性
+G14 — Electricity bills and project economics: a transparent comparison
+账单与经济性：清楚比较节省、投资和备电价值
+G15 — Monitoring literacy: what the dashboard can and cannot prove
+看懂监控：仪表盘可以说明什么、不能证明什么
+G16 — Operation and maintenance: observations, professional checks and support
+运行维护：日常观察、专业检查与支持
+G17 — Caribbean conditions: heat, humidity, salt exposure, wind and flooding
+加勒比地区适应性：高温、湿度、盐雾、风与积水
+G18 — From enquiry to proposal and handover: understanding each project stage
+从咨询到方案与交付：理解每个阶段
+G19 — Customer decision journeys and useful next steps
+客户决策路径：怎样找到有用的下一步
+G20 — Long-term ownership, sustainability and future changes
+长期持有：维护、可持续性与未来变化
+
+----------------------------------------------------------------------------
+G01 — Electrical quantities: reading power, energy, voltage and apparent power
+电气量基础：功率、电量、电压与视在功率
+Related topics / 检索词: W, kW, kWh, V, A, Ah, VA, kVA, power factor; 功率 电量 伏特 安培 安时 功率因数
+
+FOUNDATION
+Power is a rate; energy accumulates over time. Voltage and current describe different electrical quantities. In AC equipment, real-power and apparent-power limits may differ, so a kW rating and a kVA rating should not be assumed interchangeable. Power factor relates real power to apparent power under the stated conditions. [D01]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Read a number together with its unit and its purpose. A panel's kW rating describes a generating capability at reference conditions; an inverter's kW describes a conversion or output limit; a battery's kWh describes stored energy at a defined boundary. These can all appear on the same proposal while answering different questions. Converting all of them into a single 'system size' loses important information.
+
+For a constant load, energy equals power multiplied by elapsed time. If power varies, add the energy in successive intervals or use a representative measured total. Nameplate input may describe a maximum or test condition rather than a continuously drawn load. A refrigerator, air conditioner and water pump can each spend time in different operating states.
+
+Amp-hours describe charge, not complete household energy. Nominal volts multiplied by amp-hours can provide an approximate nominal Wh figure. The result needs the correct battery or bank boundary: do not use one cell's voltage with the entire bank's claimed Ah, or treat a nominal DC figure as usable AC output. Voltage varies and the equipment specification remains the reference.
+
+Apparent power is relevant when reviewing equipment that carries separate VA and W limits. If a hypothetical load has real power of 1.2 kW and power factor 0.8, the corresponding apparent power is 1.5 kVA. That arithmetic is an explanation, not a recommendation for a customer's circuit or UPS. Starting behaviour, harmonics and equipment limits still need professional assessment.
+
+A good customer explanation keeps these layers separate: how much power is needed at once, how much energy is needed over a period, and which supply and equipment characteristics must be compatible. This lets the customer describe a goal without being asked to perform electrical measurements or expose wiring.
+
+WHAT TO CLARIFY
+Ask for a model label or manufacturer specification where available, the operating hours and which loads run together. Never ask the customer to open an electrical enclosure to obtain a reading.
+
+中文说明
+读参数先看单位和对象。kW 表示某一时刻的功率，kWh 表示一段时间内的电量，Ah 不能脱离电压直接当作家用可用电量。电池容量、逆变器输出和组件额定功率分别回答不同问题。对于带 kVA 额定值的设备，还要区分实际功率与视在功率。客服应帮助客户理解参数，具体电气匹配交给工程师。
+
+----------------------------------------------------------------------------
+G02 — Solar resource: daylight, irradiance, daily energy and weather uncertainty
+太阳能资源：日照、辐照度、每日能量与天气变化
+Related topics / 检索词: sun hours, irradiance, insolation, peak sun hours, seasons, forecast; 日照 辐照度 峰值日照 阴天 季节
+
+FOUNDATION
+Solar-performance models distinguish weather inputs, the light reaching the panel plane and the conditions influencing electrical output. A measurement at one instant is different from energy integrated across a day. Effective irradiance further accounts for optical effects such as soiling and angle of incidence. [D02, D03]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Day length is not a promise of rated generation throughout those hours. Morning, midday and late afternoon can have very different light intensity. A rooftop may also move into and out of shade. This is why a useful energy forecast is based on a time profile rather than panel capacity multiplied by every daylight hour.
+
+Equivalent full-sun hours compress a changing daily light profile into an energy-equivalent number. They do not mean that the roof receives an unchanging peak intensity for that exact continuous period. When using an illustrative number in a conversation, label it as an assumption rather than a measured fact about the customer's island or roof.
+
+Distinguish location-level resource from site-level access. A sunny region can still contain a deeply shaded roof. Nearby structures, trees, roof orientation and the usable installation area affect what the proposed array receives. A regional forecast does not substitute for a layout assessment.
+
+An annual average is useful for planning but cannot describe every day, month or outage event. A design chosen for average bill reduction may need a different reserve or backup strategy for several weak-sun days. Weather-year data, actual future weather and a single forecast are different kinds of evidence.
+
+A practical conversation starts with the customer's objective. Someone mainly concerned with bill reduction may want an annual estimate and its assumptions. Someone worried about long outages needs an explanation of low-generation periods, storage and any supported additional energy source. The assistant should not turn a regional sunshine statement into an autonomy guarantee.
+
+WHAT TO CLARIFY
+Ask which period and objective the customer is discussing: an instant, a typical day, an annual estimate or a specific outage. Use local site information before giving a project forecast.
+
+中文说明
+日照时长、辐照强度和一天得到的太阳能量不是同一个量。峰值日照小时是等效表示，不是每天固定满功率运行的小时数。地区晴朗也不能证明某个屋顶无遮挡。年平均发电估算与连续阴天的备电能力要分别分析；没有当地屋顶和气象资料时，不提供固定发电承诺。
+
+----------------------------------------------------------------------------
+G03 — Photovoltaic cells and module technologies: understanding comparisons
+光伏电池与组件技术：怎样理解技术路线
+Related topics / 检索词: silicon, monocrystalline, polycrystalline, thin film, bifacial, tandem; 单晶 多晶 薄膜 双面 叠层 组件效率
+
+FOUNDATION
+Photovoltaic cells use semiconductor structures to convert light into electrical energy. Crystalline silicon and thin-film technologies are broad families. Bifacial collection and tandem structures describe different design features; a technology label alone is not a complete system specification. [D04]
+
+EXPLANATION AND CUSTOMER APPLICATION
+A cell is the converting element; a module packages many cells into an outdoor generating product. The resulting module still needs appropriate electrical conversion, mounting and system controls. A strong laboratory cell result does not establish a particular rooftop product's dimensions, price, availability or lifetime performance.
+
+Customers often hear several labels at once and assume they are competing descriptions of the same property. Some refer to the semiconductor material, some to how the cell is constructed, some to how light is collected, and others to module packaging. Ask for the exact proposed model rather than inferring every feature from one marketing term.
+
+Compare products at the level that matters to the roof. Relevant information includes rated output, physical size, efficiency, temperature behaviour, applicable tests and the terms covering equipment and output. On a constrained roof, power per available area may matter; on another project, layout or shading can dominate the decision.
+
+A bifacial module can only benefit from light that actually reaches its rear. Roof colour, clearance and mounting geometry influence that opportunity. 'Two sides' is not an instruction to double the estimate. Likewise, a research report about a tandem cell is not proof that a quoted module uses that technology or is available through Sol & Tide.
+
+A useful response to 'Which technology is best?' is to identify the comparison goal. Is the customer short of roof area, concerned about hot operating conditions, trying to fit an unusual roof, or comparing warranty documents? The assistant can explain those criteria and direct the model-specific choice to the proposal.
+
+WHAT TO CLARIFY
+Use the company's confirmed equipment information for offered products. Treat external manufacturers and research examples as educational references, not an approved supplier list.
+
+中文说明
+组件技术名词描述的可能是材料、结构、封装或采光方式，不能只凭一个词判断整套系统好坏。实验室电池效率也不等于屋顶组件的实际收益。比较应落到具体型号的功率、尺寸、温度表现、测试文件和保修条件。双面组件需要背面实际获得光照，不能直接把发电量翻倍。
+
+----------------------------------------------------------------------------
+G04 — Reading a panel datasheet without turning it into a wiring plan
+看懂组件参数表：额定值、工作点与测试条件
+Related topics / 检索词: Pmax, Voc, Isc, Vmp, Imp, STC, NMOT, temperature coefficient; 开路电压 短路电流 最大功率点 标准测试条件
+
+FOUNDATION
+A module's current-voltage relationship includes short-circuit current, open-circuit voltage and a maximum-power operating point. These quantities vary with conditions, including irradiance and cell temperature. A datasheet's reference conditions must therefore accompany its numerical values. [D05]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Pmax is a power rating at stated conditions. Vmp and Imp describe voltage and current at the maximum-power operating point; their product is associated with that power. Voc describes open-circuit voltage, while Isc describes short-circuit current under the relevant conditions. These are not interchangeable versions of one operating current or voltage.
+
+A customer reading the largest number on each row may accidentally combine values that do not occur together. Multiplying open-circuit voltage by short-circuit current does not describe the module's normal useful output. The operating point lies on a relationship between current and voltage, not a menu from which maximum values can be independently selected.
+
+Test-condition ratings help make controlled comparisons. Operating conditions on a real roof differ. A hot sunny afternoon, a cooler bright period and a cloudy morning can each produce a different electrical state. Where a datasheet offers additional operating-temperature or performance information, ask the designer how it was used in the site estimate.
+
+Temperature coefficients indicate a direction and scale of change for a specified parameter and reference. Do not apply a power coefficient to voltage or a voltage coefficient to energy without the appropriate model. A simplified example can teach sensitivity, but it is not a final performance calculation.
+
+Input-voltage, current and MPPT constraints belong to the complete design. The support assistant may explain what these headings mean, but should not instruct a visitor to choose a string length, rearrange connectors or override an inverter limit. The model, site extremes and professional design all matter.
+
+WHAT TO CLARIFY
+For a model-specific question, request the published model designation or datasheet through an appropriate channel. Do not infer compatibility from wattage alone or direct a customer to make open-circuit or short-circuit tests.
+
+中文说明
+Pmax、Vmp、Imp、Voc、Isc 对应不同状态，不能把每栏最大值随意相乘当作正常发电功率。额定值要与测试条件一起理解，屋顶运行会受光照和电池片温度影响。客服可以解释参数含义，但不据此在线指导组件串并联、测短路电流或调整接线。
+
+----------------------------------------------------------------------------
+G05 — Inverters, MPPT, conversion limits and the meaning of compatible operation
+逆变器与 MPPT：转换、限功率和兼容性
+Related topics / 检索词: inverter, MPPT, clipping, grid following, grid forming, hybrid; 逆变器 混合逆变器 削峰 限功率 并网 构网
+
+FOUNDATION
+MPPT is a control function that seeks a useful maximum-power operating point as conditions change. The array, converter and AC output each have limits. A control function does not create sunlight or remove those limits. [D06]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Think of the inverter as part of a conversion and control chain. It must work with the available solar input, supported battery arrangement and the household or grid interface. The nameplate output is important, but it is not a complete description of charging limits, backup coverage, generator behaviour or transfer performance.
+
+Different functions can be combined into one enclosure or provided by separate devices. This changes neither the need to check compatibility nor the need to identify each function. A hybrid label may indicate coordinated solar and battery operation, but a proposal still needs to state what happens in grid-connected operation and during an outage.
+
+An inverter can limit output for more than one reason. A conversion ceiling, battery charging limit, export constraint, selected mode or protective operating condition may all influence measured output. A flat section on a graph alone does not establish which condition is responsible. Ask for context before naming it a fault.
+
+DC panel capacity and AC conversion capacity need not match numerically. A designer may balance better use during lower-light periods against some capped output during strong conditions. That trade-off is different from exceeding a manufacturer's allowed input range. The assistant can explain the distinction without recommending equipment changes.
+
+When a visitor compares two inverters, organise the question around the intended job: required simultaneous load, battery interface, desired backup circuits, supply arrangement, supported monitoring and future plans. A higher headline kW rating is useful only if the rest of the proposed system and site can use it.
+
+WHAT TO CLARIFY
+Keep the distinction between a general operating concept and a verified capability of a specific model. Refer unusual source-combination or backup questions to the project team.
+
+中文说明
+逆变器既涉及电能转换，也涉及与组件、电池、电网及负载的协调。MPPT 帮助寻找合适工作点，但不能产生额外太阳能。图上出现限功率可能有多种原因，不能只看曲线就认定故障。混合逆变器的名称也不能代替对备电回路、切换性能和兼容性的逐项确认。
+
+----------------------------------------------------------------------------
+G06 — Site assessment: the roof, usable space, access and equipment location
+现场评估：屋顶、可用空间、施工通道与设备位置
+Related topics / 检索词: roof assessment, renovation, flat roof, access, battery location; 屋顶检查 平屋顶 结构 安装空间
+
+FOUNDATION
+Professional assessment considers the actual site, not only the desired capacity. Layout, installation access, roof condition and equipment location can affect design and scope. This guide describes information to discuss, not a structural certificate or local installation rule. [D07]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Separate gross area from usable area. A large roof can contain obstacles, incompatible surfaces, shaded sections and access needs. The useful layout is not obtained by dividing roof area by one panel's dimensions and ignoring everything between them. Two properties with the same floor area can support very different layouts.
+
+Roof condition is a lifecycle issue. If substantial work is already planned, installation timing should be coordinated so that removal and reinstatement are considered early. The assistant should not promise that roof work is included, that every roof can carry the equipment, or that one photograph settles structural suitability.
+
+Equipment space has several dimensions: physical fit, environmental suitability, permitted access and how the proposed system connects with the property's infrastructure. A battery's footprint is not the same as the complete installation envelope. A sheltered-looking location also needs model-specific assessment.
+
+Photos can help the team understand a site, but do not request unsafe access. Useful images are those the customer can share without climbing or opening equipment. State what the image is intended to show, such as the overall roof or the proposed ground-level area. Do not treat an image as proof of hidden structure or wiring.
+
+Present unknown site details as questions for the assessment, not obstacles that the assistant has already diagnosed. A concise enquiry might establish the island, whether the building is existing or under construction, the main goal and whether relevant photos are available. The project team can determine which additional information is needed.
+
+WHAT TO CLARIFY
+Ask what is known, record what remains unverified, and keep preliminary discussions separate from a final design. Local requirements and model-specific location limits need confirmation.
+
+中文说明
+现场评估不仅看屋顶面积，还看遮挡、结构状态、检修通道、计划中的屋顶工程和设备环境。电池自身尺寸不等于完整安装空间。照片只能辅助了解情况，不能证明隐蔽结构和电气条件，也不能要求客户爬屋顶或打开设备取证。
+
+----------------------------------------------------------------------------
+G07 — Battery construction, chemistry and protective control layers
+电池结构、化学体系与保护层级
+Related topics / 检索词: cell, module, pack, LFP, NMC, BMS, EMS, cell balancing; 电芯 模组 电池包 磷酸铁锂 电池管理
+
+FOUNDATION
+Battery cells, their managed grouping and system controls perform different jobs. A battery management system monitors and constrains battery operation, while wider controls coordinate energy use. A favourable chemistry description is not a complete safety or compatibility evaluation. [D08]
+
+EXPLANATION AND CUSTOMER APPLICATION
+An individual cell is not the whole home-storage product. Cells may be assembled into modules and a larger pack or bank with monitoring, protection, enclosures and interfaces. A comparison that quotes a cell's laboratory characteristic may not describe energy delivered by the installed system at household circuits.
+
+Chemistry names are useful categories, but customers usually need an application-level comparison. Ask which documented usable energy, output limits, operating environment, support and warranty apply to the proposed product. Avoid a universal statement that one chemistry never ages or removes every risk.
+
+Protective controls are not optional conveniences. A limit on charging or discharging may be related to conditions reported by the battery and the rest of the system. The fact that a customer wants more output does not establish that a protective limit is unnecessary. General support should not suggest defeating it.
+
+Balancing and battery-state estimation are different ideas. Keeping cells within their intended operating relationship does not mean every displayed charge percentage must be exact at every instant. Equally, a changed percentage alone cannot identify a failed cell or justify a replacement recommendation from the chatbot.
+
+Where equipment is modular, expansion still needs a supported combination. Communication, firmware compatibility, permissible configuration and manufacturer requirements matter alongside nominal capacity and voltage. The assistant can help the customer gather model information while leaving the actual compatibility decision to the team.
+
+WHAT TO CLARIFY
+For chemistry or BMS questions, explain the role of the component and use confirmed product documents for actual limits. Do not name a control threshold, chemistry advantage or compatibility promise that has not been verified.
+
+中文说明
+电芯、模组、电池包和完整户储系统不是同一层级。化学体系只是一个分类，实际还要看管理保护、输出能力、环境、保修和支持。BMS 保护与整套系统的能量调度各有作用；不能因为客户需要更多功率，就指导绕过保护或混接未经确认的电池。
+
+----------------------------------------------------------------------------
+G08 — Storage performance over time: SOC, SOH, cycles, throughput and reserve
+储能随时间变化：电量、健康、循环、吞吐量和预留
+Related topics / 检索词: SOC, SOH, DoD, battery ageing, calendar life, cycle life; 荷电状态 健康状态 放电深度 老化 循环寿命
+
+FOUNDATION
+Calendar ageing and cycling describe different influences on storage life. Temperature, state of charge and operating profile can affect the result. Years, cycles and cumulative energy are therefore different ways to describe a battery's use and limitations. [D09]
+
+EXPLANATION AND CUSTOMER APPLICATION
+SOC describes the present charge estimate relative to a reference. SOH describes condition relative to another reference, often an earlier or nominal state. A fully charged older battery can therefore hold less energy than when it was new. Neither percentage by itself states the permitted discharge power.
+
+Depth of discharge describes how much of a reference capacity has been used. An equivalent full-cycle measure aggregates partial use according to a defined method; it is not necessarily a counter incremented every time a charger starts. When reviewing a lifecycle figure, ask about its conditions and endpoint.
+
+Throughput concerns accumulated energy over many operations. A warranty can use years, throughput, cycles or a combination. Compare the applicable written terms rather than dividing a laboratory cycle figure by the number of calendar days and reporting the result as a guaranteed service life.
+
+Backup reserve and usable capacity need clear boundaries. A reserve held for a future outage may reduce routine daily discharge, but it is not the same as a product's permanent inaccessible capacity. Settings and outage behaviour differ. Explain the purpose of the reserve before discussing a customer preference.
+
+Health estimates are useful context, not a replacement for support evaluation. If a customer reports an unexpected change, gather the visible observation and circumstances through the appropriate channel. Do not prescribe calibration cycles, deeply discharge a battery or reset a monitor in order to make a percentage look right.
+
+WHAT TO CLARIFY
+Clarify which quantity is being compared, the reference capacity, and whether the question is about present runtime, routine operation or warranty conditions.
+
+中文说明
+SOC 是当前电量估计，SOH 是相对参考状态的健康程度，DoD 是已放出的比例。循环、运行年限和累计电量各有定义，不能互相替代。备电预留与永久不可用容量也不同。遇到异常读数，应记录现象并交给支持人员，不能在线要求客户深度放电或重置校准。
+
+----------------------------------------------------------------------------
+G09 — Energy-management modes and the trade-offs between savings and resilience
+能量管理模式：节省电费与备电韧性的取舍
+Related topics / 检索词: self-consumption, reserve, time of use, grid charge, export control; 自发自用 备电预留 分时电价 电网充电
+
+FOUNDATION
+Energy-management controls decide when supported sources and storage contribute. The available modes depend on the selected equipment and arrangements. The word optimisation does not establish a local tariff, external control programme or free-energy opportunity. [Company scope and approved foundations]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Self-consumption aims to use more generated energy within the property. The system may use solar directly, charge storage with a surplus and discharge later within its limits. This is an energy-flow strategy; the financial result still depends on the tariff, costs and what would otherwise happen to the energy.
+
+Backup reserve prioritises a later event that may or may not occur. Holding more energy can improve preparedness when an outage begins, while leaving less storage available for daily shifting. Discuss this as a customer objective rather than declaring one percentage correct for all households.
+
+Time-based operation only has its intended economic meaning when the relevant prices and permissions exist. A system might be technically able to charge from the grid but have no attractive price difference to exploit. Losses, usage changes and purchase conditions belong in the comparison.
+
+Export limits or low demand can influence how much solar is used at a moment. If a battery is full and household demand is small, unused generating potential may be limited rather than visibly produced and discarded. A low app value therefore needs context before it is called a hardware failure.
+
+Automatic modes should be understood through their documented priorities. Ask the installer to explain normal operation, outage operation and low-energy behaviour. The assistant can translate those concepts into plain language, but cannot confirm a live setting or authorise a parameter change without the actual model and support process.
+
+WHAT TO CLARIFY
+Separate the customer's goal from the setting they propose. Ask whether the priority is daily savings, selected backup loads or readiness for longer interruptions.
+
+中文说明
+同一套电池可能用于日常自用，也可能把更多能量留给停电。预留越多与日常可用越多之间存在取舍。分时策略要有真实适用的电价和设备功能，电网充电也不是免费能源。客服先了解客户目标，再解释模式，不替客户擅自修改设备参数。
+
+----------------------------------------------------------------------------
+G10 — System architectures: AC/DC coupling, backup boundaries and additional sources
+系统架构：交直流耦合、备电边界与其他电源
+Related topics / 检索词: AC coupling, DC coupling, essential loads, whole house, generator, phase, restart; 交流耦合 直流耦合 备电回路 发电机 相数 重启
+
+FOUNDATION
+The location of conversion stages and control equipment determines how sources interact. A backup system also needs an appropriate separation from the utility and support for its intended circuits. A diagram that includes all devices does not by itself establish a supported operating arrangement. [Approved architecture foundations]
+
+EXPLANATION AND CUSTOMER APPLICATION
+AC-coupled and DC-coupled describe connection approaches at a system level. Either may be relevant to a particular project, especially where solar already exists. The useful comparison is the supported energy path, conversion, controls and integration scope, not a claim that one acronym is universally superior.
+
+An existing installation adds constraints that a new design may not have. Identify the present inverter and battery equipment, the customer's desired change and any backup requirement. Do not assume a new battery can be attached merely because its nominal voltage appears compatible.
+
+Backup has a boundary. Essential-load arrangements identify selected circuits; wider arrangements still have energy, power and phase-dependent limits. Ask the proposal to explain what is inside that boundary and what happens when several large appliances request power together.
+
+Generator integration is another compatibility question, not a default accessory. The generator, inverter, controls and electrical arrangement need review. Sol & Tide can assess the question according to its published service information, but the assistant cannot approve every generator or provide connection instructions.
+
+Restart and transfer are separate behaviours. The speed of switching from a healthy grid does not establish what happens after low-energy shutdown, and neither establishes uninterrupted service to every sensitive load. Ask for the documented behaviour that matches the customer's concern rather than using a broad 'backup' label.
+
+WHAT TO CLARIFY
+A useful architecture enquiry states what is already installed, which sources are intended, which circuits matter and the required operating situations. Detailed design and connection work remain professional tasks.
+
+中文说明
+交直流耦合说明的是系统连接与转换方式，不是简单的好坏标签。备电必须明确支持哪些回路、相数和负载组合。发电机兼容、切换速度、空电后重启分别是不同能力，要逐项确认，不能因为系统被称为“混合”就全部默认支持。
+
+----------------------------------------------------------------------------
+G11 — Household load profiles: appliances, coincidence and daily routines
+家庭负载画像：家电、同时使用与生活节奏
+Related topics / 检索词: load profile, air conditioning, refrigerator, cooking, pump, EV; 用电曲线 空调 冰箱 厨房 水泵 电动车
+
+FOUNDATION
+A useful load description distinguishes input power, accumulated energy and the time of use. Cooling output is not electrical input, and intermittent or variable-speed operation makes a nameplate-only energy estimate uncertain. [D10]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Build a load picture around activities. Breakfast, work, cooling, laundry and evening cooking create different combinations. A monthly total hides those combinations. Two homes using the same monthly kWh may need different solar-to-storage balances because their demand occurs at different times.
+
+Air conditioning requires more than a count of units or their cooling ratings. Relevant information includes the actual electrical characteristics, expected operating hours, cycling or variable operation and whether units start or run together. The question 'Can it run an air conditioner?' must therefore be narrowed to a meaningful operating scenario.
+
+Refrigeration is often an important backup priority, but its compressor does not necessarily operate continuously at a single power level. A documented or measured energy total helps with the energy side; starting capability still needs a separate check. Do not turn a yearly label average into a guarantee for every hot day or outage.
+
+Short-duration appliances can matter to output power even when their daily energy is modest. Conversely, a modest continuous load can become significant across many hours. Compare both dimensions before deciding which appliances are optional during backup.
+
+Future loads belong in the discussion. An EV, additional cooling equipment or a new household routine can change the demand profile. The assistant should record these plans as inputs for the team, not automatically enlarge every package or promise that existing wiring and equipment can accommodate them.
+
+WHAT TO CLARIFY
+Use a simple list: appliance or activity, input power if known, desired operating period, must-run priority, and simultaneous-use notes. Avoid requesting unsafe measurements or a lengthy compulsory intake before answering basic questions.
+
+中文说明
+家庭用电要同时看“功率多大、用多久、什么时候用、哪些一起用”。空调制冷量不能当输入功率，冰箱平均电量也不能说明启动需求。短时大功率和长期小负载都会影响选型。新增电动车、空调或生活习惯变化，应提前告诉团队评估。
+
+----------------------------------------------------------------------------
+G12 — A sizing method: objectives, constraints and scenario comparison
+选型方法：目标、约束与场景对比
+Related topics / 检索词: system sizing, battery sizing, budget, roof limit, essential loads; 系统选型 电池选型 预算 备电时长
+
+FOUNDATION
+Project sizing combines a generating profile, load profile, storage behaviour and equipment constraints. No single number, such as room count, monthly spend or battery capacity, establishes all of these. The workflow below is an original customer-facing planning framework.
+
+EXPLANATION AND CUSTOMER APPLICATION
+Start with the objective. Reducing routine grid purchases, supporting essentials during an outage and aiming for longer autonomy are related but different goals. State which is primary and what level of performance the customer hopes to discuss. Avoid assuming a budget enquiry means whole-house outage protection.
+
+Then separate the constraints: usable installation area, site conditions, electrical compatibility, required simultaneous power, energy required over the target period and budget. Some constraints cannot be exchanged for one another. More stored energy, for example, does not remove a converter power ceiling.
+
+Compare scenarios with the same assumptions. A basic comparison might hold the essential loads and target hours constant while changing storage. Another might hold equipment constant while distinguishing daytime-heavy and evening-heavy use. If both equipment and assumptions change, explain which change drives the result.
+
+Treat average use and difficult conditions explicitly. An annual energy balance can look favourable while a particular evening or weak-sun period still requires grid energy. Outage planning also depends on the charge available when the outage begins. State the starting conditions before presenting a result.
+
+Translate the comparison into questions for the proposal. Which loads are included? What energy and power boundary is being quoted? Which scope is confirmed and which site details remain uncertain? The assistant's role is to prepare a clearer assessment conversation, not to produce a final engineering design from incomplete chat information.
+
+WHAT TO CLARIFY
+When a customer asks for a recommendation, identify the missing fact with the greatest effect and ask one focused question. Use a package as a discussion starting point, not as a confirmed fit.
+
+中文说明
+先明确目标，再列约束，最后在相同假设下比较方案。省电费、关键负载备电和长时间离网不是同一个目标；屋顶、同时功率、需要电量和预算也不能互相替代。客服可以整理比较思路，但最终配置需要现场和设备资料支持。
+
+----------------------------------------------------------------------------
+G13 — Calculation discipline: units, boundaries, assumptions and uncertainty
+计算方法：单位、边界、假设与不确定性
+Related topics / 检索词: calculate runtime, battery charging, solar energy, losses, reserves; 计算 续航 充电 损耗 预留 假设
+
+FOUNDATION
+Energy accounting requires consistent units, time periods and measurement boundaries. Calculations in this chapter are original hypothetical teaching examples. They are not measured local data, a Sol & Tide configuration or an installation recommendation.
+
+EXPLANATION AND CUSTOMER APPLICATION
+Define what each input represents before multiplying it. Is battery energy nominal DC capacity, usable DC capacity or energy actually available at the load? Is a power figure rated, measured at a moment or averaged over a period? These distinctions often matter more than adding more decimal places.
+
+For a constant load, E = P × t. If power changes, add the energy of the separate periods. A load using 0.4 kW for three hours and 0.8 kW for two hours consumes 2.8 kWh in that simplified profile. The calculation does not include unspecified appliances or conversion losses.
+
+Runtime = available delivered energy / average load is a useful teaching relationship. It does not prove that the output equipment can start or sustain the load. Check the power constraint separately. A large energy figure can coexist with insufficient instantaneous power.
+
+Apply a loss or reserve allowance once, at the boundary for which it is defined. If an input is already usable delivered energy, subtracting the same allowance again understates it. If a quoted figure is nominal, ignoring a relevant limit can overstate it. State uncertainty when the boundary is not known.
+
+Charging time needs net charging power, not array nameplate capacity. Household demand, available sunlight and the charging limit may constrain it. A five-hour arithmetic result at constant charging power does not mean every cloudy day will replenish the battery in five clock hours.
+
+Present scenarios rather than false precision. Changing demand, starting SOC, reserve or available solar can each alter the result. Where important inputs are unknown, explain the relationship and ask the team to confirm the actual values instead of fabricating a precise backup duration.
+
+WHAT TO CLARIFY
+Every numerical answer should state its inputs and assumptions, distinguish hypothetical from actual data, and mention any separate power constraint relevant to the question.
+
+中文说明
+所有计算先确认单位和边界。额定值、实测瞬时值、平均值不能混用；标称电量与负载端可用电量也不同。损耗和预留不能重复扣除。续航计算之外还要检查功率是否足够，充电计算要用扣除负载后的净充电功率。示例数字不代表客户系统的真实表现。
+
+----------------------------------------------------------------------------
+G14 — Electricity bills and project economics: a transparent comparison
+账单与经济性：清楚比较节省、投资和备电价值
+Related topics / 检索词: bill, tariff, payback, return, fixed charge, export, finance; 电费 电价 回本 固定费用 上网收益 融资
+
+FOUNDATION
+Simple payback is a limited comparison that does not include the time value of money. Wider economic comparisons may account for future cash flows and costs. Storage economics also depend on energy throughput, replacement and operating assumptions. [D11, D12]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Begin with the bill boundary. Grid energy, fixed charges, taxes or unrelated services are not interchangeable inputs. A solar system can change one part without eliminating the whole invoice. The company calculator is a planning aid with stated assumptions, not a live tariff feed or a substitute for a proposal.
+
+Distinguish the financial use of each unit of solar energy. Energy used directly, energy shifted through a battery and energy exported may have different values. A stored kWh is not automatically an additional free kWh, because charging, losses and the alternative use of the energy matter.
+
+Compare alternatives incrementally. If a battery is added to a solar proposal, compare the extra battery cost with the extra benefit it creates rather than attributing all solar savings to the battery. At the same time, acknowledge that outage preparedness can have value the customer does not measure only through a bill.
+
+Use internally consistent hypothetical values when explaining arithmetic. A project cost of 20,000 currency units and annual net savings of 2,000 would give a ten-year simple payback under a constant-savings assumption. Those numbers are not local prices or a forecast, and the calculation omits financing and changing conditions unless explicitly added.
+
+Ask about uncertainty before reporting a return. Tariffs, weather, usage, maintenance and replacement can change outcomes. A more detailed model also needs a stated period and financial assumptions. The assistant should explain what is missing rather than inventing a discount rate, finance offer or guaranteed return.
+
+WHAT TO CLARIFY
+For a personal purchase decision, use the correct regional calculator and a tailored proposal. Do not transplant a foreign subsidy, export credit, time-of-use tariff or financing term into company advice.
+
+中文说明
+先拆清账单，再区分直接自用、储能后使用和出口电量的价值。比较加电池的收益时，要看增加的成本和增加的收益，不能把全部光伏节省都归给电池。简单回本不等于完整投资分析，也不代表保证收益；备电价值可单独讨论。
+
+----------------------------------------------------------------------------
+G15 — Monitoring literacy: what the dashboard can and cannot prove
+看懂监控：仪表盘可以说明什么、不能证明什么
+Related topics / 检索词: monitoring, graph, kW, kWh, import, export, SOC, timestamp; 监控 曲线 电网购电 自用 电量 时间戳
+
+FOUNDATION
+Monitoring systems can report different quantities at different boundaries and update intervals. A local display, an inverter portal and the utility bill need not show the same thing. Battery-state and runtime displays also depend on the product's estimation method and available data. [D13]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Read the metric name before interpreting the number. Generation is not household consumption; grid import is not all energy used; export is not all unused sunlight; battery charging power is not its stored capacity. Comparing unrelated metrics can create the appearance of a problem when the readings are simply about different flows.
+
+Align time periods. A daily total, a live reading and a billing-period total cannot be directly compared. Also check whether a graph is cumulative energy or sampled power, and whether its timestamps and timezone match the period the customer is discussing.
+
+A power-flow diagram is a simplified representation. Devices may update at different moments, and some data may be estimated. Small or transient discrepancies require context. A screenshot alone is not proof of faulty metering, an electrical defect or unauthorised energy use.
+
+Treat app savings as an estimate with tariff and measurement assumptions. The utility bill can include charges the app does not model, and it may not show all behind-the-meter use. Ask which values and dates are being compared before concluding that expected savings have disappeared.
+
+When collecting a support report, ask for observable facts: what changed, when it happened, which devices or readings were affected and whether an alert is shown. Use a supported channel for relevant screenshots. Passwords, private access links and unnecessary account information are not required for a general explanation.
+
+WHAT TO CLARIFY
+The assistant cannot log into equipment or inspect live telemetry in this setup. Interpret the concept, record the observation and direct case-specific verification to support.
+
+中文说明
+监控数据要同时看指标名称、时间范围、单位和测量边界。光伏发电不等于家庭总用电，电网购电也不是全部能量来源。实时功率、每日累计电量和账单周期数据不能直接混比。截图只能提供线索，不能据此判定某个元件损坏或电表有误。
+
+----------------------------------------------------------------------------
+G16 — Operation and maintenance: observations, professional checks and support
+运行维护：日常观察、专业检查与支持
+Related topics / 检索词: maintenance, cleaning, low output, fault, alarm, commissioning; 维护 清洁 低发电 故障 告警 调试
+
+FOUNDATION
+Professional operating and maintenance practices consider performance, condition, documentation and site risks over time. Planned care and meaningful records help distinguish normal variation from changes that need investigation. This is a customer-awareness guide, not a maintenance procedure. [D14]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Describe a performance concern before naming its cause. A lower daily yield may coincide with weather, shade, changed operating limits or an equipment issue. An alert is useful information, but the exact meaning and required response belong to the model's documentation and support process.
+
+Use comparisons that answer a real question. A persistent change under comparable conditions deserves a different discussion from one cloudy afternoon. Record the time and visible behaviour instead of repeatedly changing settings to see whether the graph improves.
+
+Cleaning decisions depend on the site and equipment. Dirt or debris can affect light access, but the assistant should not prescribe climbing, washing methods, tools or chemicals. Ask the team about a suitable scope and qualified service, including any access constraints.
+
+Keep a handover record and a history of significant observations. Equipment model, installation documentation, relevant error text and the agreed support contact can be more useful than a large batch of unlabelled screenshots. Do not erase history or reset equipment just to simplify the report.
+
+Separate explanation from action. A chatbot can explain an alert category in general terms without confirming that it has diagnosed the actual event. It cannot claim a repair, technician appointment or warranty approval has been completed when no corresponding workflow has confirmed it.
+
+Sol & Tide's published services include support, cleaning and reinforcement, but the scope and current arrangements must be confirmed with the team. A general maintenance chapter does not create an additional contract or a fixed inspection schedule.
+
+WHAT TO CLARIFY
+Gather observable facts through a supported contact channel, respect the equipment instructions and escalate case-specific decisions. Do not provide enclosure-opening, disconnection, protection-bypass or repair steps.
+
+中文说明
+先描述现象，再判断是否需要专业调查，不要先认定故障原因。维护资料包括型号、时间、告警和运行变化；不要为方便截图而清除历史或重置设备。清洁和检查方式按设备与现场确定。客服能解释概念和整理问题，不能冒充已完成维修、派工或保修审批。
+
+----------------------------------------------------------------------------
+G17 — Caribbean conditions: heat, humidity, salt exposure, wind and flooding
+加勒比地区适应性：高温、湿度、盐雾、风与积水
+Related topics / 检索词: Caribbean, heat, humidity, salt, hurricane, wind, flood, corrosion; 加勒比 高温 潮湿 盐雾 飓风 腐蚀
+
+FOUNDATION
+Corrosion risks can involve several system materials and components, while severe-weather resilience depends on the complete installation. An enclosure rating does not establish every environmental capability. Site-specific engineering and appropriate operating practices remain important. [D15, D16]
+
+EXPLANATION AND CUSTOMER APPLICATION
+Discuss environmental concerns as separate exposures. A shaded equipment location may still experience humidity; a coastal property may require attention to materials; a roof can be suitable for energy collection while presenting challenging wind conditions. One favourable label does not answer all of these questions.
+
+Component certificates and installation performance are different evidence. The module, its mounting, roof attachments, other equipment and the site's exposure form a system. A tested panel alone is not a whole-property hurricane guarantee, and a description such as waterproof is too broad to settle flood suitability.
+
+Hot conditions affect more than comfort. They can influence both electrical performance and the operating environment of equipment. Ask how the proposed design addresses its stated temperature and environmental limits, without inventing a universal reduction percentage or a company's thermal specification.
+
+Preparation and recovery need approved procedures. The assistant can help a customer identify which instructions and contacts to have available, but must not improvise shutdown, reconnection or inspection steps before or after severe weather. The actual equipment condition matters.
+
+Keep country-specific rules separate from general climate education. Information from U.S. or Australian technical sources helps explain risk categories, not local approval or insurance coverage. Antigua and Barbuda and Dominica require their own project discussions; the assistant should not assert a local permitting outcome from a foreign reference.
+
+WHAT TO CLARIFY
+Ask what exposure concerns the customer and direct them to the team for the relevant product documents and site design. Never promise immunity to a category of weather.
+
+中文说明
+高温、湿度、盐雾、风和积水是不同暴露，不能用一个“户外”标签全部覆盖。组件测试、外壳等级与整套系统抗风或防淹能力不同。加勒比项目应结合具体屋顶、材料和设备条件评估；国外资料用于解释风险，不代表本地审批、保险或抗灾承诺。
+
+----------------------------------------------------------------------------
+G18 — From enquiry to proposal and handover: understanding each project stage
+从咨询到方案与交付：理解每个阶段
+Related topics / 检索词: assessment, quotation, site visit, proposal, payment, installation, warranty; 评估 报价 勘察 安装 交付 保修
+
+FOUNDATION
+A preliminary enquiry, an assessment, a written proposal, confirmed scheduling and completed handover are different stages. This chapter is an original explanation of useful project distinctions, not a newly promised Sol & Tide workflow or service deadline.
+
+EXPLANATION AND CUSTOMER APPLICATION
+The first enquiry establishes enough context to discuss the project: location, main electricity needs, backup priorities and any existing equipment. It should not require the customer to understand every technical parameter before receiving basic help.
+
+Assessment reduces uncertainty. The team may need property and equipment information to decide what can be proposed. A preliminary calculation or package choice is not the same as confirming roof suitability, connection arrangements or all installation work.
+
+A proposal should make the particular offer clear. Customers can ask about equipment, supported loads, scope, exclusions, assumptions, warranty responsibilities, commercial terms and the steps still requiring confirmation. The assistant should explain these categories without making up their contents.
+
+Scheduling follows actual commitments and available arrangements. Sending a form or opening a link does not allocate equipment, reserve a date or approve a technician visit. If the customer asks whether something has been booked, the assistant must use the company's contact route rather than pretending to inspect an internal calendar.
+
+Handover is about understanding the installed system and how to obtain support. Ask for the relevant operating information, monitoring arrangements and written records. Customer education should explain which documents to keep, while the team confirms what is actually provided.
+
+Throughout the journey, changing requirements may change the scope. A request for another air conditioner on backup is not merely a wording edit if it alters energy and power needs. Record the change and have it reviewed instead of silently extending an old estimate.
+
+WHAT TO CLARIFY
+Identify which stage the customer is at and what evidence confirms it. Refer personal order, payment, schedule or warranty questions to the team.
+
+中文说明
+咨询、评估、正式方案、排期和交付分别代表不同状态。提交表单不等于预约成功，初步套餐也不等于现场条件已经确认。报价中的设备、范围、假设、商业条款和未决事项应写清楚。客户需求改变时要重新评估，不能把原估算自动扩大。
+
+----------------------------------------------------------------------------
+G19 — Customer decision journeys and useful next steps
+客户决策路径：怎样找到有用的下一步
+Related topics / 检索词: beginner, comparison, first solar, existing system, rental, new home; 新手 比较方案 已有系统 租房 新建房 咨询
+
+FOUNDATION
+Useful guidance responds to the customer's current question before asking for more data. This chapter applies the company's public information to common decision situations; it does not add service availability or authorise access to personal records.
+
+EXPLANATION AND CUSTOMER APPLICATION
+For a newcomer, start with the difference between generation, storage and the grid. Connect the explanation to a concern such as evening use or outages. Offer the relevant regional how-it-works page when it helps; do not require registration or a full electricity bill to explain the basics.
+
+For someone comparing options, organise the comparison around needs and boundaries. Clarify whether the headline figure is panel power, inverter output or battery energy. Encourage a consistent scope and ask the team about the actual proposal rather than recommending a brand that appears only in an educational source.
+
+For a customer ready for an assessment, use the property's island already established in the conversation. Offer the appropriate regional consultation page or WhatsApp according to their preference. Ask only the next useful question instead of repeating known details or imposing a long chat questionnaire.
+
+For an existing-system enquiry, separate a general concept from a case-specific decision. An expansion, generator integration or fault needs actual equipment context. The assistant can help the customer describe the issue but cannot inspect live operation or promise a compatible modification.
+
+For an unsupported or uncertain situation, be specific about what is unknown. A project outside the listed regions, an unconfirmed commercial application or a financing question should go to the team for confirmation. Avoid turning uncertainty into either a fabricated offer or a claim that service is definitely impossible.
+
+When a person is requested, distinguish a contact link from an actual transfer. WhatsApp is another channel; platform-native handoff may have its own behaviour. The customer should receive a truthful next step rather than a claim that someone has already been notified when that has not been confirmed.
+
+WHAT TO CLARIFY
+Answer first, use known context, offer one relevant next step and state which decisions require the team. Identity questions should use the approved company-customised AI identity.
+
+中文说明
+新手先讲原理，比较方案先澄清指标，准备咨询时给对应地区入口，已有系统则收集实际设备背景。未知业务条件要说清哪里需要确认。提供 WhatsApp 链接与平台真正转人工不是同一动作，不能把一句回复说成已通知或已预约。
+
+----------------------------------------------------------------------------
+G20 — Long-term ownership, sustainability and future changes
+长期持有：维护、可持续性与未来变化
+Related topics / 检索词: lifecycle, recycling, replacement, moving, warranty transfer, future loads; 生命周期 回收 更换 搬家 保修转移 未来负载
+
+FOUNDATION
+Solar and storage equipment has an operating life and an eventual management or replacement stage. Recovery and recycling options depend on equipment, location and available services. General environmental benefits do not establish a company take-back promise or a quantified emissions result. [D17]
+
+EXPLANATION AND CUSTOMER APPLICATION
+View the system as a long-term asset with records and responsibilities. Keep the agreed equipment and scope information, applicable warranties, support details and relevant operating history. This helps future professional work and makes it easier to distinguish an original promise from a later assumption.
+
+Components need not have identical lifetimes or replacement conditions. A module performance warranty, an equipment defect warranty, a battery retained-capacity term and installation coverage answer different questions. The assistant should help the customer read those distinctions, not invent one universal 'system warranty'.
+
+A change in property ownership raises questions that hardware alone cannot answer. Ask about equipment ownership, existing contracts, documentation and any transfer conditions. The presence of installed solar is not proof that every obligation or service arrangement automatically transfers.
+
+Future needs can change. More cooling, an EV, a home office or different occupancy may affect both energy and power requirements. Expansion depends on the existing design and compatibility, not just buying a larger battery. Capture the intended change and have it assessed.
+
+Environmental comparisons also need boundaries. A claim about avoided emissions requires a stated baseline and relevant assumptions; it should not be inferred from a generic kWh figure using an invented factor. Similarly, do not describe a product as impact-free simply because it operates without fuel combustion on the roof.
+
+At end of life, ask qualified providers and the local team about safe handling and available options. The knowledge base does not confirm local collection services or that Sol & Tide takes back every panel or battery. Do not replace professional removal and disposal planning with a DIY procedure.
+
+WHAT TO CLARIFY
+For ownership, warranty, replacement or environmental questions, separate documented facts from assumptions and confirm the actual local service arrangements.
+
+中文说明
+长期持有要保留设备、范围、保修、支持和运行记录。不同部件和不同保修并不等同，搬家或转让也不能默认所有服务自动转移。新增负载与扩容需再评估。减碳数字需要基准和假设，回收与更换也要确认本地渠道，不能编造公司回收承诺。
+
+============================================================================
+BOOK III — ENGLISH-CHINESE TECHNICAL GLOSSARY
+============================================================================
+Definitions explain terms; they are not specifications or installation procedures.
+
+T001 — Energy / 能量
+An accumulated quantity that can be generated, transferred, stored or used; specify the time period and measurement boundary.
+
+T002 — Electrical power / 电功率
+The rate of electrical energy transfer at a moment or under defined operating conditions.
+
+T003 — Watt (W) / 瓦
+A unit of power; read it with the device and condition to which the rating or measurement refers.
+
+T004 — Kilowatt (kW) / 千瓦
+One thousand watts; used for generating, charging, discharging or load power, not stored energy.
+
+T005 — Megawatt (MW) / 兆瓦
+One thousand kilowatts; a scale unit, not a different kind of electricity.
+
+T006 — Watt-hour (Wh) / 瓦时
+Energy corresponding to one watt sustained for one hour; a measure of quantity rather than instantaneous rate.
+
+T007 — Kilowatt-hour (kWh) / 千瓦时、度电
+One thousand watt-hours; commonly used for household consumption, generation and battery energy.
+
+T008 — Peak rated power (kWp) / 峰值额定功率
+A solar power rating at reference conditions, not a guarantee of continuous roof output.
+
+T009 — Direct current (DC) / 直流
+Electrical operation with current in one direction; the DC side still needs compatible voltage, current and protection.
+
+T010 — Alternating current (AC) / 交流
+Electrical operation with periodically changing direction; household compatibility includes the relevant supply characteristics.
+
+T011 — Voltage (V) / 电压
+An electrical potential difference; matching a nominal voltage alone does not establish complete equipment compatibility.
+
+T012 — Current (A) / 电流
+The rate of electric-charge flow; a current rating requires the corresponding equipment and conditions.
+
+T013 — Amp-hour (Ah) / 安时
+A charge quantity; nominal voltage is also needed for an approximate nominal-energy calculation.
+
+T014 — Volt-ampere (VA) / 伏安
+A unit of apparent power in AC equipment; do not automatically treat its numerical value as watts.
+
+T015 — Kilovolt-ampere (kVA) / 千伏安
+One thousand VA; compare both real-power and apparent-power constraints where specified.
+
+T016 — Power factor / 功率因数
+The relationship between real and apparent power under the stated conditions; relevant to some equipment ratings.
+
+T017 — Nominal value / 标称值
+A stated reference or naming value, not necessarily the exact live reading or usable delivered quantity.
+
+T018 — Rated value / 额定值
+A specified performance or limit under defined conditions; those conditions belong with the number.
+
+T019 — Continuous output / 持续输出
+Output supported over the stated operating duration and conditions, distinct from a temporary peak.
+
+T020 — Surge or peak output / 峰值、浪涌输出
+A temporary capability subject to its permitted duration and conditions, not sustained running power.
+
+T021 — Load / 负载
+An appliance or group consuming power; identify both instantaneous needs and energy over time.
+
+T022 — Simultaneous demand / 同时需求
+The power needed by loads operating together; different from simply adding their daily energy totals.
+
+T023 — Duty cycle / 工作周期
+The pattern of operation and rest or different power states; relevant when estimating energy use.
+
+T024 — Base load / 基础负载
+Demand that persists across much of the period being studied; its actual level is site-dependent.
+
+T025 — Load profile / 负载曲线
+The changing demand over time, used to understand both coincidence and energy.
+
+T026 — Essential loads / 关键负载
+The agreed subset of appliances or circuits prioritised for backup; inclusion must be confirmed.
+
+T027 — Runtime / 运行时长、续航
+The period a defined load can be supplied under stated energy, power and operating assumptions.
+
+T028 — Autonomy / 自主供电时长
+Time supported without the external source being considered; the assumed weather and starting energy matter.
+
+T029 — Starting demand / 启动需求
+An appliance's demand while starting, which may differ from its normal running requirement.
+
+T030 — Cooling capacity / 制冷量
+Thermal cooling output; not the same as an air conditioner's electrical input.
+
+T031 — BTU per hour / 每小时英热单位
+A thermal rate commonly used for cooling capacity; it does not directly specify electrical consumption.
+
+T032 — Electrical input / 电气输入
+Electricity required by equipment under stated conditions, distinct from thermal or mechanical output.
+
+T033 — EV charging / 电动车充电
+A household load with charger, vehicle, timing and energy requirements; backup capability is not automatic.
+
+T034 — Storage system (BESS) / 电池储能系统
+Battery storage together with management, conversion and other required equipment for the intended application.
+
+T035 — Battery cell / 电芯
+An individual electrochemical unit; its characteristics are not automatically the whole system's delivered performance.
+
+T036 — Battery module / 电池模组
+A product-specific grouping of cells; compatibility and management depend on the equipment design.
+
+T037 — Battery pack or bank / 电池包、电池组
+An assembled storage unit or supported grouping; distinguish its limits from those of one cell.
+
+T038 — Photovoltaic (PV) / 光伏
+Conversion of light into electricity using photovoltaic materials and devices.
+
+T039 — Solar thermal / 太阳能集热
+Use of solar energy as heat; different equipment and output from a PV electrical system.
+
+T040 — Solar cell / 太阳能电池片
+An individual photovoltaic converting element, usually packaged with others in a module.
+
+T041 — PV module or panel / 光伏组件、面板
+A packaged photovoltaic generating product containing cells and protective construction.
+
+T042 — PV array / 光伏阵列
+An arrangement of multiple modules forming the generating portion of a system.
+
+T043 — Crystalline silicon / 晶体硅
+A broad photovoltaic material family; the exact module model still determines specifications.
+
+T044 — Monocrystalline / 单晶
+A crystalline-material description; not a complete guarantee of yield, durability, price or suitability.
+
+T045 — Polycrystalline / 多晶
+A material-structure description; compare actual products and conditions rather than the label alone.
+
+T046 — Thin-film PV / 薄膜光伏
+A family using thin photovoltaic material layers; technology category does not establish an offered company product.
+
+T047 — Bifacial module / 双面组件
+A module designed to collect useful light from both sides; extra yield depends on rear illumination.
+
+T048 — Tandem cell / 叠层电池
+A cell structure combining conversion layers; research capability is not proof of a quoted product's availability.
+
+T049 — Inverter / 逆变器
+Power-conversion equipment used to provide an appropriate AC output from a compatible DC source.
+
+T050 — Solar inverter / 光伏逆变器
+An inverter serving the PV conversion function; storage or backup support must be separately established.
+
+T051 — Battery inverter-charger / 储能逆变充电设备
+Compatible equipment for battery charging and household AC supply; product functions differ.
+
+T052 — Hybrid inverter / 混合逆变器
+Equipment combining or coordinating supported solar and battery functions; the label alone does not guarantee every backup feature.
+
+T053 — String inverter / 组串逆变器
+An inverter converting energy from groups of panels; layout and operating conditions affect the design.
+
+T054 — Microinverter / 微型逆变器
+Panel-level conversion equipment; compatibility, monitoring and costs remain model-specific.
+
+T055 — Power optimiser / 功率优化器
+Panel-level DC control used with a compatible system; it does not create missing sunlight.
+
+T056 — MPPT / 最大功率点跟踪
+A control process seeking a useful array operating point as electrical and environmental conditions change.
+
+T057 — Maximum power point / 最大功率点
+An operating point on a current-voltage relationship at which available electrical power is maximised.
+
+T058 — DC coupling / 直流耦合
+A system architecture connecting solar and storage through a supported DC-side arrangement.
+
+T059 — AC coupling / 交流耦合
+An architecture where solar and storage conversion systems interact through an AC-side arrangement.
+
+T060 — Grid-connected / 并网
+Operating alongside a utility supply under the relevant equipment and connection arrangement.
+
+T061 — Off-grid / 离网
+Operating independently of the utility; adequate generation, storage and other sources need specific design.
+
+T062 — Islanding / 孤岛运行
+Operation of a separated electrical area; supported backup requires a controlled and appropriate boundary.
+
+T063 — Anti-islanding / 防孤岛
+Protection associated with preventing unintended independent energisation; not a user setting to bypass.
+
+T064 — Grid-following / 跟网
+Operation referenced to an existing supply signal; do not infer independent backup capability.
+
+T065 — Grid-forming / 构网
+A supported ability to establish a local electrical reference; applicability depends on the complete design.
+
+T066 — Black start / 黑启动
+Starting a system without the external reference or supply being considered; exact capability is model-specific.
+
+T067 — Transfer time / 切换时间
+The interruption or transition performance between operating situations; not necessarily zero.
+
+T068 — UPS / 不间断电源
+Equipment intended for specified backup and power-continuity functions; compare actual ratings and topology.
+
+T069 — Phase coverage / 相数与回路覆盖
+Which parts of a property's supply and circuits are supported; one connection does not establish all-phase backup.
+
+T070 — Export limit / 出口功率限制
+A constraint on electricity sent to the utility under the applicable arrangement.
+
+T071 — Curtailment / 限发
+Reduction of generating output when available energy cannot or should not be converted or used.
+
+T072 — Shading / 遮挡
+Reduced light access from an obstruction; the effect depends on timing, layout and equipment.
+
+T073 — Irradiance / 辐照度
+Solar power incident per unit area at a moment; distinguish it from accumulated solar energy.
+
+T074 — Irradiation or insolation / 辐照量
+Solar energy received per area over a stated period; the period must be specified.
+
+T075 — Equivalent sun hours / 等效日照小时
+An energy-equivalent representation of changing sunlight, not a fixed interval of continuous peak generation.
+
+T076 — Plane of array (POA) / 组件平面
+The orientation plane at which light relevant to the array is considered or measured.
+
+T077 — Direct irradiance / 直射辐照
+Light arriving along the direct solar path, distinguished from diffuse components.
+
+T078 — Diffuse irradiance / 散射辐照
+Light reaching a surface after atmospheric scattering; cloud conditions change its contribution.
+
+T079 — Reflected light / 反射光
+Light redirected by surrounding surfaces; geometry and materials affect whether it reaches a module.
+
+T080 — Albedo / 反照率
+A surface-reflection characteristic used in modelling; not a guaranteed bifacial gain.
+
+T081 — Azimuth / 方位角
+A directional description used with a defined convention; specify the convention before comparing values.
+
+T082 — Tilt / 倾角
+An installation's inclination relative to a reference plane; part of the site and layout assessment.
+
+T083 — Soiling / 积尘、污损
+Deposited material affecting light access or operation; cleaning decisions remain site and equipment dependent.
+
+T084 — Cell temperature / 电池片温度
+The temperature relevant to cell behaviour; it is not automatically the weather report's ambient temperature.
+
+T085 — Ambient temperature / 环境温度
+The surrounding air condition, distinct from internal cell or component temperatures.
+
+T086 — STC / 标准测试条件
+Reference conditions used for specified photovoltaic ratings; not a description of every rooftop hour.
+
+T087 — Operating-temperature reference / 运行温度参考
+A stated modelling or test reference that must be interpreted with its conditions and equipment.
+
+T088 — Open-circuit voltage (Voc) / 开路电压
+Voltage at the open-circuit point under specified conditions; not a normal power-producing operating point.
+
+T089 — Short-circuit current (Isc) / 短路电流
+Current at a defined short-circuit test point; not a measurement the chatbot should ask a visitor to perform.
+
+T090 — Maximum-power voltage (Vmp) / 最大功率点电压
+Voltage at the relevant maximum-power point, paired with the corresponding current.
+
+T091 — Maximum-power current (Imp) / 最大功率点电流
+Current at the maximum-power point, paired with its operating voltage.
+
+T092 — Maximum power (Pmax) / 最大功率
+A power value at specified conditions; do not form it from unrelated voltage and current maxima.
+
+T093 — Temperature coefficient / 温度系数
+The change of a specified parameter with temperature under the stated reference and units.
+
+T094 — Clipping / 削峰、转换限功率
+Capping of output at a relevant conversion limit when available input would exceed it.
+
+T095 — Energy yield / 发电量
+Electrical energy produced over the stated period and boundary; distinguish gross generation from grid export.
+
+T096 — Specific yield / 单位装机发电量
+Energy divided by the relevant installed capacity over a stated period; assumptions and boundaries still matter.
+
+T097 — Performance comparison / 性能比较
+An evaluation using matched units, periods and conditions rather than isolated headline numbers.
+
+T098 — Availability / 可用性
+The extent a system or function is available during the defined period, distinct from energy produced.
+
+T099 — Battery energy capacity / 电池能量容量
+Stored-energy capability at a stated boundary and condition; not instantaneous output power.
+
+T100 — Usable capacity / 可用容量
+Capacity made available within the specified product or operating boundary.
+
+T101 — Nominal capacity / 标称容量
+A stated reference capacity that may differ from usable energy delivered to loads.
+
+T102 — SOC / 荷电状态
+An estimate of current charge relative to the applicable capacity reference.
+
+T103 — SOH / 健康状态
+A condition estimate relative to an earlier or nominal reference; its method is product-specific.
+
+T104 — Depth of discharge (DoD) / 放电深度
+The proportion used relative to the stated capacity reference during the period or cycle.
+
+T105 — Equivalent full cycle / 等效完整循环
+An accounting measure aggregating battery use under a defined method, not necessarily every charge event.
+
+T106 — Energy throughput / 能量吞吐量
+Cumulative energy charged or delivered over time according to the stated definition.
+
+T107 — Calendar ageing / 日历老化
+Changes associated with time and conditions, distinct from counting cycles alone.
+
+T108 — Cycle life / 循环寿命
+A test- or condition-dependent use measure to an identified endpoint, not an unconditional year guarantee.
+
+T109 — Round-trip efficiency / 往返效率
+Recovered energy divided by charging energy for a defined cycle and measurement boundary.
+
+T110 — Conversion loss / 转换损耗
+Energy not delivered through a conversion stage; apply its allowance only at the relevant boundary.
+
+T111 — Standby consumption / 待机能耗
+Energy used while equipment remains in a low-power or ready state.
+
+T112 — BMS / 电池管理系统
+Battery monitoring and protective management; its limits are not to be bypassed through general advice.
+
+T113 — EMS / 能量管理系统
+Higher-level coordination of supported energy sources, storage and loads.
+
+T114 — Cell balancing / 电芯均衡
+A product-specific management function addressing cell-state differences; not proof of exact SOC estimation.
+
+T115 — Backup reserve / 备电预留
+Energy held for a possible outage under supported settings; distinguish it from a permanent unusable margin.
+
+T116 — Local control / 本地控制
+Functions carried out by the installed equipment, distinct from remote visibility or cloud-dependent features.
+
+T117 — Firmware / 固件
+Device software with model-specific support and update requirements.
+
+T118 — Telemetry / 遥测
+Reported measurements or status; data access is not available to this assistant in the current setup.
+
+T119 — Monitoring interval / 监控采样间隔
+The period or update pattern behind reported data, relevant to interpreting graphs.
+
+T120 — Metering boundary / 计量边界
+Where and what a measurement includes, such as inverter output, household loads or grid exchange.
+
+T121 — Grid import / 电网购电
+Energy or power received from the utility at the relevant measurement boundary.
+
+T122 — Grid export / 电网送电
+Energy or power sent to the utility under a supported and permitted arrangement.
+
+T123 — Self-consumption / 自发自用
+Solar energy used within the property under an identified definition and boundary.
+
+T124 — Self-sufficiency / 自给比例
+The portion of the household's defined demand supplied by the considered on-site sources.
+
+T125 — Tariff / 电价方案
+The actual charging structure applying to the property; a foreign example does not establish it.
+
+T126 — Fixed charge / 固定费用
+A bill component not simply proportional to the kWh under discussion.
+
+T127 — Usage charge / 用量费用
+A bill component calculated from relevant measured use under the tariff.
+
+T128 — Export credit / 上网电量抵扣或收益
+Compensation, if applicable, under the actual utility arrangement; not an automatic company promise.
+
+T129 — Time-of-use pricing / 分时电价
+Prices varying by defined periods; its existence and terms must be confirmed locally.
+
+T130 — Simple payback / 简单回本期
+Initial cost divided by a defined annual net benefit under stated assumptions; it omits several financial effects.
+
+T131 — Discount rate / 折现率
+An assumed rate used to compare cash flows across time; the assistant must not invent it for a personal project.
+
+T132 — Net present value / 净现值
+Present-valued future net cash flows less the relevant investment under stated assumptions.
+
+T133 — Incremental benefit / 增量收益
+The extra benefit of one change compared with a defined baseline, distinct from the whole project's benefit.
+
+T134 — Project scope / 项目范围
+The equipment and work actually included in a particular agreed offer.
+
+T135 — Exclusion / 不包含项
+A stated item outside the agreed scope; it should not be silently assumed included.
+
+T136 — Product warranty / 产品保修
+Written coverage for specified equipment conditions or defects, subject to its terms.
+
+T137 — Performance warranty / 性能保证条款
+Written coverage for specified output or retention conditions, not a universal yield or bill promise.
+
+T138 — Workmanship coverage / 施工质量保修
+Written coverage addressing specified installation work; confirm actual responsibilities and terms.
+
+T139 — Retained capacity / 容量保持
+A capacity condition measured relative to a stated reference and under stated criteria.
+
+T140 — Warranty transfer / 保修转移
+Whether and how written coverage can apply after an ownership change; do not assume automatic transfer.
+
+T141 — Commissioning / 调试验收
+Professional verification and setup for the intended installation, distinct from merely powering a device.
+
+T142 — Handover / 交付说明
+The transfer of relevant operating information and records, according to the agreed project.
+
+T143 — IP code / 外壳防护等级
+A classification of specified enclosure protection, not proof against every environmental exposure.
+
+T144 — Corrosion / 腐蚀
+Material deterioration affected by the environment and component interactions.
+
+T145 — Galvanic corrosion / 电偶腐蚀
+An electrochemical risk involving dissimilar materials under suitable conditions; assessment belongs to qualified design and care.
+
+T146 — Wind loading / 风荷载
+Forces relevant to the complete mounting and structure, not just a panel's power rating.
+
+T147 — Mounting system / 安装支架系统
+The equipment and arrangements securing the array; site-specific suitability must be assessed.
+
+T148 — Site assessment / 现场评估
+Review of relevant property, electrical and environmental conditions for the proposed project.
+
+T149 — Datasheet / 参数表
+A model-specific technical document whose conditions and definitions accompany its values.
+
+T150 — Certification document / 认证文件
+Evidence applicable to a defined product or test scope; not automatic project approval.
+
+T151 — Compatibility / 兼容性
+Supported operation of the complete equipment combination, not merely matching a nominal label.
+
+T152 — Enquiry / 咨询申请
+A request to discuss needs; it does not itself confirm a booking or installation.
+
+T153 — Preliminary estimate / 初步估算
+An assumption-based planning result before all project details are confirmed.
+
+T154 — Proposal or quotation / 方案或报价
+A particular written offer or scope that must be reviewed on its actual terms.
+
+T155 — Confirmed booking / 已确认预约
+An arrangement requiring real confirmation, not just a submitted form or a chatbot statement.
+
+T156 — Hypothetical example / 假设示例
+Invented inputs used to teach a relationship; not measured data or an actual offer.
+
+T157 — Sensitivity analysis / 敏感性分析
+Comparing outcomes when selected assumptions change while identifying what remains fixed.
+
+T158 — AI assistant identity / AI 助手身份
+Sol & Tide Energy's specially customised customer AI assistant, distinct from a human teammate.
+
+T159 — Human handoff / 转人工
+An actual platform action if configured, distinct from merely providing a contact link.
+
+T160 — Regional contact route / 地区联系入口
+The approved website, form or email appropriate to the property's island.
+
+T161 — Case-specific support / 个案支持
+Team review of personal or equipment-specific matters beyond public educational answers.
+
+============================================================================
+BOOK IV — HYPOTHETICAL WORKED CASES
+============================================================================
+Every input below is an explicit teaching assumption. Do not present an example as a real quotation, local rate, device rating, design, operating instruction or guaranteed outcome.
+
+C01 — Daily energy from several loads
+不同负载的每日电量
+GIVEN
+Hypothetical loads: 0.08 kW of lighting for 5 hours, 0.12 kW of electronics for 4 hours, and 0.6 kW of another load for 2 hours.
+
+CALCULATION
+Calculate each energy separately and add: 0.08 × 5 = 0.4 kWh; 0.12 × 4 = 0.48 kWh; 0.6 × 2 = 1.2 kWh. Total = 2.08 kWh.
+
+INTERPRETATION
+The energy total says nothing by itself about whether all loads run together. Their simultaneous running power would be 0.8 kW if all three were on, before any separate starting requirement.
+
+LIMIT OF THIS EXAMPLE
+Do not apply these invented appliance powers to a customer's actual equipment.
+
+中文说明
+先分别算每项功率乘时间，再相加得到 2.08 kWh；能量总和与同时功率要分开看。
+
+C02 — Equal daily energy, different output-power needs
+电量相同，功率需求仍可能不同
+GIVEN
+Home A uses a constant 0.5 kW for 8 hours. Home B uses 2 kW for 2 hours. Ignore all other loads and losses.
+
+CALCULATION
+Both consume 4 kWh: 0.5 × 8 = 4 and 2 × 2 = 4.
+
+INTERPRETATION
+An energy-only comparison treats the homes as equal, but the specified simultaneous demand is four times higher in B. This is why a monthly kWh total alone cannot establish inverter sizing.
+
+LIMIT OF THIS EXAMPLE
+These are intentionally simplified load profiles, not representative usage assumptions for a region.
+
+中文说明
+两个情形都是 4 kWh，但第二个需要的运行功率更高，不能只用月电量确定逆变器。
+
+C03 — A defined battery energy window and delivered energy
+明确电量窗口后再算负载端电量
+GIVEN
+A hypothetical storage reference is 10 kWh DC. The agreed example uses the window from 80% to 20% on that same reference. Conversion to the load is assumed to be 90%.
+
+CALCULATION
+Energy in the chosen window = 10 × (0.8 − 0.2) = 6 kWh DC. Delivered energy = 6 × 0.9 = 5.4 kWh.
+
+INTERPRETATION
+The calculation illustrates why a capacity label, operating window and delivered-energy boundary must be identified separately. At a constant 0.6 kW load, this modelled energy would correspond to 9 hours.
+
+LIMIT OF THIS EXAMPLE
+Do not reuse the window or efficiency as a product's actual settings, or deduct them again from a figure that already includes them.
+
+中文说明
+示例先取 80% 到 20% 的指定窗口，再按假设效率转换，负载端为 5.4 kWh；不能重复扣除已经包含的预留和损耗。
+
+C04 — Available energy versus a power ceiling
+有足够电量不等于功率够用
+GIVEN
+The load-side energy available in an example is 8 kWh. A constant load asks for 4 kW, but the only supported source has a 3 kW continuous output limit.
+
+CALCULATION
+The energy-only ratio would be 8 ÷ 4 = 2 hours, but the proposed operating point fails the 3 kW power constraint.
+
+INTERPRETATION
+The two-hour arithmetic is not a feasible runtime promise under the stated source limit. A design review must address the load or supported sources before using that ratio as an outcome.
+
+LIMIT OF THIS EXAMPLE
+Do not assume the grid or another converter will supply the shortfall unless that operating arrangement exists.
+
+中文说明
+8÷4 虽等于 2 小时，但 4 kW 负载已经超过唯一电源的 3 kW 限制，因此不能承诺能运行两小时。
+
+C05 — Net charging power after daytime loads
+扣除白天负载后的净充电功率
+GIVEN
+Solar supplies a hypothetical constant 4 kW. Loads use 1.5 kW. The charging path can accept the remaining power, and 5 kWh is required at the same energy boundary. Ignore losses.
+
+CALCULATION
+Net charging power = 4 − 1.5 = 2.5 kW. Arithmetic charging time = 5 ÷ 2.5 = 2 hours.
+
+INTERPRETATION
+Using all 4 kW as charging power would ignore the loads. A real charging estimate also needs changing sunlight, supported charging power and the relevant losses.
+
+LIMIT OF THIS EXAMPLE
+Constant power is a teaching assumption, not a forecast of two clock hours on any particular day.
+
+中文说明
+4 kW 光伏先供 1.5 kW 负载，只剩 2.5 kW 可用于充电；实际还要考虑光照变化与充电限制。
+
+C06 — Variable air-conditioning power over an evening
+空调功率变化时如何算晚间电量
+GIVEN
+A hypothetical appliance averages 0.4 kW for 4 hours and 1 kW for another 2 hours.
+
+CALCULATION
+Energy = 0.4 × 4 + 1 × 2 = 3.6 kWh.
+
+INTERPRETATION
+One constant-power assumption could overstate one period and understate another. A measured or well-supported average over each period is more useful than substituting cooling capacity for electrical input.
+
+LIMIT OF THIS EXAMPLE
+The numbers are not a typical consumption figure for any air-conditioner size or a statement about overnight backup.
+
+中文说明
+分时段计算得到 3.6 kWh，不能把制冷量直接代入，也不能把这个示例当成某型号空调的真实耗电。
+
+C07 — Using an annual appliance label cautiously
+谨慎使用家电年度能耗标签
+GIVEN
+A hypothetical label states 365 kWh per year under its defined test method.
+
+CALCULATION
+The arithmetic annual-average daily energy is 365 ÷ 365 = 1 kWh per day.
+
+INTERPRETATION
+This gives a reference average, not the consumption of every actual day. Temperature, use and operating conditions can differ, and the annual figure does not establish starting or instantaneous power.
+
+LIMIT OF THIS EXAMPLE
+Do not infer that a battery delivering 1 kWh will always support that appliance for a full day.
+
+中文说明
+年度标签可换算参考日平均，但不保证每天都一样，也不能说明启动功率或直接承诺备电时长。
+
+C08 — Vehicle energy versus electricity required at the charging boundary
+车辆获得的能量与充电侧购电
+GIVEN
+A hypothetical vehicle needs 10 kWh added at the defined vehicle boundary. The assumed total charging efficiency from the chosen supply boundary is 90%.
+
+CALCULATION
+Supply energy required = 10 ÷ 0.9 ≈ 11.111 kWh.
+
+INTERPRETATION
+Dividing by the fraction, rather than multiplying the requirement by it, accounts for the extra input. The result says nothing about supported charging rate or whether a home backup design includes the charger.
+
+LIMIT OF THIS EXAMPLE
+The efficiency is illustrative; use the actual vehicle, charger and measurement boundary for a project estimate.
+
+中文说明
+要让车辆获得 10 kWh，按示例 90% 效率，供电侧需要约 11.11 kWh；效率与功率限制要分别看。
+
+C09 — Panel-count arithmetic is a rating, not a daily yield
+组件数量只给出额定容量
+GIVEN
+An example array has ten modules each rated at 450 W under the same reference conditions.
+
+CALCULATION
+Rated DC capacity = 10 × 450 ÷ 1,000 = 4.5 kW.
+
+INTERPRETATION
+The result describes the sum of rated module powers. It does not state roof energy production, inverter output at every moment, battery capacity or the number of appliances that can run.
+
+LIMIT OF THIS EXAMPLE
+The example is not a Sol & Tide module or package specification.
+
+中文说明
+十块 450 W 组件合计额定 4.5 kW，但不能直接由此给出每日发电量、备电时长或负载清单。
+
+C10 — Temperature sensitivity with an explicitly hypothetical coefficient
+温度系数的假设计算
+GIVEN
+Use a hypothetical power reference of 500 W, a power coefficient of −0.3% per degree C and a 30 degree C increase relative to its reference. Hold other factors fixed.
+
+CALCULATION
+Relative change = −0.003 × 30 = −0.09. Simplified adjusted power = 500 × (1 − 0.09) = 455 W.
+
+INTERPRETATION
+The example teaches coefficient units and reference differences. It is not a complete PV model and should not be applied to another parameter such as voltage without its own coefficient.
+
+LIMIT OF THIS EXAMPLE
+Neither the coefficient nor the temperature difference is a verified specification or local weather assumption.
+
+中文说明
+温差乘系数后再应用到对应参考参数；示例为 455 W，不能把功率系数随意用于电压或整个系统收益。
+
+C11 — A simplified resource-to-energy illustration
+从假设太阳能资源估算电量
+GIVEN
+Use a hypothetical 4 kW rating, 4 equivalent full-sun hours and a single assumed overall energy factor of 0.8 for this example.
+
+CALCULATION
+Illustrative energy = 4 × 4 × 0.8 = 12.8 kWh.
+
+INTERPRETATION
+This is a deliberately compressed model showing why rated power, integrated resource and a stated factor are different inputs. A site forecast requires appropriate data and a clearer treatment of system conditions.
+
+LIMIT OF THIS EXAMPLE
+Four sun hours and the 0.8 factor are not published assumptions for Antigua, Dominica or a company package.
+
+中文说明
+4 kW、4 等效小时和 0.8 因子只是假设，用于解释计算关系，不能直接套用为当地或某套餐的发电承诺。
+
+C12 — Sequential efficiency stages are multiplied
+连续转换阶段的效率要相乘
+GIVEN
+A hypothetical path has one stage at 95% efficiency followed by a different stage at 90%, with 10 kWh entering the first stage.
+
+CALCULATION
+Combined fraction = 0.95 × 0.9 = 0.855. Output = 10 × 0.855 = 8.55 kWh.
+
+INTERPRETATION
+The second stage acts on the output of the first. The calculation should not be used if a quoted round-trip figure already includes both stages, because that would count the same losses twice.
+
+LIMIT OF THIS EXAMPLE
+These assumed percentages do not describe any offered equipment.
+
+中文说明
+串联的转换阶段依次作用，示例输出 8.55 kWh；如果总效率已经包含这些环节，就不能再次重复扣除。
+
+C13 — Self-consumption and self-sufficiency use different denominators
+自用比例与自给比例的分母不同
+GIVEN
+Over the same hypothetical period without storage, PV generates 20 kWh, 12 kWh is used directly at home, and total household demand is 30 kWh.
+
+CALCULATION
+Direct solar self-consumption = 12 ÷ 20 = 60%. On-site contribution to total demand = 12 ÷ 30 = 40%.
+
+INTERPRETATION
+Both percentages can be correct because they answer different questions. The first concerns use of generation; the second concerns supply of demand. Define boundaries again if storage is included.
+
+LIMIT OF THIS EXAMPLE
+Do not describe either percentage as bill savings without the tariff and other costs.
+
+中文说明
+12/20 是发电中有多少被自用，12/30 是总需求中有多少由现场光伏供应，两者都不直接等于账单节省。
+
+C14 — The incremental value of shifting surplus energy through storage
+储能转移电量的增量价值
+GIVEN
+Hypothetically, 5 kWh would otherwise be exported at 0.10 currency units/kWh. Storage later delivers 4.5 kWh that avoids purchases at 0.30 currency units/kWh.
+
+CALCULATION
+Avoided purchase cost = 4.5 × 0.30 = 1.35. Forgone export value = 5 × 0.10 = 0.50. Difference = 0.85 currency units before other costs.
+
+INTERPRETATION
+Count the alternative use of the charging energy and the output boundary. The difference still excludes storage purchase, ageing, maintenance and any other relevant charges.
+
+LIMIT OF THIS EXAMPLE
+The example assumes export is available and gives invented prices. It does not establish a local tariff or an investment return.
+
+中文说明
+比较储能增量收益时，要同时扣掉原本可取得的出口价值，并计入转换后实际交付的电量；示例不是当地价格。
+
+C15 — A shared conversion ceiling can constrain combined sources
+共用转换设备可能限制合计输出
+GIVEN
+An abstract example has a shared AC output ceiling of 5 kW. The current solar contribution is 4.8 kW and household demand is 6 kW. Other limits are ignored.
+
+CALCULATION
+Headroom within the shared ceiling is 5 − 4.8 = 0.2 kW. Even if the battery could contribute more on its own, this example's combined path cannot exceed 5 kW.
+
+INTERPRETATION
+Adding independent source ratings would miss a shared bottleneck. Any remaining demand requires another supported source or a different demand arrangement; the assistant cannot infer either.
+
+LIMIT OF THIS EXAMPLE
+This is a conceptual limit example, not the wiring or operation of a specific hybrid inverter.
+
+中文说明
+不能只把光伏和电池各自功率相加；若共用路径上限是 5 kW，合计输出仍受这个上限约束。
+
+C16 — Whole-project payback versus incremental battery payback
+整项目回本与加电池的增量回本
+GIVEN
+Hypothetical solar-only cost is 20,000 currency units with annual benefit 2,000. Solar-plus-storage cost is 30,000 with annual benefit 2,400. Hold values constant and omit other costs.
+
+CALCULATION
+Simple ratios are 20,000 ÷ 2,000 = 10 years and 30,000 ÷ 2,400 = 12.5 years. Incremental storage ratio is (30,000 − 20,000) ÷ (2,400 − 2,000) = 25 years.
+
+INTERPRETATION
+Attributing all project benefit to the battery would conceal the incremental comparison. Backup resilience is a separate customer objective that this simple money-only calculation does not value.
+
+LIMIT OF THIS EXAMPLE
+This is not a quotation, forecast, recommendation or complete investment model.
+
+中文说明
+加储能要看增加的成本与增加的收益，不能把全部光伏收益都算给电池；备电价值也不等于这项简单回本计算。
+
+C17 — Discounting one future cash flow
+未来现金流的折现示例
+GIVEN
+Assume a hypothetical benefit of 1,000 currency units one year from now and an illustrative discount rate of 5%.
+
+CALCULATION
+Present value = 1,000 ÷ 1.05 ≈ 952.381 currency units.
+
+INTERPRETATION
+The example shows that cash flows at different times can be compared using an explicitly chosen financial assumption. A real analysis would need its full horizon, costs, benefits and a justified rate.
+
+LIMIT OF THIS EXAMPLE
+Five percent is not a company financing offer, a required discount rate or a prediction of inflation.
+
+中文说明
+折现率是需要说明的分析假设；示例 5% 不是融资利率、通胀预测或对客户项目的推荐值。
+
+C18 — Integrating a time-based power profile
+从分时功率累计电量
+GIVEN
+A hypothetical trace is exactly 1.5 kW for 2 hours and 0.5 kW for 4 hours.
+
+CALCULATION
+Energy = 1.5 × 2 + 0.5 × 4 = 5 kWh.
+
+INTERPRETATION
+This relationship holds for the defined intervals. A few screenshots taken during a day do not establish that power stayed constant between them. Meter or monitoring energy totals can provide a different kind of evidence.
+
+LIMIT OF THIS EXAMPLE
+Do not integrate sparse observations as if they were complete measured intervals.
+
+中文说明
+只有已知每段功率和时长时，才能按区间累计；几张截图不能证明截图之间一直保持同样功率。
+
+C19 — Full charge on a reduced capacity reference
+容量下降后满电仍可能更少
+GIVEN
+A hypothetical battery began with a 10 kWh energy reference. For this illustration its present relevant full-capacity reference is 90% of that original value.
+
+CALCULATION
+Present full reference = 10 × 0.9 = 9 kWh.
+
+INTERPRETATION
+A display of full charge can refer to the current capacity while health compares with an earlier reference. The example does not define the actual manufacturer's SOC or SOH method.
+
+LIMIT OF THIS EXAMPLE
+Do not infer a replacement decision or warranty result from this invented percentage.
+
+中文说明
+当前满电与最初容量不是同一参照。示例只说明 SOC 与健康参考的区别，不能直接据此决定更换或保修。
+
+C20 — Prioritising essential energy in a defined outage window
+在指定停电窗口内分配关键负载电量
+GIVEN
+Assume 6 kWh is already available at the load, essentials need 0.25 kW for 8 hours, and an optional load would draw 1 kW. Ignore other energy use and require the separate power limit to be satisfied.
+
+CALCULATION
+Essential energy = 0.25 × 8 = 2 kWh. Remaining energy = 6 − 2 = 4 kWh, corresponding to 4 hours of the optional 1 kW load in this ideal model.
+
+INTERPRETATION
+A priority plan can distinguish essential service from discretionary use rather than assuming every load runs for the whole outage. Starting demand and simultaneous power remain separate questions.
+
+LIMIT OF THIS EXAMPLE
+The example is not an operational instruction, appliance recommendation or actual backup promise.
+
+中文说明
+先计算关键负载，再看剩余能量可支持多少可选负载；功率与启动限制仍须单独检查，不能把示例当成实际运行安排。
+
+============================================================================
+BOOK V — PRIMARY SOURCE REGISTERS
+============================================================================
+
+========================================================================
+
+SOLAR SOURCES: S01–S19
+GENERAL EDUCATION, NOT LOCAL POLICY
+Sources consulted 17 October 2026. Foreign incentives, prices, approval rules, standard household sizes and regional production figures have not been adopted as local company policy. Examples are explanatory arithmetic, not quotations or equipment promises.
+S01 — U.S. Department of Energy, Solar Radiation Basics:
+https://www.energy.gov/cmei/systems/solar-radiation-basics
+S02 — U.S. Department of Energy, Solar Photovoltaic Technology Basics:
+https://www.energy.gov/cmei/systems/solar-photovoltaic-technology-basics
+S03 — U.S. Energy Information Administration, Measuring Electricity:
+https://www.eia.gov/energyexplained/electricity/measuring-electricity.php
+S04 — U.S. Department of Energy, Solar Photovoltaic Performance and Efficiency Basics:
+https://www.energy.gov/cmei/systems/solar-photovoltaic-performance-and-efficiency-basics
+S05 — Australian Government, Design Considerations:
+https://www.energy.gov.au/solar/solar-system-design/design-considerations
+S06 — U.S. Department of Energy, Inverters and Grid Services Basics:
+https://www.energy.gov/cmei/systems/solar-integration-inverters-and-grid-services-basics
+S07 — Australian Government, Size Your Solar System:
+https://www.energy.gov.au/solar/solar-system-design/size-your-solar-system
+S08 — Australian Government, Solar Panels:
+https://www.energy.gov.au/solar/get-know-solar-technology/solar-panels
+S09 — Victron Energy, Which Solar Charge Controller: PWM or MPPT? General electrical concept only; not an offered product:
+https://www.victronenergy.com/upload/documents/Technical-Information-Which-solar-charge-controller-PWM-or-MPPT.pdf
+S10 — U.S. Department of Energy, Homeowner's Guide to Solar:
+https://www.energy.gov/cmei/systems/homeowners-guide-solar
+S11 — Australian Government, Warranties and Insurance:
+https://www.energy.gov.au/solar/get-know-solar-technology/warranties-and-insurance
+S12 — Australian Government, Look After Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system
+S13 — Australian Government, Monitor Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/monitor-your-solar-system
+S14 — Australian Government, How Solar Pays for Itself and Batteries Reduce Bills:
+https://www.energy.gov.au/solar/financial-benefits-solar/how-solar-pays-itself-and-batteries-reduce-bills
+S15 — U.S. Department of Energy, A Step-by-Step Guide for Consumers Going Solar:
+https://www.energy.gov/cmei/systems/articles/walk-me-through-it-step-step-guide-consumers-going-solar
+S16 — U.S. Department of Energy, Distributed Energy Resources and Microgrids Basics:
+https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics
+S17 — U.S. Department of Energy, Solar and Resilience Basics:
+https://www.energy.gov/cmei/systems/solar-and-resilience-basics
+S18 — U.S. Department of Energy, Solar Energy and Storage Basics:
+https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics
+S19 — Australian Government, Inverters:
+https://www.energy.gov.au/solar/get-know-solar-technology/inverters
+
+STORAGE SOURCES: B01–B23
+GENERAL EDUCATION, NOT AN OFFERED PRODUCT LIST
+Sources consulted 17 October 2026. Manufacturer sources illustrate technical concepts or design dependencies only; they do not mean Sol & Tide supplies those brands or that their specifications apply to Sol & Tide equipment. Foreign tariffs, incentives, warranty durations and installation rules are not company policy.
+B01 — U.S. Department of Energy, Solar Energy and Storage Basics:
+https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics
+B02 — Australian Government, Solar Glossary:
+https://www.energy.gov.au/solar/glossary
+B03 — NREL, Fundamentals of Energy Storage:
+https://www.nrel.gov/docs/fy23osti/84500.pdf
+B04 — Australian Government, Batteries:
+https://www.energy.gov.au/solar/get-know-solar-technology/batteries
+B05 — Victron Energy, Lithium SuperPack NG: Operation. Terminology and model-dependent limits only:
+https://www.victronenergy.com/media/pg/Lithium_SuperPack_NG/en/operation.html
+B06 — NREL, Renewable Energy for Rural Schools: glossary. Basic terminology only; historical application context not adopted:
+https://docs.nrel.gov/docs/fy01osti/26222.pdf
+B07 — NREL, Technology Tips for Solar + Storage:
+https://www.nrel.gov/docs/fy24osti/90582.pdf
+B08 — U.S. Department of Energy, Grid Energy Storage Technology Cost and Performance Assessment. Calendar and cycle-life concepts only; costs not adopted:
+https://www.energy.gov/cmei/2022-grid-energy-storage-technology-cost-and-performance-assessment
+B09 — NREL, Technoeconomic Modeling of Battery Energy Storage:
+https://nrel.gov/docs/fy15osti/64641.pdf
+B10 — Australian Government, Warranties and Insurance:
+https://www.energy.gov.au/solar/get-know-solar-technology/warranties-and-insurance
+B11 — U.S. Department of Energy, Energy Storage Safety Strategic Plan:
+https://www.energy.gov/sites/default/files/2024-05/EED_2827_FIG_SafetyStrategy%20240505v2.pdf
+B12 — Victron Energy, System Design and BMS Selection Guide. Protection concept only; installation instructions not reproduced:
+https://www.victronenergy.com/media/pg/Lithium_Battery_Smart/en/system-design-and-bms-selection-guide.html
+B13 — U.S. Department of Energy, Inverters and Grid Services Basics:
+https://www.energy.gov/cmei/systems/solar-integration-inverters-and-grid-services-basics
+B14 — Sol & Tide, company FAQ and approved customer-support knowledge, checked 16 October 2026:
+https://www.solortide.com/antigua/faq
+https://www.solortide.com/dominica/faq
+B15 — Tesla, Self-Powered. General operating-mode example only:
+https://www.tesla.com/support/energy/powerwall/mobile-app/self-powered
+B16 — Australian Government, How Solar Pays for Itself and Batteries Reduce Bills:
+https://www.energy.gov.au/solar/financial-benefits-solar/how-solar-pays-itself-and-batteries-reduce-bills
+B17 — Tesla, Backup Reserve. General reserve trade-off only; no settings percentages adopted:
+https://www.tesla.com/support/energy/powerwall/mobile-app/backup-reserve
+B18 — U.S. Department of Energy, Solar and Resilience Basics. Specific transfer/restart capabilities are left for model confirmation:
+https://www.energy.gov/cmei/systems/solar-and-resilience-basics
+B19 — Tesla, Backup Loads Supported per Powerwall Quantity. Equipment-dependent load limits only:
+https://energylibrary.tesla.com/docs/Public/EnergyStorage/Powerwall/3/SystemDesign/en-us/GUID-981C7C77-F13D-4ECC-9A25-A8211957A4B9.html
+B20 — NREL, Residential Battery Storage ATB. Power/energy duration distinction only; calculations above are hypothetical:
+https://atb.nrel.gov/electricity/2024/residential_battery_storage
+B21 — Australian Government, Inverters. Phase-dependent backup concept only:
+https://www.energy.gov.au/solar/get-know-solar-technology/inverters
+B22 — Australian Government, Monitor Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/monitor-your-solar-system
+B23 — Australian Government, Look After Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system
+
+ADDITIONAL SCENARIO SOURCES: X01–X22
+EXPANDED SCENARIOS
+Sources consulted 17 October 2026. Examples and editorial planning suggestions are identified separately from external technical facts. Foreign laws, rates, subsidies, product offerings and performance figures are not local company policy.
+X01 — EPA ENERGY STAR — Refrigerators product finder; annual energy-use units only, no product recommendation.
+https://www.energystar.gov/productfinder/product/certified-residential-refrigerators/results
+X02 — U.S. DOE — Purchasing Energy-Efficient Residential Central Air Conditioners; cooling capacity versus electricity input.
+https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-central-air-conditioners
+X03 — U.S. DOE — Energy Efficiency at Home; power and duration concepts only.
+https://www1.eere.energy.gov/education/pdfs/lesson301.pdf
+X04 — EPA ENERGY STAR — Pool Pumps Key Product Criteria; variable operating speeds only, no savings figure adopted.
+https://www.energystar.gov/products/pool_pumps/key_product_criteria
+X05 — U.S. DOE AFDC — Charging Electric Vehicles at Home; equipment and electrical-capacity considerations only.
+https://afdc.energy.gov/fuels/electricity-charging-home
+X06 — Australian Government — Size Your Solar System; usage-pattern assessment, no Australian averages or tariff rules adopted.
+https://www.energy.gov.au/solar/solar-system-design/size-your-solar-system
+X07 — U.S. DOE — Solar Photovoltaic Cell Basics; technology families only.
+https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics
+X08 — U.S. DOE — PV Cells 101; bifacial reflection concept only.
+https://www.energy.gov/cmei/systems/articles/pv-cells-101-primer-solar-photovoltaic-cell
+X09 — NREL — Technoeconomic Modeling of Battery Energy Storage; energy-efficiency boundaries.
+https://nrel.gov/docs/fy15osti/64641.pdf
+X10 — Australian Government — Choose Your Solar Retailer and Installer; quote comparison and written scope, not local legal or certification rules.
+https://www.energy.gov.au/solar/solar-retailers-and-installation/choose-your-solar-retailer-and-installer
+X11 — U.S. DOE — Renewable Energy Ready Home: Solar Photovoltaic Specifications; early planning and professional design.
+https://www.energy.gov/cmei/buildings/articles/renewable-energy-ready-home-solar-photovoltaic-specifications
+X12 — U.S. DOE — Should I Replace My Rooftop Solar System?
+https://www.energy.gov/cmei/systems/articles/should-i-replace-my-rooftop-solar-system
+X13 — Australian Government — Understand Your Energy Use; bills versus on-site generation.
+https://www.energy.gov.au/business/energy-management-business/1-understand-your-energy-use
+X14 — Australian Government — Look After Your Solar System; monitoring observations and professional support.
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system
+X15 — U.S. DOE — Severe Weather Resilience in Solar Photovoltaic System Design; complete installation resilience, no construction procedure reproduced.
+https://www.energy.gov/cmei/femp/severe-weather-resilience-solar-photovoltaic-system-design
+X16 — IEC — IEC 60529, Degrees of Protection Provided by Enclosures; public scope only, no universal interpretation of a specific code.
+https://webstore.iec.ch/en/publication/2452
+X17 — U.S. DOE — Preventing and Mitigating Flood Damage to Solar Photovoltaic Systems; environmental suitability only.
+https://www.energy.gov/cmei/femp/preventing-and-mitigating-flood-damage-solar-photovoltaic-systems
+X18 — U.S. DOE — Homeowner's Guide to Solar; roof and installation planning.
+https://www.energy.gov/cmei/systems/homeowners-guide-solar
+X19 — U.S. DOE — Life Cycle of Photovoltaic Systems: Install and Commission; professional handover and commissioning context.
+https://www.energy.gov/cmei/femp/life-cycle-photovoltaic-systems-install-and-commission-photovoltaic-system
+X20 — U.S. DOE — A Consumer's Guide to Buying a House with Solar Panels.
+https://www.energy.gov/cmei/systems/consumers-guide-buying-house-solar-panels
+X21 — US EPA — Solar Panel Recycling; general end-of-life options only, no U.S. waste law adopted as local policy.
+https://www.epa.gov/hw/solar-panel-recycling
+X22 — US EPA — Lithium-Ion Battery Recycling; professional collection and recycling concept only.
+https://www.epa.gov/hw/lithium-ion-battery-recycling
+
+EXTENDED GUIDE REFERENCES — D01–D17
+Consulted 17 October 2026. These references support the short factual foundations, not local service commitments or the hypothetical numerical inputs. Foreign policy and current product offers are not adopted as company policy.
+
+D01 — Schneider Electric — Unity Output Power Factor, real versus apparent power; general concepts only, no product offer.
+https://www.se.com/au/en/faqs/FA157434/
+
+D02 — Sandia PVPMC — Irradiance and Insolation; model inputs and periods.
+https://pvpmc.sandia.gov/modeling-guide/1-weather-design-inputs/irradiance-insolation/
+
+D03 — Sandia PVPMC — Effective Irradiance; light at the array and optical modifiers.
+https://pvpmc.sandia.gov/modeling-guide/2-dc-module-iv/effective-irradiance/
+
+D04 — U.S. DOE — Solar Photovoltaic Cell Basics; semiconductor and technology-family definitions.
+https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics
+
+D05 — Sandia PVPMC — Sandia PV Array Performance Model; IV operating points and reference conditions.
+https://pvpmc.sandia.gov/modeling-guide/2-dc-module-iv/point-value-models/sandia-pv-array-performance-model/
+
+D06 — Sandia PVPMC — Array Utilization; maximum-power-point control.
+https://pvpmc.sandia.gov/modeling-guide/3-dc-array-iv/array-utilization/
+
+D07 — U.S. DOE — Renewable Energy Ready Home: Solar Photovoltaic Specifications; site and planning categories only.
+https://www.energy.gov/cmei/buildings/articles/renewable-energy-ready-home-solar-photovoltaic-specifications
+
+D08 — U.S. DOE — Energy Storage Safety Strategic Plan; controls and chemistry boundaries only.
+https://www.energy.gov/sites/default/files/2024-05/EED_2827_FIG_SafetyStrategy%20240505v2.pdf
+
+D09 — PNNL — Energy Storage Subsystems and Definitions; calendar and cycle-life concepts.
+https://www.pnnl.gov/projects/esgc-cost-performance/subsystems-definitions
+
+D10 — U.S. DOE — Purchasing Energy-Efficient Residential Central Air Conditioners; electrical versus cooling quantities only.
+https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-central-air-conditioners
+
+D11 — NREL — Simple Photovoltaic Economic Calculations; simple-payback limitations, no historical costs or incentives adopted.
+https://www1.eere.energy.gov/solar/pdfs/simple_pv_economic_calculations_mi.pdf
+
+D12 — PNNL — LCOS Estimates; storage-cost comparison boundaries, no numerical technology cost adopted.
+https://www.pnnl.gov/projects/esgc-cost-performance/lcos-estimates
+
+D13 — Victron Energy — Commissioning, Operation and Monitoring; examples of monitored quantities, not instructions or company equipment specifications.
+https://www.victronenergy.com/media/pg/Lynx_Smart_BMS_NG/en/commissioning%2C-operation-and-monitoring.html
+
+D14 — U.S. DOE — Operate and Maintain an Existing Photovoltaic System; professional O&M categories.
+https://www.energy.gov/cmei/femp/life-cycle-photovoltaic-systems-operate-and-maintain-existing-photovoltaic-system
+
+D15 — U.S. DOE — Managing and Mitigating Solar PV Corrosion; environmental risk categories.
+https://www.energy.gov/cmei/femp/managing-and-mitigating-solar-pv-corrosion
+
+D16 — U.S. DOE — PV System Owner's Guide to Weather Vulnerabilities, Risks and Impacts; complete-system risk and approved procedures.
+https://www.energy.gov/cmei/femp/articles/pv-system-owners-guide-identifying-assessing-and-addressing-weather
+
+D17 — US EPA — Solar Panel Recycling; lifecycle concept only, no local take-back service or U.S. legal requirement adopted.
+https://www.epa.gov/hw/solar-panel-recycling
+

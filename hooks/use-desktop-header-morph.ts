@@ -6,6 +6,7 @@ import { useEffect, type RefObject } from "react";
 export function useDesktopHeaderMorph(
   enabled: boolean,
   header: RefObject<HTMLElement | null>,
+  showImmediately = false,
 ) {
   useEffect(() => {
     const shell = header.current;
@@ -13,9 +14,9 @@ export function useDesktopHeaderMorph(
     const desktop = window.matchMedia("(min-width: 1001px)");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let progress = 0;
-    let visible = 0;
+    let visible = showImmediately ? 1 : 0;
     let targetProgress = 0;
-    let targetVisible = 0;
+    let targetVisible = visible;
     let frame = 0;
     let previousTime = 0;
     let focused = false;
@@ -40,7 +41,7 @@ export function useDesktopHeaderMorph(
       if (disposed) return;
       const immediate = !desktop.matches || reduced.matches;
       // First reveal a long, complete navigation bar; only then widen it to the edges.
-      targetVisible = immediate || focused ? 1 : Math.min(1, Math.max(0, (window.scrollY - 12) / 44));
+      targetVisible = showImmediately || immediate || focused ? 1 : Math.min(1, Math.max(0, (window.scrollY - 12) / 44));
       targetProgress = immediate ? 1 : Math.min(1, Math.max(0, (window.scrollY - 80) / 200));
       if (immediate) {
         cancelAnimationFrame(frame);
@@ -79,5 +80,5 @@ export function useDesktopHeaderMorph(
       shell.removeEventListener("focusin", focus);
       shell.removeEventListener("focusout", blur);
     };
-  }, [enabled, header]);
+  }, [enabled, header, showImmediately]);
 }

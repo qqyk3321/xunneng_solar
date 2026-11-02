@@ -1,10 +1,18 @@
 import "server-only";
+import { loadNativePreview } from "./native-consultation/storage";
 
-import { createHash } from "node:crypto";
-import { createClient } from "@supabase/supabase-js";
+
+
+
 import type { ProfileKey } from "./solution-suggest/optimizer";
 
 export type ConsultationPreview = {
+  consultation_id?: string;
+  revision?: number;
+  updated_at?: string;
+  phone_country?: string | null;
+  native?: boolean;
+  answers?: Record<string, unknown>;
   submission_id: string;
   country_code: "AG" | "DM";
   name: string;
@@ -18,23 +26,6 @@ export type ConsultationPreview = {
 };
 
 export async function loadConsultationPreview(token: string) {
-  if (!/^[A-Za-z0-9_-]{40,64}$/.test(token)) return null;
-  const url = process.env.SUPABASE_URL?.trim();
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  if (!url || !key) return null;
-  const client = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false },
-    global: { fetch: (input, init) => fetch(input, { ...init, cache: "no-store", signal: AbortSignal.timeout(8000) }) },
-  });
-  const tokenHash = createHash("sha256").update(token).digest("hex");
-  const { data } = await client
-    .from("consultation_preview_tokens")
-    .select(
-      "tally_form_submissions(submission_id, country_code, name, email, phone, address, submitted_at, monthly_kwh, consumption_profile, preview_url:payload->data->>submissionPreviewUrl)",
-    )
-    .eq("token_hash", tokenHash)
-    .maybeSingle();
-  const submission = data?.tally_form_submissions as
-    ConsultationPreview | null | undefined;
-  return submission ?? null;
+  const row = await loadNativePreview(token);
+  return row ? { ...row, native: true, preview_url: null } as ConsultationPreview : null;
 }

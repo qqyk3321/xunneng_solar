@@ -1,0 +1,233 @@
+SOL & TIDE CUSTOMER EDUCATION — SOLAR ENERGY AND PHOTOVOLTAICS
+Version: 1.1 | Prepared: 17 October 2026
+Scope: General homeowner education. These explanations are not the specifications, warranty, service availability or promised performance of a Sol & Tide product. Use the company knowledge file for company facts. Equipment-specific and local connection questions require assessment.
+References S01–S19 identify the source register at the end of this file.
+
+SOLAR ENERGY AND ELECTRICITY
+
+PV01
+Q: What is solar energy?
+A: Solar energy is energy arriving from the sun. Different technologies use it to produce electricity or heat. Rooftop photovoltaic panels generate electricity from light; they do not need to burn fuel. The available sunlight changes with location, season, time of day and weather.
+Reference: S01
+
+PV02
+Q: Are photovoltaic panels and solar water heaters the same thing?
+A: No. Photovoltaic, or PV, panels make electricity. Solar thermal equipment collects heat, for example to heat water. A home may have either or both, but their equipment and outputs differ. A PV system can power an electric water heater if the electrical system is designed for that load.
+Reference: S01
+
+PV03
+Q: What are a solar cell, a module and an array?
+A: A solar cell is a small device that converts light into electricity. Cells are assembled into a module, commonly called a panel. Multiple panels form an array. These words describe different levels of the generating equipment, not battery storage capacity.
+Reference: S02
+
+PV04
+Q: What equipment is in a home solar system besides panels?
+A: A complete system includes panels, mounting equipment, an inverter, electrical connections and protective equipment. A storage or backup design also needs compatible batteries and control equipment. The exact components depend on the roof, electricity supply and intended operation; a panel count alone does not describe a complete installation.
+Reference: S02
+
+PV05
+Q: What are DC and AC, and why is an inverter needed?
+A: Panels generate direct-current electricity, or DC. Ordinary household circuits use alternating current, or AC. An inverter performs the conversion. A battery also stores energy through DC electrical connections, so its usable connection to household circuits depends on compatible power-conversion equipment.
+Reference: S19
+
+PV06
+Q: What do W, kW and kWp mean?
+A: Watts and kilowatts measure power; 1 kW equals 1,000 W. Panel ratings are often described as peak power, written Wp or kWp, under defined test conditions. A system's power rating is different from how much energy it generates over a day or stores in a battery.
+References: S03, S08
+
+PV07
+Q: What does kWh mean? Is it the same as kW?
+A: kWh measures energy, while kW measures power. A steady 1 kW load running for 2 hours uses 2 kWh. Real appliances may vary their power while running, so actual energy use depends on their operating pattern as well as their rated power.
+Reference: S03
+
+PV08
+Q: Will a panel always generate the wattage on its label?
+A: No. The label is a rating under standard test conditions. Actual power changes with sunlight, panel temperature, orientation, shading and system conditions. For example, a 450 W panel is not a promise of 450 W throughout daylight hours. This example is not a Sol & Tide equipment specification.
+Reference: S08
+
+PV09
+Q: Does twelve hours of daylight mean twelve hours at full solar output?
+A: No. Sunlight is weaker around sunrise and sunset and varies during the day. Daily solar energy accounts for changing intensity over time. A generation estimate needs local sunlight data and system losses, rather than multiplying the panel rating by all daylight hours.
+Reference: S01
+
+PV10
+Q: Can you tell daily solar generation from system size alone?
+A: Not reliably. The same panel capacity can produce different daily energy at different sites. A useful estimate considers local sunlight, roof layout, shading, season and losses. Ask what assumptions an estimate uses; do not treat a sunny-day example as a guaranteed daily or annual yield.
+Reference: S07
+
+PV11
+Q: Do solar panels generate on cloudy days? Do they work at night?
+A: Panels can use diffuse daylight under cloud cover, usually with reduced output. The amount varies with conditions. At night they do not have useful sunlight for normal household generation; evening electricity must come from another source, such as previously stored battery energy or the grid.
+Reference: S08
+
+PV12
+Q: Does hotter weather always mean more solar electricity?
+A: No. Strong sunlight helps generation, but higher cell temperature generally reduces a panel's electrical conversion performance. A hot panel can produce less power than a cooler panel receiving the same light. System design should consider both sunlight and operating temperature.
+Reference: S04
+
+PV13
+Q: Why does shading matter? Can one shaded panel affect others?
+A: Shade reduces light reaching the affected cells. Its wider effect depends on the panel layout and electrical design. String arrangements, bypass devices and panel-level electronics respond differently. An installer should assess moving shade; it is inaccurate to promise either that one shadow disables everything or that shade never affects other panels.
+References: S05, S06
+
+ROOF, PANEL SELECTION AND SYSTEM SIZE
+
+PV14
+Q: Which direction should panels face?
+A: The best layout depends on location, roof geometry, shading and when electricity is needed. East-facing areas tend to produce earlier and west-facing areas later. Do not automatically apply a roof-direction recommendation written for another hemisphere to Antigua or Dominica; assess the actual property.
+Reference: S05
+
+PV15
+Q: Does roof angle matter? Can panels go on a flat roof?
+A: Tilt affects sunlight exposure and layout. A flat or gently sloping roof may use an appropriate mounting arrangement, but row spacing, shading, wind loads and roof condition still need assessment. There is no universal tilt or mounting solution suitable for every home.
+References: S05, S10
+
+PV16
+Q: How much roof space is needed, and does the roof's condition matter?
+A: Available space is more than the visible roof area. Obstacles, shade, access and mounting requirements affect the layout. Panel dimensions vary. Roof condition and any near-term repairs should be reviewed before installation, along with whether the structure is suitable for the proposed system.
+References: S05, S10
+
+PV17
+Q: How do I estimate an appliance's electricity consumption?
+A: For a steady load, energy in kWh equals power in kW multiplied by hours. A hypothetical 100 W device used for 5 hours consumes 0.5 kWh. Cycling appliances need measured or representative average consumption. This arithmetic explains energy use; it does not by itself establish inverter or backup sizing.
+Reference: S03
+
+PV18
+Q: What does panel efficiency mean? Is the highest percentage always the best choice?
+A: Efficiency describes how much incoming light energy becomes electrical energy. Higher efficiency can help where roof space is limited, but the whole system's yield also depends on layout, temperature and losses. Compare output, usable roof area, equipment suitability and the proposal rather than one percentage.
+Reference: S04
+
+PV19
+Q: Are all panels with the same wattage equivalent?
+A: The power label alone is not a full comparison. Panels can differ in size, efficiency and performance under operating conditions. Check the proposed model's datasheet and warranty documents. A larger physical panel is not automatically more efficient, and a rated wattage does not establish suitability for your roof.
+Reference: S08
+
+PV20
+Q: Should I put as many panels as possible on the roof?
+A: Extra generation is useful when it matches consumption, storage or permitted export. It also adds cost and must fit the roof and inverter limits. A suitable design balances present and expected future use, available space, sunlight and budget. Bigger is not automatically the best value.
+Reference: S07
+
+INVERTERS AND ELECTRICITY FLOW
+
+PV21
+Q: Does a more powerful inverter automatically make the panels generate more?
+A: No. An inverter converts the energy available from the panels; it does not create additional sunlight. Its rating limits how much AC power it can deliver. Panels, inverter and storage must be designed together, so a higher inverter rating alone does not establish higher daily generation.
+References: S06, S07
+
+PV22
+Q: What is MPPT?
+A: MPPT means Maximum Power Point Tracking. It adjusts the electrical operating point of a solar input to harvest useful power as conditions change. It may be built into an inverter or charge controller. It cannot replace missing sunlight, and allowable panel arrangements depend on the specific equipment.
+Reference: S09
+
+PV23
+Q: How do string inverters, microinverters and optimisers differ?
+A: A string inverter converts power from groups of panels. Microinverters convert power at individual panels. Optimisers provide panel-level DC control with a compatible inverter. These approaches differ in layout flexibility, shade response, monitoring and cost. No one type is automatically best for every property.
+Reference: S19
+
+PV24
+Q: Why can panel capacity be larger than inverter capacity? What is clipping?
+A: Panels do not always operate at their full rating, so a designed system may use more rated DC panel capacity than AC inverter capacity. If available power exceeds the inverter's conversion limit, output is capped; this is called clipping. Equipment input limits still apply, and the trade-off should be assessed rather than improvised.
+Reference: S07
+
+PV25
+Q: Why is the generation shown in an app different from my electricity bill?
+A: Solar generation, household consumption and grid imports are different measurements. Electricity used directly from solar does not appear as grid purchases. Monitoring may also show exports and battery flows. Compare the same dates and measurement boundaries; a difference alone does not prove a fault or billing error.
+Reference: S13
+
+PV26
+Q: What is solar self-consumption?
+A: Self-consumption means using solar electricity within the property, directly or after storage. Using suitable loads during sunny hours can reduce grid purchases. Savings depend on consumption and the tariff.
+Reference: S14
+
+PV27
+Q: What happens to excess solar electricity? Will the utility pay me for it?
+A: Excess may charge a battery, be exported or be curtailed, depending on the configuration and permission. Credit rates and connection conditions need local confirmation; another country's arrangements do not establish yours.
+Reference: S14
+
+PV28
+Q: Does installing solar guarantee a zero electricity bill?
+A: No. Grid imports and tariff charges may remain. Savings depend on the system, usage and local arrangements. Storage also has costs and losses, so neither zero bills nor a fixed payback is guaranteed.
+Reference: S14
+
+GRID CONNECTION, BACKUP AND OWNERSHIP
+
+PV29
+Q: Do panels lose performance as they age?
+A: Panel output can gradually decline over time. A performance warranty sets model-specific conditions for warranted output; it is not a guarantee of a household's energy yield or bill savings. Ask for the proposed product's documents rather than assuming one degradation rate applies to every panel.
+Reference: S11
+
+PV30
+Q: What is the difference between grid-connected, hybrid and off-grid solar?
+A: Grid-connected systems operate alongside the utility. A hybrid design coordinates solar with storage and potentially other sources. Off-grid systems operate independently and must be designed around periods of low generation. These labels alone do not prove backup capability or indefinite energy independence.
+References: S16, S06
+
+PV31
+Q: Why might solar stop when the electricity grid fails?
+A: Ordinary grid-following solar generally shuts down during an outage to avoid supplying an uncontrolled island. Backup needs suitable equipment and a design that isolates supported circuits from the utility. A correctly configured solar-and-storage system can provide backup within its energy and power limits; solar panels alone are not a backup guarantee.
+Reference: S17
+
+PV32
+Q: Is a panel's performance warranty the same as its product or installation warranty?
+A: No. Product warranties address covered equipment defects, performance warranties address specified output conditions, and installation warranties concern covered workmanship. Coverage and exclusions differ. These general categories do not specify Sol & Tide's warranty; request the exact proposed terms in writing.
+Reference: S11
+
+PV33
+Q: Are panels automatically suitable for hurricanes, coastal weather or any roof?
+A: No universal suitability follows from calling a panel outdoor equipment. The selected equipment, mounting, roof and local site conditions need assessment. Ask the team for applicable model documents and the proposed structural approach. Do not infer a storm rating, corrosion guarantee or approval from general solar education.
+Reference: S10; engineering suitability requires project assessment.
+
+PV34
+Q: Does a battery mean I no longer need enough solar panels?
+A: A battery stores energy; it does not generate it. If the aim is to recharge it from solar while also powering daytime loads, generation must cover both within the available hours and charging limits. More storage alone cannot compensate for an ongoing shortage of energy input.
+Reference: S18
+
+PV35
+Q: Are solar panels maintenance-free? Should I clean them myself?
+A: Dirt, debris and faults can reduce performance, so follow the equipment's maintenance guidance and monitor output. Professional cleaning may be appropriate for the site. Arrange qualified help for roof or electrical work; general chat should not provide climbing, wiring or repair instructions.
+Reference: S12
+
+PV36
+Q: What should I prepare before discussing a solar system?
+A: Identify the property location, recent electricity use, daytime and evening routines, backup priorities and any expected new loads. Roof condition and available photos can help the discussion. These details support an assessment; they do not replace the site's engineering review or a final proposal.
+References: S10, S15
+
+SOURCE REGISTER — GENERAL EDUCATION, NOT LOCAL POLICY
+Sources consulted 17 October 2026. Foreign incentives, prices, approval rules, standard household sizes and regional production figures have not been adopted as local company policy. Examples are explanatory arithmetic, not quotations or equipment promises.
+S01 — U.S. Department of Energy, Solar Radiation Basics:
+https://www.energy.gov/cmei/systems/solar-radiation-basics
+S02 — U.S. Department of Energy, Solar Photovoltaic Technology Basics:
+https://www.energy.gov/cmei/systems/solar-photovoltaic-technology-basics
+S03 — U.S. Energy Information Administration, Measuring Electricity:
+https://www.eia.gov/energyexplained/electricity/measuring-electricity.php
+S04 — U.S. Department of Energy, Solar Photovoltaic Performance and Efficiency Basics:
+https://www.energy.gov/cmei/systems/solar-photovoltaic-performance-and-efficiency-basics
+S05 — Australian Government, Design Considerations:
+https://www.energy.gov.au/solar/solar-system-design/design-considerations
+S06 — U.S. Department of Energy, Inverters and Grid Services Basics:
+https://www.energy.gov/cmei/systems/solar-integration-inverters-and-grid-services-basics
+S07 — Australian Government, Size Your Solar System:
+https://www.energy.gov.au/solar/solar-system-design/size-your-solar-system
+S08 — Australian Government, Solar Panels:
+https://www.energy.gov.au/solar/get-know-solar-technology/solar-panels
+S09 — Victron Energy, Which Solar Charge Controller: PWM or MPPT? General electrical concept only; not an offered product:
+https://www.victronenergy.com/upload/documents/Technical-Information-Which-solar-charge-controller-PWM-or-MPPT.pdf
+S10 — U.S. Department of Energy, Homeowner's Guide to Solar:
+https://www.energy.gov/cmei/systems/homeowners-guide-solar
+S11 — Australian Government, Warranties and Insurance:
+https://www.energy.gov.au/solar/get-know-solar-technology/warranties-and-insurance
+S12 — Australian Government, Look After Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/look-after-your-solar-system
+S13 — Australian Government, Monitor Your Solar System:
+https://www.energy.gov.au/solar/use-your-solar-system/monitor-your-solar-system
+S14 — Australian Government, How Solar Pays for Itself and Batteries Reduce Bills:
+https://www.energy.gov.au/solar/financial-benefits-solar/how-solar-pays-itself-and-batteries-reduce-bills
+S15 — U.S. Department of Energy, A Step-by-Step Guide for Consumers Going Solar:
+https://www.energy.gov/cmei/systems/articles/walk-me-through-it-step-step-guide-consumers-going-solar
+S16 — U.S. Department of Energy, Distributed Energy Resources and Microgrids Basics:
+https://www.energy.gov/cmei/systems/solar-integration-distributed-energy-resources-and-microgrids-basics
+S17 — U.S. Department of Energy, Solar and Resilience Basics:
+https://www.energy.gov/cmei/systems/solar-and-resilience-basics
+S18 — U.S. Department of Energy, Solar Energy and Storage Basics:
+https://www.energy.gov/cmei/systems/solar-integration-solar-energy-and-storage-basics
+S19 — Australian Government, Inverters:
+https://www.energy.gov.au/solar/get-know-solar-technology/inverters

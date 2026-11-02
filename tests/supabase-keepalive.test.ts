@@ -12,7 +12,7 @@ test("Supabase keepalive performs one small authenticated read", async () => {
   await querySupabaseKeepalive(environment, async (input, init) => {
     calls += 1;
     const url = new URL(String(input));
-    assert.equal(url.pathname, "/rest/v1/tally_form_submissions");
+    assert.equal(url.pathname, "/rest/v1/consultations");
     assert.equal(url.searchParams.get("select"), "id");
     assert.equal(url.searchParams.get("limit"), "1");
     assert.equal(new Headers(init?.headers).get("apikey"), "server-only-key");

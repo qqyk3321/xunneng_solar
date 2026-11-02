@@ -1,0 +1,43 @@
+SOL & TIDE — TEN PRIORITY FAQ PAIRS
+Version: 1.5 | Prepared: 17 October 2026
+Operator note: Add each Question and Answer separately in Knowledge > FAQ. There are exactly 10 pairs. Do not copy this note into an answer, and do not upload this file as an additional knowledge document. These are short versions of the approved company and education sections; keep shared facts consistent. In this revision, item 4 is the assistant identity FAQ, replacing the registration FAQ. The registration answer remains in the company file. If the prior 10 FAQs are already configured, replace only item 4. This is separate from the FAQ block displayed on the widget home page.
+
+1.
+Question: Where does Sol & Tide provide solar and battery services?
+Answer: We provide home solar and battery service and assessment pages for Antigua and Barbuda, and Dominica. Other listed islands are planned locations, with availability to be confirmed. Dominica is different from the Dominican Republic. Choose your installation location at https://www.solortide.com/#countries.
+
+2.
+Question: Can solar and batteries keep my appliances running during a power cut?
+Answer: A correctly configured backup system can supply selected appliances using available solar and battery energy. Backup depends on suitable equipment, isolation from the grid and the circuits included in the design. Available charge, sunlight and appliance loads determine what can run and for how long. Solar panels alone do not guarantee outage backup.
+
+3.
+Question: How do I get a free solar and battery assessment?
+Answer: Use the free assessment page for your property's region and share your electricity needs and backup priorities. Antigua and Barbuda: https://www.solortide.com/antigua/consultation. Dominica: https://www.solortide.com/dominica/consultation. The team will discuss a suitable configuration and final quote. Submitting the form starts an enquiry; it does not confirm a site visit or installation booking.
+
+4.
+Question: Who are you, and how can you help me?
+Answer: I'm Sol & Tide Energy's AI assistant, specially customised to help our customers with solar energy and home battery storage. I can explain the basics, answer questions using our company information, help you find relevant website pages and guide you towards a free assessment or our team. I'm an AI assistant; our team handles final project assessments and quotations.
+
+5.
+Question: How can I contact the Sol & Tide team about my project?
+Answer: Message the team on WhatsApp at https://wa.me/8617605886812. For Antigua and Barbuda, email ag-support@solortide.com; for Dominica, email dm-support@solortide.com. The team can confirm project-specific quotes, equipment, installation arrangements and support needs. Sharing a contact link does not mean a transfer or booking has already been completed.
+
+6.
+Question: Can a solar and battery system power my air conditioner, refrigerator and other appliances?
+Answer: A suitably sized system can support appliances such as air conditioning, refrigerators, washing machines, lights, TVs and WiFi. The inverter and battery must suit the appliances running together, including starting demand and the energy needed over time. We need to assess your intended loads before confirming whole-house or overnight backup.
+
+7.
+Question: Do solar panels work on cloudy days or at night?
+Answer: Panels can generate from daylight under cloud cover, usually with reduced output. At night, they do not have useful sunlight for household generation. Energy stored in a battery can be used after sunset within its available charge and power limits; the grid can cover a shortfall when available and supported by the configuration.
+
+8.
+Question: How long will a home battery keep my appliances running?
+Answer: Runtime depends on usable stored energy, the starting charge, reserve settings, losses, the appliances running and any solar contribution. More appliances or higher power use generally shorten runtime. A battery's kWh rating alone does not guarantee a number of backup hours, and inverter power limits also matter. Share your intended backup appliances and operating times for an assessment.
+
+9.
+Question: How much does a solar and battery system cost? Is the website price a final quote?
+Answer: Basic, Plus and Premium are starting options. Website prices are starting prices; the proposal confirms your configuration, included work and final cost. Check current regional packages: Antigua and Barbuda at https://www.solortide.com/antigua#packages, or Dominica at https://www.solortide.com/dominica#packages. A property-specific price requires an assessment.
+
+10.
+Question: How much can I save on electricity, and where can I estimate it?
+Answer: Use the calculator for your property's region: Antigua and Barbuda at https://www.solortide.com/antigua#calculator, or Dominica at https://www.solortide.com/dominica#calculator. Results use stated planning assumptions and dated tariff references, not live rates or a final quote. Actual savings depend on the system, usage, site conditions and applicable tariff; a fixed saving or payback is not guaranteed.

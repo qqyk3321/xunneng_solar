@@ -1,0 +1,17 @@
+{
+  "version": "1.5",
+  "prepared": "2026-10-17",
+  "qa_records": 149,
+  "extended_chapters": 20,
+  "glossary_terms": 161,
+  "worked_cases": 20,
+  "validated_arithmetic_checks": 34,
+  "source_reference_ids": 81,
+  "english_word_tokens": 24686,
+  "chinese_characters": 0,
+  "bytes": 176499,
+  "prompt_characters": 1973,
+  "sha256": "b2f6442dc584cd6f1c040326cf587269a353c37ccbcf6b048ad0c2f76e19a3f4",
+  "upload_file": "/home/qqyk/project/xunneng/docs/customer-support/knocket/current/solortide-knowledge-base.txt",
+  "live_platform_tested": false
+}

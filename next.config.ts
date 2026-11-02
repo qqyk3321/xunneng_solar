@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import modelManifest from "./lib/solution-suggest/model-table-manifest.json";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ["@solortide/consultation-core"],
   outputFileTracingIncludes: {
     "/*/submission/*": [`./public${modelManifest.url}`],
   },
