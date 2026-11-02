@@ -450,6 +450,12 @@
   .card h3 { min-height: 0; }
   .actions { text-align: left; margin-top: 56px; }
 }
+/* The card is a bare text column here: no shadow or box on hover, only the rule and number light up. */
+@media (min-width: 901px) and (hover: hover) and (pointer: fine) {
+  .step { transition: border-color 200ms ease; }
+  .step:hover { border-top-color: #ffc667; }
+  .step:hover .card { border-color: transparent; box-shadow: none; }
+}
 @supports (animation-timeline: view()) {
   @media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
     .step {
