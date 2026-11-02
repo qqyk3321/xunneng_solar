@@ -1,6 +1,5 @@
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
-import { AssessmentLink } from "./assessment-link";
 import { HybridEnergyDemo } from "./hybrid-energy-demo";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { getFaqItems } from "@/lib/faq/content";
@@ -40,12 +39,6 @@ export function HowSystemWorksPage({
               <p>{item.answer}</p>
             </details>
           ))}
-        </section>
-        <section className={styles.next}>
-          <div>
-            <h2>What would work for your home?</h2>
-          </div>
-          <AssessmentLink className={styles.cta} />
         </section>
       </main>
       <SiteFooter caribbean={!country} />
