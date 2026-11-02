@@ -454,7 +454,7 @@
 @media (min-width: 901px) {
   .step { position: relative; isolation: isolate; transition: translate 320ms cubic-bezier(.2,.7,.2,1), border-color 200ms ease; }
   .step::after {
-    content: ""; position: absolute; z-index: -1; inset: -14px -22px -26px; border-radius: 20px; pointer-events: none;
+    content: ""; position: absolute; z-index: -1; inset: -14px -14px -24px; border-radius: 18px; pointer-events: none;
     background: linear-gradient(165deg, #17636a 0%, #0f4a52 100%);
     border: 1px solid rgba(160, 230, 235, 0.22);
     box-shadow: 0 26px 44px -24px rgba(0, 190, 205, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
