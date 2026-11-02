@@ -32,7 +32,7 @@ export function SiteHeader({
   const header = useRef<HTMLElement>(null);
   const showImmediately = variant === "form";
   const immersiveHeader = immersive && !showImmediately;
-  useDesktopHeaderMorph(immersiveHeader, header, showImmediately);
+  useDesktopHeaderMorph(immersiveHeader, header, showImmediately, revealed);
   useEffect(() => {
     if (!immersiveHeader || showImmediately) return;
     const scroll = () => {
@@ -40,10 +40,16 @@ export function SiteHeader({
     };
     scroll();
     const revealTimer = window.setTimeout(() => setRevealed(true), 3000);
+    // Pointer near the top edge also brings the navigation in; once shown it stays.
+    const hover = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && event.clientY <= 72) setRevealed(true);
+    };
     window.addEventListener("scroll", scroll, { passive: true });
+    window.addEventListener("pointermove", hover, { passive: true });
     return () => {
       window.clearTimeout(revealTimer);
       window.removeEventListener("scroll", scroll);
+      window.removeEventListener("pointermove", hover);
     };
   }, [immersiveHeader, showImmediately]);
   function homeLink(id: string, label: string) {
