@@ -91,8 +91,7 @@
   .packages{
     padding-top:96px;padding-bottom:64px;
     background-color:var(--paper);
-    background-image:linear-gradient(rgba(0,122,135,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,122,135,.06) 1px,transparent 1px);
-    background-size:56px 56px;
+    background-image:linear-gradient(var(--paper),#eaf2f1);
   }
   .section-heading{margin-bottom:34px}
   .section-heading h2{font-size:clamp(44px,4.8vw,66px);line-height:1.02;letter-spacing:-.05em}

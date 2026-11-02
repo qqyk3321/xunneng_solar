@@ -883,10 +883,7 @@
   .calculatorSection {
     padding: 96px 0 104px;
     background-color: #eaf2f1;
-    background-image:
-      linear-gradient(rgba(0, 122, 135, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 122, 135, 0.07) 1px, transparent 1px);
-    background-size: 56px 56px;
+    background-image: linear-gradient(#f2f7f6, #e6f0ee);
   }
   .calculatorSection .sectionIntro { margin-bottom: 44px; }
   .calculatorSection .sectionIntro h2 { font-size: clamp(42px, 4.6vw, 62px); line-height: 1.02; letter-spacing: -0.05em; }

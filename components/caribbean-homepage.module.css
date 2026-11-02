@@ -1444,10 +1444,7 @@
     padding-top: 96px;
     padding-bottom: 88px;
     background-color: #eaf2f1;
-    background-image:
-      linear-gradient(rgba(0, 122, 135, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 122, 135, 0.07) 1px, transparent 1px);
-    background-size: 56px 56px;
+    background-image: linear-gradient(#f2f7f6, #e6f0ee);
   }
 
   /* Hero: a bigger voice and pill actions with an arrow chip. */
