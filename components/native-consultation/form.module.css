@@ -172,8 +172,6 @@
 .page::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
-    linear-gradient(90deg, rgba(0,122,135,.07) 1px, transparent 1px) 0 0 / 56px 56px,
     linear-gradient(#e6f0ee, #f2f7f6 420px);
   -webkit-mask-image: none; mask-image: none;
 }
