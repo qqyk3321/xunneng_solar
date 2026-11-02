@@ -1,10 +1,11 @@
 .contact {
   padding: 26px 24px;
-  border: 1px solid #dce7df;
+  border: 1px solid #d3e2e0;
   border-radius: 20px;
   background: #fff;
+  box-shadow: 0 2px 4px #0b2d3408, 0 18px 44px -16px #0b2d3430;
 }
-.contact h2 { margin: 0 0 20px; font-size: 22px; line-height: 1.35; }
+.contact h2 { margin: 0 0 20px; color: #0b2d34; font: 500 22px/1.35 "Space Grotesk", sans-serif; letter-spacing: -.02em; }
 .contact > p { margin: 0 0 20px; color: #526b70; font-size: 14px; line-height: 1.7; }
 .actions { display: flex; flex-direction: column; gap: 12px; }
 .whatsapp, .share {
@@ -23,11 +24,11 @@
 }
 .whatsapp { background: #127c49; color: #fff; }
 .whatsapp:hover { background: #0c653b; transform: translateY(-2px); }
-.share { background: #f1f7f3; color: #183c43; border-color: #dce7df; }
-.share:hover { background: #e4f0e9; }
+.share { background: #eaf4f3; color: #0b2d34; border-color: #cfe3e1; }
+.share:hover { background: #dcedeb; }
 .share:disabled { cursor: progress; opacity: .7; }
 .actions svg { flex-shrink: 0; }
-.contact :focus-visible { outline: 3px solid #e5a34c; outline-offset: 4px; }
+.contact :focus-visible { outline: 3px solid #007a87; outline-offset: 4px; }
 .contact .status { margin: 12px 0 0; }
 .contact .status:empty { margin: 0; }
 .manualCopy { display: grid; gap: 8px; margin-top: 16px; font-size: 14px; }
@@ -36,7 +37,7 @@
 .qrOptions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .qrOptions figure { min-width: 0; margin: 0; text-align: center; }
 .qrButton { display: block; width: 124px; max-width: 100%; margin: 0 auto; padding: 0; border: 0; border-radius: 14px; background: transparent; cursor: zoom-in; }
-.qrButton:hover { outline: 2px solid #127c49; outline-offset: 3px; }
+.qrButton:hover { outline: 2px solid #007a87; outline-offset: 3px; }
 .qrOptions img { display: block; width: 100%; height: auto; border-radius: 14px; }
 .qrOptions figcaption { margin-top: 10px; color: #526b70; font-size: 13px; }
 .qrDialog { position: fixed; width: min(400px, calc(100% - 32px)); max-height: 90dvh; overflow-y: auto; margin: auto; padding: 52px 28px 28px; border: 1px solid #dce7df; border-radius: 22px; color: #183c43; background: #fff; box-shadow: 0 24px 90px #082f3b40; text-align: center; }
