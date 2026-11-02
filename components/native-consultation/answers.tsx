@@ -9,6 +9,9 @@ import type { ConsultationPreview } from "@/lib/consultation-preview";
 import { inputSchema } from "@/lib/native-consultation/schema";
 import { editSchema, submissionInput, type EditRequest } from "@/lib/native-consultation/edit-schema";
 import { draftUuid, type FormValues } from "@/lib/native-consultation/draft";
+import { parsePhoneNumberFromString } from "libphonenumber-js/max";
+import flags from "react-phone-number-input/flags";
+import en from "react-phone-number-input/locale/en";
 import { AssessmentCard } from "./assessment-card";
 import { AssessmentFields } from "./assessment-fields";
 import formStyles from "./form.module.css";
@@ -16,6 +19,12 @@ import styles from "./answers.module.css";
 
 type EditDraft = { section: string; revision: number; step?: 0 | 1; values: FormValues; updatedAt: number; pending?: EditRequest };
 const fromRow = (row: ConsultationPreview): FormValues => ({ ...submissionInput(row), monthlyKwh: String(row.monthly_kwh ?? "") });
+function PhoneValue({ value }: { value: string }) {
+  const parsed = parsePhoneNumberFromString(value || "");
+  if (!parsed) return <span>{value}</span>;
+  const Flag = parsed.country ? flags[parsed.country] : undefined;
+  return <span className={styles.phoneValue}>{Flag && <span className={styles.flag}><Flag title={parsed.country ? en[parsed.country] : ""} /></span>}<span className={styles.dial}>+{parsed.countryCallingCode}</span><span>{parsed.formatNational()}</span></span>;
+}
 const contactFields = ["name", "email", "phone", "phoneCountry", "address"];
 
 export function NativeAnswers({ submission, token, editable = false }: { submission: ConsultationPreview; token: string; editable?: boolean }) {
@@ -155,7 +164,7 @@ export function NativeAnswers({ submission, token, editable = false }: { submiss
       </header>
       {!access && draft && <p className={styles.notice}>Open the QR code in your assessment email to continue editing.</p>}
       <section className={styles.group} aria-labelledby="details-contact"><div className={styles.groupHeading}><h3 id="details-contact">Contact details</h3></div><dl className={styles.values}>
-        {field("Full name", row.name, true)}{field("Email", row.email)}{field("Phone", row.phone)}{field("Installation address", row.address?.full || "", true)}
+        {field("Full name", row.name, true)}{field("Email", row.email)}<div key="Phone"><dt>Phone</dt><dd>{row.phone ? <PhoneValue value={row.phone} /> : "Not provided"}</dd></div>{field("Installation address", row.address?.full || "", true)}
       </dl></section>
       <section className={styles.group} aria-labelledby="details-electricity"><div className={styles.groupHeading}><h3 id="details-electricity">Electricity</h3></div><dl className={styles.values}>
         {field("Highest monthly use", `${row.monthly_kwh?.toLocaleString("en-US")} kWh`, false, "submission-monthly-kwh")}{field("Daily pattern", row.consumption_profile ? PROFILE_LABELS[row.consumption_profile][0] : "", false, "submission-energy-profile")}

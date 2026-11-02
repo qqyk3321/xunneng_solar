@@ -15,7 +15,15 @@
 .values > div { min-width:0; }
 .wide { grid-column:1/-1; }
 .values dt { color:#4a6366; font-size:12px; font-weight:600; line-height:1.6; margin:0 0 5px; }
-.values dd { margin:0; font-size:15px; line-height:1.65; white-space:pre-wrap; overflow-wrap:anywhere; }
+.values dt { font-family:"Plus Jakarta Sans",sans-serif; font-size:13px; color:#1d3f43; margin:0 0 8px; }
+.values dd { display:flex; align-items:center; min-height:50px; box-sizing:border-box; margin:0; padding:12px 14px; border:1px solid #d3e2e0; border-radius:10px; background:#f6faf9; color:#102d30; font:500 15px/1.55 "Plus Jakarta Sans",sans-serif; white-space:pre-wrap; overflow-wrap:anywhere; }
+.values .wide dd { min-height:50px; }
+.phoneValue { display:inline-flex; align-items:center; gap:10px; min-width:0; white-space:normal; }
+.flag { display:inline-flex; flex:none; width:23px; }
+.flag svg { width:23px; height:17px; }
+.dial { padding-right:10px; border-right:1px solid #c1d1d1; color:#536568; font-weight:500; }
+.group { grid-template-columns:170px minmax(0,1fr); }
+.groupHeading h3 { padding-left:12px; border-left:3px solid #007a87; line-height:1.2; }
 .saved { position:fixed; z-index:150; top:calc(env(safe-area-inset-top, 0px) + 92px); right:24px; display:flex; align-items:center; gap:7px; padding:10px 14px; border:1px solid #dbe5e3; border-radius:9px; background:#fff; color:#007a87; box-shadow:0 4px 16px #102d3010; font:500 13px/1.4 "Plus Jakarta Sans",sans-serif; pointer-events:none; animation:arrive .18s ease-out; }
 .editor { min-width:0; animation:arrive .18s ease-out; }
 .fields { min-width:0; padding:0; margin:0; border:0; }
