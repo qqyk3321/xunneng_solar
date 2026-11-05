@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { HYBRID_SCENES, hybridSceneIndex } from "@/lib/hybrid-scenes";
+import { hybridFlows } from "@/lib/hybrid-flows";
 import styles from "./hybrid-energy-demo.module.css";
 
 function Flow({
@@ -127,7 +128,7 @@ export function HybridEnergyDemo() {
           <div
             className={styles.stage}
             role="img"
-            aria-label={`${scene.label}: ${scene.text} Equipment includes protective breakers, isolators and a CT sensor. Illustrative arrangement only.`}
+            aria-label={`${scene.label}: ${scene.text} The grid feeds the home distribution board directly, with the inverter connected in parallel. Backup essentials require a separate isolated transfer path. Illustrative arrangement only.`}
           >
             <Image
               src="/images/hybrid-system-realistic.webp"
@@ -142,62 +143,16 @@ export function HybridEnergyDemo() {
               viewBox="0 0 1145 1374"
               aria-hidden="true"
             >
-              <Flow
-                d="M290 145V335"
-                active={scene.solarFlow}
-                running={running}
-              />
-              <Flow
-                d="M290 451V605Q290 620 305 620H360"
-                active={scene.solarFlow}
-                running={running}
-              />
-              <Flow
-                d={
-                  scene.batteryFlow === "discharge"
-                    ? "M498 855V758"
-                    : "M498 758V855"
-                }
-                active={scene.batteryFlow !== "idle"}
-                running={running}
-              />
-              <Flow
-                d="M1000 234V275Q1000 292 983 292H879Q861 292 861 310V378"
-                active={scene.gridFlow}
-                ac
-                running={running}
-              />
-              <Flow
-                d="M870 498V517"
-                active={scene.gridFlow}
-                ac
-                running={running}
-              />
-              <Flow
-                d="M792 570H615"
-                active={scene.gridFlow}
-                ac
-                running={running}
-              />
-              <Flow
-                d="M615 605H725Q740 605 740 620V654Q740 670 756 670H825Q840 670 840 685"
-                active
-                ac
-                running={running}
-              />
-              <Flow
-                d="M840 806V935Q840 953 858 953H918"
-                active
-                ac
-                running={running}
-              />
-              <Flow d="M840 824H928" active={!outage} ac running={running} />
-              <Flow
-                d="M840 897H715Q699 897 699 913V1090Q699 1105 715 1105H736"
-                active={!outage}
-                ac
-                running={running}
-              />
+              {hybridFlows(scene).map((flow) => (
+                <Flow key={flow.id} d={flow.d} active={flow.active} ac={flow.ac} running={running} />
+              ))}
+              {outage && (
+                <g transform="translate(840 666)" className={styles.disconnect}>
+                  <path d="M0 -12V12" stroke="#eae6df" strokeWidth="16" />
+                  <circle cy="-12" r="3" /><circle cy="12" r="3" />
+                  <path d="M0 12L13 -8" />
+                </g>
+              )}
               {outage && (
                 <g transform="translate(930 292)" className={styles.disconnect}>
                   <path d="M-23 0H23" stroke="#eae6df" strokeWidth="18" />
@@ -255,7 +210,9 @@ export function HybridEnergyDemo() {
           <h4>{scene.title}</h4>
           <p>{scene.text}</p>
         </div>
-        <p>Illustrative scenarios. Actual supply, backup and savings depend on equipment, settings and available energy.</p>
+        <p>The grid feeds the home distribution board directly. Solar and battery power enter through a parallel inverter connection; grid supply does not pass through the inverter in this arrangement.</p>
+        <p>During an outage, a compatible backup output and transfer equipment isolate selected essentials from the grid and other home circuits. Parallel connection alone does not provide backup. This is an energy-flow illustration, not an installation wiring diagram.</p>
+        <p>Actual supply, backup and savings depend on equipment, settings and available energy.</p>
       </div>
     </div>
   );

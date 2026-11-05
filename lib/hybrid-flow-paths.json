@@ -1,0 +1,106 @@
+[
+  {
+    "id": "pv-breaker",
+    "source": "solar",
+    "target": "pv-breaker",
+    "d": "M290 145V335",
+    "mode": "solar",
+    "ac": false
+  },
+  {
+    "id": "pv-inverter",
+    "source": "pv-breaker",
+    "target": "inverter",
+    "d": "M290 451V605Q290 620 305 620H360",
+    "mode": "solar",
+    "ac": false
+  },
+  {
+    "id": "battery-charge",
+    "source": "inverter",
+    "target": "battery",
+    "d": "M498 758V855",
+    "mode": "charge",
+    "ac": false
+  },
+  {
+    "id": "battery-discharge",
+    "source": "battery",
+    "target": "inverter",
+    "d": "M498 855V758",
+    "mode": "discharge",
+    "ac": false
+  },
+  {
+    "id": "grid-meter",
+    "source": "grid",
+    "target": "meter",
+    "d": "M1000 234V275Q1000 292 983 292H879Q861 292 861 310V378",
+    "mode": "grid",
+    "ac": true
+  },
+  {
+    "id": "meter-board",
+    "source": "meter",
+    "target": "board",
+    "d": "M870 498V517",
+    "mode": "grid",
+    "ac": true
+  },
+  {
+    "id": "inverter-board",
+    "source": "inverter",
+    "target": "board",
+    "d": "M615 570H792",
+    "mode": "parallel",
+    "ac": true
+  },
+  {
+    "id": "board-transfer",
+    "source": "board",
+    "target": "transfer",
+    "d": "M840 648V685",
+    "mode": "normal",
+    "ac": true
+  },
+  {
+    "id": "inverter-backup",
+    "source": "inverter",
+    "target": "transfer",
+    "d": "M615 605H725Q740 605 740 620V654Q740 670 756 670H810Q825 670 825 685",
+    "mode": "backup",
+    "ac": true
+  },
+  {
+    "id": "backup-fridge",
+    "source": "transfer",
+    "target": "fridge",
+    "d": "M840 806V812C858 812 858 836 840 836V935Q840 953 858 953H918",
+    "mode": "home",
+    "ac": true
+  },
+  {
+    "id": "board-main",
+    "source": "board",
+    "target": "main-bus",
+    "d": "M895 648V815Q895 824 886 824H864M836 824H760",
+    "mode": "normal",
+    "ac": true
+  },
+  {
+    "id": "main-ac",
+    "source": "main-bus",
+    "target": "aircon",
+    "d": "M895 824H928",
+    "mode": "normal",
+    "ac": true
+  },
+  {
+    "id": "main-washer",
+    "source": "main-bus",
+    "target": "washer",
+    "d": "M760 824H715Q699 824 699 840V1090Q699 1105 715 1105H736",
+    "mode": "normal",
+    "ac": true
+  }
+]

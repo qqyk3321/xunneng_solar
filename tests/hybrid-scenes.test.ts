@@ -2,6 +2,35 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { HYBRID_SCENES, hybridSceneIndex } from "../lib/hybrid-scenes";
 import { getFaqItems } from "../lib/faq/content";
+import { hybridFlows } from "../lib/hybrid-flows";
+
+test("parallel AC flow supplies home directly from grid without routing through inverter", () => {
+  for (const id of ["grid", "solar-grid"] as const) {
+    const scene = HYBRID_SCENES.find((s) => s.id === id)!;
+    const flows = hybridFlows(scene).filter((flow) => flow.active && flow.ac);
+    const reachable = new Set(["grid"]);
+    for (let i = 0; i < flows.length; i++)
+      for (const flow of flows)
+        if (reachable.has(flow.source)) reachable.add(flow.target);
+    for (const load of ["fridge", "aircon", "washer"])
+      assert.ok(reachable.has(load), `${id}: grid must supply ${load}`);
+    assert.equal(reachable.has("inverter"), false);
+    assert.equal(flows.some((flow) => flow.source === "inverter"), id === "solar-grid");
+  }
+});
+
+test("outage backup is isolated from the parallel connection and normal home circuits", () => {
+  const flows = hybridFlows(HYBRID_SCENES.find((s) => s.id === "outage")!)
+    .filter((flow) => flow.active && flow.ac);
+  const reachable = new Set(["inverter"]);
+  for (let i = 0; i < flows.length; i++)
+    for (const flow of flows)
+      if (reachable.has(flow.source)) reachable.add(flow.target);
+  assert.ok(reachable.has("fridge"));
+  for (const node of ["grid", "board", "aircon", "washer"])
+    assert.equal(reachable.has(node), false, `backup must not energize ${node}`);
+  assert.equal(flows.some((flow) => flow.source === "grid"), false);
+});
 test("hybrid scenarios distinguish charge, discharge, grid import and grid isolation", () => {
   const [day, night, outage, grid] = HYBRID_SCENES;
   assert.equal(day.batteryFlow, "charge");
