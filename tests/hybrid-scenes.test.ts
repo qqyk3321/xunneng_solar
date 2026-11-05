@@ -4,6 +4,20 @@ import { HYBRID_SCENES, hybridSceneIndex } from "../lib/hybrid-scenes";
 import { getFaqItems } from "../lib/faq/content";
 import { hybridFlows } from "../lib/hybrid-flows";
 
+test("normal supply joins at AC box before the household board; battery connects directly", () => {
+  for (const scene of HYBRID_SCENES.filter(s => s.id !== "outage")) {
+    const flows = hybridFlows(scene);
+    assert.ok(flows.some(f => f.source === "grid" && f.target === "junction"));
+    assert.ok(flows.some(f => f.source === "inverter" && f.target === "junction"));
+    assert.ok(flows.some(f => f.source === "junction" && f.target === "board"));
+    const battery = flows.filter(f => f.source === "battery" || f.target === "battery");
+    assert.equal(battery.length, 1);
+    assert.equal(battery[0].active, scene.batteryFlow !== "idle");
+    assert.equal(battery[0].source, scene.batteryFlow === "discharge" ? "battery" : "inverter");
+    assert.equal(flows.some(f => f.mode === "backup"), false);
+  }
+});
+
 test("parallel AC flow supplies home directly from grid without routing through inverter", () => {
   for (const id of ["grid", "solar-grid"] as const) {
     const scene = HYBRID_SCENES.find((s) => s.id === id)!;

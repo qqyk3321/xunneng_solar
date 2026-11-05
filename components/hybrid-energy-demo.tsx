@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { HYBRID_SCENES, hybridSceneIndex } from "@/lib/hybrid-scenes";
 import { hybridFlows } from "@/lib/hybrid-flows";
+import { HYBRID_ART, hybridWeather, hybridBatteryGauge } from "@/lib/hybrid-art";
 import styles from "./hybrid-energy-demo.module.css";
 
 function Flow({
@@ -91,6 +92,12 @@ export function HybridEnergyDemo() {
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
+  const [clock, setClock] = useState(0);
+  useEffect(() => {
+    if (!running || scene.id !== "solar-grid") return;
+    const timer = window.setInterval(() => setClock(t => t + .1), 100);
+    return () => window.clearInterval(timer);
+  }, [running, scene.id]);
   const outage = scene.id === "outage";
   return (
     <div
@@ -128,37 +135,32 @@ export function HybridEnergyDemo() {
           <div
             className={styles.stage}
             role="img"
-            aria-label={`${scene.label}: ${scene.text} The grid feeds the home distribution board directly, with the inverter connected in parallel. Backup essentials require a separate isolated transfer path. Illustrative arrangement only.`}
+            aria-label={`${scene.label}: ${scene.text} The grid and parallel inverter branch meet at the AC junction box, then feed the household distribution board. The battery connects directly to the inverter. Backup essentials require a separate isolated transfer path. Illustrative arrangement only.`}
           >
             <Image
-              src="/images/hybrid-system-realistic.webp"
+              src={HYBRID_ART.src}
               alt=""
               fill
               sizes="(max-width: 760px) 100vw, 720px"
               className={styles.photo}
             />
-            <div className={styles.atmosphere} aria-hidden="true" />
             <svg
               className={styles.wires}
-              viewBox="0 0 1145 1374"
+              viewBox={`0 0 ${HYBRID_ART.width} ${HYBRID_ART.height}`}
               aria-hidden="true"
             >
+              <g dangerouslySetInnerHTML={{ __html: hybridWeather(scene, clock) }} />
+              <g dangerouslySetInnerHTML={{ __html: hybridBatteryGauge(scene) }} />
               {hybridFlows(scene).map((flow) => (
                 <Flow key={flow.id} d={flow.d} active={flow.active} ac={flow.ac} running={running} />
               ))}
               {outage && (
-                <g transform="translate(840 666)" className={styles.disconnect}>
-                  <path d="M0 -12V12" stroke="#eae6df" strokeWidth="16" />
-                  <circle cy="-12" r="3" /><circle cy="12" r="3" />
-                  <path d="M0 12L13 -8" />
-                </g>
-              )}
-              {outage && (
-                <g transform="translate(930 292)" className={styles.disconnect}>
-                  <path d="M-23 0H23" stroke="#eae6df" strokeWidth="18" />
-                  <circle cx="-23" r="4" />
-                  <circle cx="23" r="4" />
-                  <path d="M-23 0L14 -24" />
+                <g className={styles.disconnect}>
+                  <title>Grid disconnected; separate isolated backup output supplies the fridge</title>
+                  <circle cx="845" cy="300" r="13" fill="#f8f3e9" />
+                  <path d="M839 309L853 290" stroke="#bc2540" strokeWidth="4" />
+                  <rect x="546" y="882" width="28" height="36" rx="6" fill="#e8f4ee" stroke="#e4284c" strokeWidth="3" />
+                  <path d="M560 887V913" stroke="#e4284c" strokeWidth="4" />
                 </g>
               )}
             </svg>
@@ -210,7 +212,7 @@ export function HybridEnergyDemo() {
           <h4>{scene.title}</h4>
           <p>{scene.text}</p>
         </div>
-        <p>The grid feeds the home distribution board directly. Solar and battery power enter through a parallel inverter connection; grid supply does not pass through the inverter in this arrangement.</p>
+        <p>The grid and inverter meet at the AC junction box, which feeds the household distribution board. Solar and battery power enter through the parallel inverter branch; grid supply does not pass through the inverter in this arrangement.</p>
         <p>During an outage, a compatible backup output and transfer equipment isolate selected essentials from the grid and other home circuits. Parallel connection alone does not provide backup. This is an energy-flow illustration, not an installation wiring diagram.</p>
         <p>Actual supply, backup and savings depend on equipment, settings and available energy.</p>
       </div>

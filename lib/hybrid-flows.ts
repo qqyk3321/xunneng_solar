@@ -20,6 +20,8 @@ export function hybridFlows(scene: Scene) {
   };
   return paths
     .filter((path) => {
+      if (path.mode === "backup") return outage;
+      if (outage && path.mode === "normal") return false;
       if (path.mode === "charge") return scene.batteryFlow !== "discharge";
       if (path.mode === "discharge") return scene.batteryFlow === "discharge";
       return true;
