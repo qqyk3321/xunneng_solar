@@ -50,6 +50,7 @@ export function HowSystemWorksPage({
               width="280"
               height="498"
               loading="lazy"
+              scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               allowFullScreen
             />
