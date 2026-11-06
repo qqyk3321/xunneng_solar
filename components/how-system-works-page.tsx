@@ -29,46 +29,47 @@ export function HowSystemWorksPage({
           <a className={styles.watchLink} href="#overview-video">Watch the 38-second video <span aria-hidden="true">→</span></a>
         </div>
         <HybridEnergyDemo />
-        <section id="overview-video" className={styles.videoSection} aria-label="Hybrid solar video and free assessment">
-          <div className={styles.videoCopy}>
-            <p>See how solar, battery storage and the grid work together to power your home throughout the day.</p>
-            <p>Your electricity use, daily routine and roof help shape the right system for your home.</p>
-            <div className={styles.videoActions}>
-              <AssessmentLink country={country} className={styles.videoAssessment} />
-              <a className={styles.facebookLink} href="https://www.facebook.com/reel/4465900056958300/" target="_blank" rel="noopener noreferrer">
-                Watch on Facebook <span aria-hidden="true">↗</span>
-              </a>
+        <section id="overview-video" className={styles.videoSection} aria-label="Hybrid solar video, assessment and common questions">
+          <div className={styles.videoDetails}>
+            <div className={styles.videoCopy}>
+              <p>See how solar, battery storage and the grid work together throughout the day.</p>
+              <div className={styles.videoActions}>
+                <AssessmentLink country={country} className={styles.videoAssessment} />
+                <a className={styles.facebookLink} href="https://www.facebook.com/reel/4465900056958300/" target="_blank" rel="noopener noreferrer">
+                  Watch on Facebook <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
+            <section className={styles.faq} aria-labelledby="energy-questions">
+              <div className={styles.faqHeading}>
+                <h2 id="energy-questions">Common questions</h2>
+              </div>
+              {questions.map((item) => (
+                <details
+                  key={item.id}
+                  id={HYBRID_FAQ_SCENE_IDS.some(id => item.id === `hybrid-${id}`) ? `scene-${item.id.replace(/^hybrid-/, "")}` : undefined}
+                  className={styles.question}
+                  data-hybrid-faq={item.id}
+                >
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
+            </section>
           </div>
           <div className={styles.videoPlayer}>
             <iframe
               className={styles.video}
-              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4465900056958300%2F&width=360&show_text=false"
+              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4465900056958300%2F&width=330&show_text=false"
               title="Sol & Tide: How hybrid solar powers your home"
-              width="360"
-              height="640"
+              width="330"
+              height="587"
               loading="lazy"
               scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               allowFullScreen
             />
           </div>
-        </section>
-        <section className={styles.faq} aria-labelledby="energy-questions">
-          <div className={styles.faqHeading}>
-            <h2 id="energy-questions">Common questions</h2>
-          </div>
-          {questions.map((item) => (
-            <details
-              key={item.id}
-              id={HYBRID_FAQ_SCENE_IDS.some(id => item.id === `hybrid-${id}`) ? `scene-${item.id.replace(/^hybrid-/, "")}` : undefined}
-              className={styles.question}
-              data-hybrid-faq={item.id}
-            >
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
-          ))}
         </section>
       </main>
       <SiteFooter caribbean={!country} />
