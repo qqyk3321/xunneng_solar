@@ -40,10 +40,11 @@
   font-style: normal;
   color: #087b7a;
 }
-.intro > p:last-child {
-  max-width: 700px;
-  font-size: 18px;
-  line-height: 1.8;
+.introDescription {
+  max-width: 800px;
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
   color: #526c6d;
 }
 .explainer {
@@ -206,8 +207,8 @@
   .main {
     padding: 112px 18px 48px;
   }
-  .intro > p:last-child {
-    font-size: 16px;
+  .introDescription {
+    font-size: 15px;
   }
   .cards {
     grid-template-columns: 1fr;

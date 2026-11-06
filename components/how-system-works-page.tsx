@@ -24,13 +24,14 @@ export function HowSystemWorksPage({
             <span className={styles.desktopTitle}>How your solar system works</span>
             <span className={styles.mobileTitle}>How solar works</span>
           </h1>
+          <p className={styles.introDescription}>Hybrid systems support a range of operating modes. Here, we explain four common everyday scenarios. Other modes depend on your equipment and settings.</p>
           <a className={styles.watchLink} href="#overview-video">Watch the 38-second video <span aria-hidden="true">→</span></a>
         </div>
         <HybridEnergyDemo />
         <section id="overview-video" className={styles.videoSection} aria-labelledby="overview-video-title">
           <div className={styles.videoCopy}>
             <span className={styles.videoEyebrow}>A day with hybrid solar</span>
-            <h2 id="overview-video-title">See the whole day in 38 seconds.</h2>
+            <h2 id="overview-video-title">Four everyday scenes in 38 seconds.</h2>
             <p>Follow the same system through sunshine, cloud cover and evening use, then see how the grid steps in when the battery reaches its reserve.</p>
             <p className={styles.videoLanguage}>English narration and captions</p>
             <details className={styles.transcript}>
