@@ -1,6 +1,7 @@
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
 import { HybridEnergyDemo } from "./hybrid-energy-demo";
+import { AssessmentLink } from "./assessment-link";
 import type { ServiceCountry } from "@/lib/consultation-intake";
 import { getFaqItems } from "@/lib/faq/content";
 import { HYBRID_FAQS, HYBRID_FEATURED_FAQ_IDS } from "@/lib/faq/hybrid";
@@ -28,36 +29,29 @@ export function HowSystemWorksPage({
           <a className={styles.watchLink} href="#overview-video">Watch the 38-second video <span aria-hidden="true">→</span></a>
         </div>
         <HybridEnergyDemo />
-        <section id="overview-video" className={styles.videoSection} aria-labelledby="overview-video-title">
+        <section id="overview-video" className={styles.videoSection} aria-label="Hybrid solar video and free assessment">
           <div className={styles.videoCopy}>
-            <span className={styles.videoEyebrow}>A day with hybrid solar</span>
-            <h2 id="overview-video-title">Four everyday scenes in 38 seconds.</h2>
-            <p>Follow the same system through sunshine, cloud cover and evening use, then see how the grid steps in when the battery reaches its reserve.</p>
-            <p className={styles.videoLanguage}>English narration and captions</p>
-            <details className={styles.transcript}>
-              <summary>Read the transcript</summary>
-              <p>What powers your home, day and night?</p>
-              <p>On sunny days, solar powers your home and stores surplus energy in the battery.</p>
-              <p>When clouds reduce solar output, the grid fills the gap. In this setup, the battery stays idle.</p>
-              <p>After sunset, the battery powers your home using energy stored during the day.</p>
-              <p>At the battery’s reserve level, discharge stops. An available grid takes over, preserving the remaining charge.</p>
-            </details>
+            <p>See how solar, battery storage and the grid work together to power your home throughout the day.</p>
+            <p>Your electricity use, daily routine and roof help shape the right system for your home.</p>
+            <div className={styles.videoActions}>
+              <AssessmentLink country={country} className={styles.videoAssessment} />
+              <a className={styles.facebookLink} href="https://www.facebook.com/reel/4465900056958300/" target="_blank" rel="noopener noreferrer">
+                Watch on Facebook <span aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
           <div className={styles.videoPlayer}>
             <iframe
               className={styles.video}
-              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4465900056958300%2F&width=280&show_text=false"
+              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4465900056958300%2F&width=360&show_text=false"
               title="Sol & Tide: How hybrid solar powers your home"
-              width="280"
-              height="498"
+              width="360"
+              height="640"
               loading="lazy"
               scrolling="no"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
               allowFullScreen
             />
-            <a className={styles.facebookLink} href="https://www.facebook.com/reel/4465900056958300/" target="_blank" rel="noopener noreferrer">
-              Watch on Facebook <span aria-hidden="true">↗</span>
-            </a>
           </div>
         </section>
         <section className={styles.faq} aria-labelledby="energy-questions">

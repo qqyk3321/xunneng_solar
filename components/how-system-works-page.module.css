@@ -158,22 +158,20 @@
 }
 
 .watchLink { display: inline-flex; gap: 10px; margin-top: 16px; color: #007a87; font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 5px; }
-.videoSection { display: grid; grid-template-columns: minmax(0, 1fr) 280px; align-items: center; gap: 56px; margin-top: 64px; padding: 36px 44px; border: 1px solid #cfe0dc; border-radius: 22px; background: #fff; scroll-margin-top: 110px; }
-.videoEyebrow { color: #007a87; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
-.videoCopy h2 { margin: 14px 0 20px; color: #0b2d34; font: 500 clamp(28px, 3vw, 38px)/1.2 "Space Grotesk", sans-serif; letter-spacing: -.025em; }
-.videoCopy p { font-size: 16px; line-height: 1.8; color: #506b70; }
-.videoCopy .videoLanguage { font-size: 13px; color: #637775; margin-top: 22px; }
-.videoPlayer { width: 100%; max-width: 280px; justify-self: center; }
+.videoSection { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); align-items: center; gap: 56px; margin-top: 64px; padding: 32px 44px; border: 1px solid #cfe0dc; border-radius: 22px; background: #fff; scroll-margin-top: 110px; }
+.videoCopy { max-width: 420px; }
+.videoCopy p { margin: 0 0 20px; font-size: 18px; line-height: 1.8; color: #506b70; }
+.videoActions { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; margin-top: 32px; }
+.videoAssessment { max-width: 100%; }
+.videoPlayer { width: 100%; max-width: 360px; justify-self: center; }
 .video { display: block; width: 100%; aspect-ratio: 9/16; height: auto; border: 0; border-radius: 14px; background: #082c36; }
-.facebookLink { display: block; margin-top: 14px; color: #007a87; text-align: center; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
-.transcript { margin-top: 18px; color: #007a87; }
-.transcript summary { cursor: pointer; font-size: 14px; font-weight: 600; }
-.transcript p { font-size: 14px; }
-.watchLink:focus-visible, .transcript summary:focus-visible, .video:focus-visible, .facebookLink:focus-visible { outline: 3px solid #fbb51c; outline-offset: 5px; }
+.facebookLink { color: #007a87; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.watchLink:focus-visible, .video:focus-visible, .facebookLink:focus-visible { outline: 3px solid #fbb51c; outline-offset: 5px; }
 @media (max-width: 760px) {
   .videoSection { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 32px; padding: 24px 20px; border-radius: 16px; scroll-margin-top: 88px; }
-  .videoCopy h2 { font-size: 28px; margin-bottom: 12px; }
+  .videoPlayer { grid-row: 1; }
   .videoCopy p { font-size: 15px; }
+  .videoActions { margin-top: 24px; }
   .question { scroll-margin-top: 88px; }
 }
 .question summary {
