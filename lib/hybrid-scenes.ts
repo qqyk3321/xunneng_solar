@@ -79,6 +79,17 @@ export const HYBRID_SCENES = [
   },
 ] as const;
 
+// The main guide follows the same four everyday scenes as the overview video.
+// Other configurations remain available as FAQ topics and historical scene data.
+export const HYBRID_DISPLAY_SCENES = [
+  HYBRID_SCENES[0],
+  HYBRID_SCENES[4],
+  HYBRID_SCENES[1],
+  HYBRID_SCENES[3],
+] as const;
+
 export function hybridSceneIndex(hash: string) {
-  return HYBRID_SCENES.findIndex((scene) => hash === `#scene-${scene.id}`);
+  return HYBRID_DISPLAY_SCENES.findIndex((scene) => hash === `#scene-${scene.id}`);
 }
+
+export const HYBRID_FAQ_SCENE_IDS = ["outage", "solar-battery"] as const;

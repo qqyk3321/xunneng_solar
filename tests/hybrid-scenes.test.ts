@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { HYBRID_SCENES, hybridSceneIndex } from "../lib/hybrid-scenes";
+import { HYBRID_SCENES, HYBRID_DISPLAY_SCENES, HYBRID_FAQ_SCENE_IDS, hybridSceneIndex } from "../lib/hybrid-scenes";
 import { getFaqItems } from "../lib/faq/content";
 import { hybridFlows } from "../lib/hybrid-flows";
 
@@ -56,7 +56,7 @@ test("hybrid scenarios distinguish charge, discharge, grid import and grid isola
   assert.equal(grid.gridFlow, true);
   assert.equal(grid.batteryFlow, "idle");
 });
-test("six manual scenes include distinct grid and battery top-up examples", () => {
+test("four displayed scenes follow the video; other configurations remain FAQ topics", () => {
   assert.equal(HYBRID_SCENES.length, 6);
   const [grid, battery] = HYBRID_SCENES.slice(4);
   assert.equal(grid.solarFlow, true);
@@ -66,7 +66,9 @@ test("six manual scenes include distinct grid and battery top-up examples", () =
   assert.equal(battery.gridFlow, false);
   assert.equal(battery.batteryFlow, "discharge");
   assert.equal(hybridSceneIndex("#bad-link"), -1);
-  HYBRID_SCENES.forEach((scene, i) =>
+  assert.deepEqual(HYBRID_DISPLAY_SCENES.map(s => s.id), ["day", "solar-grid", "night", "grid"]);
+  for (const id of HYBRID_FAQ_SCENE_IDS) assert.equal(hybridSceneIndex(`#scene-${id}`), -1);
+  HYBRID_DISPLAY_SCENES.forEach((scene, i) =>
     assert.equal(hybridSceneIndex(`#scene-${scene.id}`), i),
   );
 });

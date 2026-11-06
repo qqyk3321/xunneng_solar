@@ -36,7 +36,7 @@ export const HYBRID_FAQS: FaqItem[] = [
       "backup",
       "fluctuation",
     ],
-    link: { href: "/how-it-works#scene-outage", label: "See outage backup" },
+    link: { href: "/how-it-works#scene-outage", label: "Read about outage backup" },
   },
   {
     id: "hybrid-grid",
@@ -65,7 +65,7 @@ export const HYBRID_FAQS: FaqItem[] = [
     keywords: ["cloudy", "demand", "solar battery", "hybrid", "power limits"],
     link: {
       href: "/how-it-works#scene-solar-battery",
-      label: "See solar + battery",
+      label: "Read about battery assistance",
     },
   },
 ];

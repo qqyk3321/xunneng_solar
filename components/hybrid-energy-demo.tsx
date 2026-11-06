@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
-import { HYBRID_SCENES, hybridSceneIndex } from "@/lib/hybrid-scenes";
+import { HYBRID_DISPLAY_SCENES, HYBRID_FAQ_SCENE_IDS, hybridSceneIndex } from "@/lib/hybrid-scenes";
 import { hybridFlows } from "@/lib/hybrid-flows";
 import { HYBRID_ART, hybridWeather, hybridBatteryGauge } from "@/lib/hybrid-art";
 import styles from "./hybrid-energy-demo.module.css";
@@ -55,7 +55,7 @@ export function HybridEnergyDemo() {
   const root = useRef<HTMLDivElement>(null);
   const id = useId();
   const noteId = useId();
-  const scene = HYBRID_SCENES[index];
+  const scene = HYBRID_DISPLAY_SCENES[index];
   const running = motion && visible && pageVisible;
   useEffect(() => {
     const sync = () => {
@@ -63,6 +63,12 @@ export function HybridEnergyDemo() {
       if (selected >= 0) {
         setIndex(selected);
         root.current?.scrollIntoView({ block: "start" });
+      } else if (HYBRID_FAQ_SCENE_IDS.some(sceneId => window.location.hash === `#scene-${sceneId}`)) {
+        const question = document.getElementById(window.location.hash.slice(1));
+        if (question instanceof HTMLDetailsElement) {
+          question.open = true;
+          question.scrollIntoView({ block: "start" });
+        }
       }
     };
     sync();
@@ -98,7 +104,6 @@ export function HybridEnergyDemo() {
     const timer = window.setInterval(() => setClock(t => t + .1), 100);
     return () => window.clearInterval(timer);
   }, [running, scene.id]);
-  const outage = scene.id === "outage";
   return (
     <div
       ref={root}
@@ -111,7 +116,7 @@ export function HybridEnergyDemo() {
         role="group"
         aria-label="Energy scenarios"
       >
-        {HYBRID_SCENES.map((item, i) => (
+        {HYBRID_DISPLAY_SCENES.map((item, i) => (
           <button
             key={item.id}
             type="button"
@@ -135,7 +140,7 @@ export function HybridEnergyDemo() {
           <div
             className={styles.stage}
             role="img"
-            aria-label={`${scene.label}: ${scene.text} The grid and parallel inverter branch meet at the AC junction box, then feed the household distribution board. The battery connects directly to the inverter. Backup essentials require a separate isolated transfer path. Illustrative arrangement only.`}
+            aria-label={`${scene.label}: ${scene.text} The grid and parallel inverter branch meet at the AC junction box, then feed the household distribution board. The battery connects directly to the inverter. Illustrative arrangement only.`}
           >
             <Image
               src={HYBRID_ART.src}
@@ -154,15 +159,6 @@ export function HybridEnergyDemo() {
               {hybridFlows(scene).map((flow) => (
                 <Flow key={flow.id} d={flow.d} active={flow.active} ac={flow.ac} running={running} />
               ))}
-              {outage && (
-                <g className={styles.disconnect}>
-                  <title>Grid disconnected; separate isolated backup output supplies the fridge</title>
-                  <circle cx="845" cy="300" r="13" fill="#f8f3e9" />
-                  <path d="M839 309L853 290" stroke="#bc2540" strokeWidth="4" />
-                  <rect x="546" y="882" width="28" height="36" rx="6" fill="#e8f4ee" stroke="#e4284c" strokeWidth="3" />
-                  <path d="M560 887V913" stroke="#e4284c" strokeWidth="4" />
-                </g>
-              )}
             </svg>
           </div>
           <div className={styles.legend}>
