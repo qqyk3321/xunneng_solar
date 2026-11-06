@@ -162,16 +162,17 @@
 .videoCopy h2 { margin: 14px 0 20px; color: #0b2d34; font: 500 clamp(28px, 3vw, 38px)/1.2 "Space Grotesk", sans-serif; letter-spacing: -.025em; }
 .videoCopy p { font-size: 16px; line-height: 1.8; color: #506b70; }
 .videoCopy .videoLanguage { font-size: 13px; color: #637775; margin-top: 22px; }
-.video { display: block; width: 100%; aspect-ratio: 9/16; height: auto; border-radius: 14px; background: #082c36; }
+.videoPlayer { width: 100%; max-width: 280px; justify-self: center; }
+.video { display: block; width: 100%; aspect-ratio: 9/16; height: auto; border: 0; border-radius: 14px; background: #082c36; }
+.facebookLink { display: block; margin-top: 14px; color: #007a87; text-align: center; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .transcript { margin-top: 18px; color: #007a87; }
 .transcript summary { cursor: pointer; font-size: 14px; font-weight: 600; }
 .transcript p { font-size: 14px; }
-.watchLink:focus-visible, .transcript summary:focus-visible, .video:focus-visible { outline: 3px solid #fbb51c; outline-offset: 5px; }
+.watchLink:focus-visible, .transcript summary:focus-visible, .video:focus-visible, .facebookLink:focus-visible { outline: 3px solid #fbb51c; outline-offset: 5px; }
 @media (max-width: 760px) {
   .videoSection { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 32px; padding: 24px 20px; border-radius: 16px; scroll-margin-top: 88px; }
   .videoCopy h2 { font-size: 28px; margin-bottom: 12px; }
   .videoCopy p { font-size: 15px; }
-  .video { max-width: 280px; justify-self: center; }
   .question { scroll-margin-top: 88px; }
 }
 .question summary {

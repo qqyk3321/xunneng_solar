@@ -42,18 +42,21 @@ export function HowSystemWorksPage({
               <p>At the battery’s reserve level, discharge stops. An available grid takes over, preserving the remaining charge.</p>
             </details>
           </div>
-          <video
-            className={styles.video}
-            controls
-            playsInline
-            preload="none"
-            poster="/videos/hybrid-day-night-v1.jpg"
-            aria-label="How hybrid solar powers your home through four everyday scenes"
-          >
-            <source src="/videos/hybrid-day-night-v1.mp4" type="video/mp4" />
-            <track kind="captions" src="/videos/hybrid-day-night-v1.vtt" srcLang="en" label="English" />
-            Your browser does not support this video. <a href="/videos/hybrid-day-night-v1.mp4">Watch the video</a>.
-          </video>
+          <div className={styles.videoPlayer}>
+            <iframe
+              className={styles.video}
+              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F4465900056958300%2F&width=280&show_text=false"
+              title="Sol & Tide: How hybrid solar powers your home"
+              width="280"
+              height="498"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              allowFullScreen
+            />
+            <a className={styles.facebookLink} href="https://www.facebook.com/reel/4465900056958300/" target="_blank" rel="noopener noreferrer">
+              Watch on Facebook <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </section>
         <section className={styles.faq} aria-labelledby="energy-questions">
           <div className={styles.faqHeading}>
